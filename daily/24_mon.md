@@ -9,3 +9,4 @@ Byrja skoða verkefnalýsingu, ákveða requirements og setja inn requirements s
 Stilla upp github og github desktop. 
 Setja upp user group analysis.
 
+apakattarassgat
