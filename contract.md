@@ -37,7 +37,7 @@ Sigrún:
 
 Þröstur
 Ég er fastur í vinnunni til tæplega 4 á daginn. Kann best við að vinna á kvöldin
-Communication
+## Communication
 Steinar:
 Fíla face to face helst, er betri í því heldur en í textaformi
 
