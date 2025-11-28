@@ -16,3 +16,4 @@ Inngangur kominn, allir skilja nokkurn vegin setupið á klösunum og þriggja l
 * Git handbók
 
 Eftir daginn í dag ætti skýrslan að vera nokkuð veginn klár. Gengið var frá klasaritinu og happy pathinu. Voru þau síðan sett í skýrsluna. Þröstur var búinn að setja inn use cases og requirements í skýrsluna þannig skýrslan er kominn langa leið. Eina sem er eftir er að kíkja yfir og gá hvort allt sé til staðar og skrifa lokaorð. Það var líka hugmynd að fá TA til að líta snögglega yfir.
+Þröstur kláraði setup á skýrslu og skrifaði lokaorð.
