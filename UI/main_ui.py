@@ -5,6 +5,6 @@ from LL.api_ll import APILL
 class MainUI:
     def __init__(self):
         self.APILL = APILL()
-        self.userUI = UserUI()
+        self.userUI = UserUI(self.APILL)
         self.organiserUI = "organiserUI"
         self.teamCaptainUI = "teamCaptainUI"
