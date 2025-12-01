@@ -1,3 +1,4 @@
+from UI.team_captain_ui import TeamCaptainUI
 from UI.user_ui import UserUI
 from LL.api_ll import APILL
 
@@ -7,4 +8,4 @@ class MainUI:
         self.APILL = APILL()
         self.userUI = UserUI(self.APILL)
         self.organiserUI = "organiserUI"
-        self.teamCaptainUI = "teamCaptainUI"
+        self.teamCaptainUI = TeamCaptainUI(self.APILL)

@@ -2,7 +2,7 @@ class UserLL:
     def __init__(self):
         self.id = 0
 
-    def getAllTeams(self):
+    def get_all_teams(self):
         teams = {
             "1": [
                 "Astralis",
@@ -34,7 +34,7 @@ class UserLL:
         }
         return teams
 
-    def getAllTournaments(self) -> dict:
+    def get_all_tournaments(self) -> dict:
         tournaments = {
             "1": [
                 "Paris major",
