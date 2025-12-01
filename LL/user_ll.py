@@ -5,3 +5,7 @@ class UserLL:
     def getAllTeams():
         teams = ["Astralis,G2,NIP"]
         return teams
+
+    def getTournaments():
+        tournaments = ["Paris Major, Reykjavik Major"]
+        return tournaments
