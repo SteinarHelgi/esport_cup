@@ -1,6 +1,4 @@
-class Team():
-    def __init__(self):
-        return None
+from team import Team
 
 class TeamCaptain():
     def __init__(self, username: str, password: str, id: int, team: Team, name: str):

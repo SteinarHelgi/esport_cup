@@ -1,17 +1,6 @@
-class Captain:
-    def __init__(self):
-        return
-
-
-class Club:
-    def __init__(self) -> None:
-        pass
-
-
-class Player:
-    def __init__(self) -> None:
-        pass
-
+from team_captain import TeamCaptain
+from club import Club
+from player import Player
 
 class Team:
     def __init__(
@@ -19,7 +8,7 @@ class Team:
         id: int,
         name: str,
         players: list[Player],
-        captain: Captain,
+        captain: TeamCaptain,
         social_media: str,
         club: Club,
         points: int,

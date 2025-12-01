@@ -1,5 +1,4 @@
-class Tournament:
-    pass
+from tournament import Tournament
 
 class ContactPerson:
 

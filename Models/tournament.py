@@ -1,11 +1,7 @@
 import datetime as dt
 
-class ContactPerson:
-    pass
-
-class Game:
-    pass
-
+from contact_person import ContactPerson
+from game import Game
 
 class Tournament:
 
