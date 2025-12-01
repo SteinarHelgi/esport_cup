@@ -1,6 +1,3 @@
-# id	name	players(handle)	logo	captain(id)	website/socialmedia	club (id)	points
-
-
 class Captain:
     def __init__(self):
         return
