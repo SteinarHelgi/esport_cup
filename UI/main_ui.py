@@ -1,9 +1,10 @@
 from UI.user_ui import UserUI
+from LL.api_ll import APILL
 
 
 class MainUI:
     def __init__(self):
+        self.APILL = APILL()
         self.userUI = UserUI()
-
-    def showLoginMenu(self):
-        print("""1. Show Teams\n2. Show Tournaments""")
+        self.organiserUI = "organiserUI"
+        self.teamCaptainUI = "teamCaptainUI"
