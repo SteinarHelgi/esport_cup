@@ -7,7 +7,11 @@ class UserUI:
 
     def showTeams(self):
         teams = UserLL.getAllTeams()
+
         print(f"Teams: {teams}")
 
     def showTournaments(self):
         print("Tournaments: Blabla")
+        userInput = input()
+        if input == "1":
+            self.showUpcomingTournaments()
