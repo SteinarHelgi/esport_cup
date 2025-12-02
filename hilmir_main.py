@@ -1,10 +1,8 @@
-from UI.user_ui import UserUI
-from LL.api_ll import APILL
 
+from UI.list_of_menus import print_my_team_menu
 
-class MainUI:
-    def __init__(self):
-        self.APILL = APILL()
-        self.userUI = UserUI(self.APILL)
-        self.organiserUI = "organiserUI"
-        self.teamCaptainUI = "teamCaptainUI"
+def main():
+    print_my_team_menu()
+
+main()
+
