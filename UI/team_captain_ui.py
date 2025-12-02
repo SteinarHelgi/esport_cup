@@ -22,7 +22,7 @@ class TeamCaptainUI:
         # TODO
         pass
 
-    def show_my_team(self):
+    def show_my_team(self) -> str:
         print_my_team_menu()
         valid_options = ["1", "2", "3", "b", "q"]
         option = input("?")

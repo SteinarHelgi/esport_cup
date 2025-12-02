@@ -5,8 +5,6 @@ import csv
 from Models.models import Tournament
 from datetime import datetime
 
-# Steinar
-
 
 class TournamentData:
     def __init__(self):
