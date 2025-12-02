@@ -61,5 +61,8 @@ def edit_team_info():
 def roster_menu():
     print("1. Add player to team \n2. Player Information \n3. Remove player from team \nb. Back \nq. Quit")
 
+def new_player_menu():
+    print("Name: \nDate of birth(Year-Month-Date): \nEmail: \nPhone Number: \nPlayer Handle: \nHome Address: \nSocial Media Handle: \nConfirm(Y/N)? ")
 
-
+def player_added():
+    print
