@@ -1,6 +1,5 @@
-from team_captain import TeamCaptain
-from club import Club
-from player import Player
+from Models.models import TeamCaptain, Club, Player
+
 
 class Team:
     def __init__(
@@ -10,7 +9,7 @@ class Team:
         players: list[Player],
         captain: TeamCaptain,
         social_media: str,
-        club: Club,
+        club: Club | None,
         points: int,
     ) -> None:
         self.id = id

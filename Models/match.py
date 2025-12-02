@@ -1,8 +1,6 @@
 import datetime as dt
-from game import Game
+from Models.models import Game
 
-
-from game import Game
 
 class Match:
     def __init__(
@@ -20,4 +18,3 @@ class Match:
         self.team_2 = team_2_id
         self.server_id = server_id
         self.game = game
-

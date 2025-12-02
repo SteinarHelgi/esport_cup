@@ -1,3 +1,6 @@
+from Models.models import Team
+
+
 class Club:
     def __init__(
         self,
@@ -8,7 +11,7 @@ class Club:
         club_colors: str,
         country: str,
         points: int,
-        teams: list[str],
+        teams: list[Team],
     ) -> None:
         self.id = id
         self.name = name

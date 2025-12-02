@@ -1,6 +1,7 @@
-from team import Team
+from Models.models import Team
 
-class TeamCaptain():
+
+class TeamCaptain:
     def __init__(self, username: str, password: str, id: int, team: Team, name: str):
         self.username = username
         self.password = password

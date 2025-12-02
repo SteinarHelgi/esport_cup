@@ -1,8 +1,21 @@
 import datetime as dt
-from team import Team
+from Models.models import Team
+
 
 class Player:
-    def __init__(self, player_id: int, name: str, address: str, phone_number: int, email: str, social_media: str, team: Team, handle: str, points: int, date_of_birth: dt):
+    def __init__(
+        self,
+        player_id: int,
+        name: str,
+        address: str,
+        phone_number: str,
+        email: str,
+        social_media: str,
+        team: Team,
+        handle: str,
+        points: int,
+        date_of_birth: dt.datetime,
+    ):
         self.player_id = player_id
         self.name = name
         self.address = address
@@ -13,3 +26,4 @@ class Player:
         self.handle = handle
         self.points = points
         self.date_of_birth = date_of_birth
+

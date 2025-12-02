@@ -1,7 +1,7 @@
 import datetime as dt
 
-from contact_person import ContactPerson
-from game import Game
+from Models.models import ContactPerson, Game
+
 
 class Tournament:
     def __init__(
@@ -35,6 +35,3 @@ class Tournament:
         ret.append(self.no_servers)
         ret.append(self.contact_person)
         return ret
-    
-
-
