@@ -3,6 +3,8 @@ from IO.contact_person import ContactPersonData
 from IO.tournament_data import TournamentData
 from Models.models import ContactPerson
 
+# Steinar
+
 
 class APIDATA:
     def __init__(self) -> None:
