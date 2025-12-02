@@ -30,7 +30,7 @@ def print_team_menu(): #Prints a list of teams with the corresponding informatio
 
 def print_tournaments_menu(): #Menu for looking at tournaments
     print("1. Ongoing Tournaments \n2. Upcoming Tournaments \n3. Past Tournaments \nb. Back \nq.Quit")
-    
+
 #Team captain menus
 def print_my_team_menu(): #Options for my team
     club = 0
@@ -62,7 +62,26 @@ def roster_menu():
     print("1. Add player to team \n2. Player Information \n3. Remove player from team \nb. Back \nq. Quit")
 
 def new_player_menu():
-    print("Name: \nDate of birth(Year-Month-Date): \nEmail: \nPhone Number: \nPlayer Handle: \nHome Address: \nSocial Media Handle: \nConfirm(Y/N)? ")
+    print("Fill in new player info! \nName: \nDate of birth(Year-Month-Date): \nEmail: \nPhone Number: \nPlayer Handle: \nHome Address: \nSocial Media Handle: \nConfirm(Y/N)? ")
 
 def player_added():
-    print
+    player_name = "Chuck Norris"
+    player_handle = "You Know Who I am"
+    player_social = "@chuckfucks"
+    print(f"PLAYER ADDED!\n{player_name} \n{player_handle} \n{player_social} \nq. Quit")
+
+#Organiser menus
+
+def create_tournament_menu():
+    print("Fill in the required info! \nName: \nStart date(Year-Month-Day): \nEnd date(Year-Month-Day): \nNumber of servers: \nVenue: \nDouble elimination(Y/N)? \nGame: \n \nb. Back \nq. Quit")
+
+def add_contact_person_menu():
+    print("Fill in contact person info! \nName: \nEmail: \nPhone Number: \n \nb. Back \nq. Quit")
+
+def tournament_created_menu():
+    tournament_name = "Chuck Norris Open"
+    venue = "Everywhere"
+    game = "Chuck Norris's Wrath"
+    print(f"TOURNAMENT CREATED! \nOpen for registration \n{tournament_name} \n{venue} \n{game} \nq.Quit")
+
+tournament_created_menu()
