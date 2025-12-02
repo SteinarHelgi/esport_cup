@@ -11,7 +11,7 @@ class Tournament:
         venue: str,
         game_id: str,
         no_servers: int,
-        contact_person_id: str,
+        contact_person_id: int,
     ):
         self.id = id
         self.start_date = start_date

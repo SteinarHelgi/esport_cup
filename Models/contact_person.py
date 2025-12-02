@@ -8,3 +8,12 @@ class ContactPerson:
         self.email = email
         self.phone = phone
         self.tournament_id = tournament_id
+
+    def toCSVList(self):
+        ret = []
+        ret.append(self.id)
+        ret.append(self.name)
+        ret.append(self.email)
+        ret.append(self.phone)
+        ret.append(self.tournament_id)
+        return ret

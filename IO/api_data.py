@@ -1,6 +1,7 @@
-from IO.contact_person import ContactPersonData
+from IO.contact_person_data import ContactPersonData
 from IO.tournament_data import TournamentData
 from Models.models import ContactPerson
+
 
 # Steinar
 
@@ -11,9 +12,14 @@ class APIDATA:
         self.contact_person = ContactPersonData()
         # TODO setja alla data clasana hér
 
-    def get_contact_person_by_id(self, name) -> ContactPerson:
-        contact = ContactPerson("1", name, "hilmir@rasshaus.is", "855-2449", "1")
-        return contact
+    def get_contact_person_data(self) -> ContactPerson:
+        return self.contact_person.get_contact_person_data()
 
-    def get_all_tournaments(self):
-        return self.tournament_data.get_all_tournaments()
+    def get_contact_person_by_id(self, id: int) -> ContactPerson:
+        return self.contact_person.get_contact_person_by_id()
+
+    def get_tournament_data(self):
+        return self.tournament_data.get_tournament_data()
+    
+    
+

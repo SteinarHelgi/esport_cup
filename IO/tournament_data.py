@@ -1,20 +1,17 @@
 # Höfundur: Þröstur
-# Tilbúið til rýni: Já
-# Rýnir:
 import csv
 from Models.models import Tournament
 from datetime import datetime
 
-# Steinar
 
 
 class TournamentData:
     def __init__(self):
-        self.tournamentFilepath = "Data/Tournaments.csv"
+        self.tournament_file_path = "Data/Tournaments.csv"
 
-    def get_all_tournaments(self) -> list[Tournament]:
+    def get_tournament_data(self) -> list[Tournament]:
         tournaments = []
-        with open(self.tournamentFilepath, "r+") as file:
+        with open(self.tournament_file_path, "r+") as file:
             csvReader = csv.reader(file)
             next(csvReader)  # skip header
             for line in csvReader:
@@ -25,7 +22,6 @@ class TournamentData:
                 venue = line[4]
                 game_id = line[5]
                 number_of_servers = int(line[6])
-                # contact_person_id = ContactPerson(line[7],"Hilmir","hilmir@rasshaus.is","8410536",)
                 contact_person_id = line[7]
 
                 tournament = Tournament(
@@ -41,8 +37,8 @@ class TournamentData:
                 tournaments.append(tournament)
         return tournaments
 
-    def storeNewTournament(self, tournament: Tournament):
-        with open(self.tournamentFilepath, "a") as file:
+    def store_tournament_data(self, tournament: Tournament)->Tournament:
+        with open(self.tournament_file_path, "a") as file:
             csvWriter = csv.writer(file)
             try:
                 csvWriter.writerow(tournament.toCSVList())
