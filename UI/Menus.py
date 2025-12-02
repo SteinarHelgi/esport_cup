@@ -84,3 +84,18 @@ def tournament_created_menu():
     game = "Chuck Norris's Wrath"
     print(f"TOURNAMENT CREATED! \nOpen for registration \n{tournament_name} \n{venue} \n{game} \nq.Quit")
 
+def my_tournaments_menu():
+    my_created_tournaments = ["Chuck Norris Open", "Paris Major", "Steinar's Cock Wrestling"]
+    print(f"TOURNAMENTS YOU HAVE CREATED! \n{my_created_tournaments} \nb.Back \nq. Quit")#TODO Delete tournament?
+
+def create_schedule():
+    pass
+
+def create_match():
+    pass
+
+def register_results():
+    pass
+
+def update_schedule():
+    pass
