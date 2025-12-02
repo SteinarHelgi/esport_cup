@@ -11,7 +11,7 @@ class Player:
         phone_number: str,
         email: str,
         social_media: str,
-        team: Team,
+        team_id: str,
         handle: str,
         points: int,
         date_of_birth: dt.datetime,
@@ -22,7 +22,7 @@ class Player:
         self.phone_number = phone_number
         self.email = email
         self.social_media = social_media
-        self.team = team
+        self.team = team_id
         self.handle = handle
         self.points = points
         self.date_of_birth = date_of_birth

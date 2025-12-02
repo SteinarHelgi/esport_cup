@@ -10,11 +10,11 @@ class Match:
         team_1_id: int,
         team_2_id: int,
         server_id: int,
-        game: Game,
+        game_id: str,
     ):
         self.team_id = team_id
         self.date_time = date_time
         self.team_1 = team_1_id
         self.team_2 = team_2_id
         self.server_id = server_id
-        self.game = game
+        self.game = game_id

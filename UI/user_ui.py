@@ -27,11 +27,10 @@ class UserUI:
         print_back_and_quit()
 
     def show_current_tournaments(self):
-        tournaments = self.APILL.userLL.get_all_tournaments()
+        tournaments = self.APILL.get_all_tournaments()
         print("Tournaments:")
-        for id, tourn in tournaments.items():
-            print("-------------------------------------------------------")
-            print(f"{id}:   {tourn[0]} {tourn[1]}-{tourn[2]} {tourn[3]} {tourn[4]}")
+        for tournament in tournaments:
+            print(tournament)
         print_back_and_quit()
 
     def show_players(self, team: Team):
