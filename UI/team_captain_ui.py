@@ -1,5 +1,5 @@
 from LL.api_ll import APILL
-from UI.list_of_menus import print_my_team_menu
+from UI.Menus import print_my_team_menu
 
 
 class TeamCaptainUI:
@@ -28,32 +28,20 @@ class TeamCaptainUI:
         option = input("?")
         for option in valid_options:
             if option == "1":
-                return #add_team_to_club
+                return "add_team_to_club"
             if option == "2":
-                return #roster_menu
+                return "roster_menu"
             if option == "3":
-                return #edit_team_info_menu
+                return "edit_team_info_menu"
             if option == "b":
-                return #back_button
+                return "back_button"
             if option == "q":
-                return #quit
+                return "quit"
         # TODO
         pass
 
     def show_my_tournaments(self):
-        valid_options = ["1", "2", "3", "b", "q"]
-        option = "?"
-        for option in valid_options:
-            if option == "1":
-                return #ongoing_tournaments
-            if option == "2":
-                return #upcoming_tournaments
-            if option == "3":
-                return #Past_tournaments
-            if option == "b":
-                return #back_button
-            if option == "q":
-                return #quit
+        
         # TODO
         pass
 
