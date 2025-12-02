@@ -1,82 +1,37 @@
 class UserLL:
-    def __init__(self):
+    def __init__(self, api_data):
         self.id = 0
+        self.api_data = api_data
 
     def get_all_teams(self):
-        teams = {
-            "1": [
-                "Astralis",
-                ["Faker", "Niko", "Monesy", "skadoodle"],
-                "Logo",
-                "CAPTAIN",
-                "www.url.com",
-                "Valur",
-                "100",
-            ],
-            "2": [
-                "G2",
-                ["Shroud", "Biseps", "Stewie2k"],
-                "logo",
-                "CAPTAIN",
-                "www.url.com",
-                "Valur",
-                "180",
-            ],
-            "3": [
-                "NIP",
-                ["HALL", "s1mple", "Stewie2k"],
-                "logo",
-                "CAPTAIN",
-                "www.url.com",
-                "Valur",
-                "180",
-            ],
-        }
+        teams = ""
         return teams
 
     def get_all_tournaments(self) -> dict:
-        tournaments = {
-            "1": [
-                "Paris major",
-                "2025/08/09",
-                "2025/08/13",
-                "Paris church",
-                "valorant",
-                "8",
-                "Valur reynisson",
-            ],
-            "2": [
-                "Iceland major",
-                "2025/10/14",
-                "2025/10/20",
-                "Laugardagshöll",
-                "CS:GO",
-                "7",
-                "Hilmir",
-            ],
-        }
+        tournaments = self.api_data.get_all_tournaments()
         return tournaments
 
     def get_players(self):
-        #TODO
+        # TODO
         pass
 
     def get_ongoing_tournament(self):
-        #TODO
+        # TODO
         pass
 
     def get_past_tournament(self):
-        #TODO
+        # TODO
         pass
 
     def get_upcoming_tournament(self):
-        #TODO
+        # TODO
         pass
 
     def show_schedule(self):
-        #TODO
+        # TODO
         pass
 
     def get_statistics(self):
-        #TODO
+        # TODO
         pass
+

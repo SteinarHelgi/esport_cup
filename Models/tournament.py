@@ -1,28 +1,26 @@
 import datetime as dt
 
-from Models.models import ContactPerson, Game
-
 
 class Tournament:
     def __init__(
         self,
         id: int,
+        name: str,
         start_date: dt.datetime,
         end_date: dt.datetime,
-        name: str,
         venue: str,
-        games: list[Game],
+        game_id: str,
         no_servers: int,
-        contact_person: ContactPerson,
+        contact_person_id: str,
     ):
         self.id = id
         self.start_date = start_date
         self.end_date = end_date
         self.name = name
         self.venue = venue
-        self.games = games
+        self.game_id = game_id
         self.no_servers = no_servers
-        self.contact_person = contact_person
+        self.contact_person = contact_person_id
 
     def toCSVList(self):
         ret = []
@@ -31,7 +29,7 @@ class Tournament:
         ret.append(self.end_date)
         ret.append(self.name)
         ret.append(self.venue)
-        ret.append(self.games)
+        ret.append(self.game_id)
         ret.append(self.no_servers)
         ret.append(self.contact_person)
         return ret
