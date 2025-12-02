@@ -24,3 +24,17 @@ class Tournament:
         self.no_servers = no_servers
         self.contact_person = contact_person
 
+    def toCSVList(self):
+        ret = []
+        ret.append(self.id)
+        ret.append(self.start_date)
+        ret.append(self.end_date)
+        ret.append(self.name)
+        ret.append(self.venue)
+        ret.append(self.games)
+        ret.append(self.no_servers)
+        ret.append(self.contact_person)
+        return ret
+    
+
+
