@@ -1,22 +1,18 @@
-from team_captain import TeamCaptain
-from club import Club
-from player import Player
-
 class Team:
     def __init__(
         self,
         id: int,
         name: str,
-        players: list[Player],
-        captain: TeamCaptain,
+        list_of_players_id: list[str],
+        captain_id: str,
         social_media: str,
-        club: Club,
+        club: str,
         points: int,
     ) -> None:
         self.id = id
         self.name = name
-        self.players = players
-        self.captain = captain
+        self.players = list_of_players_id
+        self.captain_id = captain_id
         self.social_media = social_media
         self.club = club
         self.points = points

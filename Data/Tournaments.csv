@@ -1,2 +1,2 @@
-id, start_date, end_date, name, venue, games, no_servers, contact_person
-1, 1.1.1900, 1.1.1901, "E-sport", "Egilshöll", ["Rocket league"], 1, "Þröstur"
+id, name, start_date, end_date, venue, game, no_servers, contact_person
+1,E-sport,2025-08-02, 2025-08-07, Egilshöll, Rocket league;Valorant;, 1, Þröstur

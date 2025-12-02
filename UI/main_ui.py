@@ -7,5 +7,4 @@ class MainUI:
     def __init__(self):
         self.APILL = APILL()
         self.userUI = UserUI(self.APILL)
-        self.organiserUI = "organiserUI"
         self.teamCaptainUI = TeamCaptainUI(self.APILL)
