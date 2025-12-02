@@ -84,4 +84,3 @@ def tournament_created_menu():
     game = "Chuck Norris's Wrath"
     print(f"TOURNAMENT CREATED! \nOpen for registration \n{tournament_name} \n{venue} \n{game} \nq.Quit")
 
-tournament_created_menu()
