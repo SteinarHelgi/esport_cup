@@ -2,10 +2,13 @@ from LL.api_ll import APILL
 
 
 class MenuManager:
+    """Responsible for all menus and prompts for the choice"""
+
     def __init__(self, api_ll: APILL) -> None:
         self.api_ll = api_ll
 
     def prompt_choice(self, valid_choices: list[str]) -> str:
+        """Prompt user, only give back valid choice"""
         valid_lower = []
         for choice in valid_choices:
             valid_lower.append(choice.lower())
@@ -18,20 +21,6 @@ class MenuManager:
             print("valid choices are: ")
             for choice in valid_lower:
                 print(choice, ".", sep="")
-
-    def show_main_menu(self) -> str:
-        """Print main menu and return 'LIST', 'CREATE' or 'QUIT'."""
-        print("\n==== Aðalvalmynd ====")
-        print("1. Skoða matseðla")
-        print("2. Búa til nýjan matseðil")
-        print("q. Hætta")
-
-        choice: str = self.prompt_choice(["1", "2", "q"])
-        if choice == "1":
-            return "LIST"
-        if choice == "2":
-            return "CREATE"
-        return "QUIT"
 
     def print_login_menu(self):  # Login menu
         print("__________LOGIN_________")
@@ -46,6 +35,7 @@ class MenuManager:
         return "QUIT"
 
     def print_user_menu(self):  # Option menu for user
+        # TODO
         print("__SELECT AN OPTION__")
         print("1. Teams \n2. Tournaments \nq. Quit")
 
@@ -57,6 +47,7 @@ class MenuManager:
         return "QUIT"
 
     def print_team_captain_menu(self):  # Option menu for team captain
+        # TODO
         print("__SELECT AN OPTION__")
         print("1. Teams \n2. Tournaments \n3. My Team \n4. My Tournaments \nq. Quit")
 
@@ -73,6 +64,7 @@ class MenuManager:
         return "QUIT"
 
     def print_organiser_menu(self):  # option menu for organiser
+        # TODO
         print("__SELECT AN OPTION__")
         print(
             "1. Teams \n2. Tournaments \n3. Create Tournaments \n4. My Tournaments \nq. Quit"
