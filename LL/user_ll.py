@@ -56,3 +56,27 @@ class UserLL:
             ],
         }
         return tournaments
+
+    def get_players(self):
+        #TODO
+        pass
+
+    def get_ongoing_tournament(self):
+        #TODO
+        pass
+
+    def get_past_tournament(self):
+        #TODO
+        pass
+
+    def get_upcoming_tournament(self):
+        #TODO
+        pass
+
+    def show_schedule(self):
+        #TODO
+        pass
+
+    def get_statistics(self):
+        #TODO
+        pass
