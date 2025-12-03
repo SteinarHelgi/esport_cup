@@ -13,7 +13,7 @@ class TeamData:
             csvReader = csv.reader(file)
             next(csvReader)
             for line in csvReader:
-                id = int(line[0])
+                id = line[0]
                 name = line[1]
                 captain_id = line[2]
                 social_media = line[3]

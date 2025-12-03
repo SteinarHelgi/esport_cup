@@ -54,8 +54,14 @@ class UserUI:
         tournaments = self.APILL.get_ongoing_tournaments(today)
         print("Ongoing Tournaments:")
         print(format_tournament_table(self, tournaments))
-        return "QUIT"
-        
+
+        print("b. Back \nq. Quit")
+        # TODO add functionality for selecting a tournament
+        choice: str = self.menu_manager.prompt_choice(["b", "q"])
+        if choice == "b":
+            return "BACK"
+        if choice == "q":
+            return "QUIT"
 
     def show_upcoming_tournaments(
         self,
@@ -64,16 +70,28 @@ class UserUI:
         tournaments = self.APILL.get_upcoming_tournaments(today)
         print("Upcoming Tournaments")
         print(format_tournament_table(self, tournaments))
-        return "QUIT"
-        
-        
+
+        print("b. Back \nq. Quit")
+        # TODO add functionality for selecting a tournament
+        choice: str = self.menu_manager.prompt_choice(["b", "q"])
+        if choice == "b":
+            return "BACK"
+        if choice == "q":
+            return "QUIT"
+
     def show_past_tournaments(self):
         today = datetime.today()
         tournaments = self.APILL.get_past_tournaments(today)
         print("Past Tournaments")
         print(format_tournament_table(self, tournaments))
-        return "QUIT"
-        
+
+        print("b. Back \nq. Quit")
+        # TODO add functionality for selecting a tournament
+        choice: str = self.menu_manager.prompt_choice(["b", "q"])
+        if choice == "b":
+            return "BACK"
+        if choice == "q":
+            return "QUIT"
 
     def show_players(self, team: Team):
         players = self.APILL.get_players_in_team(team.name)

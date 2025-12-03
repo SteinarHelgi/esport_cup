@@ -26,9 +26,12 @@ class TeamCaptainUI:
         # TODO
         pass
 
-    def show_my_team(self) -> str:
-        # TODO
-        pass
+    def show_my_team(self, id: str) -> str | None:
+        my_team = self.APILL.get_team_by_captain_id(id)
+        if my_team:
+            return ""
+        else:
+            print("None found")
 
     def show_register_team_to_tournament(self):
         # TODO
