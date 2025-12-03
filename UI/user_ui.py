@@ -14,21 +14,10 @@ class UserUI:
         self.menu_manager = menu_manager
 
     def show_teams(self):
-        teams = self.APILL.get_all_teams()
-        print("Teams:")
-        for id, team in teams.items():
-            name = team[0]
-            logo = team[2]
-            teamCaptain = team[3]
-            website = team[4]
-            club = team[5]
-            points = team[6]
-            print("-----------------------------------------------------------")
-            print(f"{id}:   {name} {logo} {teamCaptain} {website} {club} {points}")
-        print_back_and_quit()
+        pass
 
     def show_tournaments(self):
-        self.APILL.get_all_tournaments()
+        tournaments = self.APILL.get_all_tournaments()
         valid_options = ["1", "2", "3", "b", "q"]
 
         print("1. Ongoing tournaments\n2. Upcoming tournaments")
@@ -36,17 +25,16 @@ class UserUI:
         choice: str = self.menu_manager.prompt_choice(valid_options)
         print("choice:", choice)
 
-        for choice in valid_options:
-            if choice == "1":
-                return "ONGOING_TOURNAMENTS"
-            elif choice == "2":
-                return "UPCOMING_TOURNAMENTS"
-            elif choice == "3":
-                return  # Past_tournaments
-            elif choice == "b":
-                return  # back_button
-            if choice == "q":
-                return  # quit
+        if choice == "1":
+            return "ONGOING_TOURNAMENTS"
+        elif choice == "2":
+            return "UPCOMING_TOURNAMENTS"
+        elif choice == "3":
+            return  # Past_tournaments
+        elif choice == "b":
+            return  # back_button
+        if choice == "q":
+            return  # quit
 
     def show_current_tournaments(self):
         tournaments = self.APILL.get_all_tournaments()
