@@ -1,3 +1,5 @@
+"""This is the page where everything related to the users UI is shown"""
+
 from LL.api_ll import APILL
 from Models.models import Team
 from datetime import datetime
@@ -19,7 +21,7 @@ class UserUI:
         tournaments = self.APILL.get_all_tournaments()
         valid_options = ["1", "2", "3", "b", "q"]
 
-        print("1. Ongoing tournaments\n2. Upcoming tournaments")
+        print("1. Ongoing tournaments \n2. Upcoming tournaments \n3. Past Tournaments")
 
         choice: str = self.menu_manager.prompt_choice(valid_options)
         print("choice:", choice)
@@ -35,7 +37,7 @@ class UserUI:
         if choice == "q":
             return  "QUIT"
 
-    def show_current_tournaments(self):
+    def show_current_tournaments(self): #Shows the tournaments that are going on at the time of checking
         today = datetime.today()
         tournaments = self.APILL.get_ongoing_tournaments(today)
         print("Ongoing Tournaments:")
@@ -43,7 +45,7 @@ class UserUI:
             print(tournament.name, str(tournament.start_date).split(" ")[0])
         
 
-    def show_upcoming_tournaments(self):
+    def show_upcoming_tournaments(self): #Shows the tournaments that are starting after the date of checking
         today = datetime.today()
         tournaments = self.APILL.get_upcoming_tournaments(today)
         print("Upcoming Tournaments")
@@ -52,8 +54,11 @@ class UserUI:
 
 
     def show_past_tournaments(self):
-        # TODO
-        pass
+        today = datetime.today()
+        tournaments = self.APILL.get_past_tournaments(today)
+        print("Past Tournaments")
+        for tournament in tournaments:
+            print(tournament.name, str(tournament.start_date).split(" ")[0])
 
     def show_players(self, team: Team):
         # Todo
