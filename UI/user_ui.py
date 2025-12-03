@@ -1,6 +1,7 @@
 """This is the page where everything related to the users UI is shown"""
 
 from LL.api_ll import APILL
+from LL.functions import format_tournament_table
 from Models.models import Team
 from datetime import datetime
 
@@ -43,23 +44,22 @@ class UserUI:
         today = datetime.today()
         tournaments = self.APILL.get_ongoing_tournaments(today)
         print("Ongoing Tournaments:")
-        print("NAME:        START DATE:         END DATE:")
-        for tournament in tournaments:
-            print(tournament.name, str(tournament.start_date).split(" ")[0])
+        format_tournament_table(self, tournaments)
 
     def show_upcoming_tournaments(self): #Shows the tournaments that are starting after the date of checking
         today = datetime.today()
         tournaments = self.APILL.get_upcoming_tournaments(today)
         print("Upcoming Tournaments")
-        for tournament in tournaments:
-            print(tournament.name, str(tournament.start_date).split(" ")[0])
+        format_tournament_table(self, tournaments)
+        
+        
 
     def show_past_tournaments(self):
         today = datetime.today()
         tournaments = self.APILL.get_past_tournaments(today)
         print("Past Tournaments")
-        for tournament in tournaments:
-            print(tournament.name, str(tournament.start_date).split(" ")[0])
+        format_tournament_table(self, tournaments)
+        
 
     def show_players(self, team: Team):
         # Todo
@@ -68,3 +68,4 @@ class UserUI:
     def show_statistics(self):
         # TODO
         pass
+
