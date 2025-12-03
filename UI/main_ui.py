@@ -7,9 +7,7 @@ from LL.api_ll import APILL
 class MainUI:
     def __init__(self):
         self.APILL = APILL()
-        self.userUI = UserUI(self.APILL)
         self.menu_manager = MenuManager(self.APILL)
-        self.team_captain_ui = TeamCaptainUI(self.APILL)
         self.current_screen = "LOGIN_MENU"
 
     def run(self) -> None:

@@ -1,17 +1,49 @@
 from LL.api_ll import APILL
+from UI.user_ui import UserUI
+from UI.team_captain_ui import TeamCaptainUI
+from UI.organiser_ui import OrganiserUI
 
 
 class MenuManager:
-    """Responsible for all menus and prompts for the choice"""
+    """Responsible for menus and prompts for the choice"""
 
     def __init__(self, api_ll: APILL) -> None:
         self.api_ll = api_ll
+        self.user_ui = UserUI(self.api_ll)
+        self.team_captain_ui = TeamCaptainUI(self.api_ll)
+        self.organiser_Ui = OrganiserUI(self.api_ll)
 
         self.pages = {
             "LOGIN_MENU": self.print_login_menu,
+            # USER MENUS
             "USER_MENU": self.print_user_menu,
+            "TEAMS": self.user_ui.show_teams,
+            "TOURNAMENTS": self.user_ui.show_tournaments,
+            "CURRENT_TOURNAMENTS": self.user_ui.show_current_tournaments,
+            "UPCOMING_TOURNAMENTS": self.user_ui.show_upcoming_tournaments,
+            "PAST_TOURNAMENTS": self.user_ui.show_past_tournaments,
+            "PLAYERS": self.user_ui.show_players,
+            "STATISTICS": self.user_ui.show_statistics,
+            # TEAM CAPTAIN MENUS
             "TEAM_CAPTAIN_MENU": self.print_team_captain_menu,
+            "CREATE_PLAYER": self.team_captain_ui.show_create_player,
+            "MODIFY_PLAYER": self.team_captain_ui.show_modify_player,
+            "MY_TEAM": self.team_captain_ui.show_my_team,
+            "MY_TOURNAMENTS": self.team_captain_ui.show_my_tournaments,
+            "REGISTER_TEAM_TO_TOURNAMENT": self.team_captain_ui.show_register_team_to_tournament,
+            "UPDATE_TEAM_DATA": self.team_captain_ui.show_update_team_data,
+            "ADD_TEAM_TO_CLUB": self.team_captain_ui.show_add_team_to_club,
+            "CREATE_TEAM": self.team_captain_ui.show_create_team,
+            # ORGANISER MENUS
             "ORGANISER_MENU": self.print_organiser_menu,
+            "CREATE_TOURNAMENT_MENU": self.organiser_Ui.show_create_tournament,
+            "MY_TOURNAMENT_MENU": self.organiser_Ui.show_my_tournament,
+            "CREATE_SCHEDULE": self.organiser_Ui.show_create_schedule,
+            "UPDATE_SCHEDULE": self.organiser_Ui.show_update_schedule,
+            "CREATE_MATCH": self.organiser_Ui.show_create_match,
+            "REGISTER_RESULTS": self.organiser_Ui.show_register_results,
+            "DELETE_TOURNAMENT": self.organiser_Ui.show_delete_tournament,
+            "GIVE_POINTS": self.organiser_Ui.show_give_points,
         }
 
     def prompt_choice(self, valid_choices: list[str]) -> str:

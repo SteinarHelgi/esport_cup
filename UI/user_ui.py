@@ -25,26 +25,36 @@ class UserUI:
             print("-----------------------------------------------------------")
             print(f"{id}:   {name} {logo} {teamCaptain} {website} {club} {points}")
         print_back_and_quit()
-    def tournaments():
+
+    def show_tournaments(self):
         valid_options = ["1", "2", "3", "b", "q"]
         option = "?"
         for option in valid_options:
             if option == "1":
-                return #ongoing_tournaments
+                return  # ongoing_tournaments
             if option == "2":
-                return #upcoming_tournaments
+                return  # upcoming_tournaments
             if option == "3":
-                return #Past_tournaments
+                return  # Past_tournaments
             if option == "b":
-                return #back_button
+                return  # back_button
             if option == "q":
-                return #quit
+                return  # quit
+
     def show_current_tournaments(self):
         tournaments = self.APILL.get_all_tournaments()
         print("Tournaments:")
         for tournament in tournaments:
             print(tournament)
         print_back_and_quit()
+
+    def show_upcoming_tournaments(self):
+        # TODO
+        pass
+
+    def show_past_tournaments(self):
+        # TODO
+        pass
 
     def show_players(self, team: Team):
         # Todo
