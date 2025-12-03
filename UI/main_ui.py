@@ -20,10 +20,8 @@ class MainUI:
                 break
 
             next_screen = func()
-            print("nextscreen:", next_screen)
 
             if next_screen in (None, "QUIT"):
-                print("Quitting")
                 break
 
             self.current_screen = next_screen

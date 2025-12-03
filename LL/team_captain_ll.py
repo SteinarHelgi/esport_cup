@@ -32,6 +32,15 @@ class TeamCaptainLL:
         # TODO
         pass
 
+    def get_team_by_captain_id(self, captain_id) -> Team | None:
+        teams = self.APIDATA.get_team_data()
+
+        for team in teams:
+            if team.captain_id == captain_id:
+                print(team.captain_id, captain_id)
+                return team
+        return None
+
     def get_players_in_team(self, team_name: str) -> list[Player]:
         # TEAM
         # id name captain_id social_media logo
