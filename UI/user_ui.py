@@ -76,8 +76,17 @@ class UserUI:
         
 
     def show_players(self, team: Team):
-        # Todo
-        pass
+        players = self.APILL.get_players_in_team(team.name)
+        for player in players:
+            print(player.name, player.handle)
+        valid_options = ["q","b"]
+        choice: str = self.menu_manager.prompt_choice(valid_options)
+        if choice == "q":
+            return "QUIT"
+        if choice == "b":
+            return "BACK"
+        
+        
 
     def show_statistics(self):
         # TODO
