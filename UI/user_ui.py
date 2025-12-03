@@ -34,7 +34,6 @@ class UserUI:
         valid_options = ["1", "2", "3", "b", "q"]
         print("1. Ongoing tournaments \n2. Upcoming tournaments \n3. Past Tournaments")
         choice: str = self.menu_manager.prompt_choice(valid_options)
-        print("choice:", choice)
 
         if choice == "1":
             return "ONGOING_TOURNAMENTS"
@@ -97,14 +96,12 @@ class UserUI:
         players = self.APILL.get_players_in_team(team.name)
         for player in players:
             print(player.name, player.handle)
-        valid_options = ["q","b"]
+        valid_options = ["q", "b"]
         choice: str = self.menu_manager.prompt_choice(valid_options)
         if choice == "q":
             return "QUIT"
         if choice == "b":
             return "BACK"
-        
-        
 
     def show_statistics(self):
         # TODO
