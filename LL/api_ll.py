@@ -32,3 +32,6 @@ class APILL:
 
     def get_team_by_captain_id(self, id) -> Team | None:
         return self.team_captain_ll.get_team_by_captain_id(id)
+
+    def get_team_by_name(self, name) -> Team | None:
+        return self.team_captain_ll.get_team_by_name(name)

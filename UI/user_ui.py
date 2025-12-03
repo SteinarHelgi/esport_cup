@@ -1,15 +1,13 @@
 """This is the page where everything related to the users UI is shown"""
 
+from os import name
 from LL.api_ll import APILL
-from LL.functions import format_team_list, format_tournament_table
+from LL.functions import format_player_list, format_team_list, format_tournament_table
 from Models.models import Team
 from datetime import datetime
 
 
-def print_back_and_quit():
-    print("")
-    print("b. Back")
-    print("q. Quit")
+
 
 
 class UserUI:
@@ -20,18 +18,19 @@ class UserUI:
     def show_teams(self) -> str:
         teams = self.APILL.get_all_teams()
         print(format_team_list(self, teams))
-
+        print("ENTER TEAM NAME FOR DETAILS: \nb. BACK \nq. QUIT")
+    
         choice: str = self.menu_manager.prompt_choice(["1", "2", "3", "q"])
 
-        if choice == "1":
-            return "LOGIN_PAGE"
-        else:
-            return "QUIT"
+        if choice == "b":
+            return "LOGIN_MENU"
+    
+        return "QUIT"
 
     def show_tournaments(self) -> str:
         tournaments = self.APILL.get_all_tournaments()
         valid_options = ["1", "2", "3", "b", "q"]
-        print("1. Ongoing tournaments \n2. Upcoming tournaments \n3. Past Tournaments")
+        print("1. Ongoing tournaments \n2. Upcoming tournaments \n3. Past Tournaments \nb. Back \nq. Quit")
         choice: str = self.menu_manager.prompt_choice(valid_options)
 
         if choice == "1":
@@ -41,7 +40,7 @@ class UserUI:
         elif choice == "3":
             return "PAST_TOURNAMENTS"
         elif choice == "b":
-            return "BACK"
+            return "LOGIN_MENU"
         else:
             return "QUIT"
 
@@ -52,14 +51,14 @@ class UserUI:
         tournaments = self.APILL.get_ongoing_tournaments(today)
         print("Ongoing Tournaments:")
         print(format_tournament_table(self, tournaments))
-
-        print("b. Back \nq. Quit")
-        # TODO add functionality for selecting a tournament
+        print("b.Back \nq.Quit")
+        
         choice: str = self.menu_manager.prompt_choice(["b", "q"])
+
         if choice == "b":
-            return "BACK"
-        if choice == "q":
-            return "QUIT"
+            return "TOURNAMENTS"
+        else: 
+            "QUIT"
 
     def show_upcoming_tournaments(
         self,
@@ -73,7 +72,7 @@ class UserUI:
         # TODO add functionality for selecting a tournament
         choice: str = self.menu_manager.prompt_choice(["b", "q"])
         if choice == "b":
-            return "BACK"
+            return "TOURNAMENTS"
         if choice == "q":
             return "QUIT"
 
@@ -87,20 +86,19 @@ class UserUI:
         # TODO add functionality for selecting a tournament
         choice: str = self.menu_manager.prompt_choice(["b", "q"])
         if choice == "b":
-            return "BACK"
+            return "TOURNAMENTS"
         if choice == "q":
             return "QUIT"
 
     def show_players(self, team: Team):
         players = self.APILL.get_players_in_team(team.name)
-        for player in players:
-            print(player.name, player.handle)
+        print(format_player_list(self, players))
         valid_options = ["q", "b"]
         choice: str = self.menu_manager.prompt_choice(valid_options)
         if choice == "q":
             return "QUIT"
         if choice == "b":
-            return "BACK"
+            return "TEAM"
 
     def show_statistics(self):
         # TODO

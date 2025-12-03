@@ -33,7 +33,7 @@ class TeamCaptainLL:
         pass
 
     def get_team_by_captain_id(self, captain_id) -> Team | None:
-        teams = self.APIDATA.get_team_data()
+        teams = self.APIDATA.get_all_team_data()
 
         for team in teams:
             if team.captain_id == captain_id:
@@ -56,3 +56,9 @@ class TeamCaptainLL:
                 players_in_team.append(player)
 
         return players_in_team
+
+    def get_team_by_name(self, name: str) -> Team | None:
+        teams = self.APIDATA.get_all_team_data()
+        for team in teams:
+            if team.name == name:
+                return team

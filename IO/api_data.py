@@ -39,7 +39,7 @@ class APIDATA:
     def store_tournament_data(self, tournament: Tournament):
         return self.tournament_data.store_tournament_data(tournament)
 
-    def get_team_data(self):
+    def get_all_team_data(self):
         return self.team_data.get_all_team_data()
 
     def store_team_data(self, team: Team):

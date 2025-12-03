@@ -10,11 +10,14 @@ class MenuManager:
     def __init__(self, api_ll: APILL) -> None:
         self.api_ll = api_ll
         self.user_ui = UserUI(self.api_ll, self)
-        self.team_captain_ui = TeamCaptainUI(self.api_ll)
-        self.organiser_Ui = OrganiserUI(self.api_ll)
+        self.team_captain_ui = TeamCaptainUI(self.api_ll, self)
+        self.organiser_Ui = OrganiserUI(self.api_ll, self)
+        self.user = ""
+        self.team_name = ""
 
         self.pages = {
             "LOGIN_MENU": self.print_login_menu,
+            "LOGIN_CREDENTIALS": self.login_credentials_menu,
             # USER MENUS
             "USER_MENU": self.print_user_menu,
             "TEAMS": self.user_ui.show_teams,
@@ -34,6 +37,7 @@ class MenuManager:
             "UPDATE_TEAM_DATA": self.team_captain_ui.show_update_team_data,
             "ADD_TEAM_TO_CLUB": self.team_captain_ui.show_add_team_to_club,
             "CREATE_TEAM": self.team_captain_ui.show_create_team,
+            "SHOW_MY_PLAYERS": self.team_captain_ui.show_my_players,
             # ORGANISER MENUS
             "ORGANISER_MENU": self.print_organiser_menu,
             "CREATE_TOURNAMENT_MENU": self.organiser_Ui.show_create_tournament,
@@ -66,12 +70,26 @@ class MenuManager:
         print("1. continue as user \n2. Login as Team Captain \n3. Login as Organiser")
         choice: str = self.prompt_choice(["1", "2", "3", "q"])
         if choice == "1":
+            self.user = "USER"
             return "USER_MENU"
         if choice == "2":
-            return "TEAM_CAPTAIN_MENU"
+            self.user = "TEAM_CAPTAIN"
+            return "LOGIN_CREDENTIALS"
         if choice == "3":
-            return "ORGANISER_MENU"
+            self.user = "ORGANISER"
+            return "LOGIN_CREDENTIALS"
         return "QUIT"
+
+    def login_credentials_menu(self):  # logging in as organiser
+        username = "Chuck Norris"
+        password = "Pepsi Max"
+        print(f"Username: {username} \nPassword: {password} \nConfirm(Y/N)? ")
+        choice: str = self.prompt_choice(["y", "n"])
+        self.team_name = "NullPointer Ninjas"
+        if choice == "y":
+            return "TEAM_CAPTAIN_MENU"
+        else:
+            return "LOGIN_MENU"
 
     def print_user_menu(self):  # Option menu for user
         # TODO
@@ -83,6 +101,8 @@ class MenuManager:
             return "TEAMS"
         if choice == "2":
             return "TOURNAMENTS"
+        if choice == "b":
+            return "LOGIN_MENU"
         return "QUIT"
 
     def print_team_captain_menu(self):  # Option menu for team captain
@@ -90,7 +110,7 @@ class MenuManager:
         print("__SELECT AN OPTION__")
         print("1. Teams \n2. Tournaments \n3. My Team \n4. My Tournaments \nq. Quit")
 
-        choice: str = self.prompt_choice(["1", "2", "3", "4", "q"])
+        choice: str = self.prompt_choice(["1", "2", "3", "4", "b", "q"])
         if choice == "1":
             return "TEAMS"
         if choice == "2":
@@ -99,6 +119,8 @@ class MenuManager:
             return "MY_TEAM"
         if choice == "4":
             return "MY_TOURNAMENTS"
+        if choice == "b":
+            return "LOGIN_CREDENTIALS"
 
         return "QUIT"
 

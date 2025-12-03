@@ -6,8 +6,6 @@ from UI.main_ui import MainUI
 def main():
     user = MainUI()
     user.run()
-    
 
 
 main()
-
