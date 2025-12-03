@@ -1,11 +1,9 @@
-from player import Player
-
 class Team:
     def __init__(
         self,
         id: int,
         name: str,
-        players: list[Player],
+        players: list[str],
         captain_id: str,
         social_media: str,
         club: str,
@@ -33,3 +31,4 @@ class Team:
         ret.append(self.club)
         ret.append(self.points)
         return ret
+
