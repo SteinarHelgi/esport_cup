@@ -8,7 +8,7 @@ class Club:
         name: str,
         hometown: str,
         logo: str,
-        club_colors: str,
+        club_colors: list[str],
         country: str,
         points: int,
         teams: list[Team],
@@ -32,7 +32,4 @@ class Club:
         ret.append(self.country)
         ret.append(self.points)
         ret.append(self.teams)
-        
-        
-        
         return ret

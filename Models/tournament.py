@@ -4,7 +4,7 @@ import datetime as dt
 class Tournament:
     def __init__(
         self,
-        id: int,
+        id: str,
         name: str,
         start_date: dt.datetime,
         end_date: dt.datetime,

@@ -28,7 +28,7 @@ class Player:
         self.date_of_birth = date_of_birth
 
     def get_team_name(self):
-        return self.team
+        return self.team_name
     
     def toCSVList(self):
         ret: list[str] = []
