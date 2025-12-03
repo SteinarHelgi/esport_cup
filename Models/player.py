@@ -23,9 +23,23 @@ class Player:
         self.phone_number = phone_number
         self.email = email
         self.social_media = social_media
-        self.team = team_name
+        self.team_name = team_name
         self.handle = handle
         self.date_of_birth = date_of_birth
 
     def get_team_name(self):
         return self.team
+    
+    def toCSVList(self):
+        ret: list[str] = []
+        ret.append(self.player_id)
+        ret.append(self.name)
+        ret.append(self.address)
+        ret.append(self.phone_number)
+        ret.append(self.email)
+        ret.append(self.social_media)
+        ret.append(self.team_name)
+        ret.append(self.handle)
+        ret.append(self.date_of_birth)
+        return ret
+

@@ -7,26 +7,26 @@ from Models.player import Player
 
 
 class PlayerData:
-    def __init__(self) -> None:
-        self._filepath = "Data/players.csv"
+    def __init__(self):
+        self._filepath: str = "Data/players.csv"
 
     def get_all_player_data(self) -> list[Player]:
-        players = []
+        players: list[Player] = []
         with open(self._filepath, "+r", encoding="utf-8") as file:
             csvReader = csv.reader(file)
             next(csvReader)
             for line in csvReader:
-                player_id = line[0]
-                name = line[1]
-                date_of_birth = datetime.fromisoformat(line[2])
-                address = line[3]
-                phone = line[4]
-                email = line[5]
-                link = line[6]
-                handle = line[7]
-                team_name = line[8]
+                player_id: str = line[0]
+                name: str = line[1]
+                date_of_birth: datetime = datetime.fromisoformat(line[2])
+                address: str = line[3]
+                phone: str = line[4]
+                email: str = line[5]
+                link: str = line[6]
+                handle: str = line[7]
+                team_name: str = line[8]
 
-                player = Player(
+                player: Player = Player(
                     player_id,
                     name,
                     date_of_birth,
@@ -39,3 +39,12 @@ class PlayerData:
                 )
                 players.append(player)
             return players
+
+    def store_player_data(self, player: Player) -> Player | None:
+        with open(self._filepath, "a") as file:
+            csvWriter = csv.writer(file)
+            try:
+                csvWriter.writerow(player.toCSVList())
+            except:
+                return None
+        return player
