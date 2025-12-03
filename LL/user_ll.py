@@ -5,15 +5,15 @@ class UserLL:
         self.id = 0
         self.api_data = api_data
 
-    def get_all_teams(self):
+    def get_all_teams(self) -> list:
         teams = self.api_data.get_all_teams()
         return teams
 
-    def get_all_tournaments(self) -> dict:
+    def get_all_tournaments(self) -> list:
         tournaments = self.api_data.get_all_tournaments()
         return tournaments
 
-    def get_all_players(self):
+    def get_all_players(self) -> list:
         players = self.api_data.get_all_players()
         return players
 
