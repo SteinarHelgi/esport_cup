@@ -4,7 +4,7 @@ class Team:
         id: int,
         name: str,
         players: list[str],
-        captain_id: str,
+        captain_id: int,
         social_media: str,
         club: str,
         points: int,
@@ -31,4 +31,3 @@ class Team:
         ret.append(self.club)
         ret.append(self.points)
         return ret
-

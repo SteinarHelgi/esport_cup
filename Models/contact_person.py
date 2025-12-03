@@ -2,7 +2,7 @@ from Models.models import Tournament
 
 
 class ContactPerson:
-    def __init__(self, id: str, name: str, email: str, phone: str, tournament_id: str):
+    def __init__(self, id: int, name: str, email: str, phone: str, tournament_id: int):
         self.id = id
         self.name = name
         self.email = email

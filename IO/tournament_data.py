@@ -12,7 +12,7 @@ class TournamentData:
 
     def get_tournament_data(self) -> list[Tournament]:
         tournaments = []
-        with open(self.tournament_file_path, "r+", encoding = "utf-8") as file:
+        with open(self.tournament_file_path, "r+", encoding="utf-8") as file:
             csvReader = csv.reader(file)
             next(csvReader)  # skip header
             for line in csvReader:
@@ -36,14 +36,14 @@ class TournamentData:
                         number_of_servers,
                         contact_person_name,
                     )
-                tournaments.append(tournament)
+                    tournaments.append(tournament)
         return tournaments
 
-    def store_tournament_data(self, tournament: Tournament)->Tournament:
+    def store_tournament_data(self, tournament: Tournament) -> Tournament | None:
         with open(self.tournament_file_path, "a") as file:
             csvWriter = csv.writer(file)
             try:
                 csvWriter.writerow(tournament.toCSVList())
-            except:
+            except FileNotFoundError:
                 return None
         return tournament
