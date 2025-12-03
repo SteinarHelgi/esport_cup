@@ -8,7 +8,7 @@ def main():
     today = datetime(2025, 3, 10)
     ongoing = user.APILL.get_upcoming_tournaments(today)
 
-    print("ONGOING TOURNAMENTS:")
+    print("UPCOMING TOURNAMENTS:")
     for t in ongoing:
         print(f"- {t.id}: {t.name}  {t.start_date} – {t.end_date}")
 main()
