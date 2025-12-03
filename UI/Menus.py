@@ -88,14 +88,17 @@ def my_tournaments_menu():
     my_created_tournaments = ["Chuck Norris Open", "Paris Major", "Steinar's Cock Wrestling"]
     print(f"TOURNAMENTS YOU HAVE CREATED! \n{my_created_tournaments} \nb.Back \nq. Quit")#TODO Delete tournament?
 
+
+#Eftir að klára og skoða betur
 def create_schedule():
-    pass
+    print("Choose timeslot: ")
 
 def create_match():
-    pass
-
+    print("Select two available teams to face off! \nAvailable Teams:")
+    
 def register_results():
-    pass
+    print("Enter results of matches that have been finished: ")
 
 def update_schedule():
-    pass
+    print("Update your tournaments schedule: ")
+
