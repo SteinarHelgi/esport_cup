@@ -29,17 +29,6 @@ class ContactPersonData:
                 contact_persons.append(contact_person) 
         return contact_persons
 
-    #Setja þetta í logic layer - Sigrún/Agnar
-    def get_contact_person_by_id(self, id: int) -> ContactPerson:
-        contact_persons = self.get_contact_person_data()
-        for contact in contact_persons:
-            try:
-                if contact.id == id:
-                    return contact
-            except:
-                return None
-        
-
     def store_contact_person_data(self, contact_person: ContactPerson):
         with open(self.contact_person_filepath, "a") as file:
             csvWriter = csv.writer(file)
