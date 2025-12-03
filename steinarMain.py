@@ -4,6 +4,6 @@ from IO.player_data import PlayerData
 
 
 def main():
-
+    upcoming_tournaments = self.show
 
 main()

@@ -44,20 +44,24 @@ class UserUI:
         today = datetime.today()
         tournaments = self.APILL.get_ongoing_tournaments(today)
         print("Ongoing Tournaments:")
-        format_tournament_table(self, tournaments)
+        print(format_tournament_table(self, tournaments))
+        return "QUIT"
+        
 
     def show_upcoming_tournaments(self): #Shows the tournaments that are starting after the date of checking
         today = datetime.today()
         tournaments = self.APILL.get_upcoming_tournaments(today)
         print("Upcoming Tournaments")
-        format_tournament_table(self, tournaments)
+        print(format_tournament_table(self, tournaments))
+        return "QUIT"
         
         
     def show_past_tournaments(self):
         today = datetime.today()
         tournaments = self.APILL.get_past_tournaments(today)
         print("Past Tournaments")
-        format_tournament_table(self, tournaments)
+        print(format_tournament_table(self, tournaments))
+        return "QUIT"
         
 
     def show_players(self, team: Team):

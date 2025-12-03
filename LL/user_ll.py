@@ -24,7 +24,7 @@ class UserLL:
         for t in tournament:
             if t.start_date <= today <= t.end_date:
                 ongoing.append(t)
-
+        
         return ongoing
         
 

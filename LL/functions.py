@@ -9,7 +9,7 @@ def format_tournament_table(self, tournaments):
     
     #Print a divider line
     print("-" * (w_name + w_date + w_date))
-
+    empty_string = ""
     #Loop through the data
     for tournament in tournaments:
         # Clean up the dates
@@ -17,4 +17,5 @@ def format_tournament_table(self, tournaments):
         e_date = str(tournament.end_date).split(" ")[0]
 
         # Print the actual variables (tournament.name), not the string "NAME"
-        print(f"{tournament.name:<{w_name}} {s_date:<{w_date}} {e_date:<{w_date}}")
+        empty_string += f"{tournament.name:<{w_name}} {s_date:<{w_date}} {e_date:<{w_date}}\n"
+    return empty_string

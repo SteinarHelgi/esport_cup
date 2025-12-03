@@ -1,9 +1,10 @@
+from UI.user_ui import UserUI
 from UI.main_ui import MainUI
 
 
 def main():
-    main_ui = MainUI()
-    main_ui.menu_manager.user_ui.show_current_tournaments
+    user = MainUI()
+    user.run()
     
 
 
