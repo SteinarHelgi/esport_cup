@@ -4,7 +4,7 @@ from Models.models import Team
 class Club:
     def __init__(
         self,
-        id: int,
+        id: str,
         name: str,
         hometown: str,
         logo: str,
@@ -21,3 +21,18 @@ class Club:
         self.country = country
         self.points = points
         self.teams = teams
+
+    def toCSVList(self):
+        ret: list[str] = []
+        ret.append(self.id)
+        ret.append(self.name)
+        ret.append(self.hometown)
+        ret.append(self.logo)
+        ret.append(self.club_colors)
+        ret.append(self.country)
+        ret.append(self.points)
+        ret.append(self.teams)
+        
+        
+        
+        return ret
