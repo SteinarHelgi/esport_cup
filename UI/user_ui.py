@@ -1,7 +1,7 @@
 """This is the page where everything related to the users UI is shown"""
 
 from LL.api_ll import APILL
-from LL.functions import format_team_list, format_tournament_table
+from LL.functions import format_player_list, format_team_list, format_tournament_table
 from Models.models import Team
 from datetime import datetime
 
@@ -93,8 +93,7 @@ class UserUI:
 
     def show_players(self, team: Team):
         players = self.APILL.get_players_in_team(team.name)
-        for player in players:
-            print(player.name, player.handle)
+        format_player_list(self, players)
         valid_options = ["q", "b"]
         choice: str = self.menu_manager.prompt_choice(valid_options)
         if choice == "q":
