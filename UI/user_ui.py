@@ -37,7 +37,7 @@ class UserUI:
         if choice == "q":
             return  "QUIT"
 
-    def show_current_tournaments(self): #Shows the tournaments that are going on at the time of checking
+    def show_ongoing_tournaments(self): #Shows the tournaments that are going on at the time of checking
         today = datetime.today()
         tournaments = self.APILL.get_ongoing_tournaments(today)
         print("Ongoing Tournaments:")
