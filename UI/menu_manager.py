@@ -7,6 +7,13 @@ class MenuManager:
     def __init__(self, api_ll: APILL) -> None:
         self.api_ll = api_ll
 
+        self.pages = {
+            "LOGIN_MENU": self.print_login_menu,
+            "USER_MENU": self.print_user_menu,
+            "TEAM_CAPTAIN_MENU": self.print_team_captain_menu,
+            "ORGANISER_MENU": self.print_organiser_menu,
+        }
+
     def prompt_choice(self, valid_choices: list[str]) -> str:
         """Prompt user, only give back valid choice"""
         valid_lower = []
@@ -27,11 +34,11 @@ class MenuManager:
         print("1. continue as user \n2. Login as Team Captain \n3. Login as Organiser")
         choice: str = self.prompt_choice(["1", "2", "3", "q"])
         if choice == "1":
-            return "USER_FRONT_PAGE"
+            return "USER_MENU"
         if choice == "2":
-            return "TEAM_CAPTAIN_FRONT_PAGE"
+            return "TEAM_CAPTAIN_MENU"
         if choice == "3":
-            return "ORGANISER_FRONT_PAGE"
+            return "ORGANISER_MENU"
         return "QUIT"
 
     def print_user_menu(self):  # Option menu for user

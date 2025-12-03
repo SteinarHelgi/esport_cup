@@ -16,10 +16,7 @@ class APIDATA:
         return self.contact_person.get_contact_person_data()
 
     def get_contact_person_by_id(self, id: int) -> ContactPerson:
-        return self.contact_person.get_contact_person_by_id()
+        return self.contact_person.get_contact_person_by_id(id)
 
     def get_tournament_data(self):
         return self.tournament_data.get_tournament_data()
-    
-    
-
