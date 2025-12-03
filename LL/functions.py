@@ -46,7 +46,7 @@ def format_team_list(self, teams:list[Team]): #TODO add club to this
         empty_string += f"{team.name:<{w_name}} {captain_fix:<{w_captain}}\n"
     return empty_string
 
-def format_player_list(self, players:list[Player]): #TODO KLÁRA 
+def format_player_list(self, players:list[Player]): #TODO KLÁRA? 
     #Define fixed widths for columns
     w_player_name = 30
     w_player_handle = 25

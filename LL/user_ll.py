@@ -16,7 +16,7 @@ class UserLL:
         return tournaments
 
     def get_all_players(self) -> list:
-        players = self.api_data.get_all_players()
+        players = self.api_data.get_all_player_data()
         return players
 
     def get_ongoing_tournament(self, today):
