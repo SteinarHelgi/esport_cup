@@ -1,4 +1,5 @@
 from IO.contact_person_data import ContactPersonData
+from IO.player_data import PlayerData
 from IO.team_data import TeamData
 from IO.tournament_data import TournamentData
 from Models.models import ContactPerson
@@ -14,6 +15,7 @@ class APIDATA:
         self.tournament_data = TournamentData()
         self.contact_person = ContactPersonData()
         self.team_data = TeamData()
+        self.player_data = PlayerData()
         # TODO setja alla data clasana hér
 
     def get_contact_person_data(self) -> list[ContactPerson]:
@@ -33,3 +35,6 @@ class APIDATA:
 
     def store_team_data(self, team: Team):
         return self.team_data.store_team_data(team)
+
+    def get_all_player_data(self):
+        return self.player_data.get_all_player_data()

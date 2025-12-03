@@ -1,5 +1,9 @@
+from Models.team import Team
+from IO.api_data import APIDATA
+
+
 class TeamCaptainLL:
-    def __init__(self, APIDATA):
+    def __init__(self, APIDATA: APIDATA):
         self.id = 0
         self.APIDATA = APIDATA
 
@@ -27,3 +31,7 @@ class TeamCaptainLL:
         # TODO
         pass
 
+    def get_players_in_team(self, team: Team):
+        teams = self.APIDATA.get_team_data()
+        players = self.APIDATA.getpl
+        return teams

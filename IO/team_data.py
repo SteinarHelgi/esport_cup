@@ -5,7 +5,7 @@ from Models.models import Team
 
 class TeamData:
     def __init__(self):
-        self.team_file_path = "Data/TeamData.csv"
+        self.team_file_path = "Data/teams.csv"
 
     def get_all_team_data(self) -> list[Team]:
         teams = []
@@ -15,23 +15,10 @@ class TeamData:
             for line in csvReader:
                 id = int(line[0])
                 name = line[1]
-                all_players_handle_raw = line[2]
-                logo = line[3]
-                captain_id = int(line[4])
-                social = line[5]
-                club_id = line[6]
-                points = int(line[7])
-                all_players_handle = all_players_handle_raw.split(";")
-
-                team = Team(
-                    id,
-                    name,
-                    all_players_handle,
-                    captain_id,
-                    social,
-                    club_id,
-                    points,
-                )
+                captain_id = line[2]
+                social_media = line[3]
+                logo = line[4]
+                team = Team(id, name, captain_id, social_media, logo)
                 teams.append(team)
             return teams
 

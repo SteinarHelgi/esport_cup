@@ -25,3 +25,6 @@ class APILL:
 
     def get_upcoming_tournaments(self, today) -> list[Tournament]:
         return self.userLL.get_upcoming_tournament(today)
+
+    def get_players_in_team(self, team: Team):
+        return self.team_captain_ll.get_players_in_team(team)
