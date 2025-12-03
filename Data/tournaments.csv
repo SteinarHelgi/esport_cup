@@ -1,2 +1,22 @@
-tournament_id,name,venue,start_date,end_date,contact_name,contact_email,contact_phone,max_servers
-1,RU's Glorious e-Sport Extravaganza 2025,Sun Reykjavik University,2025-12-06,2025-12-07,Professor Example,prof.esport@ru.is,+3541234567,4
+id,name,start_date,end_date,venue,game,number_of_servers,contact_person
+1,Spring Championship,2025-03-10,2025-03-12,Los Angeles Convention Center,League of Legends,12,Alex Morgan
+2,Summer Invitational,2025-06-05,2025-06-07,Mandalay Bay Arena,Valorant,10,Sarah Kim
+3,Northern Cup,2025-04-18,2025-04-19,Toronto Esports Hub,Dota 2,14,Michael Chan
+4,Metro Open,2025-05-22,2025-05-23,Chicago Grand Hall,CS:GO,9,Emily Rivera
+5,Desert Clash,2025-07-02,2025-07-04,Phoenix Gaming Center,Apex Legends,11,Jason Patel
+6,Pacific Showdown,2025-03-28,2025-03-30,San Francisco Expo Center,Overwatch 2,13,Linda Torres
+7,Capital Arena Series,2025-08-09,2025-08-11,Washington Sports Arena,Rainbow Six Siege,8,Tom Andrews
+8,Coastal Brawl,2025-09-14,2025-09-15,Miami Esports Lounge,Fortnite,15,Chloe Adams
+9,Autumn Masters,2025-10-01,2025-10-03,Seattle Convention Hall,StarCraft II,7,Robert Lee
+10,Winter Royale,2025-12-05,2025-12-07,Denver Ice Arena,Valorant,10,Sophia Martinez
+11,Jungle Cup,2025-02-15,2025-02-16,Singapore Tech Dome,League of Legends,12,Daniel Wong
+12,Euro Arena Clash,2025-03-21,2025-03-23,Berlin GameSphere,Dota 2,16,Helena Fischer
+13,Skyline Series,2025-05-10,2025-05-11,New York Esports Hub,CS:GO,9,Karen Liu
+14,Highland Battle,2025-06-20,2025-06-22,Edinburgh Grand Hall,Apex Legends,11,James McGregor
+15,Descent Tournament,2025-07-28,2025-07-29,Tokyo Digital Stage,Overwatch 2,14,Yuki Tanaka
+16,Frontier Cup,2025-08-17,2025-08-19,Texas Esports Arena,Rainbow Six Siege,8,Carlos Ramirez
+17,Island Gauntlet,2025-09-26,2025-09-27,Honolulu Gaming Center,Fortnite,15,Maria Santos
+18,Galaxy Open,2025-10-18,2025-10-20,London Nebula Hall,StarCraft II,7,Oliver Knight
+19,Glacier Masters,2025-11-08,2025-11-09,Reykjavik Ice Hall,Valorant,10,Freyja Olafsdottir
+20,Sunset Showdown,2025-12-14,2025-12-16,Sydney Event Hub,League of Legends,12,Rebecca Moore
+

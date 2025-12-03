@@ -6,16 +6,16 @@ class UserLL:
         self.api_data = api_data
 
     def get_all_teams(self):
-        teams = ""
+        teams = self.api_data.get_all_teams()
         return teams
 
     def get_all_tournaments(self) -> dict:
         tournaments = self.api_data.get_all_tournaments()
         return tournaments
 
-    def get_players(self):
-        # TODO
-        pass
+    def get_all_players(self):
+        players = self.api_data.get_all_players()
+        return players
 
     def get_ongoing_tournament(self, today):
         tournament = self.api_data.get_all_tournaments()
