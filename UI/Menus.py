@@ -89,7 +89,7 @@ def my_tournaments_menu():
     print(f"TOURNAMENTS YOU HAVE CREATED! \n{my_created_tournaments} \nb.Back \nq. Quit")#TODO Delete tournament?
 
 def create_schedule():
-    pass
+    print("Choose timeslot: ")
 
 def create_match():
     pass
