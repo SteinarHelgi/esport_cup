@@ -1,11 +1,12 @@
-from datetime import datetime
 import csv
+from datetime import datetime
 from Models.player import Player
 
 
 class PlayerData:
     def __init__(self):
         self._filepath: str = "Data/players.csv"
+
 
     def get_all_player_data(self) -> list[Player]:
         players: list[Player] = []
@@ -36,6 +37,7 @@ class PlayerData:
                 )
                 players.append(player)
             return players
+
 
     def store_player_data(self, player: Player) -> Player | None:
         with open(self._filepath, "a") as file:

@@ -25,7 +25,6 @@ class TournamentData:
                     game_id = line[5]
                     number_of_servers = int(line[6])
                     contact_person_name = line[7]
-
                     tournament = Tournament(
                         id,
                         name,
