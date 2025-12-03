@@ -3,11 +3,12 @@ from IO.player_data import PlayerData
 from IO.team_data import TeamData
 from IO.tournament_data import TournamentData
 from IO.game_data import GameData
+
 from Models.models import ContactPerson
 from Models.team import Team
 from Models.tournament import Tournament
 from Models.game import Game
-
+from Models.player import Player
 
 # Steinar
 
@@ -33,7 +34,7 @@ class APIDATA:
     def get_contact_person_by_id(self, id: int) -> ContactPerson | None:
         return self.contact_person_data.get_contact_person_by_id(id)
 
-    def get_tournament_data(self):
+    def get_all_tournament_data(self):
         return self.tournament_data.get_tournament_data()
 
     def store_tournament_data(self, tournament: Tournament):
@@ -47,3 +48,6 @@ class APIDATA:
 
     def get_all_player_data(self):
         return self.player_data.get_all_player_data()
+    
+    def store_player_data(self, player: Player):
+        return self.player_data.store_player_data(player)

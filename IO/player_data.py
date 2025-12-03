@@ -1,9 +1,6 @@
 from datetime import datetime
 import csv
-
 from Models.player import Player
-
-# player_id,name,date_of_birth,address,phone,email,link,handle,team_name
 
 
 class PlayerData:

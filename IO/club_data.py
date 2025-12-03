@@ -1,10 +1,8 @@
+#Þröstur
 import csv
-
 from Models.club import Club
 
-
 class ClubData:
-
     def __init__(self):
         self._filepath: str = "\Data\club.csv"
     
