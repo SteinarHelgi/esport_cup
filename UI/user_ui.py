@@ -2,6 +2,7 @@ from LL.api_ll import APILL
 from Models.models import Team
 
 
+
 def print_back_and_quit():
     print("")
     print("b. Back")
@@ -27,6 +28,7 @@ class UserUI:
         print_back_and_quit()
 
     def show_tournaments(self):
+        self.APILL.get_all_tournaments()
         valid_options = ["1", "2", "3", "b", "q"]
         option = "?"
         for option in valid_options:
