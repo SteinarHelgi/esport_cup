@@ -86,9 +86,9 @@ class UserUI:
         # TODO add functionality for selecting a tournament
         choice: str = self.menu_manager.prompt_choice(["b", "q"])
         if choice == "b":
-            return "Back"
+            return "TOURNAMENTS"
         if choice == "q":
-            return "Quit"
+            return "QUIT"
 
     def show_players(self, team: Team):
         players = self.APILL.get_players_in_team(team.name)
