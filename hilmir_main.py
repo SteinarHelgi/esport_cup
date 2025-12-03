@@ -1,8 +1,10 @@
+from UI.main_ui import MainUI
 
-from UI.Menus import print_my_team_menu
 
 def main():
-    print_my_team_menu()
+    main_ui = MainUI()
+    main_ui.menu_manager.user_ui.show_tournaments()
+    
+
 
 main()
-

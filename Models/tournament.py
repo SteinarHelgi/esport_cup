@@ -11,7 +11,7 @@ class Tournament:
         venue: str,
         game_id: str,
         no_servers: int,
-        contact_person_id: int,
+        contact_person_name: str,
     ):
         self.id = id
         self.start_date = start_date
@@ -20,7 +20,7 @@ class Tournament:
         self.venue = venue
         self.game_id = game_id
         self.no_servers = no_servers
-        self.contact_person = contact_person_id
+        self.contact_person = contact_person_name
 
     def toCSVList(self):
         ret = []

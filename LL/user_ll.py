@@ -1,7 +1,7 @@
 from datetime import datetime
-
+from IO.api_data import APIDATA
 class UserLL:
-    def __init__(self, api_data):
+    def __init__(self, api_data:APIDATA):
         self.id = 0
         self.api_data = api_data
 
@@ -18,7 +18,7 @@ class UserLL:
         return players
 
     def get_ongoing_tournament(self, today):
-        tournament = self.api_data.get_all_tournaments()
+        tournament = self.api_data.get_tournament_data()
         ongoing = []
 
         for t in tournament:

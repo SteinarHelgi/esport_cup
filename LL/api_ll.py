@@ -1,5 +1,6 @@
 from IO.api_data import APIDATA
 from LL.user_ll import UserLL
+from Models.models import Tournament
 
 
 class APILL:
@@ -10,10 +11,10 @@ class APILL:
     def get_all_teams(self):
         return self.userLL.get_all_teams()
 
-    def get_all_tournaments(self):
-        return self.userLL.get_all_tournaments()
+    def get_all_tournaments(self) -> list[Tournament]:
+        return self.api_data.get_tournament_data()
 
-    def get_ongoing_tournaments(self, today):
+    def get_ongoing_tournaments(self, today) -> list[Tournament]: 
         return self.userLL.get_ongoing_tournament(today)
 
     def get_past_tournaments(self, today):
