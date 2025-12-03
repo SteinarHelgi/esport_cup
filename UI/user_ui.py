@@ -1,5 +1,7 @@
 from LL.api_ll import APILL
 from Models.models import Team
+from UI import menu_manager
+from UI.menu_manager import MenuManager
 
 
 
@@ -10,8 +12,9 @@ def print_back_and_quit():
 
 
 class UserUI:
-    def __init__(self, APILL: APILL) -> None:
+    def __init__(self, APILL: APILL, menu_manager: MenuManager) -> None:
         self.APILL = APILL
+        self.menu_manager = menu_manager
 
     def show_teams(self):
         teams = self.APILL.get_all_teams()
@@ -30,17 +33,18 @@ class UserUI:
     def show_tournaments(self):
         self.APILL.get_all_tournaments()
         valid_options = ["1", "2", "3", "b", "q"]
-        option = "?"
-        for option in valid_options:
-            if option == "1":
-                return  # ongoing_tournaments
-            if option == "2":
-                return  # upcoming_tournaments
-            if option == "3":
+        choice: str = self.menu_manager.prompt_choice(valid_options)
+
+        for choice in valid_options:
+            if choice == "1":
+                return "ONGOING_TOURNAMENTS"
+            if choice == "2":
+                return "UPOMING_TOURNAMENTS"
+            if choice == "3":
                 return  # Past_tournaments
-            if option == "b":
+            if choice == "b":
                 return  # back_button
-            if option == "q":
+            if choice == "q":
                 return  # quit
 
     def show_current_tournaments(self):

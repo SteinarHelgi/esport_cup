@@ -11,7 +11,7 @@ class MainUI:
         self.current_screen = "LOGIN_MENU"
 
     def run(self) -> None:
-        """Main loop handling navigation."""
+        """Main loop handling navigation"""
         while True:
             func = self.menu_manager.pages.get(self.current_screen)
 
