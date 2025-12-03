@@ -1,3 +1,5 @@
+from datetime import datetime
+
 class UserLL:
     def __init__(self, api_data):
         self.id = 0
@@ -15,17 +17,36 @@ class UserLL:
         # TODO
         pass
 
-    def get_ongoing_tournament(self):
-        # TODO
-        pass
+    def get_ongoing_tournament(self, today):
+        tournament = self.api_data.get_all_tournaments()
+        ongoing = []
 
-    def get_past_tournament(self):
-        # TODO
-        pass
+        for t in tournament:
+            if t.start_date <= today <= t.end_date:
+                ongoing.append(t)
 
-    def get_upcoming_tournament(self):
-        # TODO
-        pass
+        return ongoing
+        
+
+    def get_past_tournament(self, today): 
+        tournament = self.api_data.get_all_tournaments()
+        past = []
+
+        for t in tournament:
+            if t.end_date < today:
+                past.append(t)
+
+        return past
+
+    def get_upcoming_tournament(self, today):
+        tournament = self.api_data.get_all_tournaments()
+        upcoming = []
+
+        for t in tournament:
+            if t.end_date > today:
+                upcoming.append(t)
+        
+        return upcoming
 
     def show_schedule(self):
         # TODO
@@ -34,4 +55,7 @@ class UserLL:
     def get_statistics(self):
         # TODO
         pass
-
+    
+    def get_all_clubs(self):
+        clubs = self.api_data.get_all_clubs()
+        return clubs
