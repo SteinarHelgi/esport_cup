@@ -26,3 +26,6 @@ class Player:
         self.team = team_name
         self.handle = handle
         self.date_of_birth = date_of_birth
+
+    def get_team_name(self):
+        return self.team
