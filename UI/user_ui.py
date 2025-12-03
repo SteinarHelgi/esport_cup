@@ -93,7 +93,7 @@ class UserUI:
 
     def show_players(self, team: Team):
         players = self.APILL.get_players_in_team(team.name)
-        format_player_list(self, players)
+        print(format_player_list(self, players))
         valid_options = ["q", "b"]
         choice: str = self.menu_manager.prompt_choice(valid_options)
         if choice == "q":
