@@ -1,7 +1,7 @@
 """This is the page where everything related to the users UI is shown"""
 
 from LL.api_ll import APILL
-from LL.functions import format_tournament_table
+from LL.functions import format_team_list, format_tournament_table
 from Models.models import Team
 from datetime import datetime
 
@@ -19,8 +19,8 @@ class UserUI:
 
     def show_teams(self) -> str:
         teams = self.APILL.get_all_teams()
-        for team in teams:
-            print(team.name)
+        print(format_team_list(self, teams))
+        return "QUIT"
 
         choice: str = self.menu_manager.prompt_choice(["1", "2", "3", "q"])
 
