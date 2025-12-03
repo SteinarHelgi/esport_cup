@@ -1,8 +1,6 @@
 from LL.api_ll import APILL
 from Models.models import Team
-from UI import menu_manager
 from UI.menu_manager import MenuManager
-
 
 
 def print_back_and_quit():
