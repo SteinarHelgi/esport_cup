@@ -18,15 +18,15 @@ class TeamCaptainUI:
             f"------ \nNew player created with ID: {new_player_id}\n{player_data['name']}\n{player_data['date_of_birth']}\n{player_data['team']} "
         )
 
+    def show_my_tournaments(self):
+        # TODO
+        pass
+
     def show_modify_player(self):
         # TODO
         pass
 
     def show_my_team(self) -> str:
-        # TODO
-        pass
-
-    def show_my_tournaments(self):
         # TODO
         pass
 

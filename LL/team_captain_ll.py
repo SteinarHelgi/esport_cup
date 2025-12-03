@@ -1,29 +1,29 @@
 class TeamCaptainLL:
-    def __init__(self):
+    def __init__(self, APIDATA):
         self.id = 0
-    
+        self.APIDATA = APIDATA
+
     def create_player(self):
-        #TODO
+        # TODO
         pass
 
     def modify_player(self):
-        #TODO
+        # TODO
         pass
 
     def create_new_team(self):
-        #TODO
+        # TODO
         pass
 
     def add_team_to_club(self):
-        #TODO
+        # TODO
         pass
-    
+
     def modify_team_info(self):
-        #TODO
+        # TODO
         pass
 
     def register_team_to_tournament(self):
-        #TODO
+        # TODO
         pass
 
-    

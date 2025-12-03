@@ -9,7 +9,7 @@ class MenuManager:
 
     def __init__(self, api_ll: APILL) -> None:
         self.api_ll = api_ll
-        self.user_ui = UserUI(self.api_ll)
+        self.user_ui = UserUI(self.api_ll, self)
         self.team_captain_ui = TeamCaptainUI(self.api_ll)
         self.organiser_Ui = OrganiserUI(self.api_ll)
 
