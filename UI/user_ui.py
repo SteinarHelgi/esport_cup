@@ -40,7 +40,7 @@ class UserUI:
         tournaments = self.APILL.get_ongoing_tournaments(today)
         print("Ongoing Tournaments:")
         for tournament in tournaments:
-            print(tournament.name)
+            print(tournament.name, str(tournament.start_date).split(" ")[0])
         
 
     def show_upcoming_tournaments(self):
@@ -48,10 +48,8 @@ class UserUI:
         tournaments = self.APILL.get_upcoming_tournaments(today)
         print("Upcoming Tournaments")
         for tournament in tournaments:
-            print(tournament.name)
-    
-        # TODO
-        pass
+            print(tournament.name, str(tournament.start_date).split(" ")[0])
+
 
     def show_past_tournaments(self):
         # TODO
