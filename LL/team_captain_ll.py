@@ -1,3 +1,4 @@
+from Models.player import Player
 from Models.team import Team
 from IO.api_data import APIDATA
 
@@ -31,7 +32,18 @@ class TeamCaptainLL:
         # TODO
         pass
 
-    def get_players_in_team(self, team: Team):
-        teams = self.APIDATA.get_team_data()
-        players = self.APIDATA.getpl
-        return teams
+    def get_players_in_team(self, team_name: str) -> list[Player]:
+        # TEAM
+        # id name captain_id social_media logo
+
+        # PLAYERS
+        # id name dateofbirth address phone email social handle team_name
+
+        players_in_team = []
+
+        players = self.APIDATA.get_all_player_data()
+        for player in players:
+            if player.team == team_name:
+                players_in_team.append(player)
+
+        return players_in_team
