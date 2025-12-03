@@ -18,7 +18,8 @@ class UserUI:
         self.menu_manager = menu_manager
 
     def show_teams(self):
-        pass
+        teams = self.APILL.get_all_teams()
+        
 
     def show_tournaments(self):
         tournaments = self.APILL.get_all_tournaments()
