@@ -17,15 +17,22 @@ class UserUI:
         self.APILL = APILL
         self.menu_manager = menu_manager
 
-    def show_teams(self):
-        pass
+    def show_teams(self) -> str:
+        teams = self.APILL.get_all_teams()
+        for team in teams:
+            print(team.name)
 
-    def show_tournaments(self):
+        choice: str = self.menu_manager.prompt_choice(["1", "2", "3", "q"])
+
+        if choice == "1":
+            return "LOGIN_PAGE"
+        else:
+            return "QUIT"
+
+    def show_tournaments(self) -> str:
         tournaments = self.APILL.get_all_tournaments()
         valid_options = ["1", "2", "3", "b", "q"]
-
         print("1. Ongoing tournaments \n2. Upcoming tournaments \n3. Past Tournaments")
-
         choice: str = self.menu_manager.prompt_choice(valid_options)
         print("choice:", choice)
 
@@ -37,10 +44,12 @@ class UserUI:
             return "PAST_TOURNAMENTS"
         elif choice == "b":
             return "BACK"
-        if choice == "q":
+        else:
             return "QUIT"
 
-    def show_ongoing_tournaments(self): #Shows the tournaments that are going on at the time of checking
+    def show_ongoing_tournaments(
+        self,
+    ):  # Shows the tournaments that are going on at the time of checking
         today = datetime.today()
         tournaments = self.APILL.get_ongoing_tournaments(today)
         print("Ongoing Tournaments:")
@@ -48,7 +57,9 @@ class UserUI:
         return "QUIT"
         
 
-    def show_upcoming_tournaments(self): #Shows the tournaments that are starting after the date of checking
+    def show_upcoming_tournaments(
+        self,
+    ):  # Shows the tournaments that are starting after the date of checking
         today = datetime.today()
         tournaments = self.APILL.get_upcoming_tournaments(today)
         print("Upcoming Tournaments")
@@ -71,4 +82,3 @@ class UserUI:
     def show_statistics(self):
         # TODO
         pass
-

@@ -15,6 +15,9 @@ class APILL:
     def get_all_teams(self) -> list[Team]:
         return self.userLL.get_all_teams()
 
+    def get_players_in_team(self, team: str) -> list[Player]:
+        return self.team_captain_ll.get_players_in_team(team)
+
     def get_all_tournaments(self) -> list[Tournament]:
         return self.api_data.get_tournament_data()
 
@@ -26,6 +29,3 @@ class APILL:
 
     def get_upcoming_tournaments(self, today) -> list[Tournament]:
         return self.userLL.get_upcoming_tournament(today)
-
-    def get_players_in_team(self, team: str) -> list[Player]:
-        return self.team_captain_ll.get_players_in_team(team)
