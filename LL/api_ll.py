@@ -19,8 +19,8 @@ class APILL:
     def get_ongoing_tournaments(self, today) -> list[Tournament]: 
         return self.userLL.get_ongoing_tournament(today)
 
-    def get_past_tournaments(self, today):
+    def get_past_tournaments(self, today) -> list[Tournament]:
         return self.userLL.get_past_tournament(today)
 
-    def get_upcoming_tournaments(self, today):
+    def get_upcoming_tournaments(self, today) -> list[Tournament]:
         return self.userLL.get_upcoming_tournament(today)

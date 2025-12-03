@@ -38,14 +38,18 @@ class UserUI:
     def show_current_tournaments(self):
         today = datetime.today()
         tournaments = self.APILL.get_ongoing_tournaments(today)
-        print("Tournaments:")
+        print("Ongoing Tournaments:")
         for tournament in tournaments:
-            print(tournament)
-        print_back_and_quit()
+            print(tournament.name)
+        
 
     def show_upcoming_tournaments(self):
-        tournaments = self.APILL.get
-
+        today = datetime.today()
+        tournaments = self.APILL.get_upcoming_tournaments(today)
+        print("Upcoming Tournaments")
+        for tournament in tournaments:
+            print(tournament.name)
+    
         # TODO
         pass
 
