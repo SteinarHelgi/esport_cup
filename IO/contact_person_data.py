@@ -1,15 +1,15 @@
-#Þröstur
+# Þröstur
 import csv
 from Models.models import ContactPerson
+
 
 class ContactPersonData:
     def __init__(self):
         self.contact_person_filepath = "Data/ContactPerson.csv"
 
-
-    def get_contact_person_data(self) -> ContactPerson:
+    def get_contact_person_data(self) -> list[ContactPerson]:
         contact_persons = []
-        with open(self.contact_person_filepath, "+r", encoding = "utf-8") as file:
+        with open(self.contact_person_filepath, "+r", encoding="utf-8") as file:
             csvReader = csv.reader(file)
             next(csvReader)
             for line in csvReader:
@@ -19,14 +19,8 @@ class ContactPersonData:
                 phone = line[3]
                 tournament_id = int(line[4])
 
-                contact_person = ContactPerson(
-                    id,
-                    name,
-                    email,
-                    phone,
-                    tournament_id
-                )
-                contact_persons.append(contact_person) 
+                contact_person = ContactPerson(id, name, email, phone, tournament_id)
+                contact_persons.append(contact_person)
         return contact_persons
 
     def store_contact_person_data(self, contact_person: ContactPerson):
@@ -37,3 +31,4 @@ class ContactPersonData:
             except:
                 return None
         return contact_person
+
