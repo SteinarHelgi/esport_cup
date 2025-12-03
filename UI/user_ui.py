@@ -20,7 +20,6 @@ class UserUI:
     def show_teams(self) -> str:
         teams = self.APILL.get_all_teams()
         print(format_team_list(self, teams))
-        return "QUIT"
 
         choice: str = self.menu_manager.prompt_choice(["1", "2", "3", "q"])
 
