@@ -9,7 +9,7 @@ class ContactPersonData:
 
     def get_contact_person_data(self) -> ContactPerson:
         contact_persons = []
-        with open(self.contact_person_filepath, "+r") as file:
+        with open(self.contact_person_filepath, "+r", encoding = "utf-8") as file:
             csvReader = csv.reader(file)
             next(csvReader)
             for line in csvReader:

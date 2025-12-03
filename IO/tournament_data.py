@@ -12,7 +12,7 @@ class TournamentData:
 
     def get_tournament_data(self) -> list[Tournament]:
         tournaments = []
-        with open(self.tournament_file_path, "r+") as file:
+        with open(self.tournament_file_path, "r+", encoding = "utf-8") as file:
             csvReader = csv.reader(file)
             next(csvReader)  # skip header
             for line in csvReader:
@@ -23,20 +23,19 @@ class TournamentData:
                 venue = line[4]
                 game_id = line[5]
                 number_of_servers = int(line[6])
-                # contact_person_id = ContactPerson(line[7],"Hilmir","hilmir@rasshaus.is","8410536",)
                 contact_person_id = line[7]
 
-                    tournament = Tournament(
-                        id,
-                        name,
-                        start_date,
-                        end_date,
-                        venue,
-                        game_id,
-                        number_of_servers,
-                        contact_person_id,
-                    )
-                    tournaments.append(tournament)
+                tournament = Tournament(
+                    id,
+                    name,
+                    start_date,
+                    end_date,
+                    venue,
+                    game_id,
+                    number_of_servers,
+                    contact_person_id,
+                )
+                tournaments.append(tournament)
         return tournaments
 
     def store_tournament_data(self, tournament: Tournament)->Tournament:

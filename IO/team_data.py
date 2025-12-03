@@ -9,7 +9,7 @@ class TeamData:
 
     def get_all_team_data(self, id) -> list[Team]:
         teams = []
-        with open(self.team_file_path, "+r") as file:
+        with open(self.team_file_path, "+r", encoding = "utf-8" ) as file:
             csvReader = csv.reader(file)
             next(csvReader)
             for line in csvReader:
