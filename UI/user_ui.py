@@ -1,7 +1,6 @@
 from LL.api_ll import APILL
 from Models.models import Team
-
-
+from datetime import datetime
 def print_back_and_quit():
     print("")
     print("b. Back")
@@ -30,21 +29,22 @@ class UserUI:
         elif choice == "2":
             return "UPCOMING_TOURNAMENTS"
         elif choice == "3":
-            return  # Past_tournaments
+            return  "PAST_TOURNAMENTS"
         elif choice == "b":
-            return  # back_button
+            return  "BACK"
         if choice == "q":
-            return  # quit
+            return  "QUIT"
 
     def show_current_tournaments(self):
-        tournaments = self.APILL.get_all_tournaments()
+        today = datetime.today()
+        tournaments = self.APILL.get_ongoing_tournaments(today)
         print("Tournaments:")
         for tournament in tournaments:
             print(tournament)
         print_back_and_quit()
 
     def show_upcoming_tournaments(self):
-        print("hello upcoming")
+        tournaments = self.APILL.get
 
         # TODO
         pass
