@@ -1,9 +1,5 @@
 
-
-
-
 from Models.team import Team
-
 
 def format_tournament_table(self, tournaments):
    #Define fixed widths for columns
@@ -25,7 +21,6 @@ def format_tournament_table(self, tournaments):
         # Print the actual variables (tournament.name), not the string "NAME"
         empty_string += f"{tournament.name:<{w_name}} {s_date:<{w_date}} {e_date:<{w_date}}\n"
     return empty_string
-
 
 def format_team_list(self, teams:list[Team]): #TODO add club to this
     #Define fixed widths for columns
