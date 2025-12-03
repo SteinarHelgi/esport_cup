@@ -53,7 +53,6 @@ class UserUI:
         format_tournament_table(self, tournaments)
         
         
-
     def show_past_tournaments(self):
         today = datetime.today()
         tournaments = self.APILL.get_past_tournaments(today)
