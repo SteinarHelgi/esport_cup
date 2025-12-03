@@ -8,6 +8,7 @@ class MainUI:
     def __init__(self):
         self.APILL = APILL()
         self.menu_manager = MenuManager(self.APILL)
+        self.previous_screen = ""
         self.current_screen = "LOGIN_MENU"
 
     def run(self) -> None:

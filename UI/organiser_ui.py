@@ -2,8 +2,9 @@ from LL.api_ll import APILL
 
 
 class OrganiserUI:
-    def __init__(self, APILL: APILL) -> None:
+    def __init__(self, APILL: APILL, menu_manager) -> None:
         self.APILL = APILL
+        self.menu_manager = menu_manager
 
     def show_create_tournament(self):
         # TODO
