@@ -3,6 +3,8 @@
 from LL.api_ll import APILL
 from Models.models import Team
 from datetime import datetime
+
+
 def print_back_and_quit():
     print("")
     print("b. Back")
@@ -31,19 +33,19 @@ class UserUI:
         elif choice == "2":
             return "UPCOMING_TOURNAMENTS"
         elif choice == "3":
-            return  "PAST_TOURNAMENTS"
+            return "PAST_TOURNAMENTS"
         elif choice == "b":
-            return  "BACK"
+            return "BACK"
         if choice == "q":
-            return  "QUIT"
+            return "QUIT"
 
     def show_ongoing_tournaments(self): #Shows the tournaments that are going on at the time of checking
         today = datetime.today()
         tournaments = self.APILL.get_ongoing_tournaments(today)
         print("Ongoing Tournaments:")
+        print("NAME:        START DATE:         END DATE:")
         for tournament in tournaments:
             print(tournament.name, str(tournament.start_date).split(" ")[0])
-        
 
     def show_upcoming_tournaments(self): #Shows the tournaments that are starting after the date of checking
         today = datetime.today()
@@ -51,7 +53,6 @@ class UserUI:
         print("Upcoming Tournaments")
         for tournament in tournaments:
             print(tournament.name, str(tournament.start_date).split(" ")[0])
-
 
     def show_past_tournaments(self):
         today = datetime.today()
