@@ -19,7 +19,7 @@ class APILL:
         return self.team_captain_ll.get_players_in_team(team)
 
     def get_all_tournaments(self) -> list[Tournament]:
-        return self.api_data.get_tournament_data()
+        return self.api_data.get_all_tournament_data()
 
     def get_ongoing_tournaments(self, today) -> list[Tournament]:
         return self.userLL.get_ongoing_tournament(today)
