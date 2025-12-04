@@ -2,7 +2,7 @@ from datetime import date
 from LL.api_ll import APILL
 from Models.player import Player
 from UI.Menus import print_my_team_menu
-
+from functions import format_player_list
 
 class TeamCaptainUI:
     def __init__(self, APILL: APILL, menu_manager) -> None:
