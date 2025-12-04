@@ -41,7 +41,7 @@ class APILL:
         return self.organiser_ll.create_tournament(tournament)
 
     def create_match(self) -> Match | None:
-        return self.organiser_ll.create_match()
+        return self.organiser_ll.create_match(self)
 
     def create_contact_person(self) -> ContactPerson | None:
         return self.organiser_ll.create_contact_person(self)
