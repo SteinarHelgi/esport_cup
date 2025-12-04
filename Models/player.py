@@ -8,7 +8,7 @@ class Player:
     def __init__(
         self,
         name: str,
-        date_of_birth: dt.datetime,
+        date_of_birth: str,
         address: str,
         phone_number: str,
         email: str,
@@ -28,7 +28,7 @@ class Player:
 
     def get_team_name(self):
         return self.team_name
-    
+
     def toCSVList(self):
         ret: list[str] = []
         ret.append(self.player_id)
@@ -43,5 +43,4 @@ class Player:
         return ret
 
     def set_id(self, id: str):
-        self.player_id = id
-
+        self.id = id

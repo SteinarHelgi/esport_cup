@@ -1,7 +1,7 @@
 from datetime import date
 from LL.api_ll import APILL
-from UI.Menus import new_player_menu, print_my_team_menu
-from UI.functions import format_player_list
+from Models.player import Player
+from UI.Menus import print_my_team_menu
 
 
 class TeamCaptainUI:
@@ -70,6 +70,38 @@ class TeamCaptainUI:
             return "QUIT"
         if choice.lower() == "b":
             return "MY TEAM"
+
+    def show_player_view(self, player_name: str):
+        """takes in a player name and shows the menu for the player"""
+        # TODO GERA ÞETTA FALL self.APILL.get_player_by_name(player_name: name):
+
+        player = Player(
+            "Steinar Helgi Halldórsson",
+            "1999-10-06",
+            "Dofraborgir 15",
+            "766-6454",
+            "steinarhelgi@outlook.com",
+            "@steinarhh",
+            "@blabliblu",
+            "TEAMNAMEBABY",
+        )
+
+        print(f"{player.name.upper()}  |  {player.handle} ")
+        print("--------------------")
+        print(f"    DATE OF BIRTH: {player.date_of_birth}")
+        print(f"    ADDRESS: {player.address}")
+        print(f"    PHONE: {player.phone_number}")
+        print(f"    EMAIL: {player.email}")
+        print(f"    HANDLE: {player.handle}")
+        print(f"    SOCIAL MEDIA: {player.social_media}")
+        print(f"    TEAM: {player.team_name}")
+        print("")
+        print("1. Edit player data")
+        print("2. Hurt player emotionally")
+        choice: str = self.menu_manager.prompt_choice(["1", "2"])
+        if choice == "1":
+            # TODO create edit player menu
+            return "EDIT_PLAYER"
 
     def show_register_team_to_tournament(self):
         # TODO
