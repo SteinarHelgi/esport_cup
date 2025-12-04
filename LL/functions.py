@@ -6,9 +6,10 @@ def format_tournament_table(self, tournaments):
    #Define fixed widths for columns
     w_name = 25
     w_date = 15
+    w_game = 15
 
     # print header
-    print(f"{'NAME':<{w_name}} {'START DATE':<{w_date}} {'END DATE':<{w_date}}")
+    print(f"{'NAME':<{w_name}} {'START DATE':<{w_date}} {'END DATE':<{w_date}} ") #{'GAME':<{w_game}} Bæta þessu við þegar get game data er komið inn
     
     #Print a divider line
     print("-" * (w_name + w_date + w_date))
