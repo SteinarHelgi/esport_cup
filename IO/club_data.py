@@ -7,7 +7,7 @@ class ClubData:
     def __init__(self) -> None:
         self.club_file_path = "Data/club.csv"
 
-    def get_club_data(self) -> list[Club]:
+    def get_all_club_data(self) -> list[Club]:
         """Les alla klúbba úr CSV skránni og skilar lista af Club hlutum."""
         clubs = []
 
