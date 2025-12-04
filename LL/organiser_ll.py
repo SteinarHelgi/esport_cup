@@ -43,64 +43,30 @@ class OrganiserLL:
         # TODO
         pass
 
-    def create_match(
-        self,
-        tournament_id: int,
-        team_1_id: int,
-        team_2_id: int,
-        date_time: datetime,
-        server_id: int,
-        game_id: str,
-    ) -> Match:
-        if team_1_id == team_2_id:
+    def create_match(self, match:Match) -> Match:
+
+        if match.team_1_id == match.team_2_id:
             return ValueError
 
-        match_id = self._next_match_id
+        match.match_id = self._next_match_id
         self._next_match_id += 1
 
-        new_match = Match(
-            match_id=match_id,
-            tournament_id=tournament_id,
-            date_time=date_time,
-            team_1_id=team_1_id,
-            team_2_id=team_2_id,
-            server_id=server_id,
-            game_id=game_id,
-        )
-        # TODO (DATA-LAYER):
-        # Þegar TournamentData/APIDATA fá stuðning fyrir leiki
-        # má kalla
-        #
-        #   stored = self.api_data.store_match_data(new_match)
-        #   return stored
-        return new_match
+        stored = self.api_data.store_match_data(match)
+        return stored
 
     def register_result(self):
         # TODO
         pass
 
-    def create_contact_person(
-        self,
-        name: str,
-        email: str,
-        phone: str,
-        tournament_id: int,
-    ) -> ContactPerson:
-        contact_id = self._next_contact_id
+    def create_contact_person(self, contact: ContactPerson) -> ContactPerson:
+
+        contact.id = self._next_contact_id
         self._next_contact_id += 1
 
-        new_contact = ContactPerson(
-            id=contact_id,
-            name=name,
-            email=email,
-            phone=phone,
-            tournament_id=tournament_id,
-        )
-
-        stored = self.api_data.store_contact_person_data(new_contact)
+        stored = self.api_data.store_contact_person_data(contact)
         return stored
 
-    def get_contact_person_by_id(self, id: int) -> ContactPersonData:
+    def get_contact_person_by_id(self, id: str) -> ContactPersonData:
         contact_persons = self.get_contact_person_by_id()
         for contact in contact_persons:
             try:
@@ -108,4 +74,16 @@ class OrganiserLL:
                     return contact
             except:
                 return None
+            
+    def get_contact_person(self, tournament_id: str) -> ContactPerson | None:
+        """Skilar tengiliðnum sem tengist þessu tiltekna móti."""
+        tournaments = self.api_data.get_all_contact_person_data()
+
+        for t in tournaments:
+            if t.id == tournament_id:
+                contact_person_id = (t.id)
+                return self.contact_person_data.get_contact_person_by_id(
+                    contact_person_id
+                )
+        return None
 
