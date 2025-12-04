@@ -10,7 +10,7 @@ class Tournament:
         end_date: dt.datetime,
         venue: str,
         game_id: str,
-        no_servers: int,
+        no_servers: str,
         contact_person_name: str,
     ):
         self.id = id
