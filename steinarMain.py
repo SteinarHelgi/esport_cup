@@ -4,7 +4,7 @@ from IO.club_data import ClubData
 
 def main():
     main_ui = MainUI()
-    main_ui.menu_manager.team_captain_ui.show_player_view("Steinar")
+    main_ui.run()
 
 
 main()
