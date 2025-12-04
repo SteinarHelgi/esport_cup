@@ -8,7 +8,7 @@ class OrganiserUI:
         self.menu_manager = menu_manager
 
     def show_create_tournament(self): #Creates tournaments with options to quit or back anywhere in the process
-        print("Fill in the required info! \nb.Back \nq.Quit")
+        print("Fill in the required info or b.Back or q.Quit")
         name_of_tournament = input("Name: ")
         if name_of_tournament == "b":
             return "ORGANISER_MENU"

@@ -18,13 +18,14 @@ class UserUI:
     def show_teams(self) -> str:
         teams = self.APILL.get_all_teams()
         print(format_team_list(self, teams))
-        print("ENTER TEAM NAME FOR DETAILS: \nb. BACK \nq. QUIT")
+        print("1.Search for team \nb.Back \nq.Quit")
     
-        choice: str = self.menu_manager.prompt_choice(["1", "2", "3", "q"])
-
+        choice: str = self.menu_manager.prompt_choice(["1", "b", "q"])
+        if choice == "1":
+            search_for_team = input("Enter team name for details: ")
         if choice == "b":
             return "LOGIN_MENU"
-    
+        
         return "QUIT"
 
     def show_tournaments(self) -> str:
