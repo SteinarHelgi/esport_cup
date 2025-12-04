@@ -7,8 +7,8 @@ class TeamData:
     def __init__(self):
         self.team_file_path: str = "Data/teams.csv"
 
-    def get_all_team_data(self) -> list[list[str]]:
-        teams: list[list] = []
+    def get_all_team_data(self) -> list[Team]:
+        teams: list[Team] = []
         with open(self.team_file_path, "+r", encoding="utf-8") as file:
             csvReader = csv.reader(file)
             next(csvReader)
@@ -18,7 +18,7 @@ class TeamData:
                 captain_id: str = line[2]
                 social_media: str = line[3]
                 logo: str = line[4]
-                team: list[str] = [id, name, captain_id, social_media, logo]
+                team = Team(id, name, captain_id, social_media, logo)
                 teams.append(team)
             return teams
 

@@ -12,6 +12,10 @@ class Team:
         self.captain_id = captain_id
         self.social_media = social_media
         self.logo = logo
+        self.players = []
+
+    def __str__(self) -> str:
+        return f"Name: {self.name}, Players: {self.players}"
 
     def toCSVList(self):
         ret = []
@@ -21,3 +25,6 @@ class Team:
         ret.append(self.social_media)
         ret.append(self.logo)
         return ret
+
+    def add_player(self, player_handle: str):
+        self.players.append(player_handle)
