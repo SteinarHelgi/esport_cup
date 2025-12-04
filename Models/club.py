@@ -8,10 +8,10 @@ class Club:
         name: str,
         hometown: str,
         logo: str,
-        club_colors: list[str],
+        club_colors: str,
         country: str,
-        points: int,
-        teams: list[Team],
+        points: str,
+        teams: list[str],
     ) -> None:
         self.id = id
         self.name = name
@@ -23,7 +23,7 @@ class Club:
         self.teams = teams
 
     def toCSVList(self):
-        ret: list[str] = []
+        ret = []
         ret.append(self.id)
         ret.append(self.name)
         ret.append(self.hometown)
