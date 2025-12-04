@@ -38,7 +38,6 @@ class PlayerData:
                 players.append(player)
             return players
 
-
     def store_player_data(self, player: Player) -> Player | None:
         with open(self._filepath, "a") as file:
             csvWriter = csv.writer(file)
