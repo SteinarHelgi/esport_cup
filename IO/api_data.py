@@ -23,7 +23,7 @@ class APIDATA:
         # TODO setja alla data clasana hér
 
     def get_all_game_data(self) -> list[Game]:
-        return self.game_data.get_game_data()
+        return self.game_data.get_all_game_data()
 
     def store_game_data(self, game: Game):
         return self.game_data.store_game_data(game)

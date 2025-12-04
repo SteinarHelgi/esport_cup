@@ -8,11 +8,11 @@ class UserLL:
         self.api_data = api_data
 
     def get_all_teams(self) -> list:
-        teams = self.api_data.get_team_data()
+        teams = self.api_data.get_all_team_data()
         return teams
 
     def get_all_tournaments(self) -> list:
-        tournaments = self.api_data.get_tournament_data()
+        tournaments = self.api_data.get_all_tournament_data()
         return tournaments
 
     def get_all_players(self) -> list:
@@ -20,7 +20,7 @@ class UserLL:
         return players
 
     def get_ongoing_tournament(self, today):
-        tournament = self.api_data.get_tournament_data()
+        tournament = self.api_data.get_all_tournament_data()
         ongoing = []
 
         for t in tournament:
@@ -30,7 +30,7 @@ class UserLL:
         return ongoing
 
     def get_past_tournament(self, today):
-        tournament = self.api_data.get_tournament_data()
+        tournament = self.api_data.get_all_tournament_data()
         past = []
 
         for t in tournament:
@@ -40,7 +40,7 @@ class UserLL:
         return past
 
     def get_upcoming_tournament(self, today):
-        tournament = self.api_data.get_tournament_data()
+        tournament = self.api_data.get_all_tournament_data()
         upcoming = []
 
         for t in tournament:
