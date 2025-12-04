@@ -5,7 +5,7 @@ from Models.models import ContactPerson
 
 class ContactPersonData:
     def __init__(self):
-        self._filepath: str = "Data/ContactPerson.csv"
+        self._filepath: str = "Data/contact_person.csv"
 
     def get_all_contact_person_data(self) -> list[ContactPerson]:
         contact_persons: list[ContactPerson] = []
@@ -19,11 +19,15 @@ class ContactPersonData:
                 phone: str = line[3]
                 tournament_id: str = line[4]
 
-                contact_person: ContactPerson = ContactPerson(id, name, email, phone, tournament_id)
+                contact_person: ContactPerson = ContactPerson(
+                    id, name, email, phone, tournament_id
+                )
                 contact_persons.append(contact_person)
         return contact_persons
 
-    def store_contact_person_data(self, contact_person: ContactPerson) -> ContactPerson | None: 
+    def store_contact_person_data(
+        self, contact_person: ContactPerson
+    ) -> ContactPerson | None:
         with open(self._filepath, "a") as file:
             csvWriter = csv.writer(file)
             try:
@@ -31,3 +35,4 @@ class ContactPersonData:
             except:
                 return None
         return contact_person
+
