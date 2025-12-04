@@ -51,3 +51,9 @@ class APIDATA:
     
     def store_player_data(self, player: Player):
         return self.player_data.store_player_data(player)
+    
+    def store_contact_person_data(self, contact: ContactPerson):
+        return self.contact_person_data.store_contact_person_data(contact)
+    
+    def get_all_contact_person_data(self):
+        return self.contact_person_data.get_all_contact_person_data()
