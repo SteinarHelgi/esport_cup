@@ -1,13 +1,16 @@
 from datetime import datetime
 
 from IO.api_data import APIDATA
-from IO.contact_person_data import ContactPerson
+from IO.contact_person_data import ContactPersonData
 from Models.tournament import Tournament
 from Models.match import Match
+from Models.contact_person import ContactPerson
 
 class OrganiserLL:
     def __init__(self, api_data: APIDATA) -> None:
         self.api_data = api_data
+        self._next_contact_id = 1
+        self._next_match_id = 1
 
     def create_tournament(
             self,
@@ -19,7 +22,10 @@ class OrganiserLL:
             no_servers: int,
             contact_person_name: str,
     ) -> Tournament | None:
-
+        
+        if end_date < start_date:
+            return ValueError 
+        
         all_tournaments = self.api_data.get_all_tournament_data()
 
         ''' notað til að búa til tournament id '''
@@ -56,7 +62,6 @@ class OrganiserLL:
 
     def create_match(
         self,
-        match_id: int,
         tournament_id: int,
         team_1_id: int,
         team_2_id: int,
@@ -66,7 +71,10 @@ class OrganiserLL:
     ) -> Match:
         
         if team_1_id == team_2_id:
-            raise ValueError("team_1_id and team_2_id must be different")
+            return ValueError
+        
+        match_id = self._next_match_id
+        self._next_match_id += 1
         
         new_match = Match(
             match_id=match_id,
@@ -88,12 +96,34 @@ class OrganiserLL:
     def register_result(self):
         # TODO
         pass
-    
-    def get_contact_person_by_id(self, id: int) -> ContactPerson:
-        contact_persons = self.get_contact_person_data()
+
+    def create_contact_person(
+        self,
+        name: str,
+        email: str,
+        phone: str,
+        tournament_id: int,
+    ) -> ContactPerson:
+        
+        contact_id = self._next_contact_id
+        self._next_contact_id += 1
+
+        new_contact = ContactPerson(
+            id=contact_id,
+            name=name,
+            email=email,
+            phone=phone,
+            tournament_id=tournament_id,
+        )
+
+        stored = self.api_data.store_contact_person_data(new_contact)
+        return stored
+
+    def get_contact_person_by_id(self, id: int) -> ContactPersonData:
+        contact_persons = self.get_contact_person_by_id()
         for contact in contact_persons:
             try:
                 if contact.id == id:
                     return contact
             except:
-                return None
+                return None 
