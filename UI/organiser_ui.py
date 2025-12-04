@@ -14,49 +14,49 @@ class OrganiserUI:
     ):  # Creates tournaments with options to quit or back anywhere in the process
         print("Fill in the required info or b.Back or q.Quit")
         name_of_tournament = input("Name: ")
-        if name_of_tournament == "b":
+        if name_of_tournament.lower() == "b":
             return "ORGANISER_MENU"
-        if name_of_tournament == "q":
+        if name_of_tournament.lower() == "q":
             return "QUIT"
         start_date_of_tournament = input("Start date(Year-MOnth-Day): ")
-        if start_date_of_tournament == "b":
+        if start_date_of_tournament.lower() == "b":
             return "ORGANISER_MENU"
-        if start_date_of_tournament == "q":
+        if start_date_of_tournament.lower() == "q":
             return "QUIT"
         end_date_of_tournamnet = input("End date(Year-Month-Day): ")
-        if end_date_of_tournamnet == "b":
+        if end_date_of_tournamnet.lower() == "b":
             return "ORGANISER_MENU"
-        if end_date_of_tournamnet == "q":
+        if end_date_of_tournamnet.lower() == "q":
             return "QUIT"
         amount_of_servers = input("Number of servers: ")
-        if amount_of_servers == "b":
+        if amount_of_servers.lower() == "b":
             return "ORGANISER_MENU"
-        if amount_of_servers == "q":
+        if amount_of_servers.lower() == "q":
             return "QUIT"
         while not amount_of_servers.isdigit():
             print("Needs to be a number!")
             amount_of_servers = input("Number of servers: ")
         venue = input("Venue: ")
-        if venue == "b":
+        if venue.lower() == "b":
             return "ORGANISER_MENU"
-        if venue == "q":
+        if venue.lower() == "q":
             return "QUIT"
-        double_elimination = input("Double elimination(Y/N): ").lower()
-        if double_elimination == "b":
+        double_elimination = input("Double elimination(Y/N): ")
+        if double_elimination.lower() == "b":
             return "ORGANISER_MENU"
-        if double_elimination == "q":
+        if double_elimination.lower() == "q":
             return "QUIT"
-        if double_elimination != "y" and double_elimination != "n":
+        if double_elimination.lower() != "y" and double_elimination != "n":
             print("Invalid input, valid inputs are: Y, N, B, Q")
             double_elimination = input("Double elimination(Y/N): ")
-        if double_elimination == "b":
+        if double_elimination.lower() == "b":
             return "ORGANISER_MENU"
-        if double_elimination == "q":
+        if double_elimination.lower() == "q":
             return "QUIT"
         game_for_tournament = input("Game: ")
-        if game_for_tournament == "b":
+        if game_for_tournament.lower() == "b":
             return "ORGANISER_MENU"
-        if game_for_tournament == "q":
+        if game_for_tournament.lower() == "q":
             return "QUIT"
         new_contact_person = self.create_contact_person_menu()  # Calls the create contact person function so that it adds that person to the created tournament
         print("b. Back \nq. Quit")
@@ -99,7 +99,7 @@ class OrganiserUI:
         if new_contact_person_phone_nmbr == "q":
             return "QUIT"
         confirmation = input("Confirm(Y): ")
-        if confirmation == "Y":
+        if confirmation.lower() == "Y":
             return [
                 new_contact_person_name,
                 new_contact_person_email,
