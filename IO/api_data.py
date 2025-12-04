@@ -31,7 +31,7 @@ class APIDATA:
         return self.club_data.get_all_club_data()
 
     def store_club_data(self, club: Club):
-        return self.club_data.store_club_data(game)
+        return self.club_data.store_club_data(club)
 
     def get_all_contact_person_data(self) -> list[ContactPerson]:
         return self.contact_person_data.get_all_contact_person_data()
@@ -64,7 +64,7 @@ class APIDATA:
         return self.team_data.store_team_data(team)
 
     def get_all_tournament_data(self) -> list[Tournament]:
-        return self.tournament_data.get_tournament_data()
+        return self.tournament_data.get_all_tournament_data()
 
     def store_tournament_data(self, tournament: Tournament):
         return self.tournament_data.store_tournament_data(tournament)
