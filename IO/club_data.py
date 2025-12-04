@@ -1,56 +1,55 @@
-#Þröstur
+# Sigrún
 import csv
-from Models.club import Club
+from Models.models import Club
 
 class ClubData:
-    def __init__(self):
-        self._filepath: str = "\Data\club.csv"
-    
+    def __init__(self) -> None:
+        self.club_file_path = "Data/Clubs.csv"
 
-    def get_all_club_data(self) -> list[list[str]]:
-        clubs: list[list] = []
-        with open(self._filepath, "+r", encoding = "utf-8") as file:
-            csvReader = csv.reader(file)
-            next(csvReader)
-            for line in csvReader:
-                id: str = line[0]
-                name: str = line[1]
-                hometown: str = line[2]
-                logo: str = line[3]
-                all_club_colors: str = line[4]
-                country: str = line[5]
-                points: int = int(line[6])
-                all_teams: str = line[7]
-                
-                # Tek ; úr strengnum og bý til lista af club colors
-                club_colors: list = all_club_colors.split(";")
-                club_colors_list: list = []
-                for color in club_colors:
-                    club_colors_list.append(color)
-                
-                # Tek ; úr strengnum og bý til lista af liðum
-                teams: list = all_teams.split(";")
-                teams_list: list = []
-                for team in teams:
-                    teams_list.append(team)
-                club: list = [
+
+    def get_club_data(self) -> list[Club]:
+        """Les alla klúbba úr CSV skránni og skilar lista af Club hlutum."""
+        clubs = []
+    
+        with open(self.club_file_path, "r+", encoding = "utf-8") as file:
+            csv_reader = csv.reader(file)
+            # Sleppum header-línu ef hún er til staðar
+            next(csv_reader, None)
+            for line in csv_reader:
+                id = int(line[0])
+                name = line[1]
+                hometown = line[2]
+                logo = line[3]
+                club_colors = line[4]
+                country = line[5]
+
+                points = 0
+                if line[6] != "":
+                    try:
+                        points = int(line[6])
+                    except ValueError:
+                        points = 0
+                # þarf að tengja teams í APIDATA svo er bara tómur listi hér
+                club = Club(
                     id,
                     name,
                     hometown,
                     logo,
-                    club_colors_list,
+                    club_colors,
                     country,
                     points,
-                    teams_list
-                ]
-                    
+                    [],
+                )
+                clubs.append(club)
+
+            return clubs
 
     def store_club_data(self, club: Club) -> Club | None:
-        with open(self._filepath, "a") as file:
-            csvWriter = csv.writer(file)
+        """Bætir nýjum kúbbi aftast í CSV skrána."""
+        with open(self.club_file_path, "a", encoding = "utf-8") as file:
+            csv_writer = csv.writer(file)
             try:
-                csvWriter.writerow(club.toCSVList())
+                csv_writer.writerow(club.toCSVList())
             except:
                 return None
-        return club
-    
+        return club   
