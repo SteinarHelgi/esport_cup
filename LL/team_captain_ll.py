@@ -111,3 +111,9 @@ class TeamCaptainLL:
         for team in teams:
             if team.name == name:
                 return team
+
+    def get_player_by_name(self, name: str) -> Player | None:
+        players = self.APIDATA.get_all_player_data()
+        for player in players:
+            if player.name == name:
+                return name

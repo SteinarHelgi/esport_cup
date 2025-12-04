@@ -50,7 +50,7 @@ class UserLL:
         upcoming = []
 
         for t in tournament:
-            if t.end_date > today:
+            if t.end_date > today:     # kíkja á 
                 upcoming.append(t)
 
         return upcoming

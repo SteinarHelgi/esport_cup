@@ -57,7 +57,7 @@ class TournamentData:
 
     # Sigrún
 
-    def get_contact_person_info(self, tournament_id: int) -> ContactPerson | None:
+    def get_contact_person(self, tournament_id: int) -> ContactPerson | None:
         """Skilar tengiliðnum sem tengist þessu tiltekna móti."""
         tournaments = self.get_tournament_data()
 
