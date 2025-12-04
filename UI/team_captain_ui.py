@@ -1,3 +1,4 @@
+from datetime import date
 from LL.api_ll import APILL
 from UI.Menus import new_player_menu, print_my_team_menu
 from UI.functions import format_player_list
@@ -11,14 +12,17 @@ class TeamCaptainUI:
     def show_create_player(self):
         name = input("Player's name: ").strip()
         date_of_birth = input("Player's birthday (YYYY-MM-DD): ").strip()
-        
+        address = input("Enter address: ").strip()
+        phone_number = input("Enter phone number: ").strip()
+        email = input("Enter email: ").strip()
+        social_media = input("Enter social media handle: ").strip()
+        handle = input("Enter player handle: ").strip()
         team = self.menu_manager.team_name
 
-        player_data = {"name": name, "date_of_birth": date_of_birth, "team": team}
 
-        new_player_id = 14  # call create_player from LL here
+        new_player_id = 67  # call create_player from LL here
         print(
-            f"------ \nNew player created with ID: {new_player_id}\n{player_data['name']}\n{player_data['date_of_birth']}\n{player_data['team']} "
+            f"------ \nNew player created with ID: {new_player_id}\n{name}\n{date_of_birth}\n{address}\n{phone_number}\n{email}\n{social_media}\n{handle}\n{team} "
         )
 
     def show_my_tournaments(self):
