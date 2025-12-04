@@ -1,9 +1,7 @@
 from IO.api_data import APIDATA
 from LL.team_captain_ll import TeamCaptainLL
 from LL.user_ll import UserLL
-from Models.models import Tournament
-from Models.player import Player
-from Models.team import Team
+from Models.models import Tournament, Player, Team
 
 
 class APILL:

@@ -1,4 +1,4 @@
-#Höfundur: Þröstur
+# Höfundur: Þröstur
 import csv
 from Models.models import Tournament
 from datetime import datetime
@@ -8,6 +8,7 @@ from IO.match_data import MatchData
 
 
 # Steinar
+
 
 class TournamentData:
     def __init__(self):
@@ -21,7 +22,7 @@ class TournamentData:
             csvReader = csv.reader(file)
             next(csvReader)  # skip header
             for line in csvReader:
-                id = int(line[0])
+                id = line[0]
                 name = line[1]
                 start_date = datetime.fromisoformat(line[2])
                 end_date = datetime.fromisoformat(line[3])
@@ -44,7 +45,7 @@ class TournamentData:
                 tournaments.append(tournament)
         return tournaments
 
-    def store_tournament_data(self, tournament: Tournament)->Tournament:
+    def store_tournament_data(self, tournament: Tournament) -> Tournament:
         with open(self.tournament_file_path, "a") as file:
             csvWriter = csv.writer(file)
             try:
@@ -53,7 +54,7 @@ class TournamentData:
                 return None
         return tournament
 
-# Sigrún
+    # Sigrún
 
     def get_contact_person_info(self, tournament_id: int) -> ContactPerson | None:
         """Skilar tengiliðnum sem tengist þessu tiltekna móti."""
@@ -62,7 +63,9 @@ class TournamentData:
         for t in tournaments:
             if t.id == tournament_id:
                 contact_person_id = int(t.contact_person)
-                return self.contact_person_data.get_contact_person_by_id(contact_person_id)
+                return self.contact_person_data.get_contact_person_by_id(
+                    contact_person_id
+                )
         return None
 
     def store_contact_person_info(self, contact_person: ContactPerson):
@@ -74,10 +77,12 @@ class TournamentData:
         tournaments = self.get_tournament_data()
         lines = []
         for t in tournaments:
-            lines.append(f"{t.id}: {t.name} ({t.start_date} - {t.end_date}) @ {t.venue}")
+            lines.append(
+                f"{t.id}: {t.name} ({t.start_date} - {t.end_date}) @ {t.venue}"
+            )
         return "\n".join(lines)
-    
-    def get_schedule_info(self) -> str: 
+
+    def get_schedule_info(self) -> str:
         """Skilar leikjadagskránni sem streng"""
         matches = self.match_data.get_match_data()
 
@@ -95,3 +100,4 @@ class TournamentData:
     def store_schedule_info(self, matches) -> None:
         for match in matches:
             self.match_data.store_match_info(match)
+
