@@ -12,7 +12,6 @@ from Models.player import Player
 
 # Steinar
 
-
 class APIDATA:
     def __init__(self) -> None:
         self.tournament_data = TournamentData()
@@ -51,4 +50,3 @@ class APIDATA:
 
     def store_player_data(self, player: Player):
         return self.player_data.store_player_data(player)
-

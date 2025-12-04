@@ -57,4 +57,3 @@ class MatchData:
                 return None
 
         return match
-

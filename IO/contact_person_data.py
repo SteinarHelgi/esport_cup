@@ -35,4 +35,3 @@ class ContactPersonData:
             except:
                 return None
         return contact_person
-
