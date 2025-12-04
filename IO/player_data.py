@@ -12,7 +12,7 @@ class PlayerData:
         players: list[Player] = []
         with open(self._filepath, "+r", encoding="utf-8") as file:
             csvReader = csv.reader(file)
-            next(csvReader)
+            next(csvReader) #skip header line
             for line in csvReader:
                 player_id: str = line[0]
                 name: str = line[1]
