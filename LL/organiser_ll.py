@@ -1,12 +1,50 @@
+from datetime import datetime
+
+from IO.api_data import APIDATA
 from IO.contact_person_data import ContactPerson
+from Models.tournament import Tournament
+from Models.match import Match
 
 class OrganiserLL:
-    def __init__(self):
-        self.id = 0
+    def __init__(self, api_data: APIDATA) -> None:
+        self.api_data = api_data
 
-    def create_tournament(self):
-        # TODO
-        pass
+    def create_tournament(
+            self,
+            name: str,
+            start_date: datetime,
+            end_date: datetime,
+            venue: str,
+            game_id: str,
+            no_servers: int,
+            contact_person_name: str,
+    ) -> Tournament | None:
+
+        all_tournaments = self.api_data.get_all_tournament_data()
+
+        ''' notað til að búa til tournament id '''
+        if all_tournaments:
+            next_id = max(t.id for t in all_tournaments) + 1
+        else:
+            next_id = 1
+        
+        #TODO
+        # mögulegar aðrar reglur ( t.d. start date ekki í fortíð)
+
+        new_tournament = Tournament(
+            id=next_id,
+            name=name,
+            start_date=start_date,
+            end_date=end_date,
+            venue=venue,
+            game_id=game_id,
+            no_servers=no_servers,
+            contact_person_name=contact_person_name,
+        )
+
+        stored = self.api_data.store_tournament_data(new_tournament)
+
+        return stored
 
     def delete_tournament(self):
         # TODO
@@ -16,9 +54,36 @@ class OrganiserLL:
         # TODO
         pass
 
-    def create_match(self):
-        # TODO
-        pass
+    def create_match(
+        self,
+        match_id: int,
+        tournament_id: int,
+        team_1_id: int,
+        team_2_id: int,
+        date_time: datetime,
+        server_id: int,
+        game_id: str,
+    ) -> Match:
+        
+        if team_1_id == team_2_id:
+            raise ValueError("team_1_id and team_2_id must be different")
+        
+        new_match = Match(
+            match_id=match_id,
+            tournament_id=tournament_id,
+            date_time=date_time,
+            team_1_id=team_1_id,
+            team_2_id=team_2_id,
+            server_id=server_id,
+            game_id=game_id,
+        )
+                # TODO (DATA-LAYER):
+        # Þegar TournamentData/APIDATA fá stuðning fyrir leiki
+        # má kalla
+        #
+        #   stored = self.api_data.store_match_data(new_match)
+        #   return stored
+        return new_match
 
     def register_result(self):
         # TODO
