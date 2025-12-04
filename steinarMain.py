@@ -3,9 +3,7 @@ from UI.main_ui import MainUI
 
 def main():
     main_ui = MainUI()
-    teams = main_ui.APILL.get_all_teams()
-    for team in teams:
-        print(team)
+    main_ui.menu_manager.organiser_Ui.create_contact_person_menu()
 
 
 main()

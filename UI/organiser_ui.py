@@ -59,22 +59,27 @@ class OrganiserUI:
         if game_for_tournament.lower() == "q":
             return "QUIT"
         new_contact_person = self.create_contact_person_menu()  # Calls the create contact person function so that it adds that person to the created tournament
-        new_tournament = Tournament(
-            name_of_tournament,
-            datetime.fromisoformat(start_date_of_tournament),
-            datetime.fromisoformat(end_date_of_tournamnet),
-            venue,
-            game_for_tournament,
-            amount_of_servers,
-            new_contact_person[0],
-        )
+        print("b. Back \nq. Quit")
+        # TODO setja inn tournament created menuið
+        if new_contact_person:
+            new_tournament = Tournament(
+                name_of_tournament,
+                datetime.fromisoformat(start_date_of_tournament),
+                datetime.fromisoformat(end_date_of_tournamnet),
+                venue,
+                game_for_tournament,
+                amount_of_servers,
+                new_contact_person[0],
+            )
 
-        if self.APILL.create_tournament(new_tournament) == "OK":
-            self.tournament_created(new_tournament)
-            return "ORGANISER_MENU"
-        else:
-            print("Tournament could not be created, contact developer")
-            return "ORGANISER_MENU"
+            if self.APILL.create_tournament(new_tournament) == "OK":
+                val = self.tournament_created(new_tournament)
+                print(new_tournament)
+                return "ORGANISER_MENU"
+            else:
+                print("Tournament could not be created, contact developer")
+                return "ORGANISER_MENU"
+        return "ORGANISER_MENU"
 
     def create_contact_person_menu(
         self,
@@ -96,14 +101,13 @@ class OrganiserUI:
         if new_contact_person_phone_nmbr == "q":
             return "QUIT"
         confirmation = input("Confirm(Y): ")
-        if confirmation.lower() == "Y":
-            return [
+        if confirmation.lower() == "y":
+            returnlist = [
                 new_contact_person_name,
                 new_contact_person_email,
                 new_contact_person_phone_nmbr,
             ]
-        else:
-            return "CREATE_TOURNAMENT_MENU"
+            return returnlist
 
     def tournament_created(self, tournament: Tournament):
         tournament_name = tournament.name
