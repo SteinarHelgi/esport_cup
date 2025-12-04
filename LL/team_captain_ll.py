@@ -47,12 +47,11 @@ class TeamCaptainLL:
 
         # PLAYERS
         # id name dateofbirth address phone email social handle team_name
-
         players_in_team = []
 
         players = self.APIDATA.get_all_player_data()
         for player in players:
-            if player.team == team_name:
+            if player.team_name == team_name:
                 players_in_team.append(player)
 
         return players_in_team
