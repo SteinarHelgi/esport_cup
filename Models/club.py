@@ -33,3 +33,7 @@ class Club:
         ret.append(self.points)
         ret.append(self.teams)
         return ret
+
+    def __str__(self) -> str:
+        return f"name: {self.name} {self.teams}"
+        pass

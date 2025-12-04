@@ -1,5 +1,6 @@
 from LL.api_ll import APILL
 from UI.Menus import print_my_team_menu
+from UI.functions import format_player_list
 
 
 class TeamCaptainUI:
@@ -20,7 +21,8 @@ class TeamCaptainUI:
         )
 
     def show_my_tournaments(self):
-        # TODO
+        #TODO listi af motum
+        #option i register for tournament
         pass
 
     def show_modify_player(self):
@@ -51,22 +53,24 @@ class TeamCaptainUI:
     def show_my_players(self):
         # TODO laga útlit
         players = self.APILL.get_players_in_team(self.menu_manager.team_name)
-        for player in players:
-            print(player.name)
-        print("SHOW MY PLAYERS")
+        print(format_player_list(self,players))
+        #print("ADD player") - create player menu
+        #print("remove player") - remove player
 
     def show_register_team_to_tournament(self):
         # TODO
+        #Kall i upcoming sem hafa plass og lista þau upp
+        #kalla i LL register for tournament
         pass
 
     def show_update_team_data(self):
-        # TODO
+        # TODO b krafa
         pass
 
     def show_add_team_to_club(self):
-        # TODO
+        # TODO b krafa
         pass
 
     def show_create_team(self):
-        # TODO
+        # TODO c krafa
         pass

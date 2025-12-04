@@ -22,7 +22,7 @@ class ClubData:
                 logo = line[3]
                 club_colors = line[4]
                 country = line[5]
-                teams = line[6].split(";")
+                teams = line[7].split(";")
 
                 points = 0
                 if line[6] != "":
@@ -48,4 +48,3 @@ class ClubData:
             except:
                 return None
         return club
-
