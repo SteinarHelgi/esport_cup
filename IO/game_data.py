@@ -2,7 +2,6 @@
 import csv
 from Models.models import Game
 
-
 class GameData:
     def __init__(self) -> None:
         self.game_file_path = "Data/Games.csv"
@@ -32,4 +31,3 @@ class GameData:
             except:
                 return None
         return game
-
