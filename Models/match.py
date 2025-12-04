@@ -5,14 +5,16 @@ from Models.models import Game
 class Match:
     def __init__(
         self,
-        team_id: int,
+        match_id: int,
+        tournament_id: int,
         date_time: dt.datetime,
         team_1_id: int,
         team_2_id: int,
         server_id: int,
         game_id: str,
     ):
-        self.team_id = team_id
+        self.match_id = match_id
+        self.tournament = tournament_id
         self.date_time = date_time
         self.team_1 = team_1_id
         self.team_2 = team_2_id
