@@ -23,7 +23,7 @@ class UserUI:
         choice: str = self.menu_manager.prompt_choice(["1", "b", "q"])
         if choice == "1":
             search_for_team = input("Enter team name for details: ")
-        if choice == "b":
+        if choice.lower() == "b":
             return "LOGIN_MENU"
         
         return "QUIT"
@@ -40,7 +40,7 @@ class UserUI:
             return "UPCOMING_TOURNAMENTS"
         elif choice == "3":
             return "PAST_TOURNAMENTS"
-        elif choice == "b":
+        elif choice.lower() == "b":
             return "LOGIN_MENU"
         else:
             return "QUIT"
@@ -56,7 +56,7 @@ class UserUI:
         
         choice: str = self.menu_manager.prompt_choice(["b", "q"])
 
-        if choice == "b":
+        if choice.lower() == "b":
             return "TOURNAMENTS"
         else: 
             "QUIT"
@@ -72,7 +72,7 @@ class UserUI:
         print("b. Back \nq. Quit")
         # TODO add functionality for selecting a tournament
         choice: str = self.menu_manager.prompt_choice(["b", "q"])
-        if choice == "b":
+        if choice.lower() == "b":
             return "TOURNAMENTS"
         if choice == "q":
             return "QUIT"
@@ -86,7 +86,7 @@ class UserUI:
         print("b. Back \nq. Quit")
         # TODO add functionality for selecting a tournament
         choice: str = self.menu_manager.prompt_choice(["b", "q"])
-        if choice == "b":
+        if choice.lower() == "b":
             return "TOURNAMENTS"
         if choice == "q":
             return "QUIT"
@@ -96,9 +96,9 @@ class UserUI:
         print(format_player_list(self, players))
         valid_options = ["q", "b"]
         choice: str = self.menu_manager.prompt_choice(valid_options)
-        if choice == "q":
+        if choice.lower() == "q":
             return "QUIT"
-        if choice == "b":
+        if choice.lower() == "b":
             return "TEAM"
 
     def show_statistics(self):

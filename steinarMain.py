@@ -1,11 +1,12 @@
 from UI.main_ui import MainUI
+from IO.club_data import ClubData
 
 
 def main():
-    main_ui = MainUI()
-    teams = main_ui.APILL.get_all_teams()
-    for team in teams:
-        print(team)
+    club = ClubData()
+    clubs = club.get_club_data()
+    for cl in clubs:
+        print(cl)
 
 
 main()
