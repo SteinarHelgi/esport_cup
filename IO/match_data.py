@@ -3,6 +3,7 @@ import csv
 import datetime as dt
 from Models.models import Match
 
+
 class MatchData:
     def __init__(self) -> None:
         self.match_file_path = "Data/Matches.csv"
@@ -11,11 +12,12 @@ class MatchData:
         """Les alla leiki úr CSV skránni og skilar lista af Match hlutum."""
         matches = []
 
-        with open(self.match_file_path, "r", encoding = "utf-8") as file:
+        with open(self.match_file_path, "r", encoding="utf-8") as file:
             csv_reader = csv.reader(file)
+
             # sleppum header-línu ef hún er til staðar
             next(csv_reader, None)
-        
+
             for line in csv_reader:
                 match_id = int(line[0])
                 date_time = dt.datetime.fromisoformat(line[1])
@@ -45,14 +47,14 @@ class MatchData:
                 return f"Match {m.match_id} : team {m.team_1_id} vs team {m.team_2_id} on server {m.server_id} (game {m.game_id})"
         return ""
 
-
     def store_match_info(self, match: Match) -> Match | None:
         """Bætir nýjum leik aftast í Matches.csv skrána."""
-        with open(self.match_file_path, "a", encoding = "utf-8") as file:
+        with open(self.match_file_path, "a", encoding="utf-8") as file:
             csv_writer = csv.writer(file)
             try:
                 csv_writer.writerow(match.toCSVList())
             except:
                 return None
-        
+
         return match
+

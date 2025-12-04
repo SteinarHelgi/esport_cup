@@ -9,6 +9,11 @@ class UserLL:
 
     def get_all_teams(self) -> list:
         teams = self.api_data.get_all_team_data()
+        players = self.api_data.get_all_player_data()
+        for team in teams:
+            for player in players:
+                if player.team_name == team.name:
+                    team.add_player(player.handle)
         return teams
 
     def get_all_tournaments(self) -> list:
