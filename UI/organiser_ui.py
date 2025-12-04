@@ -59,8 +59,6 @@ class OrganiserUI:
         if game_for_tournament.lower() == "q":
             return "QUIT"
         new_contact_person = self.create_contact_person_menu()  # Calls the create contact person function so that it adds that person to the created tournament
-        print("b. Back \nq. Quit")
-        # TODO setja inn tournament created menuið
         new_tournament = Tournament(
             name_of_tournament,
             datetime.fromisoformat(start_date_of_tournament),
@@ -72,8 +70,7 @@ class OrganiserUI:
         )
 
         if self.APILL.create_tournament(new_tournament) == "OK":
-            val = self.tournament_created(new_tournament)
-            print(new_tournament)
+            self.tournament_created(new_tournament)
             return "ORGANISER_MENU"
         else:
             print("Tournament could not be created, contact developer")
@@ -112,7 +109,7 @@ class OrganiserUI:
         tournament_name = tournament.name
         venue = tournament.venue
         game = tournament.game_id
-        f"TOURNAMENT CREATED! \nOpen for registration \n{tournament_name} \n{venue} \n{game}"
+        print(f"TOURNAMENT CREATED! \nOpen for registration \n{tournament_name} \n{venue} \n{game}")
 
     def show_my_tournament(self):
         # TODO
