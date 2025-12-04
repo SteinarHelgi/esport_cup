@@ -2,7 +2,7 @@
 
 from os import name
 from LL.api_ll import APILL
-from LL.functions import format_player_list, format_team_list, format_tournament_table
+from UI.functions import format_player_list, format_team_list, format_tournament_table
 from Models.models import Team
 from datetime import datetime
 
