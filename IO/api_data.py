@@ -29,31 +29,26 @@ class APIDATA:
         return self.game_data.store_game_data(game)
 
     def get_all_contact_person_data(self) -> list[ContactPerson]:
-        return self.contact_person_data.get_contact_person_data()
+        return self.contact_person_data.get_all_contact_person_data()
 
-    def get_contact_person_by_id(self, id: int) -> ContactPerson | None:
-        return self.contact_person_data.get_contact_person_by_id(id)
+    def store_contact_person_data(self, contact: ContactPerson):
+        return self.contact_person_data.store_contact_person_data(contact)
 
-    def get_all_tournament_data(self):
+    def get_all_tournament_data(self) -> list[Tournament]:
         return self.tournament_data.get_tournament_data()
 
     def store_tournament_data(self, tournament: Tournament):
         return self.tournament_data.store_tournament_data(tournament)
 
-    def get_all_team_data(self):
+    def get_all_team_data(self) -> list[Team]:
         return self.team_data.get_all_team_data()
 
     def store_team_data(self, team: Team):
         return self.team_data.store_team_data(team)
 
-    def get_all_player_data(self):
+    def get_all_player_data(self) -> list[Player]:
         return self.player_data.get_all_player_data()
-    
+
     def store_player_data(self, player: Player):
         return self.player_data.store_player_data(player)
-    
-    def store_contact_person_data(self, contact: ContactPerson):
-        return self.contact_person_data.store_contact_person_data(contact)
-    
-    def get_all_contact_person_data(self):
-        return self.contact_person_data.get_all_contact_person_data()
+

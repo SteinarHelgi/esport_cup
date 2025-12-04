@@ -1,5 +1,6 @@
 from datetime import datetime
 from IO.api_data import APIDATA
+from Models.team import Team
 
 
 class UserLL:
@@ -7,7 +8,7 @@ class UserLL:
         self.id = 0
         self.api_data = api_data
 
-    def get_all_teams(self) -> list:
+    def get_all_teams(self) -> list[Team]:
         teams = self.api_data.get_all_team_data()
         players = self.api_data.get_all_player_data()
         for team in teams:
