@@ -1,5 +1,5 @@
 from LL.api_ll import APILL
-from UI.Menus import print_my_team_menu
+from UI.Menus import new_player_menu, print_my_team_menu
 from UI.functions import format_player_list
 
 
@@ -11,7 +11,8 @@ class TeamCaptainUI:
     def show_create_player(self):
         name = input("Player's name: ").strip()
         date_of_birth = input("Player's birthday (YYYY-MM-DD): ").strip()
-        team = input("Player's team: ").strip()
+        
+        team = self.menu_manager.team_name
 
         player_data = {"name": name, "date_of_birth": date_of_birth, "team": team}
 
@@ -53,9 +54,18 @@ class TeamCaptainUI:
     def show_my_players(self):
         # TODO laga útlit
         players = self.APILL.get_players_in_team(self.menu_manager.team_name)
-        print(format_player_list(self,players))
-        #print("ADD player") - create player menu
-        #print("remove player") - remove player
+        print(format_player_list(players))
+        print("6. Add player: \n7. Remove player \nb. Back \nq.Quit")
+        choice: str = self.menu_manager.prompt_choice(["1", "2", "3","4","5","6","7", "b", "q"])
+        if choice == "6":
+            self.show_create_player()
+        if choice == "7":
+            #select_player_to_remove_menu
+            pass
+        if choice.lower() == "q":
+            return "QUIT"
+        if choice.lower() == "b":
+            return "MY TEAM"
 
     def show_register_team_to_tournament(self):
         # TODO
