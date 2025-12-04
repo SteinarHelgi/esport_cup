@@ -44,7 +44,7 @@ class OrganiserUI:
             return "ORGANISER_MENU"
         if double_elimination == "q":
             return "QUIT"
-        if double_elimination != "Y" and double_elimination != "N":
+        if double_elimination != "y" and double_elimination != "n":
             print("Invalid input, valid inputs are: Y, N, B, Q")
             double_elimination = input("Double elimination(Y/N): ")
         if double_elimination == "b":

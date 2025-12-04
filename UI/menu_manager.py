@@ -106,7 +106,7 @@ class MenuManager:
     def print_user_menu(self):  # Option menu for user
         # TODO
         print("__SELECT AN OPTION__")
-        print("1. Teams \n2. Tournaments \nq. Quit")
+        print("1. Teams \n2. Tournaments \nb. Back \nq. Quit")
 
         choice: str = self.prompt_choice(["1", "2", "q"])
         if choice == "1":
@@ -120,7 +120,7 @@ class MenuManager:
     def print_team_captain_menu(self):  # Option menu for team captain
         # TODO
         print("__SELECT AN OPTION__")
-        print("1. Teams \n2. Tournaments \n3. My Team \n4. My Tournaments \nq. Quit")
+        print("1. Teams \n2. Tournaments \n3. My Team \n4. My Tournaments \nb. back \nq. Quit")
 
         choice: str = self.prompt_choice(["1", "2", "3", "4", "b", "q"])
         if choice == "1":
