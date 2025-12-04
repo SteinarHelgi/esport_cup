@@ -18,6 +18,7 @@ class MenuManager:
         self.pages = {
             "LOGIN_MENU": self.print_login_menu,
             "LOGIN_CREDENTIALS": self.login_credentials_menu,
+            "LOGIN_CREDENTIALS_ORG": self.login_credentials_menu_org,
             # USER MENUS
             "USER_MENU": self.print_user_menu,
             "TEAMS": self.user_ui.show_teams,
@@ -41,6 +42,7 @@ class MenuManager:
             # ORGANISER MENUS
             "ORGANISER_MENU": self.print_organiser_menu,
             "CREATE_TOURNAMENT_MENU": self.organiser_Ui.show_create_tournament,
+    
             "MY_TOURNAMENT_MENU": self.organiser_Ui.show_my_tournament,
             "CREATE_SCHEDULE": self.organiser_Ui.show_create_schedule,
             "UPDATE_SCHEDULE": self.organiser_Ui.show_update_schedule,
@@ -77,7 +79,7 @@ class MenuManager:
             return "LOGIN_CREDENTIALS"
         if choice == "3":
             self.user = "ORGANISER"
-            return "LOGIN_CREDENTIALS"
+            return "LOGIN_CREDENTIALS_ORG"
         return "QUIT"
 
     def login_credentials_menu(self):  # logging in as organiser
@@ -88,6 +90,16 @@ class MenuManager:
         self.team_name = "NullPointer Ninjas"
         if choice == "y":
             return "TEAM_CAPTAIN_MENU"
+        else:
+            return "LOGIN_MENU"
+        
+    def login_credentials_menu_org(self):  # logging in as organiser
+        username = "Chuck Norris"
+        password = "Pepsi Max"
+        print(f"Username: {username} \nPassword: {password} \nConfirm(Y/N)? ")
+        choice: str = self.prompt_choice(["y", "n"])
+        if choice == "y":
+            return "ORGANISER_MENU"
         else:
             return "LOGIN_MENU"
 
@@ -136,7 +148,7 @@ class MenuManager:
         if choice == "2":
             return "TOURNAMENTS"
         if choice == "3":
-            return "CREATE_TOURNAMENT"
+            return "CREATE_TOURNAMENT_MENU"
         if choice == "4":
             return "MY_TOURNAMENTS_ORGANISER"
 

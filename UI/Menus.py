@@ -75,16 +75,27 @@ def player_added():
 # Organiser menus
 
 
-def create_tournament_menu():
-    print(
-        "Fill in the required info! \nName: \nStart date(Year-Month-Day): \nEnd date(Year-Month-Day): \nNumber of servers: \nVenue: \nDouble elimination(Y/N)? \nGame: \n \nb. Back \nq. Quit"
-    )
+def create_tournament_menu(self):
+    print("Fill in the required info!")
+    name_of_tournament = input("Name: ")
+    start_date_of_tournament = input("Start date(Year-MOnth-Day): ")
+    end_date_of_tournamnet = input("End date(Year-Month-Day): ")
+    amount_of_servers = int(input("Number of servers: "))
+    venue = input("Venue: ")
+    double_elimination = input("Double elimination(Y/N): ")
+    game_for_tournament = input("Game: ")
+    choice: str = self.menu_manager.prompt_choice(["b","q"])
+    print("b. Back \nq. Quit")
+    
 
+def create_contact_person_menu():
+    print("Fill in contact person info!")
+    new_contact_person_name = input("Name: ")
+    new_contact_person_email = input("Email: ")
+    new_contact_person_phone_nmbr = input("Phone number: ")
+    confirmation = input("Confirm(Y/N): ")
+    
 
-def add_contact_person_menu():
-    print(
-        "Fill in contact person info! \nName: \nEmail: \nPhone Number: \n \nb. Back \nq. Quit"
-    )
 
 
 def tournament_created_menu():
