@@ -11,7 +11,7 @@ class TeamCaptainLL:
         self.captain = captain
 
     def create_player(self, player: Player) -> Player:
-        """Býr til nýjan leikmann í liði captains og vistar inn í skránni."""
+        """Creates new player and saves him in the csv file"""
         
         #Fetches all parameters of player
         name: str = player.name
@@ -24,7 +24,7 @@ class TeamCaptainLL:
         team_name: str = player.team_name
 
         #Fetch all player data
-        current_players = self.APIDATA.get_all_player_data()
+        current_players = self.APIDATA.get_all_player_data(self)
 
         #Checking if player handle is available
         for p in current_players:
@@ -33,7 +33,7 @@ class TeamCaptainLL:
 
         #Find next player id
         if current_players:
-            next_id = max(int(player.id) for player in current_players) + 1
+            next_id: int = max(int(player.id) for player in current_players) + 1
         else:
             next_id = 1
         player_id = str(next_id)
