@@ -4,7 +4,6 @@ import datetime as dt
 class Tournament:
     def __init__(
         self,
-        id: str,
         name: str,
         start_date: dt.datetime,
         end_date: dt.datetime,
@@ -13,7 +12,7 @@ class Tournament:
         no_servers: str,
         contact_person_name: str,
     ):
-        self.id = id
+        self.id = 0
         self.start_date = start_date
         self.end_date = end_date
         self.name = name
@@ -25,11 +24,17 @@ class Tournament:
     def toCSVList(self):
         ret = []
         ret.append(self.id)
+        ret.append(self.name)
         ret.append(self.start_date)
         ret.append(self.end_date)
-        ret.append(self.name)
         ret.append(self.venue)
         ret.append(self.game_id)
         ret.append(self.no_servers)
         ret.append(self.contact_person)
         return ret
+
+    def set_id(self, id):
+        self.id = id
+
+    def __str__(self) -> str:
+        return f"{self.name} : {self.venue}"

@@ -34,7 +34,6 @@ class TournamentData:
                     contact_person_id = line[7]
 
                     tournament = Tournament(
-                        id,
                         name,
                         start_date,
                         end_date,
@@ -43,17 +42,18 @@ class TournamentData:
                         number_of_servers,
                         contact_person_id,
                     )
+                    tournament.set_id(id)
                     tournaments.append(tournament)
         return tournaments
 
-    def store_tournament_data(self, tournament: Tournament) -> Tournament:
+    def store_tournament_data(self, tournament: Tournament) -> str:
         with open(self.tournament_file_path, "a") as file:
             csvWriter = csv.writer(file)
             try:
                 csvWriter.writerow(tournament.toCSVList())
             except:
-                return None
-        return tournament
+                return "NOT OKAY"
+        return "OK"
 
     # Sigrún
 
@@ -101,4 +101,3 @@ class TournamentData:
     def store_schedule_info(self, matches) -> None:
         for match in matches:
             self.match_data.store_match_info(match)
-
