@@ -7,7 +7,6 @@ class PlayerData:
     def __init__(self):
         self._filepath: str = "Data/players.csv"
 
-
     def get_all_player_data(self) -> list[Player]:
         players: list[Player] = []
         with open(self._filepath, "+r", encoding="utf-8") as file:
@@ -16,7 +15,7 @@ class PlayerData:
             for line in csvReader:
                 player_id: str = line[0]
                 name: str = line[1]
-                date_of_birth: datetime = datetime.fromisoformat(line[2])
+                date_of_birth: str = line[2]
                 address: str = line[3]
                 phone: str = line[4]
                 email: str = line[5]
@@ -25,7 +24,6 @@ class PlayerData:
                 team_name: str = line[8]
 
                 player: Player = Player(
-                    player_id,
                     name,
                     date_of_birth,
                     address,
@@ -35,6 +33,7 @@ class PlayerData:
                     handle,
                     team_name,
                 )
+                player.set_id(player_id)
                 players.append(player)
             return players
 
@@ -46,3 +45,4 @@ class PlayerData:
             except:
                 return None
         return player
+

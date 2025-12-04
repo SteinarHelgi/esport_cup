@@ -97,6 +97,7 @@ class TeamCaptainLL:
 
         # PLAYERS
         # id name dateofbirth address phone email social handle team_name
+
         players_in_team = []
 
         players = self.APIDATA.get_all_player_data()
