@@ -24,7 +24,7 @@ class OrganiserLL:
     ) -> Tournament | None:
         
         if end_date < start_date:
-            return ValueError 
+            raise 
         
         all_tournaments = self.api_data.get_all_tournament_data()
 

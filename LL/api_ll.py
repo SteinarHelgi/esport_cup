@@ -3,7 +3,7 @@ from IO.api_data import APIDATA
 from LL.team_captain_ll import TeamCaptainLL
 from LL.user_ll import UserLL
 from LL.organiser_ll import OrganiserLL
-from Models.models import Tournament, Player, Team
+from Models.models import Tournament, Player, Team, Match, ContactPerson
 
 class APILL:
     def __init__(self) -> None:
@@ -38,3 +38,10 @@ class APILL:
     
     def create_tournment(self) -> Tournament | None:
         return self.organiser_ll.create_tournament(self)
+    
+    def create_match(self) -> Match | None:
+        return self.organiser_ll.create_match(self)
+
+    def create_contact_person(self) -> ContactPerson | None:
+        return self.organiser_ll.create_contact_person(self)
+
