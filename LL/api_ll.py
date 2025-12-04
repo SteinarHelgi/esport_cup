@@ -1,14 +1,16 @@
+from datetime import datetime
 from IO.api_data import APIDATA
 from LL.team_captain_ll import TeamCaptainLL
 from LL.user_ll import UserLL
-from Models.models import Tournament, Player, Team
-
+from LL.organiser_ll import OrganiserLL
+from Models.models import Tournament, Player, Team, Match, ContactPerson
 
 class APILL:
     def __init__(self) -> None:
         self.api_data = APIDATA()
         self.userLL = UserLL(self.api_data)
         self.team_captain_ll = TeamCaptainLL(self.api_data)
+        self.organiser_ll = OrganiserLL(self.api_data)
 
     def get_all_teams(self) -> list[Team]:
         return self.userLL.get_all_teams()
@@ -33,3 +35,13 @@ class APILL:
 
     def get_team_by_name(self, name) -> Team | None:
         return self.team_captain_ll.get_team_by_name(name)
+    
+    def create_tournment(self) -> Tournament | None:
+        return self.organiser_ll.create_tournament(self)
+    
+    def create_match(self) -> Match | None:
+        return self.organiser_ll.create_match(self)
+
+    def create_contact_person(self) -> ContactPerson | None:
+        return self.organiser_ll.create_contact_person(self)
+
