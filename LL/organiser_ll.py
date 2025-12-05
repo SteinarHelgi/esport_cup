@@ -63,10 +63,6 @@ class OrganiserLL:
         stored = self.api_data.store_match_data(match)
         return stored
 
-    def register_result(self):
-        # TODO
-        pass
-
     def create_contact_person(self, contact: ContactPerson) -> ContactPerson | None:
         contact.id = self._next_contact_id
         self._next_contact_id += 1

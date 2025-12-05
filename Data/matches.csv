@@ -1,5 +1,5 @@
 match_id,tournament_id,round,match_number,team_a_name,team_b_name,match_date,match_time,server_id,score_a,score_b,winner_team_name,completed
-1,1,R16,1,SegFault Spartans,NullPointer Ninjas,2025-12-06,10:00,SRV-PEPSI,2,0,SegFault Spartans,TRUE
+1,1,R16,1,SegFault Spartans,NullPointer Ninjas,2025-12-06,10:00,SRV-PEPSI,99,98,SegFault Spartans,True
 2,1,R16,2,OffByOne Offense,Pepsi Max Punishers,2025-12-06,10:00,SRV-CHUCK,1,2,Pepsi Max Punishers,TRUE
 3,1,R16,3,Chuck Norris Fan Club,IndentationError Invaders,2025-12-06,10:00,SRV-DATALAB,2,0,Chuck Norris Fan Club,TRUE
 4,1,R16,4,Assembly Avengers,Datalab Dominators,2025-12-06,10:00,SRV-BOMBLAB,2,1,Assembly Avengers,TRUE
@@ -14,4 +14,3 @@ match_id,tournament_id,round,match_number,team_a_name,team_b_name,match_date,mat
 13,1,SF,1,SegFault Spartans,Chuck Norris Fan Club,2025-12-07,10:00,SRV-PEPSI,0,2,Chuck Norris Fan Club,TRUE
 14,1,SF,2,CacheHit Crusaders,RaceCondition Racers,2025-12-07,10:00,SRV-CHUCK,1,2,RaceCondition Racers,TRUE
 15,1,Final,1,Chuck Norris Fan Club,RaceCondition Racers,2025-12-07,13:00,SRV-PEPSI,3,2,Chuck Norris Fan Club,TRUE
-1,10,Final,1,Chuck Norris Fan Club,RaceCondition Racers,2025-12-07,13:00,SRV-PEPSI,3,2,Chuck Norris Fan Club, TRUE

@@ -75,7 +75,7 @@ class PlayerData:
             
                 # Iterate through the list of strings
                 for line in temp_data:
-                    writer.writerow([line])
+                    writer.writerow(line)
         except:
             return None
 
@@ -113,6 +113,6 @@ class PlayerData:
             
                 # Iterate through the list of strings
                 for line in temp_data:
-                    writer.writerow([line])
+                    writer.writerow(line)
         except:
             return None

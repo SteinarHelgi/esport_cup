@@ -107,19 +107,19 @@ class MatchData:
                             winner_team_name,
                             completed]
                         temp_data.append(new_line)
-
+                        
                         
         except FileNotFoundError:
             exit()
         
         #Overwrites temporary datafile to csv file
         try:
-            with open(self._filepath, 'w', newline='', encoding='utf-8') as csvfile:
+            with open(self.match_file_path, 'w', newline='', encoding='utf-8') as csvfile:
                 # Create a writer object
                 writer = csv.writer(csvfile)
             
                 # Iterate through the list of strings
                 for line in temp_data:
-                    writer.writerow([line])
+                    writer.writerow(line)
         except:
             return None
