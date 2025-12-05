@@ -133,7 +133,7 @@ class OrganiserUI:
             stringI = str(i)
             valid_choices.append(stringI)
         for i in valid_choices:
-            print(i,".", tournaments[int(i)].name)
+            print(i, ".", tournaments[int(i)].name)
         print("\nb. Back \nq. Quit")
         print(format_tournament_table(tournaments))
 
@@ -141,9 +141,6 @@ class OrganiserUI:
         print()
         for element in valid_choices:
             if element == choice:
-                print("user_choice: ", element)
-                print("choice: ", choice)
-                print("tournamnet name: ", tournaments[int(element)].name)
                 self.show_tournament_view(tournaments[int(element)].name)
 
         if choice.lower() == "b":
@@ -162,7 +159,7 @@ class OrganiserUI:
                 f"{tournament.name.upper()}  |  {tournament.start_date} -- {tournament.end_date} "
             )
             print("--------------------")
-            print(f"    Matches: {tournament.matches}")
+            print(f"    Matches: {tournament.matches[0]}")
             print("")
             print("b. Back")
             print("q. Quit")
