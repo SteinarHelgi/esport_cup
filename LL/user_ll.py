@@ -20,6 +20,10 @@ class UserLL:
     def get_all_tournaments(self) -> list:
         tournaments = self.api_data.get_all_tournament_data()
         matches = self.api_data.get_all_match_data()
+        for tournament in tournaments:
+            for match in matches:
+                if match.tournament_id == tournament.id:
+                    tournament.add_match(match)
 
         return tournaments
 

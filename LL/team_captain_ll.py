@@ -64,6 +64,7 @@ class TeamCaptainLL:
         pass
 
     def create_new_team(self):
+        
         # TODO
         pass
 

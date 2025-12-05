@@ -1,7 +1,3 @@
-import datetime as dt
-from Models import game
-from Models.models import Game
-
 # match_id,tournament_id,round,match_number,team_a_name,team_b_name,match_date,match_time,server_id,score_a,score_b,winner_team_name,completed
 
 
@@ -49,3 +45,4 @@ class Match:
     def set_winner(self, winner_team):
         self.winner_team = winner_team
         self.completed = True
+
