@@ -131,7 +131,7 @@ class MenuManager:
         if choice == "4":
             return "MY_TOURNAMENTS"
         if choice.lower() == "b":
-            return "LOGIN_CREDENTIALS"
+            return "LOGIN_MENU"
 
         return "QUIT"
 
