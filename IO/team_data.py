@@ -1,41 +1,28 @@
-#Þröstur
+# Þröstur
 import csv
 from Models.models import Team
 
-class TeamData:    
+
+class TeamData:
     def __init__(self):
-        self.team_file_path = "Data/TeamData.csv"
+        self.team_file_path: str = "Data/teams.csv"
 
-
-    def get_all_team_data(self, id) -> list[Team]:
-        teams = []
-        with open(self.team_file_path, "+r", encoding = "utf-8" ) as file:
+    def get_all_team_data(self) -> list[Team]:
+        teams: list[Team] = []
+        with open(self.team_file_path, "+r", encoding="utf-8") as file:
             csvReader = csv.reader(file)
             next(csvReader)
             for line in csvReader:
-                id = int(line[0])
-                name = line[1]
-                all_players_handle_raw = line[2]
-                logo = line[3]
-                captain_id = int(line[4])
-                social = line[5]
-                club_id = line[6]
-                points = int(line[7])
-                all_players_handle = all_players_handle_raw.split(";")
-
-                team = Team(id,
-                            name,
-                            all_players_handle,
-                            logo,
-                            captain_id,
-                            social,
-                            club_id,
-                            points,
-                            )
+                id: str = line[0]
+                name: str = line[1]
+                captain_id: str = line[2]
+                social_media: str = line[3]
+                logo: str = line[4]
+                team = Team(id, name, captain_id, social_media, logo)
                 teams.append(team)
             return teams
-    
-    def store_team_data(self, team: Team) -> Team:
+
+    def store_team_data(self, team: Team) -> Team | None:
         with open(self.team_file_path, "a") as file:
             csvWriter = csv.writer(file)
             try:
@@ -43,5 +30,3 @@ class TeamData:
             except:
                 return None
         return team
-
-

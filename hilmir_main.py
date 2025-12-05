@@ -1,8 +1,15 @@
+from Models.team import Team
+from UI import user_ui
+from UI.user_ui import UserUI
+from UI.main_ui import MainUI
 
-from UI.Menus import print_my_team_menu
 
 def main():
-    print_my_team_menu()
+    user = MainUI()
+    user.run()
+    
+
 
 main()
+
 

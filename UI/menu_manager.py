@@ -1,3 +1,4 @@
+import os
 from LL.api_ll import APILL
 from UI.user_ui import UserUI
 from UI.team_captain_ui import TeamCaptainUI
@@ -9,17 +10,21 @@ class MenuManager:
 
     def __init__(self, api_ll: APILL) -> None:
         self.api_ll = api_ll
-        self.user_ui = UserUI(self.api_ll)
-        self.team_captain_ui = TeamCaptainUI(self.api_ll)
-        self.organiser_Ui = OrganiserUI(self.api_ll)
+        self.user_ui = UserUI(self.api_ll, self)
+        self.team_captain_ui = TeamCaptainUI(self.api_ll, self)
+        self.organiser_Ui = OrganiserUI(self.api_ll, self)
+        self.user = ""
+        self.team_name = ""
 
         self.pages = {
             "LOGIN_MENU": self.print_login_menu,
+            "LOGIN_CREDENTIALS": self.login_credentials_menu,
+            "LOGIN_CREDENTIALS_ORG": self.login_credentials_menu_org,
             # USER MENUS
             "USER_MENU": self.print_user_menu,
             "TEAMS": self.user_ui.show_teams,
             "TOURNAMENTS": self.user_ui.show_tournaments,
-            "CURRENT_TOURNAMENTS": self.user_ui.show_current_tournaments,
+            "ONGOING_TOURNAMENTS": self.user_ui.show_ongoing_tournaments,
             "UPCOMING_TOURNAMENTS": self.user_ui.show_upcoming_tournaments,
             "PAST_TOURNAMENTS": self.user_ui.show_past_tournaments,
             "PLAYERS": self.user_ui.show_players,
@@ -34,9 +39,11 @@ class MenuManager:
             "UPDATE_TEAM_DATA": self.team_captain_ui.show_update_team_data,
             "ADD_TEAM_TO_CLUB": self.team_captain_ui.show_add_team_to_club,
             "CREATE_TEAM": self.team_captain_ui.show_create_team,
+            "SHOW_MY_PLAYERS": self.team_captain_ui.show_my_players,
             # ORGANISER MENUS
             "ORGANISER_MENU": self.print_organiser_menu,
             "CREATE_TOURNAMENT_MENU": self.organiser_Ui.show_create_tournament,
+    
             "MY_TOURNAMENT_MENU": self.organiser_Ui.show_my_tournament,
             "CREATE_SCHEDULE": self.organiser_Ui.show_create_schedule,
             "UPDATE_SCHEDULE": self.organiser_Ui.show_update_schedule,
@@ -62,35 +69,83 @@ class MenuManager:
                 print(choice, ".", sep="")
 
     def print_login_menu(self):  # Login menu
-        print("__________LOGIN_________")
+        print("\033c", end="")
+        print(r"""
+     __       __  ________  __        ______    ______   __       __  ________        ________   ______                      
+|  \  _  |  \|        \|  \      /      \  /      \ |  \     /  \|        \      |        \ /      \                     
+| $$ / \ | $$| $$$$$$$$| $$     |  $$$$$$\|  $$$$$$\| $$\   /  $$| $$$$$$$$       \$$$$$$$$|  $$$$$$\                    
+| $$/  $\| $$| $$__    | $$     | $$   \$$| $$  | $$| $$$\ /  $$$| $$__             | $$   | $$  | $$                    
+| $$  $$$\ $$| $$  \   | $$     | $$      | $$  | $$| $$$$\  $$$$| $$  \            | $$   | $$  | $$                    
+| $$ $$\$$\$$| $$$$$   | $$     | $$   __ | $$  | $$| $$\$$ $$ $$| $$$$$            | $$   | $$  | $$                    
+| $$$$  \$$$$| $$_____ | $$_____| $$__/  \| $$__/ $$| $$ \$$$| $$| $$_____          | $$   | $$__/ $$                    
+| $$$    \$$$| $$     \| $$     \\$$    $$ \$$    $$| $$  \$ | $$| $$     \         | $$    \$$    $$                    
+ \$$      \$$ \$$$$$$$$ \$$$$$$$$ \$$$$$$   \$$$$$$  \$$      \$$ \$$$$$$$$          \$$     \$$$$$$                     
+ ________  __    __  ________  _______    ______   __     __   ______    ______    ______   __    __  ________   ______  
+|        \|  \  |  \|        \|       \  /      \ |  \   |  \ /      \  /      \  /      \ |  \  |  \|        \ /      \ 
+| $$$$$$$$| $$  | $$ \$$$$$$$$| $$$$$$$\|  $$$$$$\| $$   | $$|  $$$$$$\|  $$$$$$\|  $$$$$$\| $$\ | $$ \$$$$$$$$|  $$$$$$\
+| $$__     \$$\/  $$   | $$   | $$__| $$| $$__| $$| $$   | $$| $$__| $$| $$ __\$$| $$__| $$| $$$\| $$    /  $$ | $$__| $$
+| $$  \     >$$  $$    | $$   | $$    $$| $$    $$ \$$\ /  $$| $$    $$| $$|    \| $$    $$| $$$$\ $$   /  $$  | $$    $$
+| $$$$$    /  $$$$\    | $$   | $$$$$$$\| $$$$$$$$  \$$\  $$ | $$$$$$$$| $$ \$$$$| $$$$$$$$| $$\$$ $$  /  $$   | $$$$$$$$
+| $$_____ |  $$ \$$\   | $$   | $$  | $$| $$  | $$   \$$ $$  | $$  | $$| $$__| $$| $$  | $$| $$ \$$$$ /  $$___ | $$  | $$
+| $$     \| $$  | $$   | $$   | $$  | $$| $$  | $$    \$$$   | $$  | $$ \$$    $$| $$  | $$| $$  \$$$|  $$    \| $$  | $$
+ \$$$$$$$$ \$$   \$$    \$$    \$$   \$$ \$$   \$$     \$     \$$   \$$  \$$$$$$  \$$   \$$ \$$   \$$ \$$$$$$$$ \$$   \$$
+        
+""")
+
         print("1. continue as user \n2. Login as Team Captain \n3. Login as Organiser")
         choice: str = self.prompt_choice(["1", "2", "3", "q"])
         if choice == "1":
+            self.user = "USER"
             return "USER_MENU"
         if choice == "2":
-            return "TEAM_CAPTAIN_MENU"
+            self.user = "TEAM_CAPTAIN"
+            return "LOGIN_CREDENTIALS"
         if choice == "3":
-            return "ORGANISER_MENU"
+            self.user = "ORGANISER"
+            return "LOGIN_CREDENTIALS_ORG"
         return "QUIT"
+
+    def login_credentials_menu(self):  # logging in as organiser
+        username = "Chuck Norris"
+        password = "Pepsi Max"
+        print(f"Username: {username} \nPassword: {password} \nConfirm(Y/N)? ")
+        choice: str = self.prompt_choice(["y", "n"])
+        self.team_name = "NullPointer Ninjas"
+        if choice.lower() == "y":
+            return "TEAM_CAPTAIN_MENU"
+        else:
+            return "LOGIN_MENU"
+        
+    def login_credentials_menu_org(self):  # logging in as organiser
+        username = "Chuck Norris"
+        password = "Pepsi Max"
+        print(f"Username: {username} \nPassword: {password} \nConfirm(Y/N)? ")
+        choice: str = self.prompt_choice(["y", "n"])
+        if choice.lower() == "y":
+            return "ORGANISER_MENU"
+        else:
+            return "LOGIN_MENU"
 
     def print_user_menu(self):  # Option menu for user
         # TODO
         print("__SELECT AN OPTION__")
-        print("1. Teams \n2. Tournaments \nq. Quit")
+        print("1. Teams \n2. Tournaments \nb. Back \nq. Quit")
 
         choice: str = self.prompt_choice(["1", "2", "q"])
         if choice == "1":
             return "TEAMS"
         if choice == "2":
             return "TOURNAMENTS"
+        if choice.lower() == "b":
+            return "LOGIN_MENU"
         return "QUIT"
 
     def print_team_captain_menu(self):  # Option menu for team captain
         # TODO
         print("__SELECT AN OPTION__")
-        print("1. Teams \n2. Tournaments \n3. My Team \n4. My Tournaments \nq. Quit")
+        print("1. Teams \n2. Tournaments \n3. My Team \n4. My Tournaments \nb. back \nq. Quit")
 
-        choice: str = self.prompt_choice(["1", "2", "3", "4", "q"])
+        choice: str = self.prompt_choice(["1", "2", "3", "4", "b", "q"])
         if choice == "1":
             return "TEAMS"
         if choice == "2":
@@ -99,6 +154,8 @@ class MenuManager:
             return "MY_TEAM"
         if choice == "4":
             return "MY_TOURNAMENTS"
+        if choice.lower() == "b":
+            return "LOGIN_CREDENTIALS"
 
         return "QUIT"
 
@@ -106,16 +163,18 @@ class MenuManager:
         # TODO
         print("__SELECT AN OPTION__")
         print(
-            "1. Teams \n2. Tournaments \n3. Create Tournaments \n4. My Tournaments \nq. Quit"
+            "1. Teams \n2. Tournaments \n3. Create Tournaments \n4. My Tournaments \nb. Back \nq. Quit"
         )
-        choice: str = self.prompt_choice(["1", "2", "3", "4", "q"])
+        choice: str = self.prompt_choice(["1", "2", "3", "4","b", "q"])
         if choice == "1":
             return "TEAMS"
         if choice == "2":
             return "TOURNAMENTS"
         if choice == "3":
-            return "CREATE_TOURNAMENT"
+            return "CREATE_TOURNAMENT_MENU"
         if choice == "4":
             return "MY_TOURNAMENTS_ORGANISER"
+        if choice.lower() == "b":
+            return "LOGIN_MENU"
 
         return "QUIT"

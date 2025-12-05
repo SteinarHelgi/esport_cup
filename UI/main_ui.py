@@ -8,10 +8,11 @@ class MainUI:
     def __init__(self):
         self.APILL = APILL()
         self.menu_manager = MenuManager(self.APILL)
+        self.previous_screen = ""
         self.current_screen = "LOGIN_MENU"
 
     def run(self) -> None:
-        """Main loop handling navigation."""
+        """Main loop handling navigation"""
         while True:
             func = self.menu_manager.pages.get(self.current_screen)
 
@@ -22,7 +23,6 @@ class MainUI:
             next_screen = func()
 
             if next_screen in (None, "QUIT"):
-                print("Quitting")
                 break
 
             self.current_screen = next_screen

@@ -2,6 +2,10 @@
 import csv
 from Models.models import Tournament
 from datetime import datetime
+from IO.contact_person_data import ContactPersonData
+from Models.models import ContactPerson
+from IO.match_data import MatchData
+
 
 # Steinar
 
@@ -9,36 +13,39 @@ from datetime import datetime
 class TournamentData:
     def __init__(self):
         self.tournament_file_path = "Data/Tournaments.csv"
+        self.contact_person_data = ContactPersonData()
+        self.match_data = MatchData()
 
-    def get_tournament_data(self) -> list[Tournament]:
+    def get_all_tournament_data(self) -> list[Tournament]:
         tournaments = []
-        with open(self.tournament_file_path, "r+", encoding = "utf-8") as file:
+        with open(self.tournament_file_path, "r") as file:
             csvReader = csv.reader(file)
             next(csvReader)  # skip header
             for line in csvReader:
-                id = int(line[0])
-                name = line[1]
-                start_date = datetime.fromisoformat(line[2])
-                end_date = datetime.fromisoformat(line[3])
-                venue = line[4]
-                game_id = line[5]
-                number_of_servers = int(line[6])
-                contact_person_id = line[7]
+                if line != []:
+                    id = line[0]
+                    name = line[1]
+                    start_date = datetime.fromisoformat(line[2])
+                    end_date = datetime.fromisoformat(line[3])
+                    venue = line[4]
+                    game_id = line[5]
+                    number_of_servers = line[6]
+                    # contact_person_id = ContactPerson(line[7],"Hilmir","hilmir@rasshaus.is","8410536",)
+                    contact_person_id = line[7]
 
-                tournament = Tournament(
-                    id,
-                    name,
-                    start_date,
-                    end_date,
-                    venue,
-                    game_id,
-                    number_of_servers,
-                    contact_person_id,
-                )
-                tournaments.append(tournament)
+                    tournament = Tournament(
+                        name,
+                        start_date,
+                        end_date,
+                        venue,
+                        game_id,
+                        number_of_servers,
+                        contact_person_id,
+                    )
+                    tournaments.append(tournament)
         return tournaments
 
-    def store_tournament_data(self, tournament: Tournament)->Tournament:
+    def store_tournament_data(self, tournament: Tournament) -> Tournament:
         with open(self.tournament_file_path, "a") as file:
             csvWriter = csv.writer(file)
             try:
@@ -46,3 +53,4 @@ class TournamentData:
             except:
                 return None
         return tournament
+

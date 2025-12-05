@@ -1,64 +1,104 @@
+"""This is the page where everything related to the users UI is shown"""
+
+from os import name
 from LL.api_ll import APILL
+from UI.functions import format_player_list, format_team_list, format_tournament_table
 from Models.models import Team
-
-
-def print_back_and_quit():
-    print("")
-    print("b. Back")
-    print("q. Quit")
+from datetime import datetime
 
 
 class UserUI:
-    def __init__(self, APILL: APILL) -> None:
+    def __init__(self, APILL: APILL, menu_manager) -> None:
         self.APILL = APILL
+        self.menu_manager = menu_manager
 
-    def show_teams(self):
+    def show_teams(self) -> str:
         teams = self.APILL.get_all_teams()
-        print("Teams:")
-        for id, team in teams.items():
-            name = team[0]
-            logo = team[2]
-            teamCaptain = team[3]
-            website = team[4]
-            club = team[5]
-            points = team[6]
-            print("-----------------------------------------------------------")
-            print(f"{id}:   {name} {logo} {teamCaptain} {website} {club} {points}")
-        print_back_and_quit()
+        print(format_team_list(teams))
+        print("1.Search for team \nb.Back \nq.Quit")
 
-    def show_tournaments(self):
-        valid_options = ["1", "2", "3", "b", "q"]
-        option = "?"
-        for option in valid_options:
-            if option == "1":
-                return  # ongoing_tournaments
-            if option == "2":
-                return  # upcoming_tournaments
-            if option == "3":
-                return  # Past_tournaments
-            if option == "b":
-                return  # back_button
-            if option == "q":
-                return  # quit
+        choice: str = self.menu_manager.prompt_choice(["1", "b", "q"])
+        if choice == "1":
+            search_for_team = input("Enter team name for details: ")
+        if choice.lower() == "b":
+            return "LOGIN_MENU"
 
-    def show_current_tournaments(self):
+        return "QUIT"
+
+    def show_tournaments(self) -> str:
         tournaments = self.APILL.get_all_tournaments()
-        print("Tournaments:")
-        for tournament in tournaments:
-            print(tournament)
-        print_back_and_quit()
+        valid_options = ["1", "2", "3", "b", "q"]
+        print(
+            "1. Ongoing tournaments \n2. Upcoming tournaments \n3. Past Tournaments \nb. Back \nq. Quit"
+        )
+        choice: str = self.menu_manager.prompt_choice(valid_options)
 
-    def show_upcoming_tournaments(self):
-        # TODO
-        pass
+        if choice == "1":
+            return "ONGOING_TOURNAMENTS"
+        elif choice == "2":
+            return "UPCOMING_TOURNAMENTS"
+        elif choice == "3":
+            return "PAST_TOURNAMENTS"
+        elif choice.lower() == "b":
+            return "LOGIN_MENU"
+        else:
+            return "QUIT"
+
+    def show_ongoing_tournaments(
+        self,
+    ):  # Shows the tournaments that are going on at the time of checking
+        today = datetime.today()
+        tournaments = self.APILL.get_ongoing_tournaments(today)
+        print("Ongoing Tournaments:")
+        print(format_tournament_table(tournaments))
+        print("b.Back \nq.Quit")
+
+        choice: str = self.menu_manager.prompt_choice(["b", "q"])
+
+        if choice.lower() == "b":
+            return "TOURNAMENTS"
+        else:
+            "QUIT"
+
+    def show_upcoming_tournaments(
+        self,
+    ):  # Shows the tournaments that are starting after the date of checking
+        today = datetime.today()
+        tournaments = self.APILL.get_upcoming_tournaments(today)
+        print("Upcoming Tournaments")
+        print(format_tournament_table(tournaments))
+
+        print("b. Back \nq. Quit")
+        # TODO add functionality for selecting a tournament
+        choice: str = self.menu_manager.prompt_choice(["b", "q"])
+        if choice.lower() == "b":
+            return "TOURNAMENTS"
+        if choice == "q":
+            return "QUIT"
 
     def show_past_tournaments(self):
-        # TODO
-        pass
+        today = datetime.today()
+        tournaments = self.APILL.get_past_tournaments(today)
+        print("Past Tournaments")
+        print(format_tournament_table(tournaments))
+
+        print("b. Back \nq. Quit")
+        # TODO add functionality for selecting a tournament
+        choice: str = self.menu_manager.prompt_choice(["b", "q"])
+        if choice.lower() == "b":
+            return "TOURNAMENTS"
+        if choice == "q":
+            return "QUIT"
 
     def show_players(self, team: Team):
-        # Todo
-        pass
+        players = self.APILL.get_players_in_team(team.name)
+        print(format_player_list(players))
+        valid_options = ["q", "b"]
+        choice: str = self.menu_manager.prompt_choice(valid_options)
+        if choice.lower() == "q":
+            return "QUIT"
+        if choice.lower() == "b":
+            return "TEAM"
 
     def show_statistics(self):
         # TODO
