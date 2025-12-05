@@ -134,8 +134,6 @@ class OrganiserUI:
             print("--------------------")
             print(f"    Matches: {tournament.matches}")
             print("")
-            print("1. Edit player data")
-            print("2. Hurt player emotionally")
             print("b. Back")
             print("q. Quit")
 
