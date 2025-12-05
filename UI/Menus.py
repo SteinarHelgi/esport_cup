@@ -62,16 +62,6 @@ def roster_menu():
     )
 
 
-
-def player_added_screen(self, name, handle, social_media):
-    player_name = name
-    player_handle = handle
-    player_social = social_media
-    print(f"PLAYER ADDED!\n{player_name} \n{player_handle} \n{player_social} \nb.Back \nq. Quit")
-    choice: str = self.menu_manager.prompt_choice(["b","q"])
-
-
-
 # Organiser menus
 
 
@@ -84,9 +74,9 @@ def create_tournament_menu(self):
     venue = input("Venue: ")
     double_elimination = input("Double elimination(Y/N): ")
     game_for_tournament = input("Game: ")
-    choice: str = self.menu_manager.prompt_choice(["b","q"])
+    choice: str = self.menu_manager.prompt_choice(["b", "q"])
     print("b. Back \nq. Quit")
-    
+
 
 def create_contact_person_menu():
     print("Fill in contact person info!")
@@ -94,8 +84,6 @@ def create_contact_person_menu():
     new_contact_person_email = input("Email: ")
     new_contact_person_phone_nmbr = input("Phone number: ")
     confirmation = input("Confirm(Y/N): ")
-    
-
 
 
 def tournament_created_menu():

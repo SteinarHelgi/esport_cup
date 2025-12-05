@@ -57,8 +57,6 @@ class OrganiserLL:
         next_id = max(int(match.match_id) for match in matches) + 1
         match.set_id(next_id)
 
-        self._next_match_id += 1
-
         stored = self.api_data.store_match_data(match)
         return stored
 
@@ -90,3 +88,4 @@ class OrganiserLL:
                 contact_person_id = t.id
                 return self.get_contact_person_by_id(contact_person_id)
         return None
+
