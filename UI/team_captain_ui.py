@@ -6,6 +6,7 @@ from UI.Menus import print_my_team_menu
 import UI.functions as f
 
 
+
 class TeamCaptainUI:
     def __init__(self, APILL: APILL, menu_manager) -> None:
         self.APILL = APILL

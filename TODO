@@ -12,5 +12,9 @@ UI MENUS
 * team captain my_tournaments
 * user velja lið úr teams menu
 * 
+UI: HILMIR
 laga user back og valid choice ui
+kíkja á create player
 cleare eftir error key og cleara eftir að systemið lokar.
+afh ekki handle og player id í create player
+bæta við modify player i player view i show my team

@@ -6,19 +6,21 @@ from Models.tournament import Tournament
 
 def format_tournament_table(tournaments: list[Tournament]):
     # Define fixed widths for columns
-    w_name = 25
-    w_date = 15
-    w_game = 15
+    w_name = 20
+    w_date = 12
+    w_game = 20
     w_id = 3
 
     # print header
     print(
-        f" {'Id':>{w_id}} {'NAME':<{w_name}} {'START DATE':<{w_date}} {'END DATE':<{w_date}}{'GAME':<{w_game}}"
+        f" {'Id':>{w_id}} {'NAME':<{w_name}} {'START DATE':<{w_date}} {'END DATE':<{w_date}}{'GAME':>{w_game - 3}}"
     )
 
     # Print a divider line
-    print("-" * (w_id + w_name + w_date + w_date + w_game))
+    line_length = (w_id + w_name + w_date + w_date + w_date + (w_game - 5))
+    print("-" * line_length)
     empty_string = ""
+    divider_Line = ("-" * line_length + "\n")
     # Loop through the data
     for counter, tournament in enumerate(tournaments):
         # Clean up the dates
@@ -26,7 +28,9 @@ def format_tournament_table(tournaments: list[Tournament]):
         e_date = str(tournament.end_date).split(" ")[0]
 
         # Print the actual variables (tournament.name), not the string "NAME"
-        empty_string += f"{counter:>{w_id}}. {tournament.name:<{w_name}} {s_date:<{w_date}} {e_date:<{w_date}} {tournament.game_id:<{w_date}}\n"
+        empty_string += f"{counter:>{w_id}}.{tournament.name:<{w_name}}{s_date:^{w_date}}|{e_date:^{w_date}}{tournament.game_id:>{w_game}}\n"
+        empty_string += divider_Line
+
     return empty_string
 
 
@@ -37,11 +41,13 @@ def format_team_list(teams: list[Team]):  # TODO add club to this
     # w_club = 15
 
     # print header
-    print(f"{'TEAM NAME':<{w_name}} {'TEAM CAPTAIN':<{w_captain}}")
+    print(f"{'TEAM NAME':<{w_name}} {'TEAM CAPTAIN':>{w_captain - 3}}")
 
     # Print a divider line
+    line_length = (w_name + w_captain)
     print("-" * (w_name + w_captain))
     empty_string = ""
+    divider_Line = ("-" * line_length + "\n")
     # Loop through the data
     for team in teams:
         # Clean up the dates
@@ -49,7 +55,8 @@ def format_team_list(teams: list[Team]):  # TODO add club to this
         # e_date = str(tournament.end_date).split(" ")[0]
 
         # Print the actual variables (tournament.name), not the string "NAME"
-        empty_string += f"{team.name:<{w_name}} {captain_fix:<{w_captain}}\n"
+        empty_string += f"{team.name:<{w_name}} {captain_fix:>{w_captain - 3}}\n"
+        empty_string += divider_Line
     return empty_string
 
 
