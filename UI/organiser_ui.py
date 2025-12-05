@@ -121,7 +121,6 @@ class OrganiserUI:
     def show_my_tournaments(self) -> str:  # Shows all of the upcoming tournamnets for the organiser to look at
         tournaments = self.APILL.get_upcoming_tournaments()
         print(format_tournament_table(tournaments))
-        print("1. Select tournament by name \nb. Back \nq. Quit")
         # TODO Klára implementa þetta
         # if choice == "1":
         # tournamentname = input("Enter tournament name: :")
@@ -132,8 +131,8 @@ class OrganiserUI:
             stringI = str(i)
             valid_choices.append(stringI)
         for i in valid_choices:
-            print(i, ".", tournaments[int(i)].name)
-
+            print(i,".", tournaments[int(i)].name)
+        print("\nb. Back \nq. Quit")
         choice: str = self.menu_manager.prompt_choice(valid_choices + ["b", "q"])
         print()
         for element in valid_choices:
