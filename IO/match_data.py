@@ -26,9 +26,7 @@ class MatchData:
                 game_name: str = line[9]
                 completed: str = line[10]
 
-
                 match = Match(
-                    match_id,
                     tournament_id,
                     round,
                     team_1_id,
@@ -36,10 +34,11 @@ class MatchData:
                     match_date,
                     match_time,
                     server_id,
-                    winner_team,
-                    game_name,
-                    completed,
+                    game_name
                 )
+
+                match.set_id(match_id)
+                match.set_winner(winner_team)
                 matches.append(match)
 
         return matches

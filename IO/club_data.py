@@ -30,7 +30,6 @@ class ClubData:
                         points = line[6]
                     except ValueError:
                         points = 0
-                # þarf að tengja teams í APIDATA svo er bara tómur listi hér
 
                 club = Club(
                     id, name, hometown, logo, club_colors, country, str(points), teams

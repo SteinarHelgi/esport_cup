@@ -118,13 +118,25 @@ class OrganiserUI:
             f"TOURNAMENT CREATED! \nOpen for registration \n{tournament_name} \n{venue} \n{game}"
         )
 
-    def show_my_tournaments(self) -> str:
+    def show_my_tournaments(self) -> str:  # Shows all of the upcoming tournamnets for the organiser to look at
         tournaments = self.APILL.get_upcoming_tournaments()
         print(format_tournament_table(tournaments))
+        print("1. Select tournament by name \nb. Back \nq. Quit")
+        choice: str = self.menu_manager.prompt_choice(["1", "b", "q"])
+        # TODO Klára implementa þetta
+        # if choice == "1":
+        # tournamentname = input("Enter tournament name: :")
+        # self.apill.get_tournament_by_name(tournamentname)
+        # send to screen
+        if choice.lower() == "b":
+            return "ORGANISER_MENU"
+        if choice.lower() == "q":
+            return "QUIT"
+
         return ""
 
     def show_tournament_view(self, tournament_name: str):
-        """takes in a player name and shows the menu for the player"""
+        """takes in a tournament name and shows the menu for the tournament"""
 
         tournament = self.APILL.get_tournament_by_name(tournament_name)
         if tournament:
@@ -134,8 +146,6 @@ class OrganiserUI:
             print("--------------------")
             print(f"    Matches: {tournament.matches}")
             print("")
-            print("1. Edit player data")
-            print("2. Hurt player emotionally")
             print("b. Back")
             print("q. Quit")
 
@@ -147,14 +157,6 @@ class OrganiserUI:
             return "SHOW_MY_PLAYERS"
         if choice == "q":
             return "QUIT"
-
-    def show_create_schedule(self):
-        # TODO
-        pass
-
-    def show_update_schedule(self):
-        # TODO
-        pass
 
     def show_create_match(self):
         # TODO
