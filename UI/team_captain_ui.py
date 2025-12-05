@@ -86,6 +86,7 @@ class TeamCaptainUI:
 
     def show_player_view(self, player_name: str):
         """takes in a player name and shows the menu for the player"""
+
         player = self.APILL.get_player_by_name(player_name)
         if player:
             print(f"{player.name.upper()}  |  {player.handle} ")
@@ -100,10 +101,17 @@ class TeamCaptainUI:
             print("")
             print("1. Edit player data")
             print("2. Hurt player emotionally")
-        choice: str = self.menu_manager.prompt_choice(["1", "2"])
+            print("b. Back")
+            print("q. Quit")
+
+        choice: str = self.menu_manager.prompt_choice(["1", "2", "b", "q"])
         if choice == "1":
             # TODO create edit player menu
             return "EDIT_PLAYER"
+        if choice == "b":
+            return "SHOW_MY_PLAYERS"
+        if choice == "q":
+            return "QUIT"
 
     def show_register_team_to_tournament(self):
         # TODO
