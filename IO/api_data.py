@@ -80,3 +80,7 @@ class APIDATA:
     def modify_player_data(self, player: Player):
         return self.player_data.modify_player_data(player)
     
+    def delete_player_data(self, player_id: str):
+        return self.player_data.delete_player_data(player_id)
+    
+    

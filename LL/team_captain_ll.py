@@ -76,7 +76,8 @@ class TeamCaptainLL:
     def modify_player(self, player: Player):
         self.APIDATA.modify_player_data(player)
         
-
+    def delete_player(self, player_id: str):
+        self.APIDATA.delete_player_data(player_id)
 
     def create_new_team(self, team: Team) -> Team:
         """Creates new team and saves it in the csv file."""
