@@ -118,9 +118,7 @@ class OrganiserUI:
             f"TOURNAMENT CREATED! \nOpen for registration \n{tournament_name} \n{venue} \n{game}"
         )
 
-    def show_my_tournaments(
-        self,
-    ) -> str:  # Shows all of the upcoming tournamnets for the organiser to look at
+    def show_my_tournaments(self) -> str:  # Shows all of the upcoming tournamnets for the organiser to look at
         tournaments = self.APILL.get_upcoming_tournaments()
         print(format_tournament_table(tournaments))
         print("1. Select tournament by name \nb. Back \nq. Quit")
