@@ -13,9 +13,8 @@ UI MENUS
 * user velja lið úr teams menu
 * 
 UI: HILMIR
-laga user back og valid choice ui
-kíkja á create player
+laga user back og valid choice ui - held þetta sé komið en ekki alveg viss
+kíkja á create player - kemur í sömu línu og nýjasti leikmaðurinn í staðinn fyrir nýrri línu inní fileinu
 cleare eftir error key og cleara eftir að systemið lokar.
-afh ekki handle og player id í create player
 bæta við modify player i player view i show my team
-kikja a hvað gerist eftir að player er created
+kikja a hvað gerist eftir að player er created - semi komið nema vantar að laga back functionið
