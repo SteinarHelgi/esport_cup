@@ -47,8 +47,7 @@ class UserUI:
     def show_ongoing_tournaments(
         self,
     ):  # Shows the tournaments that are going on at the time of checking
-        today = datetime.today()
-        tournaments = self.APILL.get_ongoing_tournaments(today)
+        tournaments = self.APILL.get_ongoing_tournaments()
         print("Ongoing Tournaments:")
         print(format_tournament_table(tournaments))
         print("b.Back \nq.Quit")
@@ -63,8 +62,7 @@ class UserUI:
     def show_upcoming_tournaments(
         self,
     ):  # Shows the tournaments that are starting after the date of checking
-        today = datetime.today()
-        tournaments = self.APILL.get_upcoming_tournaments(today)
+        tournaments = self.APILL.get_upcoming_tournaments()
         print("Upcoming Tournaments")
         print(format_tournament_table(tournaments))
 
@@ -77,8 +75,7 @@ class UserUI:
             return "QUIT"
 
     def show_past_tournaments(self):
-        today = datetime.today()
-        tournaments = self.APILL.get_past_tournaments(today)
+        tournaments = self.APILL.get_past_tournaments()
         print("Past Tournaments")
         print(format_tournament_table(tournaments))
 

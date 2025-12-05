@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import date, datetime
 from IO.api_data import APIDATA
 from Models.team import Team
 
@@ -25,7 +25,8 @@ class UserLL:
         players = self.api_data.get_all_player_data()
         return players
 
-    def get_ongoing_tournament(self, today):
+    def get_ongoing_tournament(self):
+        today = datetime.today()
         tournament = self.api_data.get_all_tournament_data()
         ongoing = []
 
@@ -35,8 +36,9 @@ class UserLL:
 
         return ongoing
 
-    def get_past_tournament(self, today):
+    def get_past_tournament(self):
         tournament = self.api_data.get_all_tournament_data()
+        today = datetime.today()
         past = []
 
         for t in tournament:
@@ -45,9 +47,10 @@ class UserLL:
 
         return past
 
-    def get_upcoming_tournament(self, today):
+    def get_upcoming_tournament(self):
         tournament = self.api_data.get_all_tournament_data()
         upcoming = []
+        today = datetime.today()
 
         for t in tournament:
             if t.end_date > today:  # kíkja á

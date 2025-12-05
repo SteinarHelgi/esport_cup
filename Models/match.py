@@ -8,7 +8,6 @@ from Models.models import Game
 class Match:
     def __init__(
         self,
-        match_id: str,
         tournament_id: str,
         round: str,
         team_1_id: str,
@@ -18,7 +17,6 @@ class Match:
         server_id: str,
         game_name: str,
     ):
-        self.match_id = match_id
         self.tournament_id = tournament_id
         self.round = round
         self.team_1_id = team_1_id
