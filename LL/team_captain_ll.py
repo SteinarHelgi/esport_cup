@@ -1,3 +1,4 @@
+from unicodedata import numeric
 from Models.player import Player
 from Models.team import Team
 from IO.api_data import APIDATA
@@ -30,14 +31,34 @@ class TeamCaptainLL:
             if p.handle == player.handle:
                 raise ValueError()
 
-        # Find next player id
+        next_number = 1
+        if current_players:
+            num_ids: list[int] = []
+
+            for p in current_players:
+                player_id = str(p.id)
+                if player_id.startswith("p"):
+                    player_id = player_id[1:]
+                try:
+                    num_ids.append(int(player_id))
+                except ValueError:
+                    continue
+            
+            if num_ids:
+                next_number = max(num_ids) + 1
+        
+        player_id = f"p{next_number:03d}"
+        player.set_id(player_id)
+
+        
+        ''' Find next player id
         if current_players:
             next_id: int = max(int(player.id) for player in current_players) + 1
         else:
             next_id = 1
         player_id = str(next_id)
 
-        player.set_id(player_id)
+        player.set_id(player_id)'''
 
         # Fetch team id from captain
         team_id = player.team_name
@@ -85,9 +106,9 @@ class TeamCaptainLL:
         # TODO
         pass
 
-    def register_team_to_tournament(self):
-        # TODO
-        pass
+    def register_team_to_tournament(self, team: Team) -> None:
+        new_team = self.APIDATA.store_team_data(team)
+
 
     def get_team_by_captain_id(self, captain_id) -> Team | None:
         teams = self.APIDATA.get_all_team_data()
@@ -125,3 +146,7 @@ class TeamCaptainLL:
         for player in players:
             if player.name == name:
                 return player
+    
+    def show_my_tournaments(self):
+        #TODO
+        pass

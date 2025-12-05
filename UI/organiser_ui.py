@@ -135,7 +135,7 @@ class OrganiserUI:
         print()
         for element in valid_choices:
             if element == choice:
-                self.show_tournament_view(tournaments[int(element)].name)
+                self.show_tournament_view(tournaments[int(element)])
 
         if choice == "b":
             return "ORGANISER_MENU"
@@ -144,10 +144,9 @@ class OrganiserUI:
 
         return ""
 
-    def show_tournament_view(self, tournament_name: str):
+    def show_tournament_view(self, tournament: Tournament):
         """takes in a tournament name and shows the menu for the tournament"""
 
-        tournament = self.APILL.get_tournament_by_name(tournament_name)
         if tournament:
             print(
                 f"{tournament.name.upper()}  |  {tournament.start_date} -- {tournament.end_date} "
