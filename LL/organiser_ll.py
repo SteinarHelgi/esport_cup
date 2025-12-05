@@ -30,6 +30,17 @@ class OrganiserLL:
 
         return stored
 
+    def get_tournament_by_name(self, tournament_name) -> Tournament | None:
+        tournaments = self.api_data.get_all_tournament_data()
+        matches = self.api_data.get_all_match_data()
+        for tournament in tournaments:
+            if tournament.name == tournament_name:
+                for match in matches:
+                    if match.tournament_id == tournament.id:
+                        tournament.add_match(match)
+
+                return tournament
+
     def delete_tournament(self):
         # TODO
         pass

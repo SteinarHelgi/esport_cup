@@ -19,6 +19,8 @@ class UserLL:
 
     def get_all_tournaments(self) -> list:
         tournaments = self.api_data.get_all_tournament_data()
+        matches = self.api_data.get_all_match_data()
+
         return tournaments
 
     def get_all_players(self) -> list:
