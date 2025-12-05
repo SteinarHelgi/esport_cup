@@ -61,3 +61,5 @@ class APILL:
     def create_player(self, player: Player) -> Player | None:
         return self.team_captain_ll.create_player(player)
 
+    def register_team_to_tournament(self, team: Team, tournament: Tournament):
+        return self.team_captain_ll.register_team_to_tournament(team, tournament)

@@ -17,7 +17,7 @@ class TeamRegistryData:
                 team_registries.append(team_registry)
             return team_registries
         
-    def store_team_registry(self, team_registry: TeamRegistry) -> TeamRegistry | None:
+    def store_team_registry_data(self, team_registry: TeamRegistry) -> TeamRegistry | None:
         with open(self._filepath, "a") as file:
             csvWriter = csv.writer(file)
             try:

@@ -75,5 +75,8 @@ class APIDATA:
         return self.team_registry_data.get_all_team_registry_data()
 
     def store_team_registry_data(self, team_registry: TeamRegistry):
-        return self.team_registry_data.store_team_registry(team_registry)
+        return self.team_registry_data.store_team_registry_data(team_registry)
+    
+    def modify_player_data(self, player: Player):
+        return self.player_data.modify_player_data(player: Player)
     
