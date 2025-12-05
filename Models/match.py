@@ -45,3 +45,7 @@ class Match:
 
     def set_id(self, id):
         self.match_id = id
+
+    def set_winner(self, winner_team):
+        self.winner_team = winner_team
+        self.completed = True

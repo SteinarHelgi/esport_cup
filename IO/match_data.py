@@ -37,6 +37,8 @@ class MatchData:
                     server_id,
                     game_name
                 )
+                match.set_id(match_id)
+                match.set_winner(winner_team)
                 matches.append(match)
 
         return matches
