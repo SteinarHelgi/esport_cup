@@ -23,6 +23,7 @@ class Tournament:
         self.no_servers = no_servers
         self.contact_person = contact_person_name
         self.matches = []
+        self.teams = []
 
     def toCSVList(self):
         ret = []
