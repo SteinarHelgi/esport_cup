@@ -7,9 +7,6 @@ from Models.models import Team
 from datetime import datetime
 
 
-
-
-
 class UserUI:
     def __init__(self, APILL: APILL, menu_manager) -> None:
         self.APILL = APILL
@@ -19,19 +16,21 @@ class UserUI:
         teams = self.APILL.get_all_teams()
         print(format_team_list(self, teams))
         print("1.Search for team \nb.Back \nq.Quit")
-    
+
         choice: str = self.menu_manager.prompt_choice(["1", "b", "q"])
         if choice == "1":
             search_for_team = input("Enter team name for details: ")
         if choice.lower() == "b":
             return "LOGIN_MENU"
-        
+
         return "QUIT"
 
     def show_tournaments(self) -> str:
         tournaments = self.APILL.get_all_tournaments()
         valid_options = ["1", "2", "3", "b", "q"]
-        print("1. Ongoing tournaments \n2. Upcoming tournaments \n3. Past Tournaments \nb. Back \nq. Quit")
+        print(
+            "1. Ongoing tournaments \n2. Upcoming tournaments \n3. Past Tournaments \nb. Back \nq. Quit"
+        )
         choice: str = self.menu_manager.prompt_choice(valid_options)
 
         if choice == "1":
@@ -51,14 +50,14 @@ class UserUI:
         today = datetime.today()
         tournaments = self.APILL.get_ongoing_tournaments(today)
         print("Ongoing Tournaments:")
-        print(format_tournament_table(self, tournaments))
+        print(format_tournament_table(tournaments))
         print("b.Back \nq.Quit")
-        
+
         choice: str = self.menu_manager.prompt_choice(["b", "q"])
 
         if choice.lower() == "b":
             return "TOURNAMENTS"
-        else: 
+        else:
             "QUIT"
 
     def show_upcoming_tournaments(
@@ -67,7 +66,7 @@ class UserUI:
         today = datetime.today()
         tournaments = self.APILL.get_upcoming_tournaments(today)
         print("Upcoming Tournaments")
-        print(format_tournament_table(self, tournaments))
+        print(format_tournament_table(tournaments))
 
         print("b. Back \nq. Quit")
         # TODO add functionality for selecting a tournament
@@ -81,7 +80,7 @@ class UserUI:
         today = datetime.today()
         tournaments = self.APILL.get_past_tournaments(today)
         print("Past Tournaments")
-        print(format_tournament_table(self, tournaments))
+        print(format_tournament_table(tournaments))
 
         print("b. Back \nq. Quit")
         # TODO add functionality for selecting a tournament
@@ -93,7 +92,7 @@ class UserUI:
 
     def show_players(self, team: Team):
         players = self.APILL.get_players_in_team(team.name)
-        print(format_player_list(self, players))
+        print(format_player_list(players))
         valid_options = ["q", "b"]
         choice: str = self.menu_manager.prompt_choice(valid_options)
         if choice.lower() == "q":
