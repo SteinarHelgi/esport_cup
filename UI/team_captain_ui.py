@@ -21,7 +21,7 @@ class TeamCaptainUI:
         handle = input("Enter player handle: ").strip()
         team = self.menu_manager.team_name
         new_player = Player(name, date_of_birth, address, phone_number, email, social_media, handle, team)
-        saved_player = self.APILL.create_player(new_player)
+        self.APILL.create_player(new_player)
 
         print(
             f"------ \nNew player created: {name}\n{date_of_birth}\n{address}\n{phone_number}\n{email}\n{social_media}\n{handle}\n{team} "
@@ -78,13 +78,15 @@ class TeamCaptainUI:
         for i in range(len(players)):
             stringI = str(i + 1)
             valid_choices.append(stringI)
-        choice: str = self.menu_manager.prompt_choice(valid_choices + ["b", "q"])
+        choice: str = self.menu_manager.prompt_choice(valid_choices + ["6", "7","b", "q"])
 
         for element in valid_choices:
             if element == choice:
                 player = self.show_player_view(players[int(element) - 1])
                 return player
-
+        if choice == "6":
+            return "CREATE_PLAYER"
+        if choice == "7":
             # select_player_to_remove_menu
             pass
         if choice.lower() == "q":
