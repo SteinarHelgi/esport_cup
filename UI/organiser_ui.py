@@ -122,31 +122,25 @@ class OrganiserUI:
     def show_my_tournaments(
         self,
     ) -> str:  # Shows all of the upcoming tournamnets for the organiser to look at
+        """Finds all upcoming tournaments and prompts for choice"""
         tournaments = self.APILL.get_upcoming_tournaments()
-        print("1. Select tournament by name \nb. Back \nq. Quit")
-        # TODO Klára implementa þetta
-        # if choice == "1":
-        # tournamentname = input("Enter tournament name: :")
-        # self.apill.get_tournament_by_name(tournamentname)
-        # send to screen
         valid_choices = []
         for i in range(len(tournaments)):
             stringI = str(i)
             valid_choices.append(stringI)
-        for i in valid_choices:
-            print(i, ".", tournaments[int(i)].name)
-        print("\nb. Back \nq. Quit")
+        print("MY_TOURNAMENTS_ORG")
         print(format_tournament_table(tournaments))
 
+        print("1. Select tournament by name \nb. Back \nq. Quit")
         choice: str = self.menu_manager.prompt_choice(valid_choices + ["b", "q"])
         print()
         for element in valid_choices:
             if element == choice:
                 self.show_tournament_view(tournaments[int(element)].name)
 
-        if choice.lower() == "b":
+        if choice == "b":
             return "ORGANISER_MENU"
-        if choice.lower() == "q":
+        if choice == "q":
             return "QUIT"
 
         return ""
@@ -160,7 +154,8 @@ class OrganiserUI:
                 f"{tournament.name.upper()}  |  {tournament.start_date} -- {tournament.end_date} "
             )
             print("--------------------")
-            print(f"    Matches: {tournament.matches[0]}")
+            for match in tournament.matches:
+                print(f"    Matches: {match}")
             print("")
             print("b. Back")
             print("q. Quit")
@@ -170,14 +165,20 @@ class OrganiserUI:
             # TODO create edit player menu
             return "BLA"
         if choice == "b":
-            return "SHOW_MY_PLAYERS"
+            return "MY_TOURNAMENTS_ORG"
         if choice == "q":
             return "QUIT"
 
     def show_create_match(self):
-        
-        #match = Match()
-        #create_match = self.APILL.create_match(match)
+        # TODO
+
+        prompts = ["team1: ", "team2: "]
+        user_inputs = []
+        for prompt in prompts:
+            current_input = input(prompt)
+            user_inputs.append(current_input)
+
+        print(*user_inputs)
 
         pass
 
