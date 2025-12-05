@@ -22,14 +22,14 @@ class APILL:
     def get_all_tournaments(self) -> list[Tournament]:
         return self.api_data.get_all_tournament_data()
 
-    def get_ongoing_tournaments(self, today) -> list[Tournament]:
-        return self.userLL.get_ongoing_tournament(today)
+    def get_ongoing_tournaments(self) -> list[Tournament]:
+        return self.userLL.get_ongoing_tournament()
 
-    def get_past_tournaments(self, today) -> list[Tournament]:
-        return self.userLL.get_past_tournament(today)
+    def get_past_tournaments(self) -> list[Tournament]:
+        return self.userLL.get_past_tournament()
 
-    def get_upcoming_tournaments(self, today) -> list[Tournament]:
-        return self.userLL.get_upcoming_tournament(today)
+    def get_upcoming_tournaments(self) -> list[Tournament]:
+        return self.userLL.get_upcoming_tournament()
 
     def get_team_by_captain_id(self, id) -> Team | None:
         return self.team_captain_ll.get_team_by_captain_id(id)
