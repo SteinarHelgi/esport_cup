@@ -29,3 +29,5 @@ class Match:
             self.game_id,
         ]
 
+    def set_id(self, id):
+        self.match_id = id
