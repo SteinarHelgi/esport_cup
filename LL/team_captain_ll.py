@@ -9,6 +9,7 @@ class TeamCaptainLL:
         self.id = 0
         self.APIDATA = APIDATA
 
+<<<<<<< Updated upstream
     def create_player(self, player: Player) -> Player:
         """Creates new player and saves him in the csv file"""
 
@@ -58,6 +59,12 @@ class TeamCaptainLL:
         self.APIDATA.store_player_data(new_player)
 
         return new_player
+=======
+    def create_player(self):
+        
+        # TODO
+        pass
+>>>>>>> Stashed changes
 
     def modify_player(self):
         # TODO

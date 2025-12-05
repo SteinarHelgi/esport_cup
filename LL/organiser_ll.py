@@ -83,15 +83,11 @@ class OrganiserLL:
                 return None
 
     def get_contact_person(self, tournament_id: str) -> ContactPerson | None:
-        """Skilar tengiliðnum sem tengist þessu tiltekna móti."""
+        """Returns contact person that is connected to certain tournament."""
+        
         tournaments = self.api_data.get_all_contact_person_data()
-
-        # TODO
-
-        # for t in tournaments:
-        #     if t.id == tournament_id:
-        #         contact_person_id = t.id
-        #         return self.contact_person_data.get_contact_person_by_id(
-        #             contact_person_id
-        #         )
-        # return None
+        for t in tournaments:
+            if t.id == tournament_id:
+                contact_person_id = t.id
+                return self.get_contact_person_by_id(contact_person_id)
+        return None

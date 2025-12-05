@@ -11,4 +11,3 @@ class Game:
         ret.append(self.name)
         ret.append(self.duration)
         return ret
-
