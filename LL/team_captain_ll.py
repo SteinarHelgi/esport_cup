@@ -78,11 +78,10 @@ class TeamCaptainLL:
         # TODO
         pass
 >>>>>>> Stashed changes
->>>>>>> 3c1cf85288e6f38d8c54c61b77a65d972049ece6
 
-    def modify_player(self):
-        # TODO
-        pass
+    def modify_player(self, player: Player):
+        self.APIDATA.modify_player_data(player)
+        
 
 
     def create_new_team(self, team: Team) -> Team:
@@ -130,13 +129,11 @@ class TeamCaptainLL:
         # TODO
         pass
 
-<<<<<<< HEAD
-    def register_team_to_tournament(self):
-        # TODO
-        pass
-=======
-    def register_team_to_tournament(self, team: Team) -> None:
-        new_team = self.APIDATA.store_team_data(team)
+    def register_team_to_tournament(self, team: Team, tournament: Tournament) -> None:
+        team_id: str = team.id
+        tournament_id: str = tournament.id
+        team_registry = TeamRegistry(team_id, tournament_id)
+        new_team_registry = self.APIDATA.store_team_registry_data(team_registry)
 
 >>>>>>> 3c1cf85288e6f38d8c54c61b77a65d972049ece6
 
