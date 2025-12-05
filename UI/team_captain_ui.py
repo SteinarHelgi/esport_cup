@@ -1,4 +1,5 @@
 from datetime import date
+from operator import add
 from LL.api_ll import APILL
 from Models.player import Player
 from UI.Menus import print_my_team_menu
@@ -19,6 +20,8 @@ class TeamCaptainUI:
         social_media = input("Enter social media handle: ").strip()
         handle = input("Enter player handle: ").strip()
         team = self.menu_manager.team_name
+        new_player = Player(name, date_of_birth, address, phone_number, email, social_media, handle, team)
+        saved_player = self.APILL.create_player(new_player)
 
         new_player_id = 67  # call create_player from LL here
         print(
@@ -36,19 +39,27 @@ class TeamCaptainUI:
 
     def show_my_team(self) -> str | None:
         team_name = self.menu_manager.team_name
-        my_team = self.APILL.get_team_by_name(team_name)
+        team = self.APILL.get_team_by_name(team_name)
 
-        if my_team:
-            print("YOUR TEAM: ", my_team.name)
-            club = "TODO"
-            team_name = my_team.name
-            link = my_team.social_media
-            logo = my_team.logo
-            captain = my_team.captain_id
-            print(f"{club}\n {team_name} \n{link}\n {logo}\n {captain}")
+        if team:
+            print("YOUR TEAM: ", team.name)
+            club = "CLUB"
+
+            w_name = 20
+            w_social = 15
+            w_logo = 15
+            w_captain = 15
+
+            team_data_string = f"| CLUB | {team.name:^{w_name}} | {team.social_media:^{w_social}} |  {team.logo:^{w_logo}} |  {team.captain_id:^{w_captain}} |"
+
+            print("-" * len(team_data_string))
+            print(team_data_string)
+            print("-" * len(team_data_string))
+            print("")
             print(
                 "1. Add team to club \n2. Roster \n3. Edit team info \nb. Back \nq. Quit"
             )
+
             choice: str = self.menu_manager.prompt_choice(["1", "2", "3", "b", "q"])
             if choice == "1":
                 return "ADD_TEAM_TO_CLUB"
@@ -62,25 +73,19 @@ class TeamCaptainUI:
     def show_my_players(self):
         # TODO laga útlit
         players = self.APILL.get_players_in_team(self.menu_manager.team_name)
+        valid_choices = []
         print(f.format_player_list(players))
         print("6. Add player: \n7. Remove player \nb. Back \nq.Quit")
-        choice: str = self.menu_manager.prompt_choice(
-            ["1", "2", "3", "4", "5", "6", "7", "b", "q"]
-        )
-        if choice == "1":
-            return self.show_player_view(players[0].name)
-        if choice == "2":
-            return self.show_player_view(players[1].name)
-        if choice == "3":
-            return self.show_player_view(players[2].name)
-        if choice == "4":
-            return self.show_player_view(players[3].name)
-        if choice == "5":
-            return self.show_player_view(players[4].name)
+        for i in range(len(players)):
+            stringI = str(i + 1)
+            valid_choices.append(stringI)
+        choice: str = self.menu_manager.prompt_choice(valid_choices + ["b", "q"])
 
-        if choice == "6":
-            return self.show_create_player()
-        if choice == "7":
+        for element in valid_choices:
+            if element == choice:
+                player = self.show_player_view(players[int(element) - 1])
+                return player
+
             # select_player_to_remove_menu
             pass
         if choice.lower() == "q":
@@ -88,13 +93,13 @@ class TeamCaptainUI:
         if choice.lower() == "b":
             return "MY_TEAM"
 
-    def show_player_view(self, player_name: str):
+    def show_player_view(self, player: Player):
         """takes in a player name and shows the menu for the player"""
 
-        player = self.APILL.get_player_by_name(player_name)
         if player:
             print(f"{player.name.upper()}  |  {player.handle} ")
-            print("--------------------")
+            print("-" * len(f"    SOCIAL MEDIA: {player.social_media}"))
+
             print(f"    DATE OF BIRTH: {player.date_of_birth}")
             print(f"    ADDRESS: {player.address}")
             print(f"    PHONE: {player.phone_number}")
@@ -102,6 +107,8 @@ class TeamCaptainUI:
             print(f"    HANDLE: {player.handle}")
             print(f"    SOCIAL MEDIA: {player.social_media}")
             print(f"    TEAM: {player.team_name}")
+            print("-" * len(f"    SOCIAL MEDIA: {player.social_media}"))
+
             print("")
             print("1. Edit player data")
             print("2. Hurt player emotionally")
