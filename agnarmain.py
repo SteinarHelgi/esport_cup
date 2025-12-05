@@ -1,14 +1,17 @@
-from UI.main_ui import MainUI
-from LL.user_ll import UserLL
-from datetime import datetime
+from IO.api_data import APIDATA
+from LL.organiser_ll import OrganiserLL
+from Models.contact_person import ContactPerson
 
-def main():
-    user = MainUI()
-    #today = datetime.today()
-    today = datetime(2025, 3, 10)
-    ongoing = user.APILL.get_upcoming_tournaments(today)
+api_data = APIDATA()
+organiser = OrganiserLL(api_data)
 
-    print("UPCOMING TOURNAMENTS:")
-    for t in ongoing:
-        print(f"- {t.id}: {t.name}  {t.start_date} – {t.end_date}")
-main()
+raw_cp = ContactPerson(
+    id=0,                       # dummy, verður yfirskrifað
+    name="Ragnar Ragnarsson",
+    email="ragnar@example.com",
+    phone="555-1234",
+    tournament_id=1,
+)
+
+cp = organiser.create_contact_person(raw_cp)
+print(cp.id, cp.name, cp.email, cp.phone, cp.tournament_id)

@@ -16,7 +16,7 @@ class TournamentData:
         self.contact_person_data = ContactPersonData()
         self.match_data = MatchData()
 
-    def get_tournament_data(self) -> list[Tournament]:
+    def get_all_tournament_data(self) -> list[Tournament]:
         tournaments = []
         with open(self.tournament_file_path, "r") as file:
             csvReader = csv.reader(file)
@@ -57,7 +57,7 @@ class TournamentData:
 
     # Sigrún
 
-    def get_contact_person_info(self, tournament_id: int) -> ContactPerson | None:
+    def get_contact_person(self, tournament_id: int) -> ContactPerson | None:
         """Skilar tengiliðnum sem tengist þessu tiltekna móti."""
         tournaments = self.get_tournament_data()
 
