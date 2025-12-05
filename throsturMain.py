@@ -23,12 +23,6 @@ player = Player("þröstur",
 
 api_data = APIDATA()
 organiser = OrganiserLL(api_data)
-teamcaptain = TeamCaptainLL(APIDATA, captain)
-
-
+teamcaptain = TeamCaptainLL(APIDATA)
 
 new_player = teamcaptain.create_player(player)
-
-
-
-

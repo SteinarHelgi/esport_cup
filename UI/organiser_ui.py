@@ -1,5 +1,6 @@
 from datetime import datetime
 from LL.api_ll import APILL
+from Models.match import Match
 from Models.tournament import Tournament
 from UI.Menus import tournament_created_menu
 from UI.functions import format_tournament_table
@@ -114,55 +115,45 @@ class OrganiserUI:
         tournament_name = tournament.name
         venue = tournament.venue
         game = tournament.game_id
-        print(
-            f"TOURNAMENT CREATED! \nOpen for registration \n{tournament_name} \n{venue} \n{game}"
-        )
+        return f"TOURNAMENT CREATED! \nOpen for registration \n{tournament_name} \n{venue} \n{game}"
+        
 
     def show_my_tournaments(
         self,
     ) -> str:  # Shows all of the upcoming tournamnets for the organiser to look at
+        """Finds all upcoming tournaments and prompts for choice"""
         tournaments = self.APILL.get_upcoming_tournaments()
-        print("1. Select tournament by name \nb. Back \nq. Quit")
-        # TODO Klára implementa þetta
-        # if choice == "1":
-        # tournamentname = input("Enter tournament name: :")
-        # self.apill.get_tournament_by_name(tournamentname)
-        # send to screen
         valid_choices = []
         for i in range(len(tournaments)):
             stringI = str(i)
             valid_choices.append(stringI)
-        for i in valid_choices:
-            print(i,".", tournaments[int(i)].name)
-        print("\nb. Back \nq. Quit")
+        print("MY_TOURNAMENTS_ORG")
         print(format_tournament_table(tournaments))
 
+        print("1. Select tournament by name \nb. Back \nq. Quit")
         choice: str = self.menu_manager.prompt_choice(valid_choices + ["b", "q"])
         print()
         for element in valid_choices:
             if element == choice:
-                print("user_choice: ", element)
-                print("choice: ", choice)
-                print("tournamnet name: ", tournaments[int(element)].name)
-                self.show_tournament_view(tournaments[int(element)].name)
+                self.show_tournament_view(tournaments[int(element)])
 
-        if choice.lower() == "b":
+        if choice == "b":
             return "ORGANISER_MENU"
-        if choice.lower() == "q":
+        if choice == "q":
             return "QUIT"
 
         return ""
 
-    def show_tournament_view(self, tournament_name: str):
+    def show_tournament_view(self, tournament: Tournament):
         """takes in a tournament name and shows the menu for the tournament"""
 
-        tournament = self.APILL.get_tournament_by_name(tournament_name)
         if tournament:
             print(
                 f"{tournament.name.upper()}  |  {tournament.start_date} -- {tournament.end_date} "
             )
             print("--------------------")
-            print(f"    Matches: {tournament.matches}")
+            for match in tournament.matches:
+                print(f"    Matches: {match}")
             print("")
             print("b. Back")
             print("q. Quit")
@@ -172,12 +163,21 @@ class OrganiserUI:
             # TODO create edit player menu
             return "BLA"
         if choice == "b":
-            return "SHOW_MY_PLAYERS"
+            return "MY_TOURNAMENTS_ORG"
         if choice == "q":
             return "QUIT"
 
     def show_create_match(self):
         # TODO
+
+        prompts = ["team1: ", "team2: "]
+        user_inputs = []
+        for prompt in prompts:
+            current_input = input(prompt)
+            user_inputs.append(current_input)
+
+        print(*user_inputs)
+
         pass
 
     def show_register_results(self):

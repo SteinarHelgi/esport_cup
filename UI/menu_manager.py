@@ -57,7 +57,7 @@ class MenuManager:
             valid_lower.append(choice.lower())
 
         while True:
-            choice: str = input("> ").strip().lower()
+            choice: str = input("\n> ").strip().lower()
             if choice in valid_lower:
                 return choice
             print("Not a valid choice")
@@ -66,29 +66,7 @@ class MenuManager:
                 print(choice, ".", sep="")
 
     def print_login_menu(self):  # Login menu
-        print("\033c", end="")
-        print(r"""
-     __       __  ________  __        ______    ______   __       __  ________        ________   ______                      
-    |  \  _  |  \|        \|  \      /      \  /      \ |  \     /  \|        \      |        \ /      \                     
-    | $$ / \ | $$| $$$$$$$$| $$     |  $$$$$$\|  $$$$$$\| $$\   /  $$| $$$$$$$$       \$$$$$$$$|  $$$$$$\                    
-    | $$/  $\| $$| $$__    | $$     | $$   \$$| $$  | $$| $$$\ /  $$$| $$__             | $$   | $$  | $$                    
-    | $$  $$$\ $$| $$  \   | $$     | $$      | $$  | $$| $$$$\  $$$$| $$  \            | $$   | $$  | $$                    
-    | $$ $$\$$\$$| $$$$$   | $$     | $$   __ | $$  | $$| $$\$$ $$ $$| $$$$$            | $$   | $$  | $$                    
-    | $$$$  \$$$$| $$_____ | $$_____| $$__/  \| $$__/ $$| $$ \$$$| $$| $$_____          | $$   | $$__/ $$                    
-    | $$$    \$$$| $$     \| $$     \\$$    $$ \$$    $$| $$  \$ | $$| $$     \         | $$    \$$    $$                    
-     \$$      \$$ \$$$$$$$$ \$$$$$$$$ \$$$$$$   \$$$$$$  \$$      \$$ \$$$$$$$$          \$$     \$$$$$$                     
-     ________  __    __  ________  _______    ______   __     __   ______    ______    ______   __    __  ________   ______  
-    |        \|  \  |  \|        \|       \  /      \ |  \   |  \ /      \  /      \  /      \ |  \  |  \|        \ /      \ 
-    | $$$$$$$$| $$  | $$ \$$$$$$$$| $$$$$$$\|  $$$$$$\| $$   | $$|  $$$$$$\|  $$$$$$\|  $$$$$$\| $$\ | $$ \$$$$$$$$|  $$$$$$\
-    | $$__     \$$\/  $$   | $$   | $$__| $$| $$__| $$| $$   | $$| $$__| $$| $$ __\$$| $$__| $$| $$$\| $$    /  $$ | $$__| $$
-    | $$  \     >$$  $$    | $$   | $$    $$| $$    $$ \$$\ /  $$| $$    $$| $$|    \| $$    $$| $$$$\ $$   /  $$  | $$    $$
-    | $$$$$    /  $$$$\    | $$   | $$$$$$$\| $$$$$$$$  \$$\  $$ | $$$$$$$$| $$ \$$$$| $$$$$$$$| $$\$$ $$  /  $$   | $$$$$$$$
-    | $$_____ |  $$ \$$\   | $$   | $$  | $$| $$  | $$   \$$ $$  | $$  | $$| $$__| $$| $$  | $$| $$ \$$$$ /  $$___ | $$  | $$
-    | $$     \| $$  | $$   | $$   | $$  | $$| $$  | $$    \$$$   | $$  | $$ \$$    $$| $$  | $$| $$  \$$$|  $$    \| $$  | $$
-     \$$$$$$$$ \$$   \$$    \$$    \$$   \$$ \$$   \$$     \$     \$$   \$$  \$$$$$$  \$$   \$$ \$$   \$$ \$$$$$$$$ \$$   \$$
-        
-""")
-
+        print("___ LOGIN ___")
         print("1. continue as user \n2. Login as Team Captain \n3. Login as Organiser")
         choice: str = self.prompt_choice(["1", "2", "3", "q"])
         if choice == "1":
@@ -96,16 +74,17 @@ class MenuManager:
             return "USER_MENU"
         if choice == "2":
             self.user = "TEAM_CAPTAIN"
-            return "LOGIN_CREDENTIALS"
+            # return "LOGIN_CREDENTIALS"
+            return "TEAM_CAPTAIN_MENU"
         if choice == "3":
             self.user = "ORGANISER"
-            return "LOGIN_CREDENTIALS_ORG"
+            # return "LOGIN_CREDENTIALS_ORG"
+            return "ORGANISER_MENU"
         return "QUIT"
 
     def login_credentials_menu(self):  # logging in as organiser
-        username = "Chuck Norris"
-        password = "Pepsi Max"
-        print(f"Username: {username} \nPassword: {password} \nConfirm(Y/N)? ")
+        username = input("Your handle: ")
+        print(f"Handle: {username}\nConfirm(Y/N)? ")
         choice: str = self.prompt_choice(["y", "n"])
         self.team_name = "NullPointer Ninjas"
         if choice.lower() == "y":
@@ -114,9 +93,8 @@ class MenuManager:
             return "LOGIN_MENU"
 
     def login_credentials_menu_org(self):  # logging in as organiser
-        username = "Chuck Norris"
-        password = "Pepsi Max"
-        print(f"Username: {username} \nPassword: {password} \nConfirm(Y/N)? ")
+        username = input("Username: ")
+        print(f"Username: {username}\nConfirm(Y/N)? ")
         choice: str = self.prompt_choice(["y", "n"])
         if choice.lower() == "y":
             return "ORGANISER_MENU"
@@ -125,7 +103,7 @@ class MenuManager:
 
     def print_user_menu(self):  # Option menu for user
         # TODO
-        print("__SELECT AN OPTION__")
+        print("__USER__")
         print("1. Teams \n2. Tournaments \nb. Back \nq. Quit")
 
         choice: str = self.prompt_choice(["1", "2", "q"])
@@ -139,7 +117,8 @@ class MenuManager:
 
     def print_team_captain_menu(self):  # Option menu for team captain
         # TODO
-        print("__SELECT AN OPTION__")
+        self.team_name = "NullPointer Ninjas"
+        print("__TEAM_CAPTAIN_MENU__")
         print(
             "1. Teams \n2. Tournaments \n3. My Team \n4. My Tournaments \nb. back \nq. Quit"
         )
@@ -152,15 +131,15 @@ class MenuManager:
         if choice == "3":
             return "MY_TEAM"
         if choice == "4":
-            return "MY_TOURNAMENTS"
+            return "MY_TOURNAMENTS_CAP"
         if choice.lower() == "b":
-            return "LOGIN_CREDENTIALS"
+            return "LOGIN_MENU"
 
         return "QUIT"
 
     def print_organiser_menu(self):  # option menu for organiser
         # TODO
-        print("__SELECT AN OPTION__")
+        print("__ORGANISER_MENU__")
         print(
             "1. Teams \n2. Tournaments \n3. Create Tournaments \n4. My Tournaments \nb. Back \nq. Quit"
         )

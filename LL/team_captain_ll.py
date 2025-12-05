@@ -9,7 +9,6 @@ class TeamCaptainLL:
         self.id = 0
         self.APIDATA = APIDATA
 
-<<<<<<< Updated upstream
     def create_player(self, player: Player) -> Player:
         """Creates new player and saves him in the csv file"""
 
@@ -59,12 +58,6 @@ class TeamCaptainLL:
         self.APIDATA.store_player_data(new_player)
 
         return new_player
-=======
-    def create_player(self):
-        
-        # TODO
-        pass
->>>>>>> Stashed changes
 
     def modify_player(self):
         # TODO
@@ -73,7 +66,6 @@ class TeamCaptainLL:
 
     def create_new_team(self, team: Team) -> Team:
         
-        id: str = team.id
         name: str = team.name
         captain_id: str = team.captain_id
         social_media: str | None = team.social_media
@@ -91,9 +83,9 @@ class TeamCaptainLL:
             next_id: int = max(int(team.id) for team in current_teams) + 1
         else:
             next_id = 1
-        team_id = str(next_id)
+        id = str(next_id)
 
-        team.set_id(team_id)
+        team.set_id(id)
 
         new_team = Team(
             id,
@@ -104,12 +96,12 @@ class TeamCaptainLL:
         )
 
         self.APIDATA.store_team_data(new_team)
+    
 
+    def add_team_to_club(self, team: Team, club_id: str):
 
-        # TODO
-        pass
+        
 
-    def add_team_to_club(self):
         # TODO
         pass
 

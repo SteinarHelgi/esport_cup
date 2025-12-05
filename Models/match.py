@@ -39,10 +39,12 @@ class Match:
             self.completed,
         ]
 
+    def __str__(self) -> str:
+        return f"{self.team_1_id} vs {self.team_2_id} {self.match_date} at {self.match_time}"
+
     def set_id(self, id):
         self.match_id = id
 
     def set_winner(self, winner_team):
         self.winner_team = winner_team
         self.completed = True
-
