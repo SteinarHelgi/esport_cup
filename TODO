@@ -18,3 +18,4 @@ kíkja á create player
 cleare eftir error key og cleara eftir að systemið lokar.
 afh ekki handle og player id í create player
 bæta við modify player i player view i show my team
+kikja a hvað gerist eftir að player er created
