@@ -9,6 +9,7 @@ from IO.match_data import MatchData
 
 # Steinar
 
+
 class TournamentData:
     def __init__(self):
         self.tournament_file_path = "Data/Tournaments.csv"
@@ -41,6 +42,7 @@ class TournamentData:
                         number_of_servers,
                         contact_person_id,
                     )
+                    tournament.set_id(id)
                     tournaments.append(tournament)
         return tournaments
 
@@ -52,3 +54,4 @@ class TournamentData:
             except:
                 return None
         return tournament
+

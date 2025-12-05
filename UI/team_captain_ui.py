@@ -54,6 +54,10 @@ class TeamCaptainUI:
                 return "ADD_TEAM_TO_CLUB"
             if choice == "2":
                 return "SHOW_MY_PLAYERS"
+            if choice.lower() == "b":
+                return "TEAM_CAPTAIN_MENU"
+            if choice.lower() == "q":
+                return "QUIT"
 
     def show_my_players(self):
         # TODO laga útlit
@@ -82,7 +86,7 @@ class TeamCaptainUI:
         if choice.lower() == "q":
             return "QUIT"
         if choice.lower() == "b":
-            return "MY TEAM"
+            return "MY_TEAM"
 
     def show_player_view(self, player_name: str):
         """takes in a player name and shows the menu for the player"""
