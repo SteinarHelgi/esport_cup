@@ -5,6 +5,7 @@ from IO.tournament_data import TournamentData
 from IO.game_data import GameData
 from IO.club_data import ClubData
 from IO.match_data import MatchData
+from IO.team_registry_data import TeamRegistryData
 from Models.models import ContactPerson
 from Models.team import Team
 from Models.tournament import Tournament
@@ -12,6 +13,7 @@ from Models.game import Game
 from Models.player import Player
 from Models.club import Club
 from Models.match import Match
+from Models.team_registry import TeamRegistry
 
 
 # Steinar
@@ -25,6 +27,7 @@ class APIDATA:
         self.player_data = PlayerData()
         self.team_data = TeamData()
         self.tournament_data = TournamentData()
+        self.team_registry_data = TeamRegistryData()
 
     def get_all_club_data(self) -> list[Club]:
         return self.club_data.get_all_club_data()
@@ -67,3 +70,10 @@ class APIDATA:
 
     def store_tournament_data(self, tournament: Tournament):
         return self.tournament_data.store_tournament_data(tournament)
+    
+    def get_all_team_registry_data(self) -> list[TeamRegistry]:
+        return self.team_registry_data.get_all_team_registry_data()
+
+    def store_team_registry_data(self, team_registry: TeamRegistry):
+        return self.team_registry_data.store_team_registry(team_registry)
+    

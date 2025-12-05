@@ -4,6 +4,8 @@ from Models.team import Team
 from IO.api_data import APIDATA
 from datetime import datetime
 from Models.team import Team
+from Models.tournament import Tournament
+from Models.team_registry import TeamRegistry
 
 class TeamCaptainLL:
     def __init__(self, APIDATA: APIDATA):
@@ -106,8 +108,11 @@ class TeamCaptainLL:
         # TODO
         pass
 
-    def register_team_to_tournament(self, team: Team) -> None:
-        new_team = self.APIDATA.store_team_data(team)
+    def register_team_to_tournament(self, team: Team, tournament: Tournament) -> None:
+        team_id: str = team.id
+        tournament_id: int = tournament.id
+        team_registry = TeamRegistry(team_id, str(tournament_id))
+        new_team_registry = self.APIDATA.store_team_registry(team_registry)
 
 
     def get_team_by_captain_id(self, captain_id) -> Team | None:
