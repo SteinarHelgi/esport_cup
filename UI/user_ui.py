@@ -14,7 +14,7 @@ class UserUI:
 
     def show_teams(self) -> str:
         teams = self.APILL.get_all_teams()
-        print(format_team_list(self, teams))
+        print(format_team_list(teams))
         print("1.Search for team \nb.Back \nq.Quit")
 
         choice: str = self.menu_manager.prompt_choice(["1", "b", "q"])
