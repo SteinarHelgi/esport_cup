@@ -14,7 +14,7 @@ class Tournament:
         no_servers: str,
         contact_person_name: str,
     ):
-        self.id = 0
+        self.id: str = "0"
         self.start_date = start_date
         self.end_date = end_date
         self.name = name
