@@ -2,7 +2,7 @@ from Models.player import Player
 from Models.team import Team
 from IO.api_data import APIDATA
 from datetime import datetime
-
+from Models.team import Team
 
 class TeamCaptainLL:
     def __init__(self, APIDATA: APIDATA):
@@ -109,9 +109,9 @@ class TeamCaptainLL:
         # TODO
         pass
 
-    def register_team_to_tournament(self):
-        # TODO
-        pass
+    def register_team_to_tournament(self, team: Team) -> None:
+        new_team = self.APIDATA.store_team_data(team)
+
 
     def get_team_by_captain_id(self, captain_id) -> Team | None:
         teams = self.APIDATA.get_all_team_data()
