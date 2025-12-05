@@ -16,7 +16,7 @@ class TournamentData:
         self.contact_person_data = ContactPersonData()
         self.match_data = MatchData()
 
-    def get_tournament_data(self) -> list[Tournament]:
+    def get_all_tournament_data(self) -> list[Tournament]:
         tournaments = []
         with open(self.tournament_file_path, "r") as file:
             csvReader = csv.reader(file)

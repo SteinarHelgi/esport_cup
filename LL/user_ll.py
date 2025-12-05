@@ -50,19 +50,21 @@ class UserLL:
         upcoming = []
 
         for t in tournament:
-            if t.end_date > today:     # kíkja á 
+            if t.end_date > today:  # kíkja á
                 upcoming.append(t)
 
         return upcoming
 
-    def show_schedule(self):
-        schedule = self.api_data.get_schedule_info()
-        return schedule
+    # TODO
+    # def show_schedule(self):
+    #     schedule = self.api_data.get_schedule_info()
+    #     return schedule
 
     def get_statistics(self):
         # TODO
         pass
 
-    def get_all_clubs(self):
-        clubs = self.api_data.get_all_clubs()
-        return clubs
+    # TODO
+    # def get_all_clubs(self):
+    #     clubs = self.api_data.get_all_clubs()
+    #     return clubs
