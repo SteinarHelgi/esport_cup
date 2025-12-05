@@ -44,7 +44,7 @@ class TournamentData:
                     tournaments.append(tournament)
         return tournaments
 
-    def store_tournament_data(self, tournament: Tournament) -> Tournament:
+    def store_tournament_data(self, tournament: Tournament) -> Tournament | None:
         with open(self.tournament_file_path, "a") as file:
             csvWriter = csv.writer(file)
             try:
@@ -52,4 +52,3 @@ class TournamentData:
             except:
                 return None
         return tournament
-
