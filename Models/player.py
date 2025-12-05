@@ -7,9 +7,8 @@ from Models.models import Team
 class Player:
     def __init__(
         self,
-        player_id: str,
         name: str,
-        date_of_birth: dt.datetime,
+        date_of_birth: str,
         address: str,
         phone_number: str,
         email: str,
@@ -17,7 +16,7 @@ class Player:
         handle: str,
         team_name: str,
     ):
-        self.player_id = player_id
+        self.player_id = ""
         self.name = name
         self.address = address
         self.phone_number = phone_number
@@ -29,7 +28,7 @@ class Player:
 
     def get_team_name(self):
         return self.team_name
-    
+
     def toCSVList(self):
         ret: list[str] = []
         ret.append(self.player_id)
@@ -43,3 +42,5 @@ class Player:
         ret.append(self.date_of_birth)
         return ret
 
+    def set_id(self, id: str):
+        self.id = id

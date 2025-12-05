@@ -59,11 +59,6 @@ def roster_menu():
     )
 
 
-def new_player_menu():
-    print(
-        "Fill in new player info! \nName: \nDate of birth(Year-Month-Date): \nEmail: \nPhone Number: \nPlayer Handle: \nHome Address: \nSocial Media Handle: \nConfirm(Y/N)? "
-    )
-
 
 def player_added():
     player_name = "Chuck Norris"

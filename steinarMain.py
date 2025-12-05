@@ -3,10 +3,8 @@ from IO.club_data import ClubData
 
 
 def main():
-    club = ClubData()
-    clubs = club.get_club_data()
-    for cl in clubs:
-        print(cl)
+    main_ui = MainUI()
+    main_ui.run()
 
 
 main()

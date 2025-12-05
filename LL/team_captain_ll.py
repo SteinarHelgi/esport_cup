@@ -10,69 +10,48 @@ class TeamCaptainLL:
         self.APIDATA = APIDATA
         self.captain = captain
 
-    def create_player(
-            self,
-            name: str,
-            date_of_birth: str,
-            address: str,
-            phone: str,
-            email: str,
-            handle: str,
-            link: str,
-        ) -> Player:
-        """Býr til nýjan leikmann í liði captains og vistar inn í skránni."""
-
-        if name.strip() == "":
-            raise ValueError("Nafn má ekki vera tómt")
-        if date_of_birth.strip() == "":
-            raise ValueError("Fæðingardagur má ekki vera tómur")
-        if address.strip() == "":
-            raise ValueError("Heimilsfang má ekki vera tómt")
-        if phone.strip() == "":
-            raise ValueError("Símanúmer má ekki vera tómt")
-        if email.strip() == "":
-            raise ValueError("Netfang má ekki vera tómt")
-        if handle.strip() == "":
-            raise ValueError("Handle má ekki vera tómt")
+    def create_player(self, player: Player) -> Player:
+        """Creates new player and saves him in the csv file"""
         
-        # Athuga að date_of_birth sé á réttu formi
-        try: 
-            date_of_birth = datetime.strptime(date_of_birth, "%Y-%m-%d").date()
-        except ValueError:
-            raise ValueError("Fæðingardagur þarf að vera á forminu YYYY-MM-DD.")
-    
-        # Ná í alla núverandi leikmenn úr IO-layer
-        players = self.APIDATA.get_all_player_data()
+        #Fetches all parameters of player
+        name: str = player.name
+        date_of_birth: datetime.datetime = player.date_of_birth
+        address: str = player.address
+        phone_number: str = player.phone_number
+        email: str = player.email
+        social_media: str = player.social_media
+        handle: str = player.handle
+        team_name: str = player.team_name
 
-        # Athuga hvort handle sé þegar í notkun
-        for p in players:
-            if p.handle == handle:
-                raise ValueError("Þetta handle er þegar í notkun")
+        #Fetch all player data
+        current_players = self.APIDATA.get_all_player_data(self)
 
-        # Finna næsta player_id
-        next_id = 1
-        for p in players:
-            try:
-                current_id = int(p.player_id)
-                if current_id >= next_id:
-                    next_id = current_id + 1
-            except ValueError:
-                pass
+        #Checking if player handle is available
+        for p in current_players:
+            if p.handle == player.handle:
+                raise ValueError()
 
+        #Find next player id
+        if current_players:
+            next_id: int = max(int(player.id) for player in current_players) + 1
+        else:
+            next_id = 1
         player_id = str(next_id)
 
-        # Ná í liðið út frá team_id hjá captain
+        player.set_id(player_id)
+
+        #Fetch team id from captain
         team_id = self.captain.team_id
-    
+
         # Búa til nýjan Player
         new_player = Player(
             player_id,
             name,
             date_of_birth,
             address,
-            phone,
+            phone_number,
             email,
-            link,
+            social_media,
             handle,
             team_id
         )
@@ -118,6 +97,7 @@ class TeamCaptainLL:
 
         # PLAYERS
         # id name dateofbirth address phone email social handle team_name
+
         players_in_team = []
 
         players = self.APIDATA.get_all_player_data()
