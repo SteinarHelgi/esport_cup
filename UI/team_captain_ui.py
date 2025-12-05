@@ -13,24 +13,52 @@ class TeamCaptainUI:
         self.menu_manager = menu_manager
 
     def show_create_player(self):
+        print("Enter in thre required information or 'b' to Back and 'q' to Quit")
         name = input("Player's name: ").strip()
+        if name == "b":
+            return "MY_TEAM"
+        if name == "q":
+            return "QUIT"
         date_of_birth = input("Player's birthday (YYYY-MM-DD): ").strip()
+        if date_of_birth == "b":
+            return "MY_TEAM"
+        if date_of_birth == "q":
+            return "QUIT"
         address = input("Enter address: ").strip()
+        if address == "b":
+            return "MY_TEAM"
+        if address == "q":
+            return "QUIT"
         phone_number = input("Enter phone number: ").strip()
+        if phone_number == "b":
+            return "MY_TEAM"
+        if phone_number == "q":
+            return "QUIT"
         email = input("Enter email: ").strip()
+        if email == "b":
+            return "MY_TEAM"
+        if email == "q":
+            return "QUIT"
         social_media = input("Enter social media handle: ").strip()
+        if social_media == "b":
+            return "MY_TEAM"
+        if social_media == "q":
+            return "QUIT"
         handle = input("Enter player handle: ").strip()
+        if handle == "b":
+            return "MY_TEAM"
+        if handle == "q":
+            return "QUIT"
         team = self.menu_manager.team_name
         new_player = Player(name, date_of_birth, address, phone_number, email, social_media, handle, team)
         self.APILL.create_player(new_player)
-
         print(
-            f"------ \nNew player created: {name}\n{date_of_birth}\n{address}\n{phone_number}\n{email}\n{social_media}\n{handle}\n{team} "
-        )
+            f"------ \nNew player created: {name}\n{date_of_birth}\n{address}\n{phone_number}\n{email}\n{social_media}\n{handle}\n{team} ")
+        return "MY_TEAM"
 
     def show_my_tournaments(self):
-        # TODO listi af motum
-        # option i register for tournament
+        #TODO listi af motum sem er búið að skrá sig í
+        # option i register for tournament með register for tournament
         pass
 
     def show_modify_player(self):
@@ -128,7 +156,8 @@ class TeamCaptainUI:
 
     def show_register_team_to_tournament(self):
         # TODO
-        # Kall i upcoming sem hafa plass og lista þau upp
+        # teams = self.apill.get_all_tournament_data
+        #print("These are the tournaments available for registration \nSelect a tournament to register for")
         # kalla i LL register for tournament
         pass
 
