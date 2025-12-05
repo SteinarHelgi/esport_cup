@@ -1,8 +1,9 @@
 from datetime import date
 from operator import add
 from LL.api_ll import APILL
+from Models import player
 from Models.player import Player
-from UI.Menus import print_my_team_menu
+from UI.Menus import player_added_screen, print_my_team_menu
 import UI.functions as f
 
 
@@ -15,46 +16,53 @@ class TeamCaptainUI:
     def show_create_player(self):
         print("Enter in thre required information or 'b' to Back and 'q' to Quit")
         name = input("Player's name: ").strip()
-        if name == "b":
+        if name.lower() == "b":
             return "MY_TEAM"
-        if name == "q":
+        if name.lower() == "q":
             return "QUIT"
         date_of_birth = input("Player's birthday (YYYY-MM-DD): ").strip()
-        if date_of_birth == "b":
+        if date_of_birth.lower() == "b":
             return "MY_TEAM"
-        if date_of_birth == "q":
+        if date_of_birth.lower() == "q":
             return "QUIT"
         address = input("Enter address: ").strip()
-        if address == "b":
+        if address.lower() == "b":
             return "MY_TEAM"
-        if address == "q":
+        if address.lower() == "q":
             return "QUIT"
         phone_number = input("Enter phone number: ").strip()
-        if phone_number == "b":
+        if phone_number.lower() == "b":
             return "MY_TEAM"
-        if phone_number == "q":
+        if phone_number.lower() == "q":
             return "QUIT"
         email = input("Enter email: ").strip()
-        if email == "b":
+        if email.lower() == "b":
             return "MY_TEAM"
-        if email == "q":
+        if email.lower() == "q":
             return "QUIT"
         social_media = input("Enter social media handle: ").strip()
-        if social_media == "b":
+        if social_media.lower() == "b":
             return "MY_TEAM"
-        if social_media == "q":
+        if social_media.lower() == "q":
             return "QUIT"
         handle = input("Enter player handle: ").strip()
-        if handle == "b":
+        if handle.lower() == "b":
             return "MY_TEAM"
-        if handle == "q":
+        if handle.lower() == "q":
             return "QUIT"
         team = self.menu_manager.team_name
         new_player = Player(name, date_of_birth, address, phone_number, email, social_media, handle, team)
         self.APILL.create_player(new_player)
-        print(
-            f"------ \nNew player created: {name}\n{date_of_birth}\n{address}\n{phone_number}\n{email}\n{social_media}\n{handle}\n{team} ")
-        return "MY_TEAM"
+        print(player_added_screen(self, name, handle, social_media))
+        print("")
+        print("b. Back \nq. Quit")#TODO Af hverju returnar b none en q returnar quit????
+        choice: str = self.menu_manager.prompt_choice(["b" , "q"])
+        if choice == "b":
+            return "MY_TEAM"
+        if choice == "q":
+            return "QUIT"
+    
+
 
     def show_my_tournaments(self):
         #TODO listi af motum sem er búið að skrá sig í

@@ -1,6 +1,9 @@
 # First menu and login menus
 
 
+from os import name
+
+
 def login_credentials_menu():  # logging in as organiser
     username = "Chuck Norris"
     password = "Pepsi Max"
@@ -60,11 +63,13 @@ def roster_menu():
 
 
 
-def player_added():
-    player_name = "Chuck Norris"
-    player_handle = "You Know Who I am"
-    player_social = "@chuckfucks"
-    print(f"PLAYER ADDED!\n{player_name} \n{player_handle} \n{player_social} \nq. Quit")
+def player_added_screen(self, name, handle, social_media):
+    player_name = name
+    player_handle = handle
+    player_social = social_media
+    print(f"PLAYER ADDED!\n{player_name} \n{player_handle} \n{player_social} \nb.Back \nq. Quit")
+    choice: str = self.menu_manager.prompt_choice(["b","q"])
+
 
 
 # Organiser menus
