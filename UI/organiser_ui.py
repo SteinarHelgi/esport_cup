@@ -122,12 +122,27 @@ class OrganiserUI:
         tournaments = self.APILL.get_upcoming_tournaments()
         print(format_tournament_table(tournaments))
         print("1. Select tournament by name \nb. Back \nq. Quit")
-        choice: str = self.menu_manager.prompt_choice(["1", "b", "q"])
         # TODO Klára implementa þetta
         # if choice == "1":
         # tournamentname = input("Enter tournament name: :")
         # self.apill.get_tournament_by_name(tournamentname)
         # send to screen
+        valid_choices = []
+        for i in range(len(tournaments)):
+            stringI = str(i)
+            valid_choices.append(stringI)
+        for i in valid_choices:
+            print(i, ".", tournaments[int(i)].name)
+
+        choice: str = self.menu_manager.prompt_choice(valid_choices + ["b", "q"])
+        print()
+        for element in valid_choices:
+            if element == choice:
+                print("user_choice: ", element)
+                print("choice: ", choice)
+                print("tournamnet name: ", tournaments[int(element)].name)
+                self.show_tournament_view(tournaments[int(element)].name)
+
         if choice.lower() == "b":
             return "ORGANISER_MENU"
         if choice.lower() == "q":
@@ -152,7 +167,7 @@ class OrganiserUI:
         choice: str = self.menu_manager.prompt_choice(["1", "2", "b", "q"])
         if choice == "1":
             # TODO create edit player menu
-            return "EDIT_PLAYER"
+            return "BLA"
         if choice == "b":
             return "SHOW_MY_PLAYERS"
         if choice == "q":
