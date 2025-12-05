@@ -32,6 +32,7 @@ class MenuManager:
             # TEAM CAPTAIN MENUS
             "TEAM_CAPTAIN_MENU": self.print_team_captain_menu,
             "CREATE_PLAYER": self.team_captain_ui.show_create_player,
+            "PLAYER_ADDED_SCREEN"
             "MODIFY_PLAYER": self.team_captain_ui.show_modify_player,
             "MY_TEAM": self.team_captain_ui.show_my_team,
             "MY_TOURNAMENTS_CAP": self.team_captain_ui.show_my_tournaments,
@@ -156,3 +157,9 @@ class MenuManager:
             return "LOGIN_MENU"
 
         return "QUIT"
+
+    def player_added_screen(self,name, handle, social_media):
+        player_name = name
+        player_handle = handle
+        player_social = social_media
+        print(f"PLAYER ADDED!\n{player_name} \n{player_handle} \n{player_social}")

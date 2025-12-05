@@ -1,6 +1,9 @@
 # First menu and login menus
 
 
+from os import name
+
+
 def login_credentials_menu():  # logging in as organiser
     username = "Chuck Norris"
     password = "Pepsi Max"
@@ -59,14 +62,6 @@ def roster_menu():
     )
 
 
-
-def player_added():
-    player_name = "Chuck Norris"
-    player_handle = "You Know Who I am"
-    player_social = "@chuckfucks"
-    print(f"PLAYER ADDED!\n{player_name} \n{player_handle} \n{player_social} \nq. Quit")
-
-
 # Organiser menus
 
 
@@ -79,9 +74,9 @@ def create_tournament_menu(self):
     venue = input("Venue: ")
     double_elimination = input("Double elimination(Y/N): ")
     game_for_tournament = input("Game: ")
-    choice: str = self.menu_manager.prompt_choice(["b","q"])
+    choice: str = self.menu_manager.prompt_choice(["b", "q"])
     print("b. Back \nq. Quit")
-    
+
 
 def create_contact_person_menu():
     print("Fill in contact person info!")
@@ -89,8 +84,6 @@ def create_contact_person_menu():
     new_contact_person_email = input("Email: ")
     new_contact_person_phone_nmbr = input("Phone number: ")
     confirmation = input("Confirm(Y/N): ")
-    
-
 
 
 def tournament_created_menu():
