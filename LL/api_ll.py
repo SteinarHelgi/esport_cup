@@ -56,3 +56,6 @@ class APILL:
     
     def create_new_team(self, team: Team) -> Team | None:
         return self.team_captain_ll.create_new_team(team)
+    
+    def create_player(self, player: Player) -> Player | None:
+        return self.team_captain_ll.create_player(player)
