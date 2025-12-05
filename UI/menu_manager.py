@@ -106,7 +106,7 @@ class MenuManager:
         print("__USER__")
         print("1. Teams \n2. Tournaments \nb. Back \nq. Quit")
 
-        choice: str = self.prompt_choice(["1", "2", "q"])
+        choice: str = self.prompt_choice(["1", "2", "b", "q"])
         if choice == "1":
             return "TEAMS"
         if choice == "2":
