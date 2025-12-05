@@ -115,9 +115,8 @@ class OrganiserUI:
         tournament_name = tournament.name
         venue = tournament.venue
         game = tournament.game_id
-        print(
-            f"TOURNAMENT CREATED! \nOpen for registration \n{tournament_name} \n{venue} \n{game}"
-        )
+        return f"TOURNAMENT CREATED! \nOpen for registration \n{tournament_name} \n{venue} \n{game}"
+        
 
     def show_my_tournaments(
         self,
