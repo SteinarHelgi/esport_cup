@@ -28,7 +28,6 @@ class MatchData:
 
 
                 match = Match(
-                    match_id,
                     tournament_id,
                     round,
                     team_1_id,
@@ -36,9 +35,7 @@ class MatchData:
                     match_date,
                     match_time,
                     server_id,
-                    winner_team,
-                    game_name,
-                    completed,
+                    game_name
                 )
                 matches.append(match)
 
