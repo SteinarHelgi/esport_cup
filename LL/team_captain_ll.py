@@ -2,27 +2,25 @@ from Models.player import Player
 from Models.team import Team
 from IO.api_data import APIDATA
 from datetime import datetime
-from Models.tournament import Tournament
-from Models.team_registry import TeamRegistry
+from Models.team import Team
 
 class TeamCaptainLL:
     def __init__(self, APIDATA: APIDATA):
         self.id = 0
         self.APIDATA = APIDATA
 
-
     def create_player(self, player: Player) -> Player:
         """Creates new player and saves him in the csv file"""
 
-         # Fetches all parameters of player
-        """name: str = player.name
+        # Fetches all parameters of player
+        name: str = player.name
         date_of_birth: str = player.date_of_birth
         address: str = player.address
         phone_number: str = player.phone_number
         email: str = player.email
         social_media: str = player.social_media
         handle: str = player.handle
-        team_name: str= player.team_name"""
+        team_name: str = player.team_name
 
         # Fetch all player data
         current_players = self.APIDATA.get_all_player_data()
@@ -32,19 +30,8 @@ class TeamCaptainLL:
             if p.handle == player.handle:
                 raise ValueError()
 
-
-        nums = [int(p.id[1:]) for p in current_players if p.id.startswith("p")]
-        next_num = max(nums) + 1 if nums else 1
-
-        new_id = f"p{next_num:03d}"
-        player.set_id(new_id)
-        
-
-        """ if current_players:
-
         # Find next player id
         if current_players:
-
             next_id: int = max(int(player.id) for player in current_players) + 1
         else:
             next_id = 1
@@ -65,19 +52,17 @@ class TeamCaptainLL:
             social_media,
             handle,
             team_id,
-        )"""
+        )
 
         # Vista leikmann í gegnum IO-layer
-        self.APIDATA.store_player_data(player)
+        self.APIDATA.store_player_data(new_player)
 
+        return new_player
 
-        return player
+    def modify_player(self):
+        # TODO
+        pass
 
-    def modify_player(self, player: Player):
-        self.APIDATA.modify_player_data(player)
-        
-    def delete_player(self, player_id: str):
-        self.APIDATA.delete_player_data(player_id)
 
     def create_new_team(self, team: Team) -> Team:
         """Creates new team and saves it in the csv file."""
@@ -124,12 +109,8 @@ class TeamCaptainLL:
         # TODO
         pass
 
-    def register_team_to_tournament(self, team: Team, tournament: Tournament) -> None:
-        team_id: str = team.id
-        tournament_id: str = tournament.id
-        team_registry = TeamRegistry(team_id, tournament_id)
-        new_team_registry = self.APIDATA.store_team_registry_data(team_registry)
-
+    def register_team_to_tournament(self, team: Team) -> None:
+        new_team = self.APIDATA.store_team_data(team)
 
 
     def get_team_by_captain_id(self, captain_id) -> Team | None:

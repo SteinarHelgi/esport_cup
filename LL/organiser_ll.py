@@ -58,6 +58,8 @@ class OrganiserLL:
         next_id = max(int(match.match_id) for match in matches) + 1
         match.set_id(next_id)
 
+        self._next_match_id += 1
+
         stored = self.api_data.store_match_data(match)
         return stored
 
@@ -89,5 +91,19 @@ class OrganiserLL:
                 contact_person_id = t.id
                 return self.get_contact_person_by_id(contact_person_id)
         return None
-
     
+
+    def show_all_teams_in_tournament(self, tournament: Tournament) -> Tournament | None:
+        all_matches = self.api_data.get_all_match_data()
+        all_teams = self.api_data.get_all_team_data()
+
+        tournament.teams = []
+
+        for match in all_matches:
+           if match.tournament_id == tournament.id:
+               for team in all_teams:
+                   if team.id == match.team_1_id or team.id == match.team_2_id:
+                       if team not in tournament.teams:
+                           tournament.teams.append(team)   
+                              
+        return tournament

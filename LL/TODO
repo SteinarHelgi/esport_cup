@@ -1,4 +1,10 @@
 TODO 
+#1. Organizer sjá öll lið sem er búið að skrá sig á mót - Sigrún er að vinna í þessu
+#2. Team captain sjá í hvaða mót hann er skráður í 
+#3. Sjá hvaða mót er hægt að skrá sig í
+
+
+
 
 * gera get_team_by_captain_id() fall til þess að vita hvaða er
 *
