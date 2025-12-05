@@ -1,4 +1,3 @@
-from unicodedata import numeric
 from Models.player import Player
 from Models.team import Team
 from IO.api_data import APIDATA
@@ -10,6 +9,7 @@ class TeamCaptainLL:
         self.id = 0
         self.APIDATA = APIDATA
 
+<<<<<<< Updated upstream
     def create_player(self, player: Player) -> Player:
         """Creates new player and saves him in the csv file"""
 
@@ -31,6 +31,7 @@ class TeamCaptainLL:
             if p.handle == player.handle:
                 raise ValueError()
 
+<<<<<<< HEAD
         nums = [int(p.id[1:]) for p in current_players if p.id.startswith("p")]
         next_num = max(nums) + 1 if nums else 1
 
@@ -39,6 +40,10 @@ class TeamCaptainLL:
         
 
         """ if current_players:
+=======
+        # Find next player id
+        if current_players:
+>>>>>>> 3c1cf85288e6f38d8c54c61b77a65d972049ece6
             next_id: int = max(int(player.id) for player in current_players) + 1
         else:
             next_id = 1
@@ -64,27 +69,60 @@ class TeamCaptainLL:
         # Vista leikmann í gegnum IO-layer
         self.APIDATA.store_player_data(player)
 
+<<<<<<< HEAD
         return player
+=======
+
+    def create_player(self):
+        
+        # TODO
+        pass
+>>>>>>> Stashed changes
+>>>>>>> 3c1cf85288e6f38d8c54c61b77a65d972049ece6
 
     def modify_player(self):
         # TODO
         pass
 
-    def create_new_team(self, team: Team) -> Team | None:
-        
-        all_teams = self.APIDATA.get_all_team_data()
 
-        if all_teams:
-            next_id = max(int(t.id) for t in all_teams) + 1
+    def create_new_team(self, team: Team) -> Team:
+        """Creates new team and saves it in the csv file."""
+
+        name: str = team.name
+        captain_id: str = team.captain_id
+        social_media: str | None = team.social_media
+        logo: str = team.logo
+
+        current_teams = self.APIDATA.get_all_team_data()
+
+        # checking if team name is available
+        for t in current_teams:
+            if t.name == team.name:
+                raise ValueError
+            
+        # Find next team id
+        if current_teams:
+            next_id: int = max(int(team.id) for team in current_teams) + 1
         else:
             next_id = 1
+        id = str(next_id)
 
-        team.set_id(str(next_id))
+        team.set_id(id)
 
-        stored = self.APIDATA.store_team_data(team)
-        return stored
+        new_team = Team(
+            id,
+            name,
+            captain_id,
+            social_media,
+            logo
+        )
 
-    def add_team_to_club(self):
+        self.APIDATA.store_team_data(new_team)
+
+        return new_team
+    
+
+    def add_team_to_club(self, team: Team, club_id: str):
         # TODO
         pass
 
@@ -92,9 +130,15 @@ class TeamCaptainLL:
         # TODO
         pass
 
+<<<<<<< HEAD
     def register_team_to_tournament(self):
         # TODO
         pass
+=======
+    def register_team_to_tournament(self, team: Team) -> None:
+        new_team = self.APIDATA.store_team_data(team)
+
+>>>>>>> 3c1cf85288e6f38d8c54c61b77a65d972049ece6
 
     def get_team_by_captain_id(self, captain_id) -> Team | None:
         teams = self.APIDATA.get_all_team_data()
@@ -132,7 +176,3 @@ class TeamCaptainLL:
         for player in players:
             if player.name == name:
                 return player
-    
-    def show_my_tournaments(self):
-        #TODO
-        pass
