@@ -2,6 +2,7 @@ from datetime import datetime
 from LL.api_ll import APILL
 from Models.tournament import Tournament
 from UI.Menus import tournament_created_menu
+from UI.functions import format_tournament_table
 
 
 class OrganiserUI:
@@ -115,12 +116,10 @@ class OrganiserUI:
         game = tournament.game_id
         print(f"TOURNAMENT CREATED! \nOpen for registration \n{tournament_name} \n{venue} \n{game}")
 
-    def show_my_tournaments(self):
+    def show_my_tournaments(self) -> str:
         tournaments = self.APILL.get_upcoming_tournaments()
-        for tournament in tournaments:
-            print
-
-        pass
+        print(format_tournament_table(tournaments))
+        return ""
 
     def show_create_schedule(self):
         # TODO
