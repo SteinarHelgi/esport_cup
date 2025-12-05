@@ -23,15 +23,15 @@ class TeamCaptainLL:
         handle: str = player.handle
         team_name: str = player.team_name
 
-        #Fetch all player data
-        current_players = self.APIDATA.get_all_player_data(self)
+        # Fetch all player data
+        current_players = self.APIDATA.get_all_player_data()
 
-        #Checking if player handle is available
+        # Checking if player handle is available
         for p in current_players:
             if p.handle == player.handle:
                 raise ValueError()
 
-        #Find next player id
+        # Find next player id
         if current_players:
             next_id: int = max(int(player.id) for player in current_players) + 1
         else:
@@ -40,7 +40,7 @@ class TeamCaptainLL:
 
         player.set_id(player_id)
 
-        #Fetch team id from captain
+        # Fetch team id from captain
         team_id = self.captain.team_id
 
         # Búa til nýjan Player
@@ -53,14 +53,13 @@ class TeamCaptainLL:
             email,
             social_media,
             handle,
-            team_id
+            team_id,
         )
 
         # Vista leikmann í gegnum IO-layer
         self.APIDATA.store_player_data(new_player)
 
         return new_player
-
 
     def modify_player(self):
         # TODO
@@ -117,4 +116,4 @@ class TeamCaptainLL:
         players = self.APIDATA.get_all_player_data()
         for player in players:
             if player.name == name:
-                return name
+                return player

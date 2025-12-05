@@ -44,7 +44,8 @@ class APILL:
         return self.organiser_ll.create_match(self)
 
     def create_contact_person(self) -> ContactPerson | None:
-        return self.organiser_ll.create_contact_person(self)
+        return self.organiser_ll.create_contact_person()
 
-    def get_player_by_name(self) -> Player | None:
-        return self.team_captain_ll.get_player_by_name(self)
+    def get_player_by_name(self, player_name: str) -> Player | None:
+        return self.team_captain_ll.get_player_by_name(player_name)
+

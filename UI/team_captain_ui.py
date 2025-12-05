@@ -26,8 +26,8 @@ class TeamCaptainUI:
         )
 
     def show_my_tournaments(self):
-        #TODO listi af motum
-        #option i register for tournament
+        # TODO listi af motum
+        # option i register for tournament
         pass
 
     def show_modify_player(self):
@@ -86,8 +86,7 @@ class TeamCaptainUI:
 
     def show_player_view(self, player_name: str):
         """takes in a player name and shows the menu for the player"""
-        player = self.APILL.get_player_by_name(player_name):
-
+        player = self.APILL.get_player_by_name(player_name)
 
         print(f"{player.name.upper()}  |  {player.handle} ")
         print("--------------------")
@@ -108,8 +107,8 @@ class TeamCaptainUI:
 
     def show_register_team_to_tournament(self):
         # TODO
-        #Kall i upcoming sem hafa plass og lista þau upp
-        #kalla i LL register for tournament
+        # Kall i upcoming sem hafa plass og lista þau upp
+        # kalla i LL register for tournament
         pass
 
     def show_update_team_data(self):
