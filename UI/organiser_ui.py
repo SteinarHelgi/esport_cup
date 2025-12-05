@@ -1,5 +1,6 @@
 from datetime import datetime
 from LL.api_ll import APILL
+from Models.match import Match
 from Models.tournament import Tournament
 from UI.Menus import tournament_created_menu
 from UI.functions import format_tournament_table
@@ -174,7 +175,10 @@ class OrganiserUI:
             return "QUIT"
 
     def show_create_match(self):
-        # TODO
+        
+        #match = Match()
+        #create_match = self.APILL.create_match(match)
+
         pass
 
     def show_register_results(self):
