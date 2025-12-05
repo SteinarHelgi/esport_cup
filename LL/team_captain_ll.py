@@ -85,9 +85,9 @@ class TeamCaptainLL:
         # TODO
         pass
 
-    def register_team_to_tournament(self):
-        # TODO
-        pass
+    def register_team_to_tournament(self, team: Team) -> None:
+        new_team = self.APIDATA.store_team_data(team)
+
 
     def get_team_by_captain_id(self, captain_id) -> Team | None:
         teams = self.APIDATA.get_all_team_data()
