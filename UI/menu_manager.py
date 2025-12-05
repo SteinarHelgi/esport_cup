@@ -34,7 +34,7 @@ class MenuManager:
             "CREATE_PLAYER": self.team_captain_ui.show_create_player,
             "MODIFY_PLAYER": self.team_captain_ui.show_modify_player,
             "MY_TEAM": self.team_captain_ui.show_my_team,
-            "MY_TOURNAMENTS": self.team_captain_ui.show_my_tournaments,
+            "MY_TOURNAMENTS_CAP": self.team_captain_ui.show_my_tournaments,
             "REGISTER_TEAM_TO_TOURNAMENT": self.team_captain_ui.show_register_team_to_tournament,
             "UPDATE_TEAM_DATA": self.team_captain_ui.show_update_team_data,
             "ADD_TEAM_TO_CLUB": self.team_captain_ui.show_add_team_to_club,
@@ -44,7 +44,7 @@ class MenuManager:
             "ORGANISER_MENU": self.print_organiser_menu,
             "CREATE_TOURNAMENT_MENU": self.organiser_Ui.show_create_tournament,
     
-            "MY_TOURNAMENT_MENU": self.organiser_Ui.show_my_tournament,
+            "MY_TOURNAMENTS_ORG": self.organiser_Ui.show_my_tournaments,
             "CREATE_SCHEDULE": self.organiser_Ui.show_create_schedule,
             "UPDATE_SCHEDULE": self.organiser_Ui.show_update_schedule,
             "CREATE_MATCH": self.organiser_Ui.show_create_match,
@@ -173,7 +173,7 @@ class MenuManager:
         if choice == "3":
             return "CREATE_TOURNAMENT_MENU"
         if choice == "4":
-            return "MY_TOURNAMENTS_ORGANISER"
+            return "MY_TOURNAMENTS_ORG"
         if choice.lower() == "b":
             return "LOGIN_MENU"
 

@@ -1,18 +1,20 @@
 
+from IO import game_data
 from Models.player import Player
 from Models.team import Team
+from Models.tournament import Tournament
 
-def format_tournament_table(tournaments):
+def format_tournament_table(tournaments:list[Tournament]):
    #Define fixed widths for columns
     w_name = 25
     w_date = 15
     w_game = 15
 
     # print header
-    print(f"{'NAME':<{w_name}} {'START DATE':<{w_date}} {'END DATE':<{w_date}} ") #{'GAME':<{w_game}} Bæta þessu við þegar get game data er komið inn
+    print(f"{'NAME':<{w_name}} {'START DATE':<{w_date}} {'END DATE':<{w_date}}{'GAME':<{w_game}}")  
     
     #Print a divider line
-    print("-" * (w_name + w_date + w_date))
+    print("-" * (w_name + w_date + w_date + w_game))
     empty_string = ""
     #Loop through the data
     for tournament in tournaments:
@@ -21,7 +23,7 @@ def format_tournament_table(tournaments):
         e_date = str(tournament.end_date).split(" ")[0]
 
         # Print the actual variables (tournament.name), not the string "NAME"
-        empty_string += f"{tournament.name:<{w_name}} {s_date:<{w_date}} {e_date:<{w_date}}\n"
+        empty_string += f"{tournament.name:<{w_name}} {s_date:<{w_date}} {e_date:<{w_date}} {tournament.game_id:<{w_date}}\n"
     return empty_string
 
 def format_team_list(teams:list[Team]): #TODO add club to this
