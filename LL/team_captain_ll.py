@@ -1,17 +1,15 @@
-from unicodedata import numeric
 from Models.player import Player
 from Models.team import Team
 from IO.api_data import APIDATA
 from datetime import datetime
 from Models.team import Team
-from Models.tournament import Tournament
-from Models.team_registry import TeamRegistry
 
 class TeamCaptainLL:
     def __init__(self, APIDATA: APIDATA):
         self.id = 0
         self.APIDATA = APIDATA
 
+<<<<<<< Updated upstream
     def create_player(self, player: Player) -> Player:
         """Creates new player and saves him in the csv file"""
 
@@ -33,34 +31,14 @@ class TeamCaptainLL:
             if p.handle == player.handle:
                 raise ValueError()
 
-        next_number = 1
-        if current_players:
-            num_ids: list[int] = []
-
-            for p in current_players:
-                player_id = str(p.id)
-                if player_id.startswith("p"):
-                    player_id = player_id[1:]
-                try:
-                    num_ids.append(int(player_id))
-                except ValueError:
-                    continue
-            
-            if num_ids:
-                next_number = max(num_ids) + 1
-        
-        player_id = f"p{next_number:03d}"
-        player.set_id(player_id)
-
-        
-        ''' Find next player id
+        # Find next player id
         if current_players:
             next_id: int = max(int(player.id) for player in current_players) + 1
         else:
             next_id = 1
         player_id = str(next_id)
 
-        player.set_id(player_id)'''
+        player.set_id(player_id)
 
         # Fetch team id from captain
         team_id = player.team_name
@@ -81,26 +59,56 @@ class TeamCaptainLL:
         self.APIDATA.store_player_data(new_player)
 
         return new_player
+=======
+    def create_player(self):
+        
+        # TODO
+        pass
+>>>>>>> Stashed changes
 
     def modify_player(self, player: Player):
         self.APIDATA.modify_player_data(player)
         
 
-    def create_new_team(self, team: Team) -> Team | None:
-        
-        all_teams = self.APIDATA.get_all_team_data()
 
-        if all_teams:
-            next_id = max(int(t.id) for t in all_teams) + 1
+    def create_new_team(self, team: Team) -> Team:
+        """Creates new team and saves it in the csv file."""
+
+        name: str = team.name
+        captain_id: str = team.captain_id
+        social_media: str | None = team.social_media
+        logo: str = team.logo
+
+        current_teams = self.APIDATA.get_all_team_data()
+
+        # checking if team name is available
+        for t in current_teams:
+            if t.name == team.name:
+                raise ValueError
+            
+        # Find next team id
+        if current_teams:
+            next_id: int = max(int(team.id) for team in current_teams) + 1
         else:
             next_id = 1
+        id = str(next_id)
 
-        team.set_id(str(next_id))
+        team.set_id(id)
 
-        stored = self.APIDATA.store_team_data(team)
-        return stored
+        new_team = Team(
+            id,
+            name,
+            captain_id,
+            social_media,
+            logo
+        )
 
-    def add_team_to_club(self):
+        self.APIDATA.store_team_data(new_team)
+
+        return new_team
+    
+
+    def add_team_to_club(self, team: Team, club_id: str):
         # TODO
         pass
 
@@ -151,7 +159,3 @@ class TeamCaptainLL:
         for player in players:
             if player.name == name:
                 return player
-    
-    def show_my_tournaments(self):
-        #TODO
-        pass
