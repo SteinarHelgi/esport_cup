@@ -1,7 +1,7 @@
-* req 3: klara að skkoða teams functionaliy
-* req 7: klára "Add player to team"
-* req 10: Klára að sjá allt um player þegar þú ert team captain eða organiser
-* req 18: create a match sem organiser
+* req 3: klara að skkoða teams functionaliy ( prenta lista af leikmönnum er klárt fyrir teamcaptain,vantar_ show_team_by_name(name) fall )
+* req 7: klára "Add player to team" (UI partur tilbúinn, vantar að tengja við data layer)
+* req 10: Klára að sjá allt um player þegar þú ert team captain eða organiser 
+* req 18: create a match sem organiser 
 * req 11: register team to tournament
 *
 UI MENUS
