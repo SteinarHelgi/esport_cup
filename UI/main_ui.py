@@ -1,8 +1,69 @@
+from multiprocessing import set_start_method
 from UI.menu_manager import MenuManager
 from UI.team_captain_ui import TeamCaptainUI
 from UI.user_ui import UserUI
 from LL.api_ll import APILL
+import os
+import platform
+import sys
+import atexit
 
+def clear_terminal():
+    system_name = platform.system()
+    if system_name == "Windows":
+        os.system("cls")
+    else:  # macOS or Linux
+        os.system("clear")
+    
+        
+GREEN_COLOR = "\033[92m" 
+RED_COLOR = "\033[91m"
+RESET_CODE = "\033[0m"
+
+def set_system_color_red():
+    sys.stdout.write(RED_COLOR)
+
+def set_system_color_green():
+    #switch to Green
+    sys.stdout.write(GREEN_COLOR)
+
+def reset_system_color():
+    #reset to default colors
+    sys.stdout.write(RESET_CODE)
+
+
+
+
+
+#    automatically back to regular color when program exits (even if it crashes)
+atexit.register(reset_system_color)
+
+
+
+
+def print_welcome_sign():
+    clear_terminal()
+    print(r"""
+     __       __  ________  __        ______    ______   __       __  ________        ________   ______                      
+    |  \  _  |  \|        \|  \      /      \  /      \ |  \     /  \|        \      |        \ /      \                     
+    | $$ / \ | $$| $$$$$$$$| $$     |  $$$$$$\|  $$$$$$\| $$\   /  $$| $$$$$$$$       \$$$$$$$$|  $$$$$$\                    
+    | $$/  $\| $$| $$__    | $$     | $$   \$$| $$  | $$| $$$\ /  $$$| $$__             | $$   | $$  | $$                    
+    | $$  $$$\ $$| $$  \   | $$     | $$      | $$  | $$| $$$$\  $$$$| $$  \            | $$   | $$  | $$                    
+    | $$ $$\$$\$$| $$$$$   | $$     | $$   __ | $$  | $$| $$\$$ $$ $$| $$$$$            | $$   | $$  | $$                    
+    | $$$$  \$$$$| $$_____ | $$_____| $$__/  \| $$__/ $$| $$ \$$$| $$| $$_____          | $$   | $$__/ $$                    
+    | $$$    \$$$| $$     \| $$     \\$$    $$ \$$    $$| $$  \$ | $$| $$     \         | $$    \$$    $$                    
+     \$$      \$$ \$$$$$$$$ \$$$$$$$$ \$$$$$$   \$$$$$$  \$$      \$$ \$$$$$$$$          \$$     \$$$$$$                     
+     ________  __    __  ________  _______    ______   __     __   ______    ______    ______   __    __  ________   ______  
+    |        \|  \  |  \|        \|       \  /      \ |  \   |  \ /      \  /      \  /      \ |  \  |  \|        \ /      \ 
+    | $$$$$$$$| $$  | $$ \$$$$$$$$| $$$$$$$\|  $$$$$$\| $$   | $$|  $$$$$$\|  $$$$$$\|  $$$$$$\| $$\ | $$ \$$$$$$$$|  $$$$$$\
+    | $$__     \$$\/  $$   | $$   | $$__| $$| $$__| $$| $$   | $$| $$__| $$| $$ __\$$| $$__| $$| $$$\| $$    /  $$ | $$__| $$
+    | $$  \     >$$  $$    | $$   | $$    $$| $$    $$ \$$\ /  $$| $$    $$| $$|    \| $$    $$| $$$$\ $$   /  $$  | $$    $$
+    | $$$$$    /  $$$$\    | $$   | $$$$$$$\| $$$$$$$$  \$$\  $$ | $$$$$$$$| $$ \$$$$| $$$$$$$$| $$\$$ $$  /  $$   | $$$$$$$$
+    | $$_____ |  $$ \$$\   | $$   | $$  | $$| $$  | $$   \$$ $$  | $$  | $$| $$__| $$| $$  | $$| $$ \$$$$ /  $$___ | $$  | $$
+    | $$     \| $$  | $$   | $$   | $$  | $$| $$  | $$    \$$$   | $$  | $$ \$$    $$| $$  | $$| $$  \$$$|  $$    \| $$  | $$
+     \$$$$$$$$ \$$   \$$    \$$    \$$   \$$ \$$   \$$     \$     \$$   \$$  \$$$$$$  \$$   \$$ \$$   \$$ \$$$$$$$$ \$$   \$$
+        
+""")
 
 class MainUI:
     def __init__(self):
@@ -19,6 +80,11 @@ class MainUI:
             if func is None:
                 print(f"Unknown screen: {self.current_screen}")
                 break
+
+            clear_terminal()
+            set_system_color_green()
+            print_welcome_sign()
+            set_system_color_red()
 
             next_screen = func()
 
