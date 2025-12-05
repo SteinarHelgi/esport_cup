@@ -1,7 +1,8 @@
 from datetime import date, datetime
 from IO.api_data import APIDATA
 from Models.team import Team
-
+from Models.match import Match
+from Models.tournament import Tournament
 
 class UserLL:
     def __init__(self, api_data: APIDATA):
@@ -20,6 +21,10 @@ class UserLL:
     def get_all_tournaments(self) -> list:
         tournaments = self.api_data.get_all_tournament_data()
         matches = self.api_data.get_all_match_data()
+        for tournament in tournaments:
+            for match in matches:
+                if match.tournament_id == tournament.id:
+                    tournament.add_match(match)
 
         return tournaments
 
