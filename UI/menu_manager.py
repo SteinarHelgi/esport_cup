@@ -131,7 +131,7 @@ class MenuManager:
         if choice == "3":
             return "MY_TEAM"
         if choice == "4":
-            return "MY_TOURNAMENTS"
+            return "MY_TOURNAMENTS_CAP"
         if choice.lower() == "b":
             return "LOGIN_MENU"
 
