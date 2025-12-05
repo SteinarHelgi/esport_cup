@@ -1,8 +1,6 @@
 # Sigrún
 import csv
-import datetime as dt
 from Models.models import Match
-
 
 class MatchData:
     def __init__(self) -> None:
@@ -17,32 +15,33 @@ class MatchData:
 
             for line in csv_reader:
                 match_id: str = line[0]
-                date_time: dt.datetime = dt.datetime.fromisoformat(line[1])
-                team_1_id: str = line[2]
-                team_2_id: str = line[3]
-                server_id: str = line[4]
-                game: str = line[5]
+                tournament_id: str = line[1]
+                round: str = line[2]
+                team_1_id: str = line[3]
+                team_2_id: str = line[4]
+                match_date: str = line[5]
+                match_time: str = line[6]
+                server_id: str = line[7]
+                winner_team: str = line[8]
+                game_name: str = line[9]
+                completed: str = line[10]
+
 
                 match = Match(
-                    match_id,
-                    date_time,
+                    tournament_id,
+                    round,
                     team_1_id,
                     team_2_id,
+                    match_date,
+                    match_time,
                     server_id,
-                    game,
+                    game_name
                 )
+                match.set_id(match_id)
+                match.set_winner(winner_team)
                 matches.append(match)
 
         return matches
-
-    # TODO færa í Logic layer
-    # def get_match_data(self, match_id: str) -> Match | None:
-    #     matches = self.get_all_match_data()
-    #
-    #     for match in matches:
-    #         if match.match_id == match_id:
-    #             return match
-    #     return None
 
     def store_match_data(self, match: Match) -> Match | None:
         with open(self.match_file_path, "a", encoding="utf-8") as file:
@@ -52,4 +51,3 @@ class MatchData:
             except:
                 return None
         return match
-

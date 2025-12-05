@@ -22,6 +22,9 @@ class APILL:
     def get_all_tournaments(self) -> list[Tournament]:
         return self.api_data.get_all_tournament_data()
 
+    def get_tournament_by_name(self, tournament_name: str) -> Tournament | None:
+        return self.organiser_ll.get_tournament_by_name(tournament_name)
+
     def get_ongoing_tournaments(self) -> list[Tournament]:
         return self.userLL.get_ongoing_tournament()
 

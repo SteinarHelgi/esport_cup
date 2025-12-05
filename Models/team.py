@@ -28,3 +28,6 @@ class Team:
 
     def add_player(self, player_handle: str):
         self.players.append(player_handle)
+
+    def set_id(self, id: str):
+        self.id = id

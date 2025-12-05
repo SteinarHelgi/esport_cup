@@ -114,7 +114,9 @@ class OrganiserUI:
         tournament_name = tournament.name
         venue = tournament.venue
         game = tournament.game_id
-        print(f"TOURNAMENT CREATED! \nOpen for registration \n{tournament_name} \n{venue} \n{game}")
+        print(
+            f"TOURNAMENT CREATED! \nOpen for registration \n{tournament_name} \n{venue} \n{game}"
+        )
 
     def show_my_tournaments(self) -> str: #Shows all of the upcoming tournamnets for the organiser to look at
         tournaments = self.APILL.get_upcoming_tournaments()
@@ -131,6 +133,32 @@ class OrganiserUI:
         if choice.lower() == "q":
             return "QUIT"
         
+        return ""
+
+    def show_tournament_view(self, tournament_name: str):
+        """takes in a player name and shows the menu for the player"""
+
+        tournament = self.APILL.get_tournament_by_name(tournament_name)
+        if tournament:
+            print(
+                f"{tournament.name.upper()}  |  {tournament.start_date} -- {tournament.end_date} "
+            )
+            print("--------------------")
+            print(f"    Matches: {tournament.matches}")
+            print("")
+            print("b. Back")
+            print("q. Quit")
+
+        choice: str = self.menu_manager.prompt_choice(["1", "2", "b", "q"])
+        if choice == "1":
+            # TODO create edit player menu
+            return "EDIT_PLAYER"
+        if choice == "b":
+            return "SHOW_MY_PLAYERS"
+        if choice == "q":
+            return "QUIT"
+
+
 
     def show_create_match(self):
         # TODO

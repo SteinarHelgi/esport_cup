@@ -1,5 +1,7 @@
 import datetime as dt
 
+from Models.match import Match
+
 
 class Tournament:
     def __init__(
@@ -20,6 +22,7 @@ class Tournament:
         self.game_id = game_id
         self.no_servers = no_servers
         self.contact_person = contact_person_name
+        self.matches = []
 
     def toCSVList(self):
         ret = []
@@ -35,6 +38,9 @@ class Tournament:
 
     def set_id(self, id):
         self.id = id
+
+    def add_match(self, match: Match):
+        self.matches.append(match)
 
     def __str__(self) -> str:
         return f"{self.name} : {self.venue}"
