@@ -13,7 +13,7 @@ def format_tournament_table(tournaments: list[Tournament]):
 
     # print header
     print(
-        f" 'Id':<{w_id} {'NAME':<{w_name}} {'START DATE':<{w_date}} {'END DATE':<{w_date}}{'GAME':<{w_game}}"
+        f" {'Id':>{w_id}} {'NAME':<{w_name}} {'START DATE':<{w_date}} {'END DATE':<{w_date}}{'GAME':<{w_game}}"
     )
 
     # Print a divider line
@@ -26,7 +26,7 @@ def format_tournament_table(tournaments: list[Tournament]):
         e_date = str(tournament.end_date).split(" ")[0]
 
         # Print the actual variables (tournament.name), not the string "NAME"
-        empty_string += f"{counter:<{w_id}}. {tournament.name:<{w_name}} {s_date:<{w_date}} {e_date:<{w_date}} {tournament.game_id:<{w_date}}\n"
+        empty_string += f"{counter:>{w_id}}. {tournament.name:<{w_name}} {s_date:<{w_date}} {e_date:<{w_date}} {tournament.game_id:<{w_date}}\n"
     return empty_string
 
 
@@ -79,4 +79,3 @@ def format_player_list(players: list[Player]):  # TODO KLÁRA?
         rank_string = f"{id + 1}."
         empty_string += f"{rank_string:<{w_counter}}{player.name:<{w_player_name}} {player.handle:<{w_player_handle}}\n"
     return empty_string
-
