@@ -64,6 +64,6 @@ class APILL:
     def register_team_to_tournament(self, team: Team, tournament: Tournament):
         return self.team_captain_ll.register_team_to_tournament(team, tournament)
     
-    def show_teams_on_tournament(self, target_tournament_id: str) -> list[str]:
+    def show_all_teams_on_tournament(self, target_tournament_id: str) -> list[str]:
         return self.organiser_ll.show_teams_on_tournament(target_tournament_id)
     

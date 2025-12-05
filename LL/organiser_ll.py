@@ -93,20 +93,22 @@ class OrganiserLL:
         return None
     
 
-    def show_all_teams_in_tournament(self, tournament: Tournament) -> Tournament | None:
-        all_matches = self.api_data.get_all_match_data()
-        all_teams = self.api_data.get_all_team_data()
+    def show_all_teams_on_tournament(self, target_tournament_id: str) -> list[Team]:
 
-        tournament.teams = []
+        #Fetch team registry and search for team_id in a specific tournament id
+        team_registry = self.api_data.get_all_team_registry_data()
+        all_teams_id_in_tournament: list[str] = []
+        for registry in team_registry:
+            if registry.tournament_id == target_tournament_id:
+                all_teams_id_in_tournament.append(registry.team_id)
 
-        for match in all_matches:
-           if match.tournament_id == tournament.id:
-               for team in all_teams:
-                   if team.id == match.team_1_id or team.id == match.team_2_id:
-                       if team not in tournament.teams:
-                           tournament.teams.append(team)   
-                              
-        return tournament
+        #Fetch a list of teams and their id
+        all_teams_in_tournament: list[Team] = []
+        teams: Team = self.api_data.get_all_team_data()
+        for team in teams:
+            if team.id in all_teams_id_in_tournament:
+                all_teams_in_tournament.append(team)
+        return all_teams_in_tournament
     
     def register_match_result(self, match_id: str, home_score: int, away_score: int, completed: bool):
         self.api_data.register_match_results(match_id, home_score, away_score, completed)
