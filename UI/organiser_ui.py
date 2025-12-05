@@ -116,11 +116,9 @@ class OrganiserUI:
         venue = tournament.venue
         game = tournament.game_id
         return f"TOURNAMENT CREATED! \nOpen for registration \n{tournament_name} \n{venue} \n{game}"
-        
 
-    def show_my_tournaments(
-        self,
-    ) -> str:  # Shows all of the upcoming tournamnets for the organiser to look at
+    def show_my_tournaments(self):
+        # Shows all of the upcoming tournamnets for the organiser to look at
         """Finds all upcoming tournaments and prompts for choice"""
         tournaments = self.APILL.get_upcoming_tournaments()
         valid_choices = []
@@ -130,7 +128,7 @@ class OrganiserUI:
         print("MY_TOURNAMENTS_ORG")
         print(format_tournament_table(tournaments))
 
-        print("1. Select tournament by name \nb. Back \nq. Quit")
+        print("s. search for tournament \nb. Back \nq. Quit")
         choice: str = self.menu_manager.prompt_choice(valid_choices + ["b", "q"])
         print()
         for element in valid_choices:
@@ -152,25 +150,37 @@ class OrganiserUI:
                 f"{tournament.name.upper()}  |  {tournament.start_date} -- {tournament.end_date} "
             )
             print("--------------------")
+            print(" ")
             for match in tournament.matches:
                 print(f"    Matches: {match}")
+            print("1. Add match")
             print("")
             print("b. Back")
             print("q. Quit")
 
         choice: str = self.menu_manager.prompt_choice(["1", "2", "b", "q"])
         if choice == "1":
-            # TODO create edit player menu
-            return "BLA"
+            return self.show_create_match(tournament)
+
         if choice == "b":
             return "MY_TOURNAMENTS_ORG"
         if choice == "q":
             return "QUIT"
 
-    def show_create_match(self):
+    def show_create_match(self, tournament: Tournament):
         # TODO
 
-        prompts = ["team1: ", "team2: "]
+        # self,
+        # tournament_id: str,
+        # round: str,
+        # team_1_id: str,
+        # team_2_id: str,
+        # match_date: str,
+        # match_time: str,
+        # server_id: str,
+        # game_name: str,
+
+        prompts = ["Team 1: ", "Team 2: ", "Date YYYY-MM-DD: ", "Time HH-MM-SS: "]
         user_inputs = []
         for prompt in prompts:
             current_input = input(prompt)
