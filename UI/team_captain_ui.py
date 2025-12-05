@@ -1,4 +1,5 @@
 from datetime import date
+from operator import add
 from LL.api_ll import APILL
 from Models.player import Player
 from UI.Menus import print_my_team_menu
@@ -19,6 +20,8 @@ class TeamCaptainUI:
         social_media = input("Enter social media handle: ").strip()
         handle = input("Enter player handle: ").strip()
         team = self.menu_manager.team_name
+        new_player = Player(name, date_of_birth, address, phone_number, email, social_media, handle, team)
+        saved_player = self.APILL.create_player(new_player)
 
         new_player_id = 67  # call create_player from LL here
         print(
