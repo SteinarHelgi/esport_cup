@@ -107,3 +107,8 @@ class OrganiserLL:
                            tournament.teams.append(team)   
                               
         return tournament
+    
+    def register_match_result(self, match_id: str, home_score: int, away_score: int, completed: bool):
+        self.api_data.register_match_results(match_id, home_score, away_score, completed)
+        
+
