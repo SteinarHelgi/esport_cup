@@ -2,9 +2,10 @@
 import csv
 from Models.models import Match
 
+
 class MatchData:
     def __init__(self) -> None:
-        self.match_file_path = "Data/Matches.csv"
+        self.match_file_path = "Data/matches.csv"
 
     def get_all_match_data(self) -> list[Match]:
         matches: list[Match] = []
@@ -34,7 +35,7 @@ class MatchData:
                     match_date,
                     match_time,
                     server_id,
-                    game_name
+                    game_name,
                 )
 
                 match.set_id(match_id)
@@ -51,3 +52,4 @@ class MatchData:
             except:
                 return None
         return match
+
