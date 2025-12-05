@@ -84,7 +84,6 @@ class OrganiserLL:
 
     def get_contact_person(self, tournament_id: str) -> ContactPerson | None:
         """Returns contact person that is connected to certain tournament."""
-        
         tournaments = self.api_data.get_all_contact_person_data()
         for t in tournaments:
             if t.id == tournament_id:

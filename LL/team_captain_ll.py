@@ -156,4 +156,3 @@ class TeamCaptainLL:
         for player in players:
             if player.name == name:
                 return player
-            return None
