@@ -26,7 +26,7 @@ class UserLL:
         return players
 
     def get_ongoing_tournament(self):
-        today = date.today()
+        today = datetime.today()
         tournament = self.api_data.get_all_tournament_data()
         ongoing = []
 
@@ -38,7 +38,7 @@ class UserLL:
 
     def get_past_tournament(self):
         tournament = self.api_data.get_all_tournament_data()
-        today = date.today()
+        today = datetime.today()
         past = []
 
         for t in tournament:
@@ -50,7 +50,7 @@ class UserLL:
     def get_upcoming_tournament(self):
         tournament = self.api_data.get_all_tournament_data()
         upcoming = []
-        today = date.today()
+        today = datetime.today()
 
         for t in tournament:
             if t.end_date > today:  # kíkja á
