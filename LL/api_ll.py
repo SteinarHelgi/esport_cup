@@ -53,3 +53,6 @@ class APILL:
 
     def get_player_by_name(self, player_name: str) -> Player | None:
         return self.team_captain_ll.get_player_by_name(player_name)
+    
+    def create_new_team(self, team: Team) -> Team | None:
+        return self.team_captain_ll.create_new_team(team)

@@ -2,7 +2,7 @@ from Models.player import Player
 from Models.team import Team
 from IO.api_data import APIDATA
 from datetime import datetime
-
+from Models.team import Team
 
 class TeamCaptainLL:
     def __init__(self, APIDATA: APIDATA):
@@ -63,10 +63,19 @@ class TeamCaptainLL:
         # TODO
         pass
 
-    def create_new_team(self):
+    def create_new_team(self, team: Team) -> Team | None:
         
-        # TODO
-        pass
+        all_teams = self.APIDATA.get_all_team_data()
+
+        if all_teams:
+            next_id = max(int(t.id) for t in all_teams) + 1
+        else:
+            next_id = 1
+
+        team.set_id(str(next_id))
+
+        stored = self.APIDATA.store_team_data(team)
+        return stored
 
     def add_team_to_club(self):
         # TODO
