@@ -16,7 +16,6 @@ from Models.match import Match
 
 # Steinar
 
-
 class APIDATA:
     def __init__(self) -> None:
         self.club_data = ClubData()
