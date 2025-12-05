@@ -115,8 +115,11 @@ class OrganiserUI:
         game = tournament.game_id
         print(f"TOURNAMENT CREATED! \nOpen for registration \n{tournament_name} \n{venue} \n{game}")
 
-    def show_my_tournament(self):
-        # TODO
+    def show_my_tournaments(self):
+        tournaments = self.APILL.get_upcoming_tournaments()
+        for tournament in tournaments:
+            print
+
         pass
 
     def show_create_schedule(self):

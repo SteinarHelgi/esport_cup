@@ -44,7 +44,7 @@ class MenuManager:
             "ORGANISER_MENU": self.print_organiser_menu,
             "CREATE_TOURNAMENT_MENU": self.organiser_Ui.show_create_tournament,
     
-            "MY_TOURNAMENT_MENU": self.organiser_Ui.show_my_tournament,
+            "MY_TOURNAMENT_MENU": self.organiser_Ui.show_my_tournaments,
             "CREATE_SCHEDULE": self.organiser_Ui.show_create_schedule,
             "UPDATE_SCHEDULE": self.organiser_Ui.show_update_schedule,
             "CREATE_MATCH": self.organiser_Ui.show_create_match,
