@@ -9,6 +9,7 @@ from IO.match_data import MatchData
 
 # Steinar
 
+
 class TournamentData:
     def __init__(self):
         self.tournament_file_path = "Data/Tournaments.csv"
@@ -33,7 +34,6 @@ class TournamentData:
                     contact_person_id = line[7]
 
                     tournament = Tournament(
-                        id,
                         name,
                         start_date,
                         end_date,
@@ -53,3 +53,4 @@ class TournamentData:
             except:
                 return None
         return tournament
+
