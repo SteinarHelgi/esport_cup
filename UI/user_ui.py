@@ -21,10 +21,9 @@ class UserUI:
         if choice == "1":
             search_for_team = input("Enter team name for details: ")
         if choice.lower() == "b":
-            return "LOGIN_MENU"
+            return "USER_MENU"
 
         return "QUIT"
-
     def show_tournaments(self) -> str:
         tournaments = self.APILL.get_all_tournaments()
         valid_options = ["1", "2", "3", "b", "q"]
