@@ -1,6 +1,4 @@
-# Sigrún
 import csv
-from datetime import datetime
 from Models.models import Schedule
 
 

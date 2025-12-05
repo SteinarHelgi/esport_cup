@@ -1,5 +1,4 @@
 import csv
-from datetime import datetime
 from Models.player import Player
 
 
@@ -45,4 +44,3 @@ class PlayerData:
             except:
                 return None
         return player
-

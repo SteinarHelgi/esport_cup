@@ -9,7 +9,6 @@ from IO.match_data import MatchData
 
 # Steinar
 
-
 class TournamentData:
     def __init__(self):
         self.tournament_file_path = "Data/Tournaments.csv"
