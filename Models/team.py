@@ -1,11 +1,11 @@
 class Team:
     def __init__(
         self,
-        id: str = "2",
-        name: str = "hi",
-        captain_id: str = "hello",
-        social_media: str | None = "hi",
-        logo: str = "ASSCHI",
+        id: str,
+        name: str,
+        captain_id: str,
+        social_media: str | None,
+        logo: str,
     ) -> None:
         self.id = id
         self.name = name

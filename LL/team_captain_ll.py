@@ -63,8 +63,42 @@ class TeamCaptainLL:
         # TODO
         pass
 
-    def create_new_team(self):
+
+    def create_new_team(self, team: Team) -> Team:
         
+        id: str = team.id
+        name: str = team.name
+        captain_id: str = team.captain_id
+        social_media: str | None = team.social_media
+        logo: str = team.logo
+
+        current_teams = self.APIDATA.get_all_team_data()
+
+        # checking if team name is available
+        for t in current_teams:
+            if t.name == team.name:
+                raise ValueError
+            
+        # Find next team id
+        if current_teams:
+            next_id: int = max(int(team.id) for team in current_teams) + 1
+        else:
+            next_id = 1
+        team_id = str(next_id)
+
+        team.set_id(team_id)
+
+        new_team = Team(
+            id,
+            name,
+            captain_id,
+            social_media,
+            logo
+        )
+
+        self.APIDATA.store_team_data(new_team)
+
+
         # TODO
         pass
 
