@@ -1,11 +1,11 @@
 import csv
 from Models.team_registry import TeamRegistry
 
-class TeamRegistry:
+class TeamRegistryData:
     def __init__(self):
         self._filepath: str = "Data/team_registry.py"
 
-    def get_all_team_registry(self) -> list[TeamRegistry]:
+    def get_all_team_registry_data(self) -> list[TeamRegistry]:
         team_registries: list[TeamRegistry] = []
         with open(self._filepath, "+r", encoding = "utf-8") as file:
             csvReader = csv.reader(file)
