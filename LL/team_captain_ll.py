@@ -82,9 +82,9 @@ class TeamCaptainLL:
 
         return new_player
 
-    def modify_player(self):
-        # TODO
-        pass
+    def modify_player(self, player: Player):
+        self.APIDATA.modify_player_data(player)
+        
 
     def create_new_team(self, team: Team) -> Team | None:
         
