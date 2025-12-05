@@ -2,3 +2,7 @@ TODO
 
 * gera get_team_by_captain_id() fall til þess að vita hvaða er
 *
+
+***EF VIÐ HÖFUM TÍMA GETUM VIÐ BÆTT ÞESSU VIÐ***
+1. Bætt við modify_tournament, sambærilegt við modify player. Muna að setja á requirement list í skýrsluna
+2

@@ -2,6 +2,8 @@ from IO.api_data import APIDATA
 from Models.tournament import Tournament
 from Models.match import Match
 from Models.contact_person import ContactPerson
+from Models.team_registry import TeamRegistry
+from Models.team import Team
 
 
 class OrganiserLL:
@@ -41,9 +43,8 @@ class OrganiserLL:
 
                 return tournament
 
-    def delete_tournament(self):
-        # TODO
-        pass
+    def delete_tournament(self, tournament_id: str):
+        self.api_data.delete_tournament_data(tournament_id)
 
     def create_schedule(self):
         # TODO
@@ -89,3 +90,4 @@ class OrganiserLL:
                 return self.get_contact_person_by_id(contact_person_id)
         return None
 
+    
