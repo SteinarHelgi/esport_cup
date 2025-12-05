@@ -72,7 +72,8 @@ class TeamCaptainLL:
 
 
     def create_new_team(self, team: Team) -> Team:
-        
+        """Creates new team and saves it in the csv file."""
+
         name: str = team.name
         captain_id: str = team.captain_id
         social_media: str | None = team.social_media
@@ -103,12 +104,11 @@ class TeamCaptainLL:
         )
 
         self.APIDATA.store_team_data(new_team)
+
+        return new_team
     
 
     def add_team_to_club(self, team: Team, club_id: str):
-
-        
-
         # TODO
         pass
 
@@ -156,3 +156,4 @@ class TeamCaptainLL:
         for player in players:
             if player.name == name:
                 return player
+            return None
