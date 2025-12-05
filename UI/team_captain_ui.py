@@ -87,19 +87,19 @@ class TeamCaptainUI:
     def show_player_view(self, player_name: str):
         """takes in a player name and shows the menu for the player"""
         player = self.APILL.get_player_by_name(player_name)
-
-        print(f"{player.name.upper()}  |  {player.handle} ")
-        print("--------------------")
-        print(f"    DATE OF BIRTH: {player.date_of_birth}")
-        print(f"    ADDRESS: {player.address}")
-        print(f"    PHONE: {player.phone_number}")
-        print(f"    EMAIL: {player.email}")
-        print(f"    HANDLE: {player.handle}")
-        print(f"    SOCIAL MEDIA: {player.social_media}")
-        print(f"    TEAM: {player.team_name}")
-        print("")
-        print("1. Edit player data")
-        print("2. Hurt player emotionally")
+        if player:
+            print(f"{player.name.upper()}  |  {player.handle} ")
+            print("--------------------")
+            print(f"    DATE OF BIRTH: {player.date_of_birth}")
+            print(f"    ADDRESS: {player.address}")
+            print(f"    PHONE: {player.phone_number}")
+            print(f"    EMAIL: {player.email}")
+            print(f"    HANDLE: {player.handle}")
+            print(f"    SOCIAL MEDIA: {player.social_media}")
+            print(f"    TEAM: {player.team_name}")
+            print("")
+            print("1. Edit player data")
+            print("2. Hurt player emotionally")
         choice: str = self.menu_manager.prompt_choice(["1", "2"])
         if choice == "1":
             # TODO create edit player menu

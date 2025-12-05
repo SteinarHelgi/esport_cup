@@ -44,7 +44,6 @@ class TeamCaptainLL:
 
         # Búa til nýjan Player
         new_player = Player(
-            player_id,
             name,
             date_of_birth,
             address,
@@ -66,7 +65,7 @@ class TeamCaptainLL:
 
     def create_new_team(self):
         # TODO
-        pass 
+        pass
 
     def add_team_to_club(self):
         # TODO

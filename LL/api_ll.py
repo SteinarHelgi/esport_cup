@@ -40,12 +40,13 @@ class APILL:
     def create_tournament(self, tournament: Tournament) -> Tournament | None:
         return self.organiser_ll.create_tournament(tournament)
 
-    def create_match(self) -> Match | None:
-        return self.organiser_ll.create_match(self)
+    def create_match(self, match: Match) -> Match | None:
+        return self.organiser_ll.create_match(match)
 
-    def create_contact_person(self) -> ContactPerson | None:
-        return self.organiser_ll.create_contact_person()
+    def create_contact_person(
+        self, contact_person: ContactPerson
+    ) -> ContactPerson | None:
+        return self.organiser_ll.create_contact_person(contact_person)
 
     def get_player_by_name(self, player_name: str) -> Player | None:
         return self.team_captain_ll.get_player_by_name(player_name)
-
