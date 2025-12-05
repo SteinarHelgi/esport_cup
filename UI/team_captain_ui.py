@@ -70,9 +70,9 @@ class TeamCaptainUI:
         if choice == "3":
             return self.show_player_view(players[2].name)
         if choice == "4":
-            return self.show_player_view(players[2].name)
+            return self.show_player_view(players[3].name)
         if choice == "5":
-            return self.show_player_view(players[2].name)
+            return self.show_player_view(players[4].name)
 
         if choice == "6":
             return self.show_create_player()
