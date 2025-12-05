@@ -43,8 +43,7 @@ class OrganiserLL:
         # TODO
         pass
 
-    def create_match(self, match:Match) -> Match:
-
+    def create_match(self, match: Match) -> Match:
         if match.team_1_id == match.team_2_id:
             return ValueError
 
@@ -59,31 +58,29 @@ class OrganiserLL:
         pass
 
     def create_contact_person(self, contact: ContactPerson) -> ContactPerson:
-
         contact.id = self._next_contact_id
         self._next_contact_id += 1
 
         stored = self.api_data.store_contact_person_data(contact)
         return stored
 
-    def get_contact_person_by_id(self, id: str) -> ContactPersonData:
-        contact_persons = self.get_contact_person_by_id()
+    def get_contact_person_by_id(self, id: str) -> ContactPerson | None:
+        contact_persons = self.api_data.get_all_contact_person_data()
         for contact in contact_persons:
             try:
                 if contact.id == id:
                     return contact
             except:
                 return None
-            
+
     def get_contact_person(self, tournament_id: str) -> ContactPerson | None:
         """Skilar tengiliðnum sem tengist þessu tiltekna móti."""
         tournaments = self.api_data.get_all_contact_person_data()
 
         for t in tournaments:
             if t.id == tournament_id:
-                contact_person_id = (t.id)
+                contact_person_id = t.id
                 return self.contact_person_data.get_contact_person_by_id(
                     contact_person_id
                 )
         return None
-
