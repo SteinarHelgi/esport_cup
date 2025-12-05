@@ -1,10 +1,12 @@
+from multiprocessing import set_start_method
 from UI.menu_manager import MenuManager
 from UI.team_captain_ui import TeamCaptainUI
 from UI.user_ui import UserUI
 from LL.api_ll import APILL
 import os
 import platform
-
+import sys
+import atexit
 
 def clear_terminal():
     system_name = platform.system()
@@ -12,10 +14,35 @@ def clear_terminal():
         os.system("cls")
     else:  # macOS or Linux
         os.system("clear")
+    
+        
+GREEN_COLOR = "\033[92m" 
+RED_COLOR = "\033[91m"
+RESET_CODE = "\033[0m"
+
+def set_system_color_red():
+    sys.stdout.write(RED_COLOR)
+
+def set_system_color_green():
+    #switch to Green
+    sys.stdout.write(GREEN_COLOR)
+
+def reset_system_color():
+    #reset to default colors
+    sys.stdout.write(RESET_CODE)
+
+
+
+
+
+#    automatically back to regular color when program exits (even if it crashes)
+atexit.register(reset_system_color)
+
+
 
 
 def print_welcome_sign():
-    print("\033c", end="")
+    clear_terminal()
     print(r"""
      __       __  ________  __        ______    ______   __       __  ________        ________   ______                      
     |  \  _  |  \|        \|  \      /      \  /      \ |  \     /  \|        \      |        \ /      \                     
@@ -38,18 +65,6 @@ def print_welcome_sign():
         
 """)
 
-
-def print_welcome_sign_test():
-    print(r"""
-________                            _____________             ______ ______      _____ 
-__  ___/___  ____________________  ___  ___/__  /________________  /____  /________  /_
-_____ \_  / / /_  ___/_  ___/_  / / /____ \__  __ \_  ___/  _ \_  //_/_  //_/  _ \  __/
-____/ // /_/ /_(__  )_(__  )_  /_/ /____/ /_  / / /  /   /  __/  ,<  _  ,<  /  __/ /_  
-/____/ \__,_/ /____/ /____/ _\__, / /____/ /_/ /_//_/    \___//_/|_| /_/|_| \___/\__/  
-                            /____/                                                     
-""")
-
-
 class MainUI:
     def __init__(self):
         self.APILL = APILL()
@@ -67,7 +82,9 @@ class MainUI:
                 break
 
             clear_terminal()
+            set_system_color_green()
             print_welcome_sign()
+            set_system_color_red()
 
             next_screen = func()
 

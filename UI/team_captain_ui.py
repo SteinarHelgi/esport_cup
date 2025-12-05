@@ -23,9 +23,8 @@ class TeamCaptainUI:
         new_player = Player(name, date_of_birth, address, phone_number, email, social_media, handle, team)
         saved_player = self.APILL.create_player(new_player)
 
-        new_player_id = 67  # call create_player from LL here
         print(
-            f"------ \nNew player created with ID: {new_player_id}\n{name}\n{date_of_birth}\n{address}\n{phone_number}\n{email}\n{social_media}\n{handle}\n{team} "
+            f"------ \nNew player created: {name}\n{date_of_birth}\n{address}\n{phone_number}\n{email}\n{social_media}\n{handle}\n{team} "
         )
 
     def show_my_tournaments(self):
