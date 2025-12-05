@@ -5,17 +5,16 @@ from datetime import datetime
 
 
 class TeamCaptainLL:
-    def __init__(self, APIDATA: APIDATA, captain):
+    def __init__(self, APIDATA: APIDATA):
         self.id = 0
         self.APIDATA = APIDATA
-        self.captain = captain
 
     def create_player(self, player: Player) -> Player:
         """Creates new player and saves him in the csv file"""
-        
-        #Fetches all parameters of player
+
+        # Fetches all parameters of player
         name: str = player.name
-        date_of_birth: datetime.datetime = player.date_of_birth
+        date_of_birth: str = player.date_of_birth
         address: str = player.address
         phone_number: str = player.phone_number
         email: str = player.email
@@ -41,7 +40,7 @@ class TeamCaptainLL:
         player.set_id(player_id)
 
         # Fetch team id from captain
-        team_id = self.captain.team_id
+        team_id = player.team_name
 
         # Búa til nýjan Player
         new_player = Player(
