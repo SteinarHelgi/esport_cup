@@ -13,7 +13,7 @@ class MatchData:
 
         with open(self.match_file_path, "r", encoding="utf-8") as file:
             csv_reader = csv.reader(file)
-            next(csv_reader, None) #Skip header line
+            next(csv_reader, None)  # Skip header line
 
             for line in csv_reader:
                 match_id: str = line[0]
@@ -35,14 +35,14 @@ class MatchData:
 
         return matches
 
-    def get_match_data(self, match_id: str) -> Match | None:
-        matches = self.get_all_match_data()
-
-        for match in matches:
-            if match.match_id == match_id:
-                return match
-        return None
-        
+    # TODO færa í Logic layer
+    # def get_match_data(self, match_id: str) -> Match | None:
+    #     matches = self.get_all_match_data()
+    #
+    #     for match in matches:
+    #         if match.match_id == match_id:
+    #             return match
+    #     return None
 
     def store_match_data(self, match: Match) -> Match | None:
         with open(self.match_file_path, "a", encoding="utf-8") as file:
@@ -52,3 +52,4 @@ class MatchData:
             except:
                 return None
         return match
+
