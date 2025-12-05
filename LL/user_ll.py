@@ -1,8 +1,7 @@
 from datetime import date, datetime
 from IO.api_data import APIDATA
 from Models.team import Team
-from Models.match import Match
-from Models.tournament import Tournament
+
 
 class UserLL:
     def __init__(self, api_data: APIDATA):
