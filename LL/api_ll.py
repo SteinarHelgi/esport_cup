@@ -47,9 +47,7 @@ class APILL:
     def create_match(self, match: Match) -> Match | None:
         return self.organiser_ll.create_match(match)
 
-    def create_contact_person(
-        self, contact_person: ContactPerson
-    ) -> ContactPerson | None:
+    def create_contact_person(self, contact_person: ContactPerson) -> ContactPerson | None:
         return self.organiser_ll.create_contact_person(contact_person)
 
     def get_player_by_name(self, player_name: str) -> Player | None:
@@ -70,5 +68,12 @@ class APILL:
     def show_all_tournaments_for_captain(self, captain: TeamCaptain) -> TeamCaptain:
         return self.team_captain_ll.show_all_tournaments_for_captain(captain)
     
-
+    def delete_tournament(self, tournament_id: str):
+        return self.organiser_ll.delete_tournament(tournament_id)
     
+    def show_all_open_tournaments_for_captain(self,captain: TeamCaptain) -> TeamCaptain:
+        return self.team_captain_ll.show_all_open_tournaments_for_captain(captain)
+   
+    def get_all_players(self) -> list[Player]:
+        return self.userLL.get_all_players()
+
