@@ -1,13 +1,14 @@
 import csv
 from Models.team_registry import TeamRegistry
 
+
 class TeamRegistryData:
     def __init__(self):
-        self._filepath: str = "Data/team_registry.py"
+        self._filepath: str = "Data/team_registry.csv"
 
     def get_all_team_registry_data(self) -> list[TeamRegistry]:
         team_registries: list[TeamRegistry] = []
-        with open(self._filepath, "+r", encoding = "utf-8") as file:
+        with open(self._filepath, "+r", encoding="utf-8") as file:
             csvReader = csv.reader(file)
             next(csvReader)
             for line in csvReader:
@@ -16,8 +17,10 @@ class TeamRegistryData:
                 team_registry = TeamRegistry(team_id, tournament_id)
                 team_registries.append(team_registry)
             return team_registries
-        
-    def store_team_registry_data(self, team_registry: TeamRegistry) -> TeamRegistry | None:
+
+    def store_team_registry_data(
+        self, team_registry: TeamRegistry
+    ) -> TeamRegistry | None:
         with open(self._filepath, "a") as file:
             csvWriter = csv.writer(file)
             try:
