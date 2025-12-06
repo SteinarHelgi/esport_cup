@@ -144,18 +144,18 @@ class TeamCaptainUI:
                     print("Game handle updated locally.")
 
 
-            elif selection == 'S':
-                # THIS IS THE CONNECTION TO YOUR BACKEND
+            elif selection.lower() == 's':
+                #Saves the information
                 try:
                     self.APILL.modify_player(player)
                     print("Success! Player data saved to database.")
-                    break # Exit the loop
+                    return "SHOW_MY_PLAYERS" # Exit the loop
                 except Exception as e:
                     print(f"Error saving data: {e}")
 
-            elif selection == 'C':
+            elif selection.lower() == 'c':
                 print("Modification cancelled.")
-                break # Exit without calling modify_player
+                return "SHOW_MY_PLAYERS" # Exit without calling modify_player
 
             else:
                 print("Invalid selection. Please try again.")
