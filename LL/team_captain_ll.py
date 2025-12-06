@@ -14,8 +14,6 @@ class TeamCaptainLL:
     def create_player(self, player: Player) -> Player:
         """Creates new player and saves him in the csv file"""
 
-
-
         # Fetch all player data
         current_players = self.APIDATA.get_all_player_data()
 
@@ -27,7 +25,8 @@ class TeamCaptainLL:
         # Find next player id
         nums = [
             int(p.id[1:])
-            for p in current_players if p.id.startswith("p") and p.player_id[1:].isdigit]
+            for p in current_players if p.id.startswith(("p", "P")) and p.id[1:].isdigit
+        ]
         
         next_num = max(nums) + 1 if nums else 1
         new_id = f"p{next_num:03d}"
