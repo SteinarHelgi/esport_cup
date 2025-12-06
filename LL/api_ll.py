@@ -3,7 +3,7 @@ from IO.api_data import APIDATA
 from LL.team_captain_ll import TeamCaptainLL
 from LL.user_ll import UserLL
 from LL.organiser_ll import OrganiserLL
-from Models.models import Tournament, Player, Team, Match, ContactPerson, TeamRegistry
+from Models.models import Tournament, Player, Team, Match, ContactPerson, TeamRegistry, TeamCaptain
 
 
 
@@ -66,4 +66,9 @@ class APILL:
     
     def show_all_teams_on_tournament(self, target_tournament_id: str) -> list[Team]:
         return self.organiser_ll.show_all_teams_on_tournament(target_tournament_id)
+    
+    def show_all_tournaments_for_captain(self, captain: TeamCaptain) -> TeamCaptain:
+        return self.team_captain_ll.show_all_tournaments_for_captain(captain)
+    
+
     
