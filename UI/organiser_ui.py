@@ -168,24 +168,29 @@ class OrganiserUI:
             return "QUIT"
 
     def show_create_match(self, tournament: Tournament):
-        # TODO
-
-        # self,
-        # tournament_id: str,
-        # round: str,
-        # team_1_id: str,
-        # team_2_id: str,
-        # match_date: str,
-        # match_time: str,
-        # server_id: str,
-        # game_name: str,
-
-        prompts = ["Team 1: ", "Team 2: ", "Date YYYY-MM-DD: ", "Time HH-MM-SS: "]
+        prompts = [
+            "Round: ",
+            "Team 1: ",
+            "Team 2: ",
+            "Date YYYY-MM-DD: ",
+            "Time HH-MM-SS: ",
+        ]
         user_inputs = []
         for prompt in prompts:
             current_input = input(prompt)
             user_inputs.append(current_input)
+        # match_id,*tournament_id,*round,match_number,*team_a_name,*team_b_name,*match_date,*match_time,server_id,score_a,score_b,winner_team_name,completed
+        match = Match(
+            tournament.id,
+            user_inputs[0],
+            user_inputs[1],
+            user_inputs[2],
+            user_inputs[3],
+            user_inputs[4],
+        )
+        self.APILL.create_match(match)
 
+        # Get information about matc
         print(*user_inputs)
 
         pass

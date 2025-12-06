@@ -1,19 +1,10 @@
 * req 3: klara að skkoða teams functionaliy ( prenta lista af leikmönnum er klárt fyrir teamcaptain,vantar_ show_team_by_name(name) fall )
-* req 7: klára "Add player to team" (UI partur tilbúinn, vantar að tengja við data layer)
-* req 10: Klára að sjá allt um player þegar þú ert team captain eða organiser 
 * req 18: create a match sem organiser 
 * req 11: register team to tournament
+* velja mot til að create match
 *
 *
-UI MENUS
-* orgaiser my_tournaments
-* organiser Tournament view
-* team captain my_team
-* team captain my_tournaments
-* user velja lið úr teams menu
-* 
 UI: HILMIR
-laga user back og valid choice ui - held þetta sé komið en ekki alveg viss
 cleare eftir error key og cleara eftir að systemið lokar.
 bæta við modify player i player view i show my team
 kikja a hvað gerist eftir að player er created - semi komið nema vantar að laga back functionið

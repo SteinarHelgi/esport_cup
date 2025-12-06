@@ -1,8 +1,9 @@
 TODO 
-#1. Organizer sjá öll lið sem er búið að skrá sig á mót - Sigrún er að vinna í þessu
-#2. Team captain sjá í hvaða mót hann er skráður í 
-#3. Sjá hvaða mót er hægt að skrá sig í
+#4. modify team info tekur inn team clasa og uppfærir
+#5. vantar create match sem tekur inn ókláraðann match clasa og klárar 
 
+create match þarf að athuga hvort lið sé skráð í annað match á þessari dagsetningu á þessum tíma
+og hvort liðið sé búið að tapa, eða hvort liðið sé í örðu match í þessum úrslitum(16 liða úrslit...)
 
 
 

@@ -6,22 +6,19 @@ class Match:
         self,
         tournament_id: str,
         round: str,
-        team_1_id: str,
-        team_2_id: str,
+        team_1_name: str,
+        team_2_name: str,
         match_date: str,
         match_time: str,
-        server_id: str,
-        game_name: str,
     ):
         self.tournament_id = tournament_id
         self.round = round
-        self.team_1_id = team_1_id
-        self.team_2_id = team_2_id
+        self.team_1_name = team_1_name
+        self.team_2_name = team_2_name
         self.match_date = match_date
         self.match_time = match_time
-        self.server_id = server_id
+        self.server_id = ""
         self.winner_team = ""
-        self.game_name = game_name
         self.completed = False
 
     def toCSVList(self) -> list:
@@ -29,18 +26,17 @@ class Match:
             self.match_id,
             self.tournament_id,
             self.round,
-            self.team_1_id,
-            self.team_2_id,
+            self.team_1_name,
+            self.team_2_name,
             self.match_date,
             self.match_time,
             self.server_id,
             self.winner_team,
-            self.game_name,
             self.completed,
         ]
 
     def __str__(self) -> str:
-        return f"{self.team_1_id} vs {self.team_2_id} {self.match_date} at {self.match_time}"
+        return f"{self.team_1_name} vs {self.team_2_name} {self.match_date} at {self.match_time}"
 
     def set_id(self, id):
         self.match_id = id
