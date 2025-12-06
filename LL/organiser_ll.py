@@ -100,7 +100,7 @@ class OrganiserLL:
 
         #Fetch a list of teams and their id
         all_teams_in_tournament: list[Team] = []
-        teams: Team = self.api_data.get_all_team_data()
+        teams: list[Team] = self.api_data.get_all_team_data()
         for team in teams:
             if team.id in all_teams_id_in_tournament:
                 all_teams_in_tournament.append(team)
