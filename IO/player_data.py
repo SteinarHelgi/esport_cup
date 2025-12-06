@@ -59,16 +59,13 @@ class PlayerData:
                 # Read the header row first
                 header = next(reader)
                 temp_data.append(header)  # Add header to the data we are keeping
-                
+
                 # Read the rest of the rows
                 for line in reader:
-                    
                     # Check the value in the first column (index 0)
                     if line:
                         if line[0] != target_id:
                             temp_data.append(line)
-                        else:
-                            print(line)
 
         except FileNotFoundError:
             exit()
@@ -81,11 +78,10 @@ class PlayerData:
 
                 # Iterate through the list of strings
                 for line in temp_data:
-
                     writer.writerow(line)
         except:
             return None
-        
+
         self.store_player_data(player)
 
     def delete_player_data(self, player_id: str) -> None:
