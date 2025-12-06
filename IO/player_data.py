@@ -54,7 +54,7 @@ class PlayerData:
 
         # Creates a temporary data file
         try:
-            with open(self._filepath, "r", newline='') as file:
+            with open(self._filepath, "r", newline="") as file:
                 reader = csv.reader(file)
 
                 # Read the header row first
@@ -76,7 +76,7 @@ class PlayerData:
 
         # Overwrites temporary datafile to csv file
         try:
-            with open(self._filepath, "w", newline= '', encoding="utf-8") as csvfile:
+            with open(self._filepath, "w", newline="", encoding="utf-8") as csvfile:
                 # Create a writer object
                 writer = csv.writer(csvfile)
 
@@ -96,7 +96,7 @@ class PlayerData:
         temp_data = []
 
         try:
-            with open(self._filepath, "r", newline='') as file:
+            with open(self._filepath, "r", newline="") as file:
                 reader = csv.reader(file)
 
                 # Read the header row first
@@ -114,7 +114,7 @@ class PlayerData:
 
         # Overwrites temporary datafile to csv file
         try:
-            with open(self._filepath, "w",newline ='', encoding="utf-8") as csvfile:
+            with open(self._filepath, "w", newline="", encoding="utf-8") as csvfile:
                 # Create a writer object
                 writer = csv.writer(csvfile)
 
