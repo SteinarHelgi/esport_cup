@@ -4,7 +4,7 @@ from IO.club_data import ClubData
 
 def main():
     main_ui = MainUI()
-    main_ui.menu_manager.organiser_Ui.show_create_match()
+    main_ui.menu_manager.team_captain_ui.show_my_tournaments()
 
 
 main()
