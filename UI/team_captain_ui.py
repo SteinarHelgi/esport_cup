@@ -147,7 +147,7 @@ class TeamCaptainUI:
         if choice == "6":
             return "CREATE_PLAYER"
         if choice == "7":
-            # select_player_to_remove_menu
+            #TODO select_player_to_remove_menu
             pass
         if choice.lower() == "q":
             return "QUIT"
@@ -185,9 +185,11 @@ class TeamCaptainUI:
         if choice == "q":
             return "QUIT"
 
-    def show_register_team_to_tournament(self):
+    def show_register_team_to_tournament(self,team,tournament):
         # TODO
-
+        self.team = team
+        self.tournament = tournament
+        registration = self.APILL.register_team_to_tournament(team, tournament)
         # self.menu_manager.team_name = "Pepsi Max Punishers"
         # team = self.APILL.get_team_by_name(self.menu_manager.team_name)
         # if team:
