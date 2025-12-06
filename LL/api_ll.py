@@ -70,5 +70,5 @@ class APILL:
     def show_all_tournaments_for_captain(self, captain: TeamCaptain) -> TeamCaptain:
         return self.team_captain_ll.show_all_tournaments_for_captain(captain)
     
-
-    
+    def modify_player_data(self, player: Player) -> None:
+        self.api_data.modify_player_data(player)
