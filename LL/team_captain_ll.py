@@ -87,7 +87,9 @@ class TeamCaptainLL:
     def register_team_to_tournament(self, team: Team, tournament: Tournament) -> None:
         team_id: str = team.id
         tournament_id: str = tournament.id
-        team_registry = TeamRegistry(team_id, tournament_id)
+        team_name: str = team.name
+        tournament_name: str = tournament.name
+        team_registry = TeamRegistry(team_id, tournament_id, team_name, tournament_name)
         new_team_registry = self.APIDATA.store_team_registry_data(team_registry)
 
     def get_my_tournaments(self, team: Team) -> list[Tournament]:

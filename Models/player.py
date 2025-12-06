@@ -31,7 +31,6 @@ class Player:
 
     def toCSVList(self):
         ret: list[str] = []
-        print(f"þetta er self player {self.id}")
         ret.append(self.id)
         ret.append(self.name)
         ret.append(self.date_of_birth)
