@@ -4,6 +4,7 @@ from IO.api_data import APIDATA
 from datetime import datetime
 from Models.tournament import Tournament
 from Models.team_registry import TeamRegistry
+from Models.team_captain import TeamCaptain
 
 class TeamCaptainLL:
     def __init__(self, APIDATA: APIDATA):
@@ -133,3 +134,27 @@ class TeamCaptainLL:
         for player in players:
             if player.name == name:
                 return player
+    
+
+    def show_all_tournaments_for_captain(self, captain: TeamCaptain) -> TeamCaptain:
+        """Finds all tournaments the captain's team is registered for and stores them in captain.tournaments before returning the captain."""
+        captain.tournaments = []
+
+        # Find the team captain is registered for
+        team = self.get_team_by_captain_id(captain.id)
+        if team is None:
+            return captain
+        
+        # Get all team registrations and all tournaments
+        team_registry = self.APIDATA.get_all_team_registry_data()
+        tournaments = self.APIDATA.get_all_tournament_data()
+
+        # For each registration that matches this team, find the corresponding tournament
+        for registry in team_registry:
+            if registry.team_id == team.id:
+                for tournament in tournaments:
+                    if tournament.id == registry.tournament_id:
+                        if tournament not in captain.tournaments:
+                            captain.tournaments.append(tournament)
+
+        return captain

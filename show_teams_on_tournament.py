@@ -14,3 +14,5 @@ def show_teams_on_tournament(self, target_tournament_id: str) -> list[str]:
             if team.id in all_teams_id_in_tournament:
                 all_teams_in_tournament.append(team.name)
         return all_teams_in_tournament
+
+
