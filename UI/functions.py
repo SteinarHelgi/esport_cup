@@ -17,10 +17,10 @@ def format_tournament_table(tournaments: list[Tournament]):
     )
 
     # Print a divider line
-    line_length = (w_id + w_name + w_date + w_date + w_date + (w_game - 5))
+    line_length = w_id + w_name + w_date + w_date + w_date + (w_game - 5)
     print("-" * line_length)
     empty_string = ""
-    divider_Line = ("-" * line_length + "\n")
+    divider_Line = "-" * line_length + "\n"
     # Loop through the data
     for counter, tournament in enumerate(tournaments):
         # Clean up the dates
@@ -44,10 +44,10 @@ def format_team_list(teams: list[Team]):  # TODO add club to this
     print(f"{'TEAM NAME':<{w_name}} {'TEAM CAPTAIN':>{w_captain - 3}}")
 
     # Print a divider line
-    line_length = (w_name + w_captain)
+    line_length = w_name + w_captain
     print("-" * (w_name + w_captain))
     empty_string = ""
-    divider_Line = ("-" * line_length + "\n")
+    divider_Line = "-" * line_length + "\n"
     # Loop through the data
     for team in teams:
         # Clean up the dates
@@ -83,6 +83,7 @@ def format_player_list(players: list[Player]):  # TODO KLÁRA?
         # e_date = str(tournament.end_date).split(" ")[0]
 
         # Print the actual variables (tournament.name), not the string "NAME"
+
         rank_string = f"{id + 1}."
         empty_string += f"{rank_string:<{w_counter}}{player.name:<{w_player_name}} {player.handle:<{w_player_handle}}\n"
     return empty_string
