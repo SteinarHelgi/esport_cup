@@ -79,8 +79,15 @@ class TeamCaptainUI:
         if team:
             tournaments = self.APILL.get_my_tournaments(team)
             print(f.format_tournament_table(tournaments))
-        print("b. Back\nq. Quit")
-        choice: str = self.menu_manager.prompt_choice(["b", "q"])
+        print("r. Register for new tournament\n b. Back\nq. Quit")
+        choice: str = self.menu_manager.prompt_choice(["r", "b", "q"])
+        if choice == "r": #TODO
+            #Get all tournaments open for captain = tournaments
+            #print(formattournamenttable(tournaments))
+            #choose tournament to register for or b and q
+            #register_team_to_tournament(choice)
+            #print("Team has been registered to {tournament}")
+            #b to go back to tournament menu or q to quit
         if choice == "b":
             return "MY_TEAM"
         if choice == "q":
@@ -255,19 +262,14 @@ class TeamCaptainUI:
         if choice == "q":
             return "QUIT"
 
+
+
     def show_register_team_to_tournament(self,team,tournament):
         # TODO
         self.team = team
         self.tournament = tournament
         registration = self.APILL.register_team_to_tournament(team, tournament)
-        # self.menu_manager.team_name = "Pepsi Max Punishers"
-        # team = self.APILL.get_team_by_name(self.menu_manager.team_name)
-        # if team:
-        #     tournaments = self.APILL.get_available_tournaments(team)
-        #     print(*tournaments)
-
-        # print("These are the tournaments available for registration \nSelect a tournament to register for")
-        # kalla i LL register for tournament
+        
 
         pass
 
