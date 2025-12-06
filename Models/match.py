@@ -1,41 +1,44 @@
-# match_id,tournament_id,round,match_number,team_a_name,team_b_name,match_date,match_time,server_id,score_a,score_b,winner_team_name,completed
-
-
 class Match:
     def __init__(
         self,
         tournament_id: str,
         round: str,
-        team_1_id: str,
-        team_2_id: str,
+        team_a_name: str,
+        team_b_name: str,
         match_date: str,
         match_time: str,
         server_id: str,
-        game_name: str,
+        
     ):
+        self.match_id = ""
         self.tournament_id = tournament_id
         self.round = round
-        self.team_1_id = team_1_id
-        self.team_2_id = team_2_id
+        self.match_number = ""
+        self.team_a_name = team_a_name
+        self.team_b_name = team_b_name
         self.match_date = match_date
         self.match_time = match_time
         self.server_id = server_id
-        self.winner_team = ""
-        self.game_name = game_name
+        self.score_a = 0
+        self.score_b = 0
+        self.winner_team_name = ""
         self.completed = False
+        self.rounds: list[str] = ["R16", "QF", "SF", "Final"]
 
     def toCSVList(self) -> list:
         return [
             self.match_id,
             self.tournament_id,
             self.round,
-            self.team_1_id,
-            self.team_2_id,
+            self.match_number,
+            self.team_a_name,
+            self.team_b_name,
             self.match_date,
             self.match_time,
             self.server_id,
-            self.winner_team,
-            self.game_name,
+            self.score_a,
+            self.score_b,
+            self.winner_team_name,
             self.completed,
         ]
 
@@ -45,6 +48,13 @@ class Match:
     def set_id(self, id):
         self.match_id = id
 
-    def set_winner(self, winner_team):
-        self.winner_team = winner_team
-        self.completed = True
+    def set_match_number(self, id):
+        self.match_number = id
+
+    def set_score(self, score_a, score_b):
+        self.score_a = score_a
+        self.score_b = score_b
+
+    def set_winner(self, winner_team, completed):
+        self.winner_team_name = winner_team
+        self.completed = completed

@@ -47,18 +47,60 @@ class OrganiserLL:
         self.api_data.delete_tournament_data(tournament_id)
 
     def create_match(self, match: Match) -> Match | None:
-        if match.team_1_id == match.team_2_id:
-            raise ValueError
-
+        round = match.round
         
-
         matches = self.api_data.get_all_match_data()
         next_id = max(int(match.match_id) for match in matches) + 1
         match.set_id(next_id)
 
-        self._next_match_id += 1
+        #Finding the max match number for the specific round we are playing
+        max_match_number = 0
+        for matchcsv in matches:
+            if round == matchcsv.round:
+                if matchcsv.match_number > max_match_number:
+                    max_match_number = matchcsv.match_number
+                
+        next_match_number = max_match_number + 1
+        match.set_match_number(next_match_number)
 
-        stored = self.api_data.store_match_data(match)
+        #This tracks the 4 criteria needed to validate a match
+        teams_valid: list[str] = []
+
+        #Critera #1
+        if match.team_a_name != match.team_b_name:
+            teams_valid.append("criteria #1")
+
+        #Criteria #2 and 3. Check to see if the teams won in the previous round
+        round = match.round
+        #If this is the first round, we don't need to check anything
+        if round != "R16":
+            index = match.rounds.index(round)
+            prev_round = match.rounds[index - 1]
+
+            for matchcsv in matches:
+                if matchcsv.round == prev_round:
+                    if match.team_a_name == matchcsv.winner_team_name:
+                        teams_valid.append("Criteria #2")
+                    if match.team_b_name == matchcsv.winner_team_name:
+                        teams_valid.append("Criteria #3")
+        
+        #Criteria #4. Check to see if the teams have already been registered to this round
+        criteria = True
+        for matchcsv in matches:
+            if round == matchcsv.round:
+                if match.team_a_name == matchcsv.team_a_name or match.team_a_name == matchcsv.team_b_name:
+                    criteria = False
+                if match.team_b_name == matchcsv.team_b_name or match.team_b_name == matchcsv.team_b_name:
+                    criteria = False
+        if criteria:
+            teams_valid.append("Criteria #4")
+
+        print(teams_valid)
+        # 4 True value means all criteria was met and we can add the match to matches.csv
+        if len(teams_valid) == 4:
+            stored = self.api_data.store_match_data(match)
+        else:
+            stored = None
         return stored
 
     def create_contact_person(self, contact: ContactPerson) -> ContactPerson | None:

@@ -5,6 +5,7 @@ from Models.player import Player
 from Models.team_captain import TeamCaptain
 from Models.organiser import Organiser
 from Models.team import Team
+from Models.match import Match
 from LL.team_captain_ll import TeamCaptainLL
 
 
@@ -41,9 +42,22 @@ team_to_modify = Team(
     "ASCII_OVERFLOWING_CAN"
 )
 
+match_to_add = Match(
+    "1",
+    "Final",
+    "RaceCondition Racers",
+    "Chuck Norris Fan Club",
+    "2025-12-07",
+    "13:00",
+    "1"
+)
+
 new_organiser = Organiser(1, "robbi", "12345")
 api_data = APIDATA()
 organiser = OrganiserLL(api_data)
 teamcaptain = TeamCaptainLL(api_data)
 
-teamcaptain.modify_team_data(team_to_modify)
+organiser.create_match(match_to_add)
+
+
+#teamcaptain.modify_team_data(team_to_modify)
