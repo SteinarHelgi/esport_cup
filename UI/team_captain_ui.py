@@ -1,7 +1,4 @@
-from datetime import date
-from operator import add
 from LL.api_ll import APILL
-from Models import player
 from Models.player import Player
 import UI.functions as f
 
@@ -72,7 +69,6 @@ class TeamCaptainUI:
 
         print("")
         print("b. Back \nq. Quit")
-        # TODO Af hverju returnar b none en q returnar quit????
         choice: str = self.menu_manager.prompt_choice(["b", "q"])
         if choice == "b":
             return "MY_TEAM"
@@ -80,16 +76,16 @@ class TeamCaptainUI:
             return "QUIT"
 
     def show_my_tournaments(self):
-        tournaments = self.APILL.show_all_tournaments_for_captain()
-        print(f.format_tournament_table(tournaments))
-        valid_choices = []
-        print("Select a tournament to register to or 'b' to back and 'q' to Quit")
-        for i in range(len(tournaments)):
-            stringI = str(i + 1)
-            valid_choices.append(stringI)
-        choice: str = self.menu_manager.prompt_choice(valid_choices + ["b", "q"])
-
-        pass
+        team = self.APILL.get_team_by_name(self.menu_manager.team_name)
+        if team:
+            tournaments = self.APILL.get_my_tournaments(team)
+            print(f.format_tournament_table(tournaments))
+        print("b. Back\nq. Quit")
+        choice: str = self.menu_manager.prompt_choice(["b", "q"])
+        if choice == "b":
+            return "MY_TEAM"
+        if choice == "q":
+            return "QUIT"
 
     def show_modify_player(self):
         # TODO
@@ -192,10 +188,16 @@ class TeamCaptainUI:
 
     def show_register_team_to_tournament(self):
         # TODO
-        tournaments = self.APILL.get_upcoming_tournaments()
-        print(tournaments)
-        
-        self.show_register_team_to_tournament()
+
+        # self.menu_manager.team_name = "Pepsi Max Punishers"
+        # team = self.APILL.get_team_by_name(self.menu_manager.team_name)
+        # if team:
+        #     tournaments = self.APILL.get_available_tournaments(team)
+        #     print(*tournaments)
+
+        # print("These are the tournaments available for registration \nSelect a tournament to register for")
+        # kalla i LL register for tournament
+
         pass
 
     def show_update_team_data(self):

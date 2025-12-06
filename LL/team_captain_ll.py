@@ -6,6 +6,7 @@ from Models.tournament import Tournament
 from Models.team_registry import TeamRegistry
 from Models.team_captain import TeamCaptain
 
+
 class TeamCaptainLL:
     def __init__(self, APIDATA: APIDATA):
         self.id = 0
@@ -29,7 +30,7 @@ class TeamCaptainLL:
         ]
         
         next_num = max(nums) + 1 if nums else 1
-        new_id = f"p{next_num:03d}"
+        new_id = f"P{next_num:03d}"
 
         player.id = new_id
         player.player_id = new_id
@@ -41,7 +42,7 @@ class TeamCaptainLL:
 
     def modify_player(self, player: Player):
         self.APIDATA.modify_player_data(player)
-    
+
     def delete_player(self, player_id: str):
         self.APIDATA.delete_player_data(player_id)
 
@@ -59,7 +60,7 @@ class TeamCaptainLL:
         for t in current_teams:
             if t.name == team.name:
                 raise ValueError
-            
+
         # Find next team id
         if current_teams:
             next_id: int = max(int(team.id) for team in current_teams) + 1
@@ -69,18 +70,11 @@ class TeamCaptainLL:
 
         team.set_id(id)
 
-        new_team = Team(
-            id,
-            name,
-            captain_id,
-            social_media,
-            logo
-        )
+        new_team = Team(id, name, captain_id, social_media, logo)
 
         self.APIDATA.store_team_data(new_team)
 
         return new_team
-    
 
     def add_team_to_club(self, team: Team, club_id: str):
         # TODO
@@ -96,6 +90,28 @@ class TeamCaptainLL:
         team_registry = TeamRegistry(team_id, tournament_id)
         new_team_registry = self.APIDATA.store_team_registry_data(team_registry)
 
+    def get_my_tournaments(self, team: Team) -> list[Tournament]:
+        team_tournament_registry = self.APIDATA.get_all_team_registry_data()
+        tournaments_ids = []
+        for team_tournament in team_tournament_registry:
+            if team.id == team_tournament.team_id:
+                tournaments_ids.append(team_tournament.tournament_id)
+        tournaments = []
+        for tournament_id in tournaments_ids:
+            tournament = self.get_tournament_by_id(tournament_id)
+            tournaments.append(tournament)
+        return tournaments
+
+    def get_tournament_by_id(self, tournament_id: str) -> Tournament | None:
+        tournaments = self.APIDATA.get_all_tournament_data()
+        matches = self.APIDATA.get_all_match_data()
+        for tournament in tournaments:
+            if tournament.id == tournament_id:
+                for match in matches:
+                    if match.tournament_id == tournament.id:
+                        tournament.add_match(match)
+
+                return tournament
 
     def get_team_by_captain_id(self, captain_id) -> Team | None:
         teams = self.APIDATA.get_all_team_data()

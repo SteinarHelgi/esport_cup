@@ -6,7 +6,6 @@ from LL.organiser_ll import OrganiserLL
 from Models.models import Tournament, Player, Team, Match, ContactPerson, TeamRegistry, TeamCaptain
 
 
-
 class APILL:
     def __init__(self) -> None:
         self.api_data = APIDATA()
@@ -19,10 +18,10 @@ class APILL:
     
     def get_all_tournaments(self) -> list[Tournament]:
         return self.api_data.get_all_tournament_data()
-    
-    def get_all_players(self) -> list[Player]:
-        return self.userLL.get_all_players()
-    
+
+    def get_tournament_by_name(self, tournament_name: str) -> Tournament | None:
+        return self.organiser_ll.get_tournament_by_name(tournament_name)
+
     def get_ongoing_tournaments(self) -> list[Tournament]:
         return self.userLL.get_ongoing_tournament()
     
@@ -73,12 +72,18 @@ class APILL:
 
     def create_contact_person(self, contact_person: ContactPerson) -> ContactPerson | None:
         return self.organiser_ll.create_contact_person(contact_person)
+
+    def get_player_by_name(self, player_name: str) -> Player | None:
+        return self.team_captain_ll.get_player_by_name(player_name)
     
-    def get_contact_person_by_id(self, id: str) -> ContactPerson | None:
-        return self.organiser_ll.get_contact_person_by_id(id)
+    def create_new_team(self, team: Team) -> Team | None:
+        return self.team_captain_ll.create_new_team(team)
     
-    def get_contact_person(self, tournament_id: str) -> ContactPerson | None:
-        return self.organiser_ll.get_contact_person(tournament_id)
+    def create_player(self, player: Player) -> Player | None:
+        return self.team_captain_ll.create_player(player)
+
+    def register_team_to_tournament(self, team: Team, tournament: Tournament):
+        return self.team_captain_ll.register_team_to_tournament(team, tournament)
     
     def show_all_teams_on_tournament(self, target_tournament_id: str) -> list[Team]:
         return self.organiser_ll.show_all_teams_on_tournament(target_tournament_id)
