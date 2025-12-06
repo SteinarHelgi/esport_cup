@@ -153,14 +153,14 @@ class TeamCaptainLL:
                 return player
     
 
-    def show_all_tournaments_for_captain(self, captain: TeamCaptain) -> TeamCaptain:
-        """Finds all tournaments the captain's team is registered for and stores them in captain.tournaments before returning the captain."""
-        captain.tournaments = []
+    def show_all_tournaments_for_captain(self, captain: TeamCaptain) -> list[Tournament]:
+        """Returns a list of tournaments that the captain's team is registered for."""
+        tournaments_for_captain = []
 
         # Find the team captain is registered for
         team = self.get_team_by_captain_id(captain.id)
         if team is None:
-            return captain
+            return tournaments_for_captain
         
         # Get all team registrations and all tournaments
         team_registry = self.APIDATA.get_all_team_registry_data()
@@ -171,21 +171,25 @@ class TeamCaptainLL:
             if registry.team_id == team.id:
                 for tournament in tournaments:
                     if tournament.id == registry.tournament_id:
-                        if tournament not in captain.tournaments:
-                            captain.tournaments.append(tournament)
+                        if tournament not in tournaments_for_captain:
+                            tournaments_for_captain.append(tournament)
 
-        return captain
+        return tournaments_for_captain
     
 
-    def show_all_open_tournaments_for_captain(self,captain: TeamCaptain) -> TeamCaptain:
-        """Finds all tournaments the captain's team can register for and stores them in captain.available_tournaments before returning the captain."""
+    def show_all_open_tournaments_for_captain(self, captain: TeamCaptain) -> list[Tournament]:
+        """
+        Returns a list of tournaments that the captain's team can register for.
+        A tournament is considered open if it has not started yet and the team
+        is not already registered for it.
+        """
         
-        captain.available_tournaments = []
+        open_tournaments = []
 
         # Find the team captain is registered for
         team = self.get_team_by_captain_id(captain.id)
         if team is None:
-            return captain
+            return open_tournaments
         
         # Get all team registrations and all tournaments
         team_registry = self.APIDATA.get_all_team_registry_data()
@@ -205,8 +209,8 @@ class TeamCaptainLL:
                     is_registered = True
                     break
             
-            # If not registered, add to available tournaments
+            # If not registered, add to open tournaments list
             if not is_registered:
-                captain.available_tournaments.append(tournament)
+                open_tournaments.append(tournament)
 
-        return captain
+        return open_tournaments
