@@ -50,6 +50,8 @@ class OrganiserLL:
         if match.team_1_id == match.team_2_id:
             raise ValueError
 
+        
+
         matches = self.api_data.get_all_match_data()
         next_id = max(int(match.match_id) for match in matches) + 1
         match.set_id(next_id)
