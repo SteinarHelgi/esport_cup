@@ -38,7 +38,7 @@ class PlayerData:
             return players
 
     def store_player_data(self, player: Player) -> Player | None:
-        with open(self._filepath, "a", newline="", encoding="utf=8") as file:
+        with open(self._filepath, "a", encoding="utf=8") as file:
             csvWriter = csv.writer(file)
             try:
                 csvWriter.writerow(player.toCSVList())
