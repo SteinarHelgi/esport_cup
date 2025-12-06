@@ -49,7 +49,6 @@ class PlayerData:
     def modify_player_data(self, player: Player) -> None:
         temp_data = []
         target_id = player.id
-        print("target_id: ", target_id)
 
         # Creates a temporary data file
         try:
