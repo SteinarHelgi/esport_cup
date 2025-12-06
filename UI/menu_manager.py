@@ -32,8 +32,7 @@ class MenuManager:
             # TEAM CAPTAIN MENUS
             "TEAM_CAPTAIN_MENU": self.print_team_captain_menu,
             "CREATE_PLAYER": self.team_captain_ui.show_create_player,
-            "PLAYER_ADDED_SCREEN"
-            "MODIFY_PLAYER": self.team_captain_ui.show_modify_player,
+            "PLAYER_ADDED_SCREENMODIFY_PLAYER": self.team_captain_ui.show_modify_player,
             "MY_TEAM": self.team_captain_ui.show_my_team,
             "MY_TOURNAMENTS_CAP": self.team_captain_ui.show_my_tournaments,
             "REGISTER_TEAM_TO_TOURNAMENT": self.team_captain_ui.show_register_team_to_tournament,
@@ -75,8 +74,8 @@ class MenuManager:
             return "USER_MENU"
         if choice == "2":
             self.user = "TEAM_CAPTAIN"
-            # return "LOGIN_CREDENTIALS"
-            return "TEAM_CAPTAIN_MENU"
+            return "LOGIN_CREDENTIALS"
+            # return "TEAM_CAPTAIN_MENU"
         if choice == "3":
             self.user = "ORGANISER"
             # return "LOGIN_CREDENTIALS_ORG"
@@ -84,14 +83,20 @@ class MenuManager:
         return "QUIT"
 
     def login_credentials_menu(self):  # logging in as organiser
+        """Username Getur loggað þig inn sem team_captain með team captain handle"""
+
         username = input("Your handle: ")
+        teams = self.api_ll.get_all_teams()
+
         print(f"Handle: {username}\nConfirm(Y/N)? ")
-        choice: str = self.prompt_choice(["y", "n"])
-        self.team_name = "NullPointer Ninjas"
-        if choice.lower() == "y":
-            return "TEAM_CAPTAIN_MENU"
-        else:
-            return "LOGIN_MENU"
+        for team in teams:
+            if team.captain_id == username:
+                choice: str = self.prompt_choice(["y", "n"])
+                self.team_name = team.name
+                if choice.lower() == "y":
+                    return "TEAM_CAPTAIN_MENU"
+                else:
+                    return "LOGIN_MENU"
 
     def login_credentials_menu_org(self):  # logging in as organiser
         username = input("Username: ")
@@ -118,7 +123,6 @@ class MenuManager:
 
     def print_team_captain_menu(self):  # Option menu for team captain
         # TODO
-        self.team_name = "NullPointer Ninjas"
         print("__TEAM_CAPTAIN_MENU__")
         print(
             "1. Teams \n2. Tournaments \n3. My Team \n4. My Tournaments \nb. back \nq. Quit"
@@ -158,7 +162,7 @@ class MenuManager:
 
         return "QUIT"
 
-    def player_added_screen(self,name, handle, social_media):
+    def player_added_screen(self, name, handle, social_media):
         player_name = name
         player_handle = handle
         player_social = social_media
