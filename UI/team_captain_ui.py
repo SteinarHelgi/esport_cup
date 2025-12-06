@@ -80,7 +80,15 @@ class TeamCaptainUI:
             return "QUIT"
 
     def show_my_tournaments(self):
-        #TODO
+        tournaments = self.APILL.show_all_tournaments_for_captain()
+        print(f.format_tournament_table(tournaments))
+        valid_choices = []
+        print("Select a tournament to register to or 'b' to back and 'q' to Quit")
+        for i in range(len(tournaments)):
+            stringI = str(i + 1)
+            valid_choices.append(stringI)
+        choice: str = self.menu_manager.prompt_choice(valid_choices + ["b", "q"])
+
         pass
 
     def show_modify_player(self):
@@ -107,14 +115,18 @@ class TeamCaptainUI:
             print("-" * len(team_data_string))
             print("")
             print(
-                "1. Add team to club \n2. Roster \n3. Edit team info \nb. Back \nq. Quit"
+                "1. Add team to club \n2. Roster \n4. Edit team info \nb. Back \nq. Quit"
             )
 
-            choice: str = self.menu_manager.prompt_choice(["1", "2", "3", "b", "q"])
+            choice: str = self.menu_manager.prompt_choice(["1", "2", "3", "4", "b", "q"])
             if choice == "1":
                 return "ADD_TEAM_TO_CLUB"
             if choice == "2":
                 return "SHOW_MY_PLAYERS"
+            if choice == "3":
+                return "MY_TOURNAMENTS_CAP"
+            if choice == "4":
+                return "EDIT_TEAM_INFO"
             if choice.lower() == "b":
                 return "TEAM_CAPTAIN_MENU"
             if choice.lower() == "q":
@@ -180,7 +192,8 @@ class TeamCaptainUI:
 
     def show_register_team_to_tournament(self):
         # TODO
-        tournaments = self.APILL.get_all_tournaments()
+        tournaments = self.APILL.get_upcoming_tournaments()
+        print(tournaments)
         
         self.show_register_team_to_tournament()
         pass
