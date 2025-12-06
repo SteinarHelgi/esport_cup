@@ -1,5 +1,6 @@
 import os
 from LL.api_ll import APILL
+from UI.Menus import login_credentials_menu
 from UI.user_ui import UserUI
 from UI.team_captain_ui import TeamCaptainUI
 from UI.organiser_ui import OrganiserUI
@@ -89,14 +90,25 @@ class MenuManager:
         teams = self.api_ll.get_all_teams()
 
         print(f"Handle: {username}\nConfirm(Y/N)? ")
+        found_name = False
         for team in teams:
             if team.captain_id == username:
                 choice: str = self.prompt_choice(["y", "n"])
+                found_name = True
                 self.team_name = team.name
                 if choice.lower() == "y":
                     return "TEAM_CAPTAIN_MENU"
                 else:
                     return "LOGIN_MENU"
+        if found_name == False:
+            print("Invalid username, press enter to try again or q to quit")
+            choice: str = self.prompt_choice(["", "q"])
+            if choice == "":
+                return "LOGIN_MENU"
+            if choice == "q":
+                return "QUIT"
+
+            
 
     def login_credentials_menu_org(self):  # logging in as organiser
         username = input("Username: ")

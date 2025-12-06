@@ -64,8 +64,7 @@ class TeamCaptainUI:
         player_handle = handle
         player_social = social_media
         print(
-            f"PLAYER ADDED!\n{player_name} \n{player_handle} \n{player_social} \nb.Back \nq. Quit"
-        )
+            f"PLAYER ADDED!\n{player_name} \n{player_handle} \n{player_social}")
 
         print("")
         print("b. Back \nq. Quit")
