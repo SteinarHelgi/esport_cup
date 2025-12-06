@@ -86,9 +86,80 @@ class TeamCaptainUI:
         if choice == "q":
             return "QUIT"
 
-    def show_modify_player(self):
-        # TODO
-        pass
+    def show_modify_player_menu(self, player: Player):
+        """
+        Displays a menu of player attributes. 
+        The user selects one to change.
+        """
+        while True:
+            print(f"\n--- Editing Player: {player.name} ---")
+            # Display current values so the user sees what they are changing
+            # (Assuming your Player class has name, email, password, etc.)
+            print(f"1. Change Name      (Current: {player.name})")
+            print(f"2. Change Email     (Current: {player.email})")
+            print(f"3. Change Address   (Current: {player.address})")
+            print(f"4. Change Number    (Current: {player.phone_number})") 
+            print(f"5. Change Socials   (Current: {player.social_media})")
+            print(F"6. Change Handle    [Current: {player.handle}]")
+            print("S. Finish and Save")
+            print("C. Cancel (Exit without saving)")
+
+            selection = input("Select the data you want to change (1-5): ")
+
+            if selection == '1':
+                new_name = input("Enter new name: ").strip()
+                if new_name:
+                    player.name = new_name
+                    print("Name updated locally.")
+
+            elif selection == '2':
+                new_email = input("Enter new email: ").strip()
+                if new_email:
+                    # Optional: Add email validation logic here
+                    player.email = new_email
+                    print("Email updated locally.")
+
+            elif selection == '3':
+                new_address = input("Enter new address: ").strip()
+                if new_address:
+                    player.address = new_address
+                    print("Address updated locally.")
+            
+            elif selection == '4':
+                new_number = input("Enter new phone number: ").strip()
+                if new_number:
+                    player.phone_number = new_number
+                    print("Address updated locally.")
+                
+            elif selection == '5':
+                new_socials = input("Enter new social media handle: ").strip()
+                if new_socials:
+                    player.social_media = new_socials
+                    print("Socials updated locally.")
+
+            elif selection == '6':
+                new_handle = input("Enter new game handle: ").strip()
+                if new_handle:
+                    player.handle = new_handle
+                    print("Game handle updated locally.")
+
+
+            elif selection == 'S':
+                # THIS IS THE CONNECTION TO YOUR BACKEND
+                try:
+                    self.APILL.modify_player(player)
+                    print("Success! Player data saved to database.")
+                    break # Exit the loop
+                except Exception as e:
+                    print(f"Error saving data: {e}")
+
+            elif selection == 'C':
+                print("Modification cancelled.")
+                break # Exit without calling modify_player
+
+            else:
+                print("Invalid selection. Please try again.")
+
 
     def show_my_team(self) -> str | None:
         team_name = self.menu_manager.team_name
@@ -110,18 +181,17 @@ class TeamCaptainUI:
             print("-" * len(team_data_string))
             print("")
             print(
-                "1. Add team to club \n2. Roster \n4. Edit team info \nb. Back \nq. Quit"
+                "1. Add team to club \n2. Roster \n3. Edit team info \nb. Back \nq. Quit"
             )
 
-            choice: str = self.menu_manager.prompt_choice(["1", "2", "3", "4", "b", "q"])
+            choice: str = self.menu_manager.prompt_choice(["1", "2", "3", "b", "q"])
             if choice == "1":
                 return "ADD_TEAM_TO_CLUB"
             if choice == "2":
                 return "SHOW_MY_PLAYERS"
             if choice == "3":
-                return "MY_TOURNAMENTS_CAP"
-            if choice == "4":
                 return "EDIT_TEAM_INFO"
+            
             if choice.lower() == "b":
                 return "TEAM_CAPTAIN_MENU"
             if choice.lower() == "q":
@@ -178,8 +248,8 @@ class TeamCaptainUI:
 
         choice: str = self.menu_manager.prompt_choice(["1", "2", "b", "q"])
         if choice == "1":
-            # TODO create edit player menu
-            return "EDIT_PLAYER"
+            #Modify player menuið
+            return self.show_modify_player_menu(player)
         if choice == "b":
             return "SHOW_MY_PLAYERS"
         if choice == "q":

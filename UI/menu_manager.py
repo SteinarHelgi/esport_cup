@@ -33,7 +33,7 @@ class MenuManager:
             # TEAM CAPTAIN MENUS
             "TEAM_CAPTAIN_MENU": self.print_team_captain_menu,
             "CREATE_PLAYER": self.team_captain_ui.show_create_player,
-            "PLAYER_ADDED_SCREENMODIFY_PLAYER": self.team_captain_ui.show_modify_player,
+            "PLAYER_ADDED_SCREEN": self.team_captain_ui.player_added_screen,
             "MY_TEAM": self.team_captain_ui.show_my_team,
             "MY_TOURNAMENTS_CAP": self.team_captain_ui.show_my_tournaments,
             "REGISTER_TEAM_TO_TOURNAMENT": self.team_captain_ui.show_register_team_to_tournament,
