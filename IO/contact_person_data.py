@@ -1,4 +1,3 @@
-# Þröstur
 import csv
 from Models.models import ContactPerson
 

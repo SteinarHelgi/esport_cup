@@ -1,13 +1,9 @@
-# Höfundur: Þröstur
 import csv
 from Models.models import Tournament
 from datetime import datetime
 from IO.contact_person_data import ContactPersonData
 from Models.models import ContactPerson
 from IO.match_data import MatchData
-
-
-# Steinar
 
 
 class TournamentData:

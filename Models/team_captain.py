@@ -5,5 +5,3 @@ class TeamCaptain:
         self.password = password
         self.team_id = team_id
         self.name = name
-        self.tournaments = []
-        self.available_tournaments = []

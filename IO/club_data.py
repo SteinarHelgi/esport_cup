@@ -1,4 +1,3 @@
-# Sigrún
 import csv
 from Models.models import Club
 

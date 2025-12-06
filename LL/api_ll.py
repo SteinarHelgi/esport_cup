@@ -65,10 +65,10 @@ class APILL:
     def get_player_by_name(self, player_name: str) -> Player | None:
         return self.team_captain_ll.get_player_by_name(player_name)
       
-    def show_all_tournaments_for_captain(self, captain: TeamCaptain) -> TeamCaptain:
+    def show_all_tournaments_for_captain(self, captain: TeamCaptain) -> list[Tournament]:
         return self.team_captain_ll.show_all_tournaments_for_captain(captain)
 
-    def show_all_open_tournaments_for_captain(self,captain: TeamCaptain) -> TeamCaptain:
+    def show_all_open_tournaments_for_captain(self,captain: TeamCaptain) -> list[Tournament]:
         return self.team_captain_ll.show_all_open_tournaments_for_captain(captain)
 
     def create_tournament(self, tournament: Tournament) -> Tournament | None:
