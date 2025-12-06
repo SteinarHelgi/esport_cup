@@ -29,7 +29,7 @@ class TeamCaptainLL:
         ]
         
         next_num = max(nums) + 1 if nums else 1
-        new_id = f"p{next_num:03d}"
+        new_id = f"P{next_num:03d}"
 
         player.id = new_id
         player.player_id = new_id
