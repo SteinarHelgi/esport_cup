@@ -42,6 +42,7 @@ class PlayerData:
             csvWriter = csv.writer(file)
             try:
                 csvWriter.writerow(player.toCSVList())
+                print(player.id)
             except:
                 return None
         return player
@@ -49,6 +50,7 @@ class PlayerData:
     def modify_player_data(self, player: Player) -> None:
         temp_data = []
         target_id = player.id
+        print("target_id: ", target_id)
 
         # Creates a temporary data file
         try:
@@ -63,8 +65,11 @@ class PlayerData:
                 for line in reader:
                     
                     # Check the value in the first column (index 0)
-                    if line[0] != target_id:
-                        temp_data.append(line)
+                    if line:
+                        if line[0] != target_id:
+                            temp_data.append(line)
+                        else:
+                            print(line)
 
         except FileNotFoundError:
             exit()
@@ -77,10 +82,11 @@ class PlayerData:
 
                 # Iterate through the list of strings
                 for line in temp_data:
+
                     writer.writerow(line)
         except:
             return None
-
+        
         self.store_player_data(player)
 
     def delete_player_data(self, player_id: str) -> None:

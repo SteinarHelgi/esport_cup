@@ -31,7 +31,7 @@ player_to_modify = Player("Þröstur",
                           "StackCanarySif",
                           "Pepsi Max Overflow")
 
-player_id = "P047"
+player_id = "P043"
 player_to_modify.set_id(player_id)
 
 new_organiser = Organiser(1, "robbi", "12345")
