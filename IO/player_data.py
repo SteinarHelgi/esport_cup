@@ -58,9 +58,10 @@ class PlayerData:
                 # Read the header row first
                 header = next(reader)
                 temp_data.append(header)  # Add header to the data we are keeping
-
+                
                 # Read the rest of the rows
                 for line in reader:
+                    
                     # Check the value in the first column (index 0)
                     if line[0] != target_id:
                         temp_data.append(line)
