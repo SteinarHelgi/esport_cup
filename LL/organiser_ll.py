@@ -46,10 +46,6 @@ class OrganiserLL:
     def delete_tournament(self, tournament_id: str):
         self.api_data.delete_tournament_data(tournament_id)
 
-    def create_schedule(self):
-        # TODO
-        pass
-
     def create_match(self, match: Match) -> Match | None:
         if match.team_1_id == match.team_2_id:
             raise ValueError

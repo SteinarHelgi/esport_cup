@@ -65,11 +65,6 @@ class UserLL:
 
         return upcoming
 
-    # TODO
-    # def show_schedule(self):
-    #     schedule = self.api_data.get_schedule_info()
-    #     return schedule
-
     def get_statistics(self):
         # TODO
         pass
