@@ -104,7 +104,7 @@ class TeamCaptainUI:
             print("S. Finish and Save")
             print("C. Cancel (Exit without saving)")
 
-            selection = input("Select the data you want to change (1-5): ")
+            selection = input("Select the data you want to change (1-6): ")
 
             if selection == '1':
                 new_name = input("Enter new name: ").strip()
