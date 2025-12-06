@@ -38,11 +38,23 @@ class PlayerData:
             return players
 
     def store_player_data(self, player: Player) -> Player | None:
-        with open(self._filepath, "a", newline="" , encoding="utf-8") as file:
+        with open(self._filepath, "a", newline="", encoding="utf-8") as file:
             csvWriter = csv.writer(file)
             try:
-                csvWriter.writerow(player.toCSVList())
-                print(player.id)
+                # player_id,name,date_of_birth,address,phone,email,link,handle,team_name
+                csvWriter.writerow(
+                    [
+                        player.id,
+                        player.name,
+                        player.date_of_birth,
+                        player.address,
+                        player.phone_number,
+                        player.email,
+                        player.social_media,
+                        player.handle,
+                        player.team_name,
+                    ]
+                )
             except:
                 return None
         return player
