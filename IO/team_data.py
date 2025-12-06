@@ -29,3 +29,39 @@ class TeamData:
             except:
                 return None
         return team
+    
+    def modify_team_data(self, team: Team) -> None:
+        temp_data: list[Team] = []
+        target_id: str = team.id
+
+        # Creates a temporary data file without the modified team
+        try:
+            with open(self.team_file_path, "r", newline="") as file:
+                reader = csv.reader(file)
+
+                #Read the header row first and append it to temporary data
+                header = next(reader)
+                temp_data.append(header)
+
+                for line in reader:
+                    if line:
+                        if line[0] != target_id:
+                            temp_data.append(line)
+
+        except FileNotFoundError:
+            exit()
+        
+        #Overwrite temporary datafile to csv file
+        try:
+            with open(self.team_file_path, "w", newline="", encoding="utf-8") as csvfile:
+                #Create a writer object
+                writer = csv.writer(csvfile)
+
+                #Iterate through the list of strings
+                for line in temp_data:
+                    writer.writerow(line)
+        except:
+            return None
+        
+        #add modified team to player database
+        self.store_team_data(team)

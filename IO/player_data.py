@@ -47,10 +47,10 @@ class PlayerData:
         return player
 
     def modify_player_data(self, player: Player) -> None:
-        temp_data = []
-        target_id = player.id
+        temp_data: list[Player] = []
+        target_id: str = player.id
 
-        # Creates a temporary data file
+        # Creates a temporary data file without the modified player
         try:
             with open(self._filepath, "r", newline="") as file:
                 reader = csv.reader(file)
@@ -81,6 +81,7 @@ class PlayerData:
         except:
             return None
 
+        #add the modified player to the database
         self.store_player_data(player)
 
     def delete_player_data(self, player_id: str) -> None:

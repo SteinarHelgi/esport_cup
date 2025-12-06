@@ -4,6 +4,7 @@ from Models.contact_person import ContactPerson
 from Models.player import Player
 from Models.team_captain import TeamCaptain
 from Models.organiser import Organiser
+from Models.team import Team
 from LL.team_captain_ll import TeamCaptainLL
 
 
@@ -31,13 +32,18 @@ player_to_modify = Player(
     "Pepsi Max Overflow",
 )
 
-player_id = "P042"
-player_to_modify.set_id(player_id)
 
+team_to_modify = Team(
+    "16",
+    "Viking Lite",
+    "PepsiMaxOverflowPetra",
+    "https://example.com/pepsimax_overflow",
+    "ASCII_OVERFLOWING_CAN"
+)
 
 new_organiser = Organiser(1, "robbi", "12345")
 api_data = APIDATA()
 organiser = OrganiserLL(api_data)
 teamcaptain = TeamCaptainLL(api_data)
 
-teamcaptain.modify_player(player_to_modify)
+teamcaptain.modify_team_data(team_to_modify)

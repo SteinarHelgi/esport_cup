@@ -80,8 +80,8 @@ class TeamCaptainLL:
         # TODO
         pass
 
-    def modify_team_info(self):
-        # TODO
+    def modify_team_data(self, team: Team):
+        self.APIDATA.modify_team_data(team)
         pass
 
     def register_team_to_tournament(self, team: Team, tournament: Tournament) -> None:
