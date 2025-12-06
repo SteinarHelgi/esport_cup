@@ -18,14 +18,14 @@ class Player:
     ):
         self.player_id = ""
         self.name = name
+        self.date_of_birth = date_of_birth
         self.address = address
         self.phone_number = phone_number
         self.email = email
         self.social_media = social_media
-        self.team_name = team_name
         self.handle = handle
-        self.date_of_birth = date_of_birth
-
+        self.team_name = team_name
+        
     def get_team_name(self):
         return self.team_name
 
@@ -33,13 +33,14 @@ class Player:
         ret: list[str] = []
         ret.append(self.player_id)
         ret.append(self.name)
+        ret.append(self.date_of_birth)
         ret.append(self.address)
         ret.append(self.phone_number)
         ret.append(self.email)
         ret.append(self.social_media)
-        ret.append(self.team_name)
         ret.append(self.handle)
-        ret.append(self.date_of_birth)
+        ret.append(self.team_name)
+        
         return ret
 
     def set_id(self, id: str):

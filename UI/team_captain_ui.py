@@ -80,8 +80,7 @@ class TeamCaptainUI:
             return "QUIT"
 
     def show_my_tournaments(self):
-        # TODO listi af motum sem er búið að skrá sig í
-        # option i register for tournament með register for tournament
+        #TODO
         pass
 
     def show_modify_player(self):
@@ -181,9 +180,9 @@ class TeamCaptainUI:
 
     def show_register_team_to_tournament(self):
         # TODO
-        # teams = self.apill.get_all_tournament_data
-        # print("These are the tournaments available for registration \nSelect a tournament to register for")
-        # kalla i LL register for tournament
+        tournaments = self.APILL.get_all_tournaments()
+        
+        self.show_register_team_to_tournament()
         pass
 
     def show_update_team_data(self):
