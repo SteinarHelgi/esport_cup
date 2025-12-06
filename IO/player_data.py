@@ -8,7 +8,7 @@ class PlayerData:
 
     def get_all_player_data(self) -> list[Player]:
         players: list[Player] = []
-        with open(self._filepath, "+r", encoding="utf-8") as file:
+        with open(self._filepath, "r+", encoding="utf-8") as file:
             csvReader = csv.reader(file)
             next(csvReader)  # skip header line
             for line in csvReader:
@@ -38,7 +38,7 @@ class PlayerData:
             return players
 
     def store_player_data(self, player: Player) -> Player | None:
-        with open(self._filepath, "a", encoding="utf=8") as file:
+        with open(self._filepath, "a",newline="" , encoding="utf=8") as file:
             csvWriter = csv.writer(file)
             try:
                 csvWriter.writerow(player.toCSVList())
@@ -52,7 +52,7 @@ class PlayerData:
 
         # Creates a temporary data file
         try:
-            with open(self._filepath, "r", newline="") as file:
+            with open(self._filepath, "r", newline='') as file:
                 reader = csv.reader(file)
 
                 # Read the header row first
@@ -70,7 +70,7 @@ class PlayerData:
 
         # Overwrites temporary datafile to csv file
         try:
-            with open(self._filepath, "w", newline="", encoding="utf-8") as csvfile:
+            with open(self._filepath, "w", newline= '', encoding="utf-8") as csvfile:
                 # Create a writer object
                 writer = csv.writer(csvfile)
 
@@ -89,7 +89,7 @@ class PlayerData:
         temp_data = []
 
         try:
-            with open(self._filepath, "r", newline="") as file:
+            with open(self._filepath, "r", newline='') as file:
                 reader = csv.reader(file)
 
                 # Read the header row first
@@ -107,7 +107,7 @@ class PlayerData:
 
         # Overwrites temporary datafile to csv file
         try:
-            with open(self._filepath, "w", newline="", encoding="utf-8") as csvfile:
+            with open(self._filepath, "w",newline ='', encoding="utf-8") as csvfile:
                 # Create a writer object
                 writer = csv.writer(csvfile)
 

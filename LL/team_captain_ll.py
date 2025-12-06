@@ -14,8 +14,6 @@ class TeamCaptainLL:
     def create_player(self, player: Player) -> Player:
         """Creates new player and saves him in the csv file"""
 
-
-
         # Fetch all player data
         current_players = self.APIDATA.get_all_player_data()
 
@@ -27,7 +25,8 @@ class TeamCaptainLL:
         # Find next player id
         nums = [
             int(p.id[1:])
-            for p in current_players if p.id.startswith("p") and p.player_id[1:].isdigit]
+            for p in current_players if p.id.startswith(("p", "P")) and p.id[1:].isdigit
+        ]
         
         next_num = max(nums) + 1 if nums else 1
         new_id = f"p{next_num:03d}"
@@ -156,5 +155,40 @@ class TeamCaptainLL:
                     if tournament.id == registry.tournament_id:
                         if tournament not in captain.tournaments:
                             captain.tournaments.append(tournament)
+
+        return captain
+    
+
+    def show_all_open_tournaments_for_captain(self,captain: TeamCaptain) -> TeamCaptain:
+        """Finds all tournaments the captain's team can register for and stores them in captain.available_tournaments before returning the captain."""
+        
+        captain.available_tournaments = []
+
+        # Find the team captain is registered for
+        team = self.get_team_by_captain_id(captain.id)
+        if team is None:
+            return captain
+        
+        # Get all team registrations and all tournaments
+        team_registry = self.APIDATA.get_all_team_registry_data()
+        tournaments = self.APIDATA.get_all_tournament_data()
+
+        now = datetime.now()
+
+        # For each tournament, check if the team can register
+        for tournament in tournaments:
+            # Only look at tournaments that have not started yet
+            if tournament.start_date <= now:
+                continue
+            # Check if the team is already registered
+            is_registered = False
+            for registry in team_registry:
+                if registry.team_id == team.id and registry.tournament_id == tournament.id:
+                    is_registered = True
+                    break
+            
+            # If not registered, add to available tournaments
+            if not is_registered:
+                captain.available_tournaments.append(tournament)
 
         return captain
