@@ -88,6 +88,7 @@ class TeamCaptainUI:
             #register_team_to_tournament(choice)
             #print("Team has been registered to {tournament}")
             #b to go back to tournament menu or q to quit
+            print("api")
         if choice == "b":
             return "MY_TEAM"
         if choice == "q":
