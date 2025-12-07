@@ -92,3 +92,6 @@ class APIDATA:
     def modify_team_data(self, team: Team):
         return self.team_data.modify_team_data(team)
     
+    def add_team_to_club(self, team: Team, club_id: str):
+        return self.club_data.add_team_to_club(team, club_id)
+    

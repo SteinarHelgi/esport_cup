@@ -8,9 +8,6 @@ from Models.team import Team
 from Models.match import Match
 from LL.team_captain_ll import TeamCaptainLL
 
-
-new_captain = TeamCaptain("1", "boss", "pass", "1", "theboss")
-
 new_player = Player(
     "þröstur",
     "12/11/78",
@@ -34,10 +31,10 @@ player_to_modify = Player(
 )
 
 
-team_to_modify = Team(
+team = Team(
     "16",
     "Viking Lite",
-    "PepsiMaxOverflowPetra",
+    "1",
     "https://example.com/pepsimax_overflow",
     "ASCII_OVERFLOWING_CAN"
 )
@@ -56,8 +53,10 @@ new_organiser = Organiser(1, "robbi", "12345")
 api_data = APIDATA()
 organiser = OrganiserLL(api_data)
 teamcaptain = TeamCaptainLL(api_data)
+new_captain = TeamCaptain("1", "boss", "pass", "1", "theboss")
 
-organiser.create_match(match_to_add)
+teamcaptain.add_team_to_club(team, "1")
 
 
+#organiser.create_match(match_to_add)
 #teamcaptain.modify_team_data(team_to_modify)

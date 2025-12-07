@@ -5,6 +5,7 @@ from datetime import datetime
 from Models.tournament import Tournament
 from Models.team_registry import TeamRegistry
 from Models.team_captain import TeamCaptain
+from Models.club import Club
 
 
 class TeamCaptainLL:
@@ -76,8 +77,10 @@ class TeamCaptainLL:
         return new_team
 
     def add_team_to_club(self, team: Team, club_id: str):
-        # TODO
-        pass
+        self.APIDATA.add_team_to_club(team, club_id)
+
+    def get_all_club_data(self) -> list[Club]:
+        return self.APIDATA.get_all_club_data()
 
     def modify_team_data(self, team: Team):
         self.APIDATA.modify_team_data(team)

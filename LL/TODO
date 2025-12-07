@@ -2,7 +2,11 @@
 4. modify team info tekur inn team clasa og uppfærir ***TILBÚIÐ Í LOGIC OG DATA LAYER***
 5. vantar create match sem tekur inn ókláraðann match clasa og klárar 
 create match þarf að athuga hvort lið sé skráð í annað match á þessari dagsetningu á þessum tíma
-og hvort liðið sé búið að tapa, eða hvort liðið sé í örðu match í þessum úrslitum(16 liða úrslit...)
+og hvort liðið sé búið að tapa, eða hvort liðið sé í örðu match í þessum úrslitum(16 liða úrslit...) ***TILBÚIÐ Í LOGIC OG DATA LAYER***
+6.Fyrir clubs í team captain:
+    - add_team_to_club ***Tilbúið í logic og data***
+    - show_teams_in_a_club
+
 
 
 

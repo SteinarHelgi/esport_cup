@@ -1,19 +1,20 @@
 import csv
-from Models.models import Club
+from Models.models import Club, Team
 
 
 class ClubData:
     def __init__(self) -> None:
         self.club_file_path = "Data/club.csv"
 
-    def get_all_club_data(self) -> list[Club]:
-        """Les alla klúbba úr CSV skránni og skilar lista af Club hlutum."""
-        clubs = []
 
-        with open(self.club_file_path, "r+", encoding="utf-8") as file:
+
+    def get_all_club_data(self):
+        
+        clubs: list[Club] = []
+        with open(self.club_file_path, "r", encoding="utf-8") as file:
             csv_reader = csv.reader(file)
-            # Sleppum header-línu ef hún er til staðar
-            next(csv_reader, None)
+            #Skip header
+            next(csv_reader)
             for line in csv_reader:
                 id = line[0]
                 name = line[1]
@@ -21,24 +22,16 @@ class ClubData:
                 logo = line[3]
                 club_colors = line[4]
                 country = line[5]
-                teams = line[7].split(";")
-
-                points = 0
-                if line[6] != "":
-                    try:
-                        points = line[6]
-                    except ValueError:
-                        points = 0
+                points = int(line[6])
+                teams = line[7]
 
                 club = Club(
-                    id, name, hometown, logo, club_colors, country, str(points), teams
+                    id, name, hometown, logo, club_colors, country, points, teams
                 )
                 clubs.append(club)
-
-            return clubs
+        return clubs
 
     def store_club_data(self, club: Club) -> Club | None:
-        """Bætir nýjum kúbbi aftast í CSV skrána."""
         with open(self.club_file_path, "a", encoding="utf-8") as file:
             csv_writer = csv.writer(file)
             try:
@@ -46,3 +39,44 @@ class ClubData:
             except:
                 return None
         return club
+    
+    def add_team_to_club(self, team: Team, club_id: str):
+        team_name_to_add = team.name
+        temp_data: list[Club] = []
+        target_id: str = club_id
+
+        # Creates a temporary data file without the modified player
+        try:
+            with open(self.club_file_path, "r", newline="", encoding="utf-8") as file:
+                reader = csv.reader(file)
+
+                # Read the header row first
+                header = next(reader)
+                temp_data.append(header)  # Add header to the data we are keeping
+
+                # Read the rest of the rows
+                for line in reader:
+                    # Check the value in the first column (index 0)
+                    if line:
+                        if line[0] != target_id:
+                            temp_data.append(line)
+                        else:
+                            last_bit = line[-1]
+                            new_last_bit = last_bit + f";{team_name_to_add}"
+                            line[-1] = new_last_bit
+                            temp_data.append(line)
+
+        except FileNotFoundError:
+            exit()
+
+        # Overwrites temporary datafile to csv file
+        try:
+            with open(self.club_file_path, "w", newline="", encoding="utf-8") as csvfile:
+                # Create a writer object
+                writer = csv.writer(csvfile)
+
+                # Iterate through the list of strings
+                for line in temp_data:
+                    writer.writerow(line)
+        except:
+            return None
