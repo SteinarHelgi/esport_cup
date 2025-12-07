@@ -1,10 +1,10 @@
 player_id,name,date_of_birth,address,phone,email,link,handle,team_name, points
-P001,Sam Segfault,2003-04-12,Studentagata 1 Reykjavik,+3546110001,segfault.sam@example.com,https://twitch.tv/SegFaultSam,SegFaultSam,SegFault Spartans,0
+P001,Sam Segfault,2003-04-12,Studentagata 1 Reykjavik,+3546110001,segfault.sam@example.com,https://twitch.tv/SegFaultSam,SegFaultSam,SegFault Spartans,4
 P002,Sara Stacksmash,2004-09-23,Studentagata 2 Reykjavik,+3546110002,stacksmash.sara@example.com,https://github.com/StackSmashSara,StackSmashSara,SegFault Spartans,0
-P003,Karl Coredump,2005-01-08,Studentagata 3 Reykjavik,+3546110003,core.karl@example.com,https://twitter.com/CoreDumpKarl,CoreDumpKarl,SegFault Spartans,0
-P004,Nina Null,2004-02-10,Kennarabraut 1 Reykjavik,+3546110004,nina.null@example.com,https://twitch.tv/NullPointerNina,NullPointerNina,NullPointer Ninjas,0
-P006,Val Void,2005-06-21,Kennarabraut 3 Reykjavik,+3546110006,val.void@example.com,https://twitter.com/VoidStarVal,VoidStarVal,NullPointer Ninjas,0
-P007,Olaf Offby,2003-07-19,Sundurvegur 1 Kopavogur,+3546110007,olaf.offby@example.com,https://twitch.tv/OffByOneOlaf,OffByOneOlaf,OffByOne Offense,0
+P003,Karl Coredump,2005-01-08,Studentagata 3 Reykjavik,+3546110003,core.karl@example.com,https://twitter.com/CoreDumpKarl,CoreDumpKarl,SegFault Spartans,5
+P004,Nina Null,2004-02-10,Kennarabraut 1 Reykjavik,+3546110004,nina.null@example.com,https://twitch.tv/NullPointerNina,NullPointerNina,NullPointer Ninjas,2
+P006,Val Void,2005-06-21,Kennarabraut 3 Reykjavik,+3546110006,val.void@example.com,https://twitter.com/VoidStarVal,VoidStarVal,NullPointer Ninjas,1
+P007,Olaf Offby,2003-07-19,Sundurvegur 1 Kopavogur,+3546110007,olaf.offby@example.com,https://twitch.tv/OffByOneOlaf,OffByOneOlaf,OffByOne Offense,7
 P008,Frida Fencepost,2004-12-03,Sundurvegur 2 Kopavogur,+3546110008,frida.fencepost@example.com,https://github.com/FencepostFrida,FencepostFrida,OffByOne Offense,0
 P009,Ian Index,2005-03-15,Sundurvegur 3 Kopavogur,+3546110009,ian.index@example.com,https://twitter.com/IndexMinusOne,IndexMinusOne,OffByOne Offense,0
 P010,Palli Pepsi,2003-05-05,LANgata 1 Reykjavik,+3546110010,palli.pepsi@example.com,https://twitch.tv/PepsiMaxPalli,PepsiMaxPalli,Pepsi Max Punishers,0

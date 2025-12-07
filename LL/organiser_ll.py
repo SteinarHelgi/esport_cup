@@ -4,7 +4,7 @@ from Models.match import Match
 from Models.contact_person import ContactPerson
 from Models.team_registry import TeamRegistry
 from Models.team import Team
-
+import matplotlib.pyplot as plt
 
 class OrganiserLL:
     def __init__(self, api_data: APIDATA) -> None:
@@ -160,3 +160,23 @@ class OrganiserLL:
     def give_club_points(self, club_name: str, points: int):
         self.api_data.give_club_points(club_name, points)
     
+    def get_player_stats(self):
+        players = self.api_data.get_all_player_data()
+        stats: list[list[int, str]] = []
+        for player in players:
+            results: list[int, str] = []
+            results = [player.points, player.handle]
+            stats.append(results)
+        sorted_results = sorted(stats, key=lambda item: item[0], reverse = True)
+        
+        #Going to show this many players in our stats
+        number_of_players_to_display = 5
+        #creating the value and keys for the bar chart 
+        handle: list[str] = []
+        points: list[int] = []
+        for i in range(number_of_players_to_display):
+            handle.append(sorted_results[i][1])
+            points.append(sorted_results[i][0])
+        plt.bar(handle, points)
+        plt.show()
+

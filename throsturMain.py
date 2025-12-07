@@ -54,6 +54,7 @@ organiser = OrganiserLL(api_data)
 teamcaptain = TeamCaptainLL(api_data)
 new_captain = TeamCaptain("1", "boss", "pass", "1", "theboss")
 
+organiser.get_player_stats()
 
 #organiser.give_club_points("KR", 5)
 #organiser.give_team_points("Viking Lite", 4)
