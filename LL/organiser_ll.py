@@ -4,6 +4,7 @@ from Models.match import Match
 from Models.contact_person import ContactPerson
 from Models.team_registry import TeamRegistry
 from Models.team import Team
+from Models.stat import Stat
 import matplotlib.pyplot as plt
 
 class OrganiserLL:
@@ -179,4 +180,35 @@ class OrganiserLL:
             points.append(sorted_results[i][0])
         plt.bar(handle, points)
         plt.show()
+
+    def show_elimination_stats(self, tournament_id):
+        matches = self.api_data.get_all_match_data()
+        team_registry = self.api_data.get_all_team_registry_data()
+        stats: list[Stat] = []
+        for registry in team_registry:
+            stat = Stat(registry.team_name)
+            for match in matches:
+                if match.completed == "TRUE":
+                    if match.team_a_name == stat.team_name:
+                        stat.games_played += 1
+                        stat.score_for += int(match.score_a)
+                        stat.score_against += int(match.score_b)
+                    if match.team_b_name == stat.team_name:
+                        stat.games_played += 1
+                        stat.score_for += int(match.score_b)
+                        stat.score_against += int(match.score_a)
+                    if match.winner_team_name == stat.team_name:
+                        stat.won += 1
+            stat.lost = stat.games_played - stat.won
+            if stat.games_played == 0:
+                stat.winning_ratio = 0
+            else:
+                stat.winning_ratio = stat.won/stat.games_played * 100
+            stats.append(stat)
+        
+        sorted_by_winning_ratio = sorted(stats, key=lambda s: s.winning_ratio, reverse = True)
+        
+        return sorted_by_winning_ratio
+                    
+                
 

@@ -55,7 +55,7 @@ class MatchData:
                 return None
         return match
 
-    def register_match_results(self, match_id: str, home_score: int, away_score: int, completed_match: bool) -> Match | None:
+    def register_match_results(self, match_id: str, home_score: int, away_score: int, completed_match: str) -> Match | None:
         temp_data = []
         target_id: str = match_id
         
@@ -89,7 +89,7 @@ class MatchData:
                             winner_team_name: str = team_a_name
                         else:
                             winner_team_name: str = team_b_name
-                        completed: bool = completed_match
+                        completed: str = completed_match
                         new_line = [
                             match_id,
                             tournament_id,

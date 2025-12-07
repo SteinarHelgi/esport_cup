@@ -54,8 +54,12 @@ organiser = OrganiserLL(api_data)
 teamcaptain = TeamCaptainLL(api_data)
 new_captain = TeamCaptain("1", "boss", "pass", "1", "theboss")
 
-organiser.get_player_stats()
+stats = organiser.show_elimination_stats("1")
+for stat in stats:
+    print(stat.team_name, stat.games_played, stat.won, stat.lost, stat.score_for, stat.score_against, stat.winning_ratio)
 
+
+#organiser.get_player_stats()
 #organiser.give_club_points("KR", 5)
 #organiser.give_team_points("Viking Lite", 4)
 #organiser.give_player_points("DanglingPtrDan", 3)

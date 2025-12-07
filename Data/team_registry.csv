@@ -1,5 +1,17 @@
 team_id,tournament_id, team_name, tournament_name
-1,1,dusty,esport estravaganza
-2,1,OG,esport estravaganza
-3,1,PIP,esport estravaganza
-4,2,WOW,skjálfti
+1,1,SegFault Spartans,esport estravaganza
+2,1,NullPointer Ninjas,esport estravaganza
+3,1,OffByOne Offense,esport estravaganza
+4,1,Pepsi Max Punishers,esport estravaganza
+5,1,Chuck Norris Fan Club,esport estravaganza
+6,1,IndentationError Invaders,esport estravaganza
+7,1,Assembly Avengers,esport estravaganza
+8,1,Datalab Dominators,esport estravaganza
+9,1,Bomblab Bombers,esport estravaganza
+10,1,StackOverflow Stackers,esport estravaganza
+11,1,CacheHit Crusaders,esport estravaganza
+12,1,WhileTrue Tryhards,esport estravaganza
+13,1,Segmentation Foul,esport estravaganza
+14,1,RaceCondition Racers,esport estravaganza
+15,1,Undefined Behavior United,esport estravaganza
+16,1,Pepsi Max Overflow,esport estravaganza

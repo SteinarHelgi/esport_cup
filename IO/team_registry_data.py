@@ -12,12 +12,13 @@ class TeamRegistryData:
             csvReader = csv.reader(file)
             next(csvReader)
             for line in csvReader:
-                team_id: str = line[0]
-                tournament_id: str = line[1]
-                team_name: str = line[2]
-                tournament_name: str = line[3]
-                team_registry = TeamRegistry(team_id, tournament_id, team_name, tournament_name)
-                team_registries.append(team_registry)
+                if line:
+                    team_id: str = line[0]
+                    tournament_id: str = line[1]
+                    team_name: str = line[2]
+                    tournament_name: str = line[3]
+                    team_registry = TeamRegistry(team_id, tournament_id, team_name, tournament_name)
+                    team_registries.append(team_registry)
             return team_registries
 
     def store_team_registry_data(

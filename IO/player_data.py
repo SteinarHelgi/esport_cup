@@ -183,5 +183,3 @@ class PlayerData:
 
         #add the modified player to the database
         self.store_player_data(player)
-
-        
