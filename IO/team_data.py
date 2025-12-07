@@ -65,3 +65,52 @@ class TeamData:
         
         #add modified team to player database
         self.store_team_data(team)
+    
+
+    def give_team_points(self, team_name: str, added_points: int) -> None:
+        temp_data: list[Team] = []
+        target: str = team_name
+
+        # Creates a temporary data file without the modified player
+        try:
+            with open(self.team_file_path, "r", newline="") as file:
+                reader = csv.reader(file)
+
+                # Read the header row first
+                header = next(reader)
+                temp_data.append(header)  # Add header to the data we are keeping
+
+                # Read the rest of the rows
+                for line in reader:
+                    # Check the value in the first column (index 0)
+                    if line:
+                        if line[1] != target:
+                            temp_data.append(line)
+                        else:
+                            id: str = line[0]
+                            name: str = line[1]
+                            captain_id: str = line[2]
+                            social_media: str = line[3]
+                            logo: str = line[4]
+                            points: int = int(line[5])
+                            team: Team = Team(name, captain_id, social_media, logo)
+                            team.set_id(id)
+                            team.set_points(points + added_points)
+
+        except FileNotFoundError:
+            exit()
+
+        # Overwrites temporary datafile to csv file
+        try:
+            with open(self.team_file_path, "w", newline="", encoding="utf-8") as csvfile:
+                # Create a writer object
+                writer = csv.writer(csvfile)
+
+                # Iterate through the list of strings
+                for line in temp_data:
+                    writer.writerow(line)
+        except:
+            return None
+
+        #add the modified player to the database
+        self.store_team_data(team)

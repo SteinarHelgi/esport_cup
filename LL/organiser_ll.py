@@ -100,6 +100,7 @@ class OrganiserLL:
             stored = self.api_data.store_match_data(match)
         else:
             stored = None
+            raise ValueError
         return stored
 
     def create_contact_person(self, contact: ContactPerson) -> ContactPerson | None:
@@ -149,3 +150,13 @@ class OrganiserLL:
         self.api_data.register_match_results(
             int(match_id), home_score, away_score, completed
         )
+
+    def give_player_points(self, handle: str, points: int):
+        self.api_data.give_player_points(handle, points)
+    
+    def give_team_points(self, team_name: str, points: int):
+        self.api_data.give_team_points(team_name, points)
+    
+    def give_club_points(self, club_name: str, points: int):
+        self.api_data.give_club_points(club_name, points)
+    

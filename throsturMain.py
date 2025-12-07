@@ -32,7 +32,6 @@ player_to_modify = Player(
 
 
 team = Team(
-    "16",
     "Viking Lite",
     "1",
     "https://example.com/pepsimax_overflow",
@@ -55,9 +54,13 @@ organiser = OrganiserLL(api_data)
 teamcaptain = TeamCaptainLL(api_data)
 new_captain = TeamCaptain("1", "boss", "pass", "1", "theboss")
 
-teams = teamcaptain.get_all_teams_in_a_club("1")
-for team in teams:
-    print(team.name)
+
+#organiser.give_club_points("KR", 5)
+#organiser.give_team_points("Viking Lite", 4)
+#organiser.give_player_points("DanglingPtrDan", 3)
+#teams = teamcaptain.get_all_teams_in_a_club("1")
+#for team in teams:
+#    print(team.name)
 #teamcaptain.add_team_to_club(team, "1")
 #organiser.create_match(match_to_add)
 #teamcaptain.modify_team_data(team_to_modify)

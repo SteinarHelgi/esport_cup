@@ -22,6 +22,7 @@ class PlayerData:
                     link: str = line[6]
                     handle: str = line[7]
                     team_name: str = line[8]
+                    points: int = int(line[9])
 
                     player: Player = Player(
                         name,
@@ -34,7 +35,9 @@ class PlayerData:
                         team_name,
                     )
                     player.set_id(player_id)
+                    player.set_points(points)
                     players.append(player)
+
             return players
 
     def store_player_data(self, player: Player) -> Player | None:
@@ -118,3 +121,65 @@ class PlayerData:
                     writer.writerow(line)
         except:
             return None
+
+    def give_player_points(self, handle: str, added_points: int) -> None:
+        temp_data: list[Player] = []
+        target: str = handle
+
+        # Creates a temporary data file without the modified player
+        try:
+            with open(self._filepath, "r", newline="") as file:
+                reader = csv.reader(file)
+
+                # Read the header row first
+                header = next(reader)
+                temp_data.append(header)  # Add header to the data we are keeping
+
+                # Read the rest of the rows
+                for line in reader:
+                    # Check the value in the first column (index 0)
+                    if line:
+                        if line[7] != target:
+                            temp_data.append(line)
+                        else:
+                            player_id: str = line[0]
+                            name: str = line[1]
+                            date_of_birth: str = line[2]
+                            address: str = line[3]
+                            phone: str = line[4]
+                            email: str = line[5]
+                            link: str = line[6]
+                            handle: str = line[7]
+                            team_name: str = line[8]
+                            points = int(line[9])
+
+                            player: Player = Player(
+                            name,
+                            date_of_birth,
+                            address,
+                            phone,
+                            email,
+                            link,
+                            handle,
+                            team_name,
+                            )
+                            player.set_id(player_id)
+                            player.set_points(points + added_points)
+
+        except FileNotFoundError:
+            exit()
+
+        # Overwrites temporary datafile to csv file
+        try:
+            with open(self._filepath, "w", newline="", encoding="utf-8") as csvfile:
+                # Create a writer object
+                writer = csv.writer(csvfile)
+
+                # Iterate through the list of strings
+                for line in temp_data:
+                    writer.writerow(line)
+        except:
+            return None
+
+        #add the modified player to the database
+        self.store_player_data(player)

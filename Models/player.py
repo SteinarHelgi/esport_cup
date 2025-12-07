@@ -25,6 +25,7 @@ class Player:
         self.social_media = social_media
         self.handle = handle
         self.team_name = team_name
+        self.points = 0
         
     def get_team_name(self):
         return self.team_name
@@ -40,8 +41,11 @@ class Player:
         ret.append(self.social_media)
         ret.append(self.handle)
         ret.append(self.team_name)
-        
+        ret.append(self.points)
         return ret
 
     def set_id(self, id: str):
         self.id = id
+
+    def set_points(self, points: int):
+        self.points = points

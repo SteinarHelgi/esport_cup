@@ -95,3 +95,12 @@ class APIDATA:
     def add_team_to_club(self, team: Team, club_id: str):
         return self.club_data.add_team_to_club(team, club_id)
     
+    def give_player_points(self, handle: str, points: int):
+        return self.player_data.give_player_points(handle, points)
+    
+    def give_team_points(self, team_name: str, points: int):
+        return self.team_data.give_team_points(team_name, points)
+    
+    def give_club_points(self, club_name: str, points: int):
+        return self.club_data.give_club_points(club_name, points)
+    

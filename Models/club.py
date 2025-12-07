@@ -4,22 +4,20 @@ from Models.models import Team
 class Club:
     def __init__(
         self,
-        id: str,
         name: str,
         hometown: str,
         logo: str,
         club_colors: str,
         country: str,
-        points: str,
         teams: list[str],
     ) -> None:
-        self.id = id
+        self.id = ""
         self.name = name
         self.hometown = hometown
         self.logo = logo
         self.club_colors = club_colors
         self.country = country
-        self.points = points
+        self.points = 0
         self.teams = teams
 
     def toCSVList(self):
@@ -36,4 +34,9 @@ class Club:
 
     def __str__(self) -> str:
         return f"name: {self.name} {self.teams}"
-        pass
+    
+    def set_id(self, id: str):
+        self.id = id
+
+    def set_points(self, points: int):
+        self.points = points
