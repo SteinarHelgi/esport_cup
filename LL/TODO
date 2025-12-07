@@ -5,7 +5,7 @@ create match þarf að athuga hvort lið sé skráð í annað match á þessari
 og hvort liðið sé búið að tapa, eða hvort liðið sé í örðu match í þessum úrslitum(16 liða úrslit...) ***TILBÚIÐ Í LOGIC OG DATA LAYER***
 6.Fyrir clubs í team captain:
     - add_team_to_club ***Tilbúið í logic og data***
-    - show_teams_in_a_club
+    - get_all_teams_in_a_club ***TILBÚIÐ Í LOGID OG DATA***
 
 
 

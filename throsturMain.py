@@ -55,8 +55,9 @@ organiser = OrganiserLL(api_data)
 teamcaptain = TeamCaptainLL(api_data)
 new_captain = TeamCaptain("1", "boss", "pass", "1", "theboss")
 
-teamcaptain.add_team_to_club(team, "1")
-
-
+teams = teamcaptain.get_all_teams_in_a_club("1")
+for team in teams:
+    print(team.name)
+#teamcaptain.add_team_to_club(team, "1")
 #organiser.create_match(match_to_add)
 #teamcaptain.modify_team_data(team_to_modify)
