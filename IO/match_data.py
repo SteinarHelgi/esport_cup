@@ -26,7 +26,7 @@ class MatchData:
                     score_a: str = line[9]
                     score_b: str = line[10]
                     winner_team_name: str = line[11]
-                    completed: bool = line[12]
+                    completed: str = line[12]
 
                     match = Match(
                         tournament_id,
@@ -82,8 +82,8 @@ class MatchData:
                         match_number: str = line[3]
                         team_a_name: str = line[4]
                         team_b_name: str = line[5]
-                        match_date: datetime.datetime = line[6]
-                        match_time: datetime.datetime = line[7]
+                        match_date: str = line[6]
+                        match_time: str = line[7]
                         server_id: str = line[8]
                         score_a: int = home_score
                         score_b: int = away_score

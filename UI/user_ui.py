@@ -12,14 +12,20 @@ class UserUI:
         self.APILL = APILL
         self.menu_manager = menu_manager
 
-    def show_teams(self) -> str:
+    def show_teams(self):
         teams = self.APILL.get_all_teams()
         print(format_team_list(teams))
-        print("1.Search for team \nb.Back \nq.Quit")
+        print("\nb.Back \nq.Quit")
 
-        choice: str = self.menu_manager.prompt_choice(["1", "b", "q"])
-        if choice == "1":  # TODO Functionality for looking at teams
-            search_for_team = input("Enter team name for details: ")
+        valid_choices = []
+        for counter, team in enumerate(teams):
+            valid_choices.append(str(counter))
+
+        choice: str = self.menu_manager.prompt_choice(valid_choices + ["b", "q"])
+
+        if choice in valid_choices:
+            return self.show_players(teams[int(choice) - 1])
+
         if choice.lower() == "b":
             return "USER_MENU"
 
@@ -90,12 +96,13 @@ class UserUI:
     def show_players(self, team: Team):
         players = self.APILL.get_players_in_team(team.name)
         print(format_player_list(players))
+        print("b. Back\nq. Quit")
         valid_options = ["q", "b"]
         choice: str = self.menu_manager.prompt_choice(valid_options)
         if choice.lower() == "q":
             return "QUIT"
         if choice.lower() == "b":
-            return "TEAM"
+            return "TEAMS"
 
     def show_statistics(self):
         # TODO
