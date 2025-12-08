@@ -7,7 +7,8 @@ from Models.player import Player
 from Models.club_stat import ClubStat
 from Models.elimination_stat import EliminationStat
 from Models.player_stat import PlayerStat
-#import matplotlib.pyplot as plt
+
+# import matplotlib.pyplot as plt
 from typing import Union
 
 # from Models.club_stat import ClubStat
@@ -33,6 +34,7 @@ class UserLL:
 
     def get_all_tournaments(self) -> list:
         tournaments = self.api_data.get_all_tournament_data()
+
         matches = self.api_data.get_all_match_data()
         for tournament in tournaments:
             for match in matches:
@@ -46,17 +48,16 @@ class UserLL:
 
     def get_ongoing_tournament(self):
         today = datetime.today()
-        tournament = self.api_data.get_all_tournament_data()
+        tournament = self.get_all_tournaments()
         ongoing = []
 
         for t in tournament:
             if t.start_date <= today <= t.end_date:
                 ongoing.append(t)
-
         return ongoing
 
     def get_past_tournament(self):
-        tournament = self.api_data.get_all_tournament_data()
+        tournament = self.get_all_tournaments()
         today = datetime.today()
         past = []
 
@@ -67,7 +68,7 @@ class UserLL:
         return past
 
     def get_upcoming_tournament(self):
-        tournament = self.api_data.get_all_tournament_data()
+        tournament = self.get_all_tournaments()
         upcoming = []
         today = datetime.today()
 

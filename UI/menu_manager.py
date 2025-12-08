@@ -25,9 +25,6 @@ class MenuManager:
             "USER_MENU": self.print_user_menu,
             "TEAMS": self.user_ui.show_teams,
             "TOURNAMENTS": self.user_ui.show_tournaments,
-            "ONGOING_TOURNAMENTS": self.user_ui.show_ongoing_tournaments,
-            "UPCOMING_TOURNAMENTS": self.user_ui.show_upcoming_tournaments,
-            "PAST_TOURNAMENTS": self.user_ui.show_past_tournaments,
             "PLAYERS": self.user_ui.show_players,
             "STATISTICS": self.user_ui.show_statistics,
             # TEAM CAPTAIN MENUS
@@ -109,8 +106,6 @@ class MenuManager:
                 return "LOGIN_MENU"
             if choice == "q":
                 return "QUIT"
-
-            
 
     def login_credentials_menu_org(self):  # logging in as organiser
         username = input("Username: ")
