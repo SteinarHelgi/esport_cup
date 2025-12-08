@@ -15,7 +15,7 @@ class Team:
         self.points: int = 0
 
     def __str__(self) -> str:
-        return f"Name: {self.name}, Players: {self.players}"
+        return f"Name: {self.name}, Players: {self.players} Social Media: {self.social_media} Logo: {self.logo}"
 
     def toCSVList(self):
         ret = []
@@ -35,4 +35,3 @@ class Team:
 
     def set_points(self, points: int):
         self.points = points
-

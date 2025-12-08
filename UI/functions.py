@@ -19,26 +19,29 @@ def format_tournament_table(tournaments: list[Tournament]):
     # Print a divider line
     line_length = w_id + w_name + w_date + w_date + w_date + (w_game - 5)
     print("-" * line_length)
-    
+
     empty_string = ""
     divider_line = "-" * line_length + "\n"
-    
+
     # Loop through the data
     for counter, tournament in enumerate(tournaments):
         # Check if tournament is None
         if tournament is None:
             continue  # Skip if tournament is None
-        
+
         # Clean up the dates
-        s_date = str(tournament.start_date).split(" ")[0] if tournament.start_date else "N/A"
-        e_date = str(tournament.end_date).split(" ")[0] if tournament.end_date else "N/A"
+        s_date = (
+            str(tournament.start_date).split(" ")[0] if tournament.start_date else "N/A"
+        )
+        e_date = (
+            str(tournament.end_date).split(" ")[0] if tournament.end_date else "N/A"
+        )
 
         # Print the actual variables (tournament.name), not the string "NAME"
         empty_string += f"{counter + 1:>{w_id}}.{tournament.name:<{w_name}}{s_date:^{w_date}}|{e_date:^{w_date}}{tournament.game_id:>{w_game}}\n"
         empty_string += divider_line
 
     return empty_string
-
 
 
 def format_team_list(teams: list[Team]):  # TODO add club to this

@@ -130,10 +130,15 @@ class OrganiserUI:
         # Shows all of the upcoming tournamnets for the organiser to look at
         """Finds all upcoming tournaments and prompts for choice"""
         tournaments = self.APILL.get_upcoming_tournaments()
+        print(*tournaments[0].matches)
+
         valid_choices = []
+
         for i in range(len(tournaments)):
             stringI = str(i + 1)
             valid_choices.append(stringI)
+            print("tournaments: ", tournaments[i].matches)
+
         print("MY_TOURNAMENTS_ORG")
         print(format_tournament_table(tournaments))
 
@@ -220,7 +225,12 @@ class OrganiserUI:
             user_inputs["Date YYYY-MM-DD: "],
             user_inputs["Time HH-MM-SS: "],
         )
-        match = self.APILL.create_match(match)
+
+        try:
+            match = self.APILL.create_match(match)
+        except ValueError:
+            print("Invalid values")
+
         # Get information about matc
         if match:
             print("Match created with id: ", match.match_id)

@@ -57,7 +57,7 @@ class APILL:
     def get_all_teams_in_a_club(self, club_id) -> list[Team]:
         return self.main_ll.club_ll.get_all_teams_in_a_club(club_id)
 
-    def modify_team_data(self, team: Team):
+    def modify_team_data(self, team: Team) -> Team | None:
         return self.main_ll.team_ll.modify_team_data(team)
 
     def register_team_to_tournament(self, team: Team, tournament: Tournament):
@@ -147,4 +147,3 @@ class APILL:
 
     # def get_player_stat(self, player_handle, tournament_id) -> PlayerStat | None:
     #    return self.userLL.get_player_stat(player_handle, tournament_id)
-

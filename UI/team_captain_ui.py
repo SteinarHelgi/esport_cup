@@ -1,5 +1,6 @@
 from LL.api_ll import APILL
 from Models.player import Player
+from Models.team import Team
 from Models.team_captain import TeamCaptain
 import UI.functions as f
 
@@ -292,9 +293,49 @@ class TeamCaptainUI:
         self.tournament = tournament
         registration = self.APILL.register_team_to_tournament(team, tournament)
 
-
     def show_update_team_data(self):
         # TODO b krafa
+        # STEINAR
+        print("1. Edit social media\n2. Edit Logo")
+        print("")
+        print("b. Back\nq. Quit")
+        choice: str = self.menu_manager.prompt_choice(["1", "2", "b", "q"])
+        if choice == "1":
+            return "EDIT_SOCIAL_MEDIA"
+        if choice == "2":
+            return "EDIT_LOGO"
+        if choice == "b":
+            return "MY_TEAM"
+        if choice == "q":
+            return "QUIT"
+
+    def show_edit_social_media(self):
+        team = self.APILL.get_team_by_name(self.menu_manager.team_name)
+        if team:
+            print("Currrent social media: ", team.social_media)
+            new_social_media = input("New social media: ")
+            team.social_media = new_social_media
+
+            new_team = self.APILL.modify_team_data(team)
+            if new_team:
+                print("Updated team info:")
+                print("Name: ", new_team.name)
+                print("Players:\n  ", *new_team.players, sep=" | ")
+                print("Captain: ", new_team.captain_handle)
+                print("Social Media: ", new_team.social_media)
+                print("Logo: ", new_team.logo)
+            else:
+                print("Could not update team")
+            print("")
+            print("b. Back\nq. Quit")
+            choice: str = self.menu_manager.prompt_choice(["b", "q"])
+            if choice == "b":
+                return "EDIT_TEAM_INFO"
+            if choice == "b":
+                return "QUIT"
+
+    def show_edit_logo(self):
+        print("EDIT_LOGO")
         pass
 
     def show_add_team_to_club(self):
@@ -305,11 +346,10 @@ class TeamCaptainUI:
         # TODO c krafa
         pass
 
-    #def add_information_about_team():
-        #TODO
-       # pass
+    # def add_information_about_team():
+    # TODO
+    # pass
 
-    #def show_add_team_to_club():
-        #TODO
-        #pass
-    
+    # def show_add_team_to_club():
+    # TODO
+    # pass
