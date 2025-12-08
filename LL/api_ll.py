@@ -83,10 +83,10 @@ class APILL:
         return self.userLL.get_all_club_stat()
       
     def show_all_tournaments_for_captain(self, captain: TeamCaptain) -> list[Tournament]:
-        return self.team_captain_ll.show_all_tournaments_for_captain(captain)
+        return self.team_captain_ll.get_all_tournaments_for_captain(captain)
 
-    def show_all_open_tournaments_for_captain(self,captain: TeamCaptain) -> list[Tournament]:
-        return self.team_captain_ll.show_all_open_tournaments_for_captain(captain)
+    def get_all_open_tournaments_for_captain(self,captain: TeamCaptain) -> list[Tournament]:
+        return self.team_captain_ll.get_all_open_tournaments_for_captain(captain)
 
     def create_tournament(self, tournament: Tournament) -> Tournament | None:
         return self.organiser_ll.create_tournament(tournament)
@@ -100,7 +100,7 @@ class APILL:
     def create_contact_person(self, contact_person: ContactPerson) -> ContactPerson | None:
         return self.organiser_ll.create_contact_person(contact_person)
     
-    def show_all_teams_on_tournament(self, target_tournament_id: str) -> list[Team]:
+    def get_all_teams_on_tournament(self, target_tournament_id: str) -> list[Team]:
         return self.organiser_ll.show_all_teams_on_tournament(target_tournament_id)
     
     def register_match_result(self, match_id: str, home_score: int, away_score: int, completed: bool):
