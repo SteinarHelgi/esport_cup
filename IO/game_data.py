@@ -6,23 +6,33 @@ class GameData:
         self.game_file_path = "Data/Games.csv"
 
     def get_all_game_data(self) -> list[Game]:
-        """Les alla leiki úr CSV skránni og skilar lista af Game hlutum."""
-        games = []
+        """Reads all games from the CSV file and returns a list of Game objects."""
+
+        games: list[Game] = []
+
+        # Open the file in read mode
         with open(self.game_file_path, "r+") as file:
             csv_reader = csv.reader(file)
-            # sleppum header-línu ef hún er til staðar
+
+            # Skip header row if present
             next(csv_reader, None)
+
+            # Read each remaining line and create Game ojects
             for line in csv_reader:
+                if not line:
+                    continue  # Skip empty lines if any
+
                 game_id = line[0]
                 name = line[1]
                 duration = line[2]
 
                 game = Game(game_id, name, duration)
                 games.append(game)
+
         return games
 
     def store_game_data(self, game: Game) -> Game | None:
-        """Bætir nýjum leik aftast í CSV skrána."""
+        """Appends a new game to the CSV file. Returns the game if successful, otherwise None."""
         with open(self.game_file_path, "a") as file:
             csv_writer = csv.writer(file)
             try:
