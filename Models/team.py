@@ -35,3 +35,4 @@ class Team:
 
     def set_points(self, points: int):
         self.points = points
+
