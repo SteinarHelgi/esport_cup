@@ -9,6 +9,7 @@ from Models.team_registry import TeamRegistry
 from Models.team import Team
 from Models.club import Club
 
+VALID_TEAM_COUNT = 16
 
 class OrganiserLL:
     def __init__(self, api_data: APIDATA) -> None:
@@ -49,6 +50,14 @@ class OrganiserLL:
 
     def delete_tournament(self, tournament_id: str):
         self.api_data.delete_tournament_data(tournament_id)
+
+    
+    def cancel_tournament(self, tournament_id: str) -> None:
+        """System will not run a tournament if not enough teams register. Eyðir móti ef fjöldi liða er ekki 16"""
+        teams_in_tournament = self.get_all_teams_on_tournament(tournament_id)
+
+        if len(teams_in_tournament) == VALID_TEAM_COUNT:
+            self.delete_tournament(tournament_id)
 
     def create_match(self, match: Match) -> Match | None:
         round = match.round
