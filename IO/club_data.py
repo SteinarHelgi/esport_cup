@@ -136,4 +136,3 @@ class ClubData:
                     writer.writerow(line)
         except:
             return None
-        #add the modified player to the database
