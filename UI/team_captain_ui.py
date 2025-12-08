@@ -1,5 +1,6 @@
 from LL.api_ll import APILL
 from Models.player import Player
+from Models.team_captain import TeamCaptain
 import UI.functions as f
 
 
@@ -63,8 +64,7 @@ class TeamCaptainUI:
         player_name = name
         player_handle = handle
         player_social = social_media
-        print(
-            f"PLAYER ADDED!\n{player_name} \n{player_handle} \n{player_social}")
+        print(f"PLAYER ADDED!\n{player_name} \n{player_handle} \n{player_social}")
 
         print("")
         print("b. Back \nq. Quit")
@@ -76,27 +76,56 @@ class TeamCaptainUI:
 
     def show_my_tournaments(self):
         team = self.APILL.get_team_by_name(self.menu_manager.team_name)
+        captain = TeamCaptain(
+            self.menu_manager.team_name, self.menu_manager.captain_handle
+        )
         if team:
             tournaments = self.APILL.get_my_tournaments(team)
             print(f.format_tournament_table(tournaments))
-        print("r. Register for new tournament\nb. Back\nq. Quit")
-        choice: str = self.menu_manager.prompt_choice(["r", "b", "q"])
-        if choice == "r": #TODO
-            #Get all tournaments open for captain = tournaments
-            #print(formattournamenttable(tournaments))
-            #choose tournament to register for or b and q
-            #register_team_to_tournament(choice)
-            #print("Team has been registered to {tournament}")
-            #b to go back to tournament menu or q to quit
-            print("api")
-        if choice == "b":
-            return "MY_TEAM"
-        if choice == "q":
-            return "QUIT"
+            print("r. Register for new tournament\nb. Back\nq. Quit")
+            choice: str = self.menu_manager.prompt_choice(["r", "b", "q"])
+            if choice == "r":
+                valid_choices: list[str] = []
+                tournaments = self.APILL.get_all_open_tournaments_for_captain(captain)
+                print(f.format_tournament_table(tournaments))
+                print(
+                    "Choose tournament to register for or 'b' to Back and 'q' to Quit"
+                )
+                for i in range(len(tournaments)):
+                    stringI = str(i + 1)
+                    valid_choices.append(stringI)
+                choice: str = self.menu_manager.prompt_choice(
+                    valid_choices + ["b", "q"]
+                )
+                if choice in valid_choices:
+                    self.APILL.register_team_to_tournament(
+                        team, tournaments[int(choice) - 1]
+                    )
+                    print(f"{team} has been registered for {choice}")
+                    back_or_quit = input("b to go back to tournament menu or q to quit")
+                    if back_or_quit == "b":
+                        return "MY_TOURNAMENTS_CAP"
+                    if back_or_quit == "q":
+                        return "QUIT"
+                    else:
+                        print("Invalid choice, valid choices are B and Q")
+                        back_or_quit = input(
+                            "b to go back to tournament menu or q to quit"
+                        )
+
+            # print(formattournamenttable(tournaments))
+            # choose tournament to register for or b and q
+            # register_team_to_tournament(choice)
+            # print("Team has been registered to {tournament}")
+            # print("b to go back to tournament menu or q to quit")
+            if choice == "b":
+                return "MY_TEAM"
+            if choice == "q":
+                return "QUIT"
 
     def show_modify_player_menu(self, player: Player):
         """
-        Displays a menu of player attributes. 
+        Displays a menu of player attributes.
         The user selects one to change.
         """
         while True:
@@ -106,68 +135,66 @@ class TeamCaptainUI:
             print(f"1. Change Name      (Current: {player.name})")
             print(f"2. Change Email     (Current: {player.email})")
             print(f"3. Change Address   (Current: {player.address})")
-            print(f"4. Change Number    (Current: {player.phone_number})") 
+            print(f"4. Change Number    (Current: {player.phone_number})")
             print(f"5. Change Socials   (Current: {player.social_media})")
-            print(F"6. Change Handle    [Current: {player.handle}]")
+            print(f"6. Change Handle    [Current: {player.handle}]")
             print("S. Finish and Save")
             print("C. Cancel (Exit without saving)")
 
             selection = input("Select the data you want to change (1-6): ")
 
-            if selection == '1':
+            if selection == "1":
                 new_name = input("Enter new name: ").strip()
                 if new_name:
                     player.name = new_name
                     print("Name updated locally.")
 
-            elif selection == '2':
+            elif selection == "2":
                 new_email = input("Enter new email: ").strip()
                 if new_email:
                     # Optional: Add email validation logic here
                     player.email = new_email
                     print("Email updated locally.")
 
-            elif selection == '3':
+            elif selection == "3":
                 new_address = input("Enter new address: ").strip()
                 if new_address:
                     player.address = new_address
                     print("Address updated locally.")
-            
-            elif selection == '4':
+
+            elif selection == "4":
                 new_number = input("Enter new phone number: ").strip()
                 if new_number:
                     player.phone_number = new_number
                     print("Address updated locally.")
-                
-            elif selection == '5':
+
+            elif selection == "5":
                 new_socials = input("Enter new social media handle: ").strip()
                 if new_socials:
                     player.social_media = new_socials
                     print("Socials updated locally.")
 
-            elif selection == '6':
+            elif selection == "6":
                 new_handle = input("Enter new game handle: ").strip()
                 if new_handle:
                     player.handle = new_handle
                     print("Game handle updated locally.")
 
-
-            elif selection.lower() == 's':
-                #Saves the information
+            elif selection.lower() == "s":
+                # Saves the information
                 try:
                     self.APILL.modify_player(player)
                     print("Success! Player data saved to database.")
-                    return "SHOW_MY_PLAYERS" # Exit the loop
+                    return "SHOW_MY_PLAYERS"  # Exit the loop
                 except Exception as e:
                     print(f"Error saving data: {e}")
 
-            elif selection.lower() == 'c':
+            elif selection.lower() == "c":
                 print("Modification cancelled.")
-                return "SHOW_MY_PLAYERS" # Exit without calling modify_player
+                return "SHOW_MY_PLAYERS"  # Exit without calling modify_player
 
             else:
                 print("Invalid selection. Please try again.")
-
 
     def show_my_team(self) -> str | None:
         team_name = self.menu_manager.team_name
@@ -199,7 +226,7 @@ class TeamCaptainUI:
                 return "SHOW_MY_PLAYERS"
             if choice == "3":
                 return "EDIT_TEAM_INFO"
-            
+
             if choice.lower() == "b":
                 return "TEAM_CAPTAIN_MENU"
             if choice.lower() == "q":
@@ -225,7 +252,7 @@ class TeamCaptainUI:
         if choice == "6":
             return "CREATE_PLAYER"
         if choice == "7":
-            #TODO select_player_to_remove_menu
+            # TODO select_player_to_remove_menu
             pass
         if choice.lower() == "q":
             return "QUIT"
@@ -256,21 +283,18 @@ class TeamCaptainUI:
 
         choice: str = self.menu_manager.prompt_choice(["1", "2", "b", "q"])
         if choice == "1":
-            #Modify player menuið
+            # Modify player menuið
             return self.show_modify_player_menu(player)
         if choice == "b":
             return "SHOW_MY_PLAYERS"
         if choice == "q":
             return "QUIT"
 
-
-
-    def show_register_team_to_tournament(self,team,tournament):
+    def show_register_team_to_tournament(self, team, tournament):
         # TODO
         self.team = team
         self.tournament = tournament
         registration = self.APILL.register_team_to_tournament(team, tournament)
-        
 
         pass
 

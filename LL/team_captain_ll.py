@@ -8,7 +8,6 @@ from Models.team_captain import TeamCaptain
 from Models.club import Club
 
 
-
 class TeamCaptainLL:
     def __init__(self, APIDATA: APIDATA):
         self.id = 0
@@ -28,9 +27,10 @@ class TeamCaptainLL:
         # Find next player id
         nums = [
             int(p.id[1:])
-            for p in current_players if p.id.startswith(("p", "P")) and p.id[1:].isdigit
+            for p in current_players
+            if p.id.startswith(("p", "P")) and p.id[1:].isdigit
         ]
-        
+
         next_num = max(nums) + 1 if nums else 1
         new_id = f"P{next_num:03d}"
 
@@ -51,7 +51,7 @@ class TeamCaptainLL:
         """Creates new team and saves it in the csv file."""
 
         name: str = team.name
-        captain_id: str = team.captain_id
+        captain_id: str = team.captain_handle
         social_media: str | None = team.social_media
         logo: str = team.logo
 
@@ -91,14 +91,13 @@ class TeamCaptainLL:
                 all_teams_with_semicolon = club.teams
                 break
         all_teams_names: list[str] = all_teams_with_semicolon.split(";")
-        
+
         teams_in_club: list[Team] = []
         teams = self.APIDATA.get_all_team_data()
         for team in teams:
             if team.name in all_teams_names:
                 teams_in_club.append(team)
         return teams_in_club
-
 
     def modify_team_data(self, team: Team):
         self.APIDATA.modify_team_data(team)
@@ -135,12 +134,12 @@ class TeamCaptainLL:
 
                 return tournament
 
-    def get_team_by_captain_id(self, captain_id) -> Team | None:
+    def get_team_by_captain_handle(self, captain_handle) -> Team | None:
         teams = self.APIDATA.get_all_team_data()
 
         for team in teams:
-            if team.captain_id == captain_id:
-                print(team.captain_id, captain_id)
+            if team.captain_handle == captain_handle:
+                print(team.captain_handle, captain_handle)
                 return team
         return None
 
@@ -162,26 +161,30 @@ class TeamCaptainLL:
 
     def get_team_by_name(self, name: str) -> Team | None:
         teams = self.APIDATA.get_all_team_data()
+        players = self.get_players_in_team(name)
+        correct_team = ""
         for team in teams:
             if team.name == name:
-                return team
+                correct_team = team
+        for player in players:
+            if correct_team:
+                correct_team.add_player(player.name)
 
     def get_player_by_name(self, name: str) -> Player | None:
         players = self.APIDATA.get_all_player_data()
         for player in players:
             if player.name == name:
                 return player
-    
 
     def get_all_tournaments_for_captain(self, captain: TeamCaptain) -> list[Tournament]:
         """Returns a list of tournaments that the captain's team is registered for."""
         tournaments_for_captain = []
 
         # Find the team captain is registered for
-        team = self.get_team_by_captain_id(captain.id)
+        team = self.get_team_by_captain_handle(captain.handle)
         if team is None:
             return tournaments_for_captain
-        
+
         # Get all team registrations and all tournaments
         team_registry = self.APIDATA.get_all_team_registry_data()
         tournaments = self.APIDATA.get_all_tournament_data()
@@ -195,22 +198,23 @@ class TeamCaptainLL:
                             tournaments_for_captain.append(tournament)
 
         return tournaments_for_captain
-    
 
-    def get_all_open_tournaments_for_captain(self, captain: TeamCaptain) -> list[Tournament]:
+    def get_all_open_tournaments_for_captain(
+        self, captain: TeamCaptain
+    ) -> list[Tournament]:
         """
         Returns a list of tournaments that the captain's team can register for.
         A tournament is considered open if it has not started yet and the team
         is not already registered for it.
         """
-        
+
         open_tournaments = []
 
         # Find the team captain is registered for
-        team = self.get_team_by_captain_id(captain.id)
+        team = self.get_team_by_captain_handle(captain.handle)
         if team is None:
             return open_tournaments
-        
+
         # Get all team registrations and all tournaments
         team_registry = self.APIDATA.get_all_team_registry_data()
         tournaments = self.APIDATA.get_all_tournament_data()
@@ -225,13 +229,15 @@ class TeamCaptainLL:
             # Check if the team is already registered
             is_registered = False
             for registry in team_registry:
-                if registry.team_id == team.id and registry.tournament_id == tournament.id:
+                if (
+                    registry.team_id == team.id
+                    and registry.tournament_id == tournament.id
+                ):
                     is_registered = True
                     break
-            
+
             # If not registered, add to open tournaments list
             if not is_registered:
                 open_tournaments.append(tournament)
 
         return open_tournaments
-    

@@ -123,17 +123,17 @@ class OrganiserUI:
         tournaments = self.APILL.get_upcoming_tournaments()
         valid_choices = []
         for i in range(len(tournaments)):
-            stringI = str(i)
+            stringI = str(i + 1)
             valid_choices.append(stringI)
         print("MY_TOURNAMENTS_ORG")
         print(format_tournament_table(tournaments))
 
-        print("s. search for tournament \nb. Back \nq. Quit")
+        print("Select a tournament with their respected id or: \nb. Back \nq. Quit")
         choice: str = self.menu_manager.prompt_choice(valid_choices + ["b", "q"])
         print()
         for element in valid_choices:
             if element == choice:
-                self.show_tournament_view(tournaments[int(element)])
+                return self.show_tournament_view(tournaments[int(element)])
 
         if choice == "b":
             return "ORGANISER_MENU"
@@ -142,7 +142,7 @@ class OrganiserUI:
 
         return ""
 
-    def show_tournament_view(self, tournament: Tournament): 
+    def show_tournament_view(self, tournament: Tournament):
         """takes in a tournament name and shows the menu for the tournament"""
 
         if tournament:

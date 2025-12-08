@@ -75,14 +75,14 @@ class APILL:
     
     def get_tournament_by_id(self, tournament_id: str) -> Tournament | None:
         return self.team_captain_ll.get_tournament_by_id(tournament_id)
-    
-    def get_team_by_captain_id(self, id) -> Team | None:
-        return self.team_captain_ll.get_team_by_captain_id(id)
-    
-    def get_all_club_stat(self)->list[ClubStat]:
-        return self.userLL.get_all_club_stat()
-      
-    def show_all_tournaments_for_captain(self, captain: TeamCaptain) -> list[Tournament]:
+
+    def get_team_by_captain_id(self, handle) -> Team | None:
+        return self.team_captain_ll.get_team_by_captain_handle(handle)
+
+    # def get_all_club_stat(self) -> list[ClubStat]:
+    #     return self.userLL.get_all_club_stat()
+
+    def get_all_tournaments_for_captain(self, captain: TeamCaptain) -> list[Tournament]:
         return self.team_captain_ll.get_all_tournaments_for_captain(captain)
 
     def get_all_open_tournaments_for_captain(self,captain: TeamCaptain) -> list[Tournament]:

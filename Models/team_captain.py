@@ -1,7 +1,4 @@
 class TeamCaptain:
-    def __init__(self, id: str, username: str, password: str, team_id: str, name: str):
-        self.id = id
-        self.username = username
-        self.password = password
+    def __init__(self, team_id: str, handle: str):
         self.team_id = team_id
-        self.name = name
+        self.handle = handle

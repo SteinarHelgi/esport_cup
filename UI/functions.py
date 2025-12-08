@@ -28,7 +28,7 @@ def format_tournament_table(tournaments: list[Tournament]):
         e_date = str(tournament.end_date).split(" ")[0]
 
         # Print the actual variables (tournament.name), not the string "NAME"
-        empty_string += f"{counter:>{w_id}}.{tournament.name:<{w_name}}{s_date:^{w_date}}|{e_date:^{w_date}}{tournament.game_id:>{w_game}}\n"
+        empty_string += f"{counter + 1:>{w_id}}.{tournament.name:<{w_name}}{s_date:^{w_date}}|{e_date:^{w_date}}{tournament.game_id:>{w_game}}\n"
         empty_string += divider_Line
 
     return empty_string
@@ -38,10 +38,10 @@ def format_team_list(teams: list[Team]):  # TODO add club to this
     # Define fixed widths for columns
     w_name = 30
     w_captain = 25
-    # w_club = 15
+    w_id = 15
 
     # print header
-    print(f"{'TEAM NAME':<{w_name}} {'TEAM CAPTAIN':>{w_captain - 3}}")
+    print(f"{'Id':<{w_id}'TEAM NAME':<{w_name}} {'TEAM CAPTAIN':>{w_captain - 3}}")
 
     # Print a divider line
     line_length = w_name + w_captain

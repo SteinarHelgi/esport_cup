@@ -2,13 +2,13 @@ class Team:
     def __init__(
         self,
         name: str,
-        captain_id: str,
+        captain_handle: str,
         social_media: str | None,
         logo: str,
     ) -> None:
         self.id: str = ""
         self.name: str = name
-        self.captain_id: str = captain_id
+        self.captain_handle: str = captain_handle
         self.social_media: str | None = social_media
         self.logo: str = logo
         self.players: list[str] = []
@@ -21,7 +21,7 @@ class Team:
         ret = []
         ret.append(self.id)
         ret.append(self.name)
-        ret.append(self.captain_id)
+        ret.append(self.captain_handle)
         ret.append(self.social_media)
         ret.append(self.logo)
         ret.append(self.points)
@@ -35,3 +35,4 @@ class Team:
 
     def set_points(self, points: int):
         self.points = points
+
