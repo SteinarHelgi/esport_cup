@@ -1,5 +1,5 @@
 import datetime as dt
-from Models.models import Team
+from Models.team import Team
 
 # player_id,name,date_of_birth,address,phone,email,link,handle,team_name
 

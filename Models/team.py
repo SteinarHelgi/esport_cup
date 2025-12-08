@@ -6,13 +6,13 @@ class Team:
         social_media: str | None,
         logo: str,
     ) -> None:
-        self.id = ""
-        self.name = name
-        self.captain_id = captain_id
-        self.social_media = social_media
-        self.logo = logo
-        self.players = []
-        self.points = 0
+        self.id: str = ""
+        self.name: str = name
+        self.captain_id: str = captain_id
+        self.social_media: str | None = social_media
+        self.logo: str = logo
+        self.players: list[str] = []
+        self.points: int = 0
 
     def __str__(self) -> str:
         return f"Name: {self.name}, Players: {self.players}"

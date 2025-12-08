@@ -63,9 +63,7 @@ for stat in stats:
 #organiser.give_club_points("KR", 5)
 #organiser.give_team_points("Viking Lite", 4)
 #organiser.give_player_points("DanglingPtrDan", 3)
-#teams = teamcaptain.get_all_teams_in_a_club("1")
-#for team in teams:
-#    print(team.name)
+#teams = teamcaptain.get_all_teams_in_a_club("2")
 #teamcaptain.add_team_to_club(team, "1")
 #organiser.create_match(match_to_add)
 #teamcaptain.modify_team_data(team_to_modify)

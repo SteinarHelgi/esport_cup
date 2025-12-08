@@ -12,13 +12,14 @@ class TeamData:
             csvReader = csv.reader(file)
             next(csvReader)
             for line in csvReader:
-                id: str = line[0]
-                name: str = line[1]
-                captain_id: str = line[2]
-                social_media: str = line[3]
-                logo: str = line[4]
-                team = Team(id, name, captain_id, social_media, logo)
-                teams.append(team)
+                if line:
+                    id: str = line[0]
+                    name: str = line[1]
+                    captain_id: str = line[2]
+                    social_media: str = line[3]
+                    logo: str = line[4]
+                    team = Team(name, captain_id, social_media, logo)
+                    teams.append(team)
             return teams
 
     def store_team_data(self, team: Team) -> Team | None:

@@ -6,29 +6,28 @@ class ClubData:
     def __init__(self) -> None:
         self.club_file_path = "Data/club.csv"
 
-
-
     def get_all_club_data(self):
-        
         clubs: list[Club] = []
         with open(self.club_file_path, "r", encoding="utf-8") as file:
             csv_reader = csv.reader(file)
             #Skip header
             next(csv_reader)
             for line in csv_reader:
-                id = line[0]
-                name = line[1]
-                hometown = line[2]
-                logo = line[3]
-                club_colors = line[4]
-                country = line[5]
-                points = int(line[6])
-                teams = line[7]
+                if line:
+                    id = line[0]
+                    name = line[1]
+                    hometown = line[2]
+                    logo = line[3]
+                    club_colors = line[4]
+                    country = line[5]
+                    points = int(line[6])
+                    teams = line[7]
 
-                club = Club(
-                    id, name, hometown, logo, club_colors, country, points, teams
-                )
-                clubs.append(club)
+                    club = Club(name, hometown, logo, club_colors, country, teams)
+                    club.set_id(id)
+                    club.set_points(points)
+    
+                    clubs.append(club)
         return clubs
 
     def store_club_data(self, club: Club) -> Club | None:

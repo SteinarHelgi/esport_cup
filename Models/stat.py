@@ -10,4 +10,4 @@ class Stat:
             self.score_for: int = 0
             self.score_against: int = 0
             self.difference: int = 0
-            self.winning_ratio: int = 0
+            self.winning_ratio: float = 0

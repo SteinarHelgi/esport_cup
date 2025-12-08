@@ -9,7 +9,7 @@ class Club:
         logo: str,
         club_colors: str,
         country: str,
-        teams: list[str],
+        teams: str,
     ) -> None:
         self.id = ""
         self.name = name

@@ -84,13 +84,14 @@ class TeamCaptainLL:
 
     def get_all_teams_in_a_club(self, club_id) -> list[Team]:
         clubs = self.APIDATA.get_all_club_data()
+        all_teams_with_semicolon: str = ""
         for club in clubs:
             if club.id == club_id:
-                all_teams_string = club.teams
+                all_teams_with_semicolon = club.teams
                 break
-        all_teams_names: list[str] = all_teams_string.split(";")
+        all_teams_names: list[str] = all_teams_with_semicolon.split(";")
         
-        teams_in_club: Team = []
+        teams_in_club: list[Team] = []
         teams = self.APIDATA.get_all_team_data()
         for team in teams:
             if team.name in all_teams_names:
