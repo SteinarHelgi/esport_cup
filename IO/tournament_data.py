@@ -43,7 +43,7 @@ class TournamentData:
         return tournaments
 
     def store_tournament_data(self, tournament: Tournament) -> Tournament | None:
-        with open(self.tournament_file_path, "a", encoding="utf-8") as file:
+        with open(self.tournament_file_path, "a", newline="" , encoding="utf-8") as file:
             csvWriter = csv.writer(file)
             try:
                 csvWriter.writerow(tournament.toCSVList())
