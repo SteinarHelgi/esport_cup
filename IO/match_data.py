@@ -1,18 +1,27 @@
 import csv
 from Models.models import Match
-import datetime
 
 
 class MatchData:
+
     def __init__(self) -> None:
         self.match_file_path = "Data/matches.csv"
 
     def get_all_match_data(self) -> list[Match]:
+        """Reads all matches from the CSV file and returns them as a list of Match objects."""
+
         matches: list[Match] = []
+
+        # Open the CSV file in read mode
         with open(self.match_file_path, "r", encoding="utf-8") as file:
             csv_reader = csv.reader(file)
-            next(csv_reader)  # Skip header line
+
+            # Skip header line
+            next(csv_reader, None) 
+
+            # Read each remaining line in the CSV file
             for line in csv_reader:
+                # Skip empty lines if any
                 if line != []:
                     match_id: str = line[0]
                     tournament_id: str = line[1]
@@ -27,7 +36,8 @@ class MatchData:
                     score_b: str = line[10]
                     winner_team_name: str = line[11]
                     completed: str = line[12]
-
+                    
+                    # Create Match object from the CSV line
                     match = Match(
                         tournament_id,
                         round,
@@ -37,16 +47,18 @@ class MatchData:
                         match_time,
                         server_id,
                     )
-
+                    # Set additional attributes that are not in the constructor
                     match.set_id(match_id)
                     match.set_match_number(match_number)
                     match.set_score(score_a, score_b)
                     match.set_winner(winner_team_name, completed)
+
                     matches.append(match)
 
         return matches
 
     def store_match_data(self, match: Match) -> Match | None:
+        """Appends a single match to the CSV file. Returns the match if successful, otherwise None."""
         with open(self.match_file_path, "a", newline="", encoding="utf-8") as file:
             csv_writer = csv.writer(file)
             try:
@@ -55,24 +67,22 @@ class MatchData:
                 return None
         return match
 
-    def register_match_results(
-        self, match_id: str, home_score: int, away_score: int, completed_match: str
-    ) -> Match | None:
-        temp_data = []
+    def register_match_results(self, match_id: str, home_score: int, away_score: int, completed_match: str) -> Match | None:
+        """Updates the results of a given match in the CSV file."""
+        temp_data: list[list[str]] = []
         target_id: str = match_id
 
-        # Creates a temporary data file
+        # Creates a temporary data list
         try:
             with open(self.match_file_path, "r", newline="") as file:
                 reader = csv.reader(file)
 
-                # Read the header row first
                 header = next(reader)
-                temp_data.append(header)  # Add header to the data we are keeping
+                if header:
+                    temp_data.append(header)  
 
                 # Read the rest of the rows
                 for line in reader:
-                    # Check the value in the first column (index 0)
                     if line[0] != target_id:
                         temp_data.append(line)
                     else:
