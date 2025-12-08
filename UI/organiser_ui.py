@@ -142,7 +142,7 @@ class OrganiserUI:
 
         return ""
 
-    def show_tournament_view(self, tournament: Tournament):
+    def show_tournament_view(self, tournament: Tournament): 
         """takes in a tournament name and shows the menu for the tournament"""
 
         if tournament:
