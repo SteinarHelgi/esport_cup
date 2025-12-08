@@ -114,11 +114,6 @@ class TeamCaptainUI:
                             "b to go back to tournament menu or q to quit"
                         )
 
-            # print(formattournamenttable(tournaments))
-            # choose tournament to register for or b and q
-            # register_team_to_tournament(choice)
-            # print("Team has been registered to {tournament}")
-            # print("b to go back to tournament menu or q to quit")
             if choice == "b":
                 return "MY_TEAM"
             if choice == "q":
