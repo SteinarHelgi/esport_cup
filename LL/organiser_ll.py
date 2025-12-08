@@ -1,12 +1,17 @@
 from IO.api_data import APIDATA
+from Models.player import Player
+from Models.player_stat import PlayerStat
 from Models.tournament import Tournament
 from Models.match import Match
 from Models.contact_person import ContactPerson
 from Models.team_registry import TeamRegistry
 from Models.team import Team
-from Models.stat import Stat
+from Models.elimination_stat import EliminationStat
+from Models.player_stat import PlayerStat
+from Models.club_stat import ClubStat
+from Models.club import Club
 import matplotlib.pyplot as plt
-from typing import List, Union
+from typing import Union
 
 class OrganiserLL:
     def __init__(self, api_data: APIDATA) -> None:
@@ -74,7 +79,6 @@ class OrganiserLL:
 
         #Criteria #2 and 3. Check to see if the teams won in the previous round
         round = match.round
-        #If this is the first round, we don't need to check anything
         if round != "R16":
             index = match.rounds.index(round)
             prev_round = match.rounds[index - 1]
@@ -85,7 +89,11 @@ class OrganiserLL:
                         teams_valid.append("Criteria #2")
                     if match.team_b_name == matchcsv.winner_team_name:
                         teams_valid.append("Criteria #3")
-        
+        else:
+            #If this is the first round, we don't need to check anything
+            teams_valid.append("Criteria #2")
+            teams_valid.append("Criteria #3")
+
         #Criteria #4. Check to see if the teams have already been registered to this round
         criteria = True
         for matchcsv in matches:
@@ -147,7 +155,7 @@ class OrganiserLL:
         return all_teams_in_tournament
 
     def register_match_result(
-        self, match_id: str, home_score: int, away_score: int, completed: bool
+        self, match_id: str, home_score: int, away_score: int, completed: str
     ):
         self.api_data.register_match_results(
             match_id, home_score, away_score, completed
@@ -162,7 +170,7 @@ class OrganiserLL:
     def give_club_points(self, club_name: str, points: int):
         self.api_data.give_club_points(club_name, points)
     
-    def get_player_stats(self):
+    def show_player_stats_bar_chart(self):
         """Retrieves player points and shows a bar chart of the top players"""
         players = self.api_data.get_all_player_data()
         stats: list[list[Union[int, str]]] = []
@@ -184,13 +192,14 @@ class OrganiserLL:
         plt.bar(handle, points)
         plt.show()
 
-    def show_elimination_stats(self, tournament_id):
+    def get_elimination_stats(self, tournament_id):
         matches = self.api_data.get_all_match_data()
         team_registry = self.api_data.get_all_team_registry_data()
-        stats: list[Stat] = []
+        teams = self.api_data.get_all_team_data()
+        stats: list[EliminationStat] = []
         for registry in team_registry:
             if registry.tournament_id == tournament_id:
-                stat = Stat(registry.team_name)
+                stat = EliminationStat(registry.team_name)
                 for match in matches:
                     if match.completed == "TRUE":
                         if match.team_a_name == stat.team_name:
@@ -208,11 +217,39 @@ class OrganiserLL:
                     stat.winning_ratio = 0
                 else:
                     stat.winning_ratio = stat.won/stat.games_played * 100
+                for team in teams:
+                    if team.name == registry.team_name:
+                        stat.points = team.points
+                        break
                 stats.append(stat)
             
         sorted_by_winning_ratio = sorted(stats, key=lambda s: s.winning_ratio, reverse = True)
         
         return sorted_by_winning_ratio
-                    
-                
 
+    def get_all_player_stat(self, tournament_id) -> list[PlayerStat]:
+        all_player_stats: list[PlayerStat] = []
+        matches: list[Match] = self.api_data.get_all_match_data()
+        players: list[Player] = self.api_data.get_all_player_data()
+        elimination_stat: list[EliminationStat] = self.get_elimination_stats(tournament_id)
+        for player in players:
+            team_name = player.team_name
+            player_stat: PlayerStat = PlayerStat(player.handle)
+            player_stat.points = player.points
+            for stat in elimination_stat:
+                if stat.team_name == team_name:
+                    player_stat.games_played = int(stat.games_played)
+                    player_stat.won = int(stat.won)
+                    player_stat.lost = int(stat.lost)
+                    player_stat.winning_ratio = float(stat.winning_ratio)
+            all_player_stats.append(player_stat)
+        return all_player_stats
+    
+    def get_player_stat(self, player_handle, tournament_id) -> PlayerStat | None:
+        all_player_stat = self.get_all_player_stat(tournament_id)
+        for player_stat in all_player_stat:
+            if player_stat.player_handle == player_handle:
+                return player_stat
+        return None
+    
+    
