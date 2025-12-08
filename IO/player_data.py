@@ -84,7 +84,7 @@ class PlayerData:
         except:
             return None
 
-        #add the modified player to the database
+        # add the modified player to the database
         self.store_player_data(player)
 
     def delete_player_data(self, player_id: str) -> None:
@@ -154,14 +154,14 @@ class PlayerData:
                             points = int(line[9])
 
                             player: Player = Player(
-                            name,
-                            date_of_birth,
-                            address,
-                            phone,
-                            email,
-                            link,
-                            handle,
-                            team_name,
+                                name,
+                                date_of_birth,
+                                address,
+                                phone,
+                                email,
+                                link,
+                                handle,
+                                team_name,
                             )
                             player.set_id(player_id)
                             player.set_points(points + added_points)
@@ -181,5 +181,6 @@ class PlayerData:
         except:
             return None
 
-        #add the modified player to the database
+        # add the modified player to the database
+
         self.store_player_data(player)

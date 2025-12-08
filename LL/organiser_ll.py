@@ -1,12 +1,14 @@
 from IO.api_data import APIDATA
 from Models.player import Player
-from Models.player_stat import PlayerStat
+
+# from Models.player_stat import PlayerStat
 from Models.tournament import Tournament
 from Models.match import Match
 from Models.contact_person import ContactPerson
 from Models.team_registry import TeamRegistry
 from Models.team import Team
 from Models.club import Club
+
 
 class OrganiserLL:
     def __init__(self, api_data: APIDATA) -> None:
@@ -50,29 +52,29 @@ class OrganiserLL:
 
     def create_match(self, match: Match) -> Match | None:
         round = match.round
-        
+
         matches = self.api_data.get_all_match_data()
         next_id = max(int(match.match_id) for match in matches) + 1
         match.set_id(next_id)
 
-        #Finding the max match number for the specific round we are playing
-        max_match_number: int  = 0
+        # Finding the max match number for the specific round we are playing
+        max_match_number: int = 0
         for matchcsv in matches:
             if round == matchcsv.round:
                 if int(matchcsv.match_number) > max_match_number:
                     max_match_number = int(matchcsv.match_number)
-                
+
         next_match_number = max_match_number + 1
         match.set_match_number(next_match_number)
 
-        #This tracks the 4 criteria needed to validate a match
+        # This tracks the 4 criteria needed to validate a match
         teams_valid: list[str] = []
 
-        #Critera #1
+        # Critera #1
         if match.team_a_name != match.team_b_name:
             teams_valid.append("criteria #1")
 
-        #Criteria #2 and 3. Check to see if the teams won in the previous round
+        # Criteria #2 and 3. Check to see if the teams won in the previous round
         round = match.round
         if round != "R16":
             index = match.rounds.index(round)
@@ -85,28 +87,34 @@ class OrganiserLL:
                     if match.team_b_name == matchcsv.winner_team_name:
                         teams_valid.append("Criteria #3")
         else:
-            #If this is the first round, we don't need to check anything
+            # If this is the first round, we don't need to check anything
             teams_valid.append("Criteria #2")
             teams_valid.append("Criteria #3")
 
-        #Criteria #4. Check to see if the teams have already been registered to this round
+        # Criteria #4. Check to see if the teams have already been registered to this round
         criteria = True
         for matchcsv in matches:
             if round == matchcsv.round:
-                if match.team_a_name == matchcsv.team_a_name or match.team_a_name == matchcsv.team_b_name:
+                if (
+                    match.team_a_name == matchcsv.team_a_name
+                    or match.team_a_name == matchcsv.team_b_name
+                ):
                     criteria = False
-                if match.team_b_name == matchcsv.team_b_name or match.team_b_name == matchcsv.team_b_name:
+                if (
+                    match.team_b_name == matchcsv.team_b_name
+                    or match.team_b_name == matchcsv.team_b_name
+                ):
                     criteria = False
         if criteria:
             teams_valid.append("Criteria #4")
 
-        #Critera #5 - Checking to see if a server is free
+        # Critera #5 - Checking to see if a server is free
         server_names = [
-             "SRV-PEPSI",
-             "SRV-CHUCK",
-             "SRV-DATALAB",
-             "SRV-BOMBLAB",
-             "SRV-DUSTY",
+            "SRV-PEPSI",
+            "SRV-CHUCK",
+            "SRV-DATALAB",
+            "SRV-BOMBLAB",
+            "SRV-DUSTY",
         ]
 
         # 4 values means all criteria was met and we can add the match to matches.csv
@@ -167,11 +175,10 @@ class OrganiserLL:
 
     def give_player_points(self, handle: str, points: int):
         self.api_data.give_player_points(handle, points)
-    
+
     def give_team_points(self, team_name: str, points: int):
         self.api_data.give_team_points(team_name, points)
-    
+
     def give_club_points(self, club_name: str, points: int):
         self.api_data.give_club_points(club_name, points)
-    
-    
+

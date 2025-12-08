@@ -18,12 +18,13 @@ class UserUI:
         print("1.Search for team \nb.Back \nq.Quit")
 
         choice: str = self.menu_manager.prompt_choice(["1", "b", "q"])
-        if choice == "1": #TODO Functionality for looking at teams
+        if choice == "1":  # TODO Functionality for looking at teams
             search_for_team = input("Enter team name for details: ")
         if choice.lower() == "b":
             return "USER_MENU"
 
         return "QUIT"
+
     def show_tournaments(self) -> str:
         tournaments = self.APILL.get_all_tournaments()
         valid_options = ["1", "2", "3", "b", "q"]
@@ -50,7 +51,7 @@ class UserUI:
         print("Ongoing Tournaments:")
         print(format_tournament_table(tournaments))
         print("b.Back \nq.Quit")
-        #TODO Detailed tournaments look
+        # TODO Detailed tournaments look
         choice: str = self.menu_manager.prompt_choice(["b", "q"])
 
         if choice.lower() == "b":

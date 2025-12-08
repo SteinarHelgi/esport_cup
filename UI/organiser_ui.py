@@ -123,7 +123,7 @@ class OrganiserUI:
         tournaments = self.APILL.get_upcoming_tournaments()
         valid_choices = []
         for i in range(len(tournaments)):
-            stringI = str(i)
+            stringI = str(i + 1)
             valid_choices.append(stringI)
         print("MY_TOURNAMENTS_ORG")
         print(format_tournament_table(tournaments))
@@ -142,7 +142,7 @@ class OrganiserUI:
 
         return ""
 
-    def show_tournament_view(self, tournament: Tournament): 
+    def show_tournament_view(self, tournament: Tournament):
         """takes in a tournament name and shows the menu for the tournament"""
 
         if tournament:
