@@ -1,18 +1,10 @@
 ## LOGIC- TODO 
-5. vantar create match sem tekur inn ókláraðann match clasa og klárar 
-create match þarf að athuga hvort lið sé skráð í annað match á þessari dagsetningu á þessum tíma
 
 ##LOGIC - Þröstur
 Create schedule fyrir 16 liða úrslit. Leikur tekur 2 klst
 Klára get club stats
 
-
-
-* gera get_team_by_captain_id() fall til þess að vita hvaða er
-*
-
 TODO:
-show all tournaments for captain í apiLL
 create match þarf að ákveða server id og athuga hvort serverid se upptekið
 
 
