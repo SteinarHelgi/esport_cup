@@ -86,6 +86,12 @@ class UserUI:
     def show_tournament_view(self, tournament: Tournament, time: str):
         """takes in a tournament name and shows the menu for the tournament"""
 
+        w_team = 26
+        w_date = 12
+        w_time = 12
+        w_round = 8
+        w_vs = 4
+        w_completed = 10
         if tournament:
             print(
                 f"{tournament.name.upper()}  |  {tournament.start_date} -- {tournament.end_date} "
@@ -93,8 +99,21 @@ class UserUI:
             print("--------------------")
             print(" ")
             print("Matches: ")
+            header = (
+                f"{'Team 1':<{w_team}}"
+                f"{'vs':^{w_vs}}"
+                f"{'Team 2':>{w_team}} "
+                f"{'Date':^{w_date}}"
+                f"{'Time':^{w_time}}"
+                f"{'Round':>{w_round}}"
+                f"{'Completed':>{w_completed}}"
+                f"{'Winner':<{w_team}}"
+            )
+            print(header)
+            print("-" * len(header))
             for match in tournament.matches:
                 print(f"{match}")
+
             print("")
             print("b. Back")
             print("q. Quit")

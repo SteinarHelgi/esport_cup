@@ -155,27 +155,49 @@ class OrganiserUI:
     def show_tournament_view(self, tournament: Tournament):
         """takes in a tournament name and shows the menu for the tournament"""
 
+        w_team = 26
+        w_date = 12
+        w_time = 12
+        w_round = 8
+        w_vs = 4
+        w_completed = 10
         if tournament:
             print(
                 f"{tournament.name.upper()}  |  {tournament.start_date} -- {tournament.end_date} "
             )
             print("--------------------")
             print(" ")
-            for match in tournament.matches:
-                print(f"    Matches: {match}")
-            print("1. Add match")
-            print("")
-            print("b. Back")
-            print("q. Quit")
+            print("Matches: ")
+            header = (
+                f"{'Team 1':<{w_team}}"
+                f"{'vs':^{w_vs}}"
+                f"{'Team 2':>{w_team}} "
+                f"{'Date':^{w_date}}"
+                f"{'Time':^{w_time}}"
+                f"{'Round':>{w_round}}"
+                f"{'Completed':>{w_completed}}"
+                f"{'Winner':<{w_team}}"
+            )
+            print(header)
+            print("-" * len(header))
+            valid_choices = []
+            counter = 1
+            for counter, match in enumerate(tournament.matches):
+                valid_choices.append(str(counter + 1))
+                print(f"{counter}. {match}")
+            print("c. Create new match\nb. Back\nq. Quit")
+            choice: str = self.menu_manager.prompt_choice(
+                valid_choices + ["c", "b", "q"]
+            )
+            if choice in valid_choices:
+                return self.show_register_results(tournament.matches[int(choice) - 1])
 
-        choice: str = self.menu_manager.prompt_choice(["1", "2", "b", "q"])
-        if choice == "1":
-            return self.show_create_match(tournament)
-
-        if choice == "b":
-            return "MY_TOURNAMENTS_ORG"
-        if choice == "q":
-            return "QUIT"
+            if choice == "c":
+                return self.show_create_match(tournament)
+            if choice == "b":
+                return "MY_TOURNAMENTS_ORG"
+            if choice == "q":
+                return "QUIT"
 
     def show_create_match(self, tournament: Tournament):
         prompts = [
@@ -185,23 +207,26 @@ class OrganiserUI:
             "Date YYYY-MM-DD: ",
             "Time HH-MM-SS: ",
         ]
-        user_inputs = []
+        user_inputs = {}
+
         for prompt in prompts:
             current_input = input(prompt)
-            user_inputs.append(current_input)
+            user_inputs[prompt] = current_input
         # match_id,*tournament_id,*round,match_number,*team_a_name,*team_b_name,*match_date,*match_time,server_id,score_a,score_b,winner_team_name,completed
         match = Match(
             tournament.id,
-            user_inputs[0],
-            user_inputs[1],
-            user_inputs[2],
-            user_inputs[3],
-            user_inputs[4],
+            user_inputs["Round: "],
+            user_inputs["Team 1: "],
+            user_inputs["Team 2: "],
+            user_inputs["Date YYYY-MM-DD: "],
+            user_inputs["Time HH-MM-SS: "],
         )
-        self.APILL.create_match(match)
-
+        match = self.APILL.create_match(match)
         # Get information about matc
-        print(*user_inputs)
+        if match:
+            print("Match created with id: ", match.match_id)
+        else:
+            print("Match not created")
 
         pass
 
