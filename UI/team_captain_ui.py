@@ -79,7 +79,7 @@ class TeamCaptainUI:
         if team:
             tournaments = self.APILL.get_my_tournaments(team)
             print(f.format_tournament_table(tournaments))
-        print("r. Register for new tournament\n b. Back\nq. Quit")
+        print("r. Register for new tournament\nb. Back\nq. Quit")
         choice: str = self.menu_manager.prompt_choice(["r", "b", "q"])
         if choice == "r": #TODO
             #Get all tournaments open for captain = tournaments

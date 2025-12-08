@@ -10,7 +10,7 @@ from Models.elimination_stat import EliminationStat
 from Models.player_stat import PlayerStat
 from Models.club_stat import ClubStat
 from Models.club import Club
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 from typing import Union
 
 class OrganiserLL:
