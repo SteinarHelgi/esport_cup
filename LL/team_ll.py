@@ -1,6 +1,8 @@
 from IO.api_data import APIDATA
 from Models.models import Team, Tournament, Player, TeamRegistry
 
+MIN_PLAYERS_PER_TEAM = 3
+MAX_PLAYERS_PER_TEAM = 5
 
 class TeamLL:
     def __init__(self, api_data: APIDATA, main_ll):
@@ -37,6 +39,14 @@ class TeamLL:
 
         # Fetch all player data
         current_players = self.APIDATA.get_all_player_data()
+
+        # Max 5 players in a team
+        players_in_team = [
+            p for p in current_players if p.team_name == player.team_name
+        ]
+        if len(players_in_team) >= 5:
+            raise ValueError()
+
 
         # Checking if player handle is available
         for p in current_players:
@@ -96,11 +106,14 @@ class TeamLL:
 
         return new_team
 
-    def modify_team_data(self, team: Team):
-        self.APIDATA.modify_team_data(team)
-        pass
+    def modify_team_data(self, team: Team) -> Team | None:
+        return self.APIDATA.modify_team_data(team)
 
     def register_team_to_tournament(self, team: Team, tournament: Tournament) -> None:
+        players_in_team = self.get_players_in_team(team.name)
+        num_players = len(players_in_team)
+        if num_players < MIN_PLAYERS_PER_TEAM or num_players > MAX_PLAYERS_PER_TEAM:
+            raise ValueError
         team_id: str = team.id
         tournament_id: str = tournament.id
         team_name: str = team.name

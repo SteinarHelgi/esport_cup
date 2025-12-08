@@ -50,7 +50,7 @@ class APIDATA:
 
     def store_match_data(self, match: Match):
         return self.match_data.store_match_data(match)
-    
+
     def get_all_player_data(self) -> list[Player]:
         return self.player_data.get_all_player_data()
 
@@ -68,36 +68,41 @@ class APIDATA:
 
     def store_tournament_data(self, tournament: Tournament):
         return self.tournament_data.store_tournament_data(tournament)
-    
+
     def get_all_team_registry_data(self) -> list[TeamRegistry]:
         return self.team_registry_data.get_all_team_registry_data()
 
     def store_team_registry_data(self, team_registry: TeamRegistry):
         return self.team_registry_data.store_team_registry_data(team_registry)
-    
+
     def modify_player_data(self, player: Player):
         return self.player_data.modify_player_data(player)
-    
+
     def delete_player_data(self, player_id: str):
         return self.player_data.delete_player_data(player_id)
-    
+
     def delete_tournament_data(self, tournament_id: str):
         return self.tournament_data.delete_tournament_data(tournament_id)
-    
-    def register_match_results(self, match_id: str, home_score: int, away_score: int, completed_match: str):
-        return self.match_data.register_match_results(match_id, home_score, away_score, completed_match)
-    
-    def modify_team_data(self, team: Team):
+
+    def register_match_results(
+        self, match_id: str, home_score: int, away_score: int, completed_match: str
+    ):
+        return self.match_data.register_match_results(
+            match_id, home_score, away_score, completed_match
+        )
+
+    def modify_team_data(self, team: Team) -> Team | None:
         return self.team_data.modify_team_data(team)
-    
+
     def add_team_to_club(self, team: Team, club_id: str):
         return self.club_data.add_team_to_club(team, club_id)
-    
+
     def give_player_points(self, handle: str, points: int):
         return self.player_data.give_player_points(handle, points)
-    
+
     def give_team_points(self, team_name: str, points: int):
         return self.team_data.give_team_points(team_name, points)
-    
+
     def give_club_points(self, club_name: str, points: int):
         return self.club_data.give_club_points(club_name, points)
+
