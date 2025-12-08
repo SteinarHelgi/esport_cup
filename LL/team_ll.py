@@ -45,7 +45,7 @@ class TeamLL:
             p for p in current_players if p.team_name == player.team_name
         ]
         if len(players_in_team) >= 5:
-            raise ValueError
+            raise ValueError()
 
 
         # Checking if player handle is available
