@@ -3,6 +3,8 @@
 
 from os import name
 
+from Models.tournament import Tournament
+
 
 def login_credentials_menu():  # logging in as organiser
     username = "Chuck Norris"
@@ -86,24 +88,24 @@ def create_contact_person_menu():
     confirmation = input("Confirm(Y/N): ")
 
 
-def tournament_created_menu():
-    tournament_name = "Chuck Norris Open"
-    venue = "Everywhere"
-    game = "Chuck Norris's Wrath"
-    print(
-        f"TOURNAMENT CREATED! \nOpen for registration \n{tournament_name} \n{venue} \n{game} \nq.Quit"
+def tournament_created_menu(tournament: Tournament):
+    tournament_name = tournament.name
+    venue = tournament.venue
+    game = tournament.game_id
+    return(
+        f"TOURNAMENT CREATED! \nOpen for registration \n{tournament_name} \n{venue} \n{game}"
     )
 
 
-def my_tournaments_menu():
-    my_created_tournaments = [
-        "Chuck Norris Open",
-        "Paris Major",
-        "Steinar's Cock Wrestling",
-    ]
-    print(
-        f"TOURNAMENTS YOU HAVE CREATED! \n{my_created_tournaments} \nb.Back \nq. Quit"
-    )  # TODO Delete tournament?
+#def my_tournaments_menu():
+#    my_created_tournaments = [
+#        "Chuck Norris Open",
+#        "Paris Major",
+#        "Steinar's Cock Wrestling",
+#    ]
+#    print(
+#        f"TOURNAMENTS YOU HAVE CREATED! \n{my_created_tournaments} \nb.Back \nq. Quit"
+#    )  # TODO Delete tournament?
 
 
 # Eftir að klára og skoða betur
