@@ -1,15 +1,18 @@
 from datetime import datetime
 from LL.api_ll import APILL
 from Models.match import Match
+from Models.player import Player
+from Models.team import Team
 from Models.tournament import Tournament
 from UI.Menus import tournament_created_menu
-from UI.functions import format_tournament_table
+from UI.functions import format_player_list, format_team_list, format_tournament_table
 
 
 class OrganiserUI:
     def __init__(self, APILL: APILL, menu_manager) -> None:
         self.APILL = APILL
         self.menu_manager = menu_manager
+        self.team_to_view: Team
 
     def show_create_tournament(
         self,
@@ -265,3 +268,63 @@ class OrganiserUI:
     def show_give_points(self):
         # TODO
         pass
+    
+    def show_teams_org(self):
+        teams = self.APILL.get_all_teams()
+        print(format_team_list(teams))
+        print("Select which team you would like to look at: \nb.Back \nq.Quit")
+
+        valid_choices = []
+        for counter, team in enumerate(teams):
+            valid_choices.append(str(counter))
+
+        choice: str = self.menu_manager.prompt_choice(valid_choices + ["b", "q"])
+
+        if choice in valid_choices:
+            self.team_to_view = teams[int(choice) - 1]
+            return self.show_players_in_team_org()
+
+        if choice.lower() == "b":
+            return "ORGANISER_MENU"
+
+        return "QUIT"
+    def show_players_in_team_org(self):
+        team = self.team_to_view
+        if team != "":
+            players = self.APILL.get_players_in_team(team.name)
+            valid_choices = []
+            print(format_player_list(players))
+            print("b. Back \nq.Quit")
+            for i in range(len(players)):
+                stringI = str(i + 1)
+                valid_choices.append(stringI)
+            choice: str = self.menu_manager.prompt_choice(
+                valid_choices + ["b", "q"]
+            )
+
+            for element in valid_choices:
+                if element == choice:
+                    player = self.show_players_with_personal_info_org(players[int(element) - 1])
+                    return player
+
+            if choice.lower() == "q":
+                return "QUIT"
+            if choice.lower() == "b":
+                return "TEAMS_ORG"
+    def show_players_with_personal_info_org(self, player: Player):
+        if player:
+            team = self.APILL.get_team_by_name(player.team_name)
+            print(f"{player.name.upper()}  |  {player.handle} ")
+            print("-" * len(f"    SOCIAL MEDIA: {player.social_media}"))
+
+            print(f"    DATE OF BIRTH: {player.date_of_birth}")
+            print(f"    ADDRESS: {player.address}")
+            print(f"    PHONE: {player.phone_number}")
+            print(f"    EMAIL: {player.email}")
+            print(f"    HANDLE: {player.handle}")
+            print(f"    SOCIAL MEDIA: {player.social_media}")
+            print(f"    TEAM: {player.team_name}")
+            print("-" * len(f"    SOCIAL MEDIA: {player.social_media}"))
+            input("Enter to return")
+            if team:
+                return "SHOW_PLAYERS_IN_TEAM_ORG"
