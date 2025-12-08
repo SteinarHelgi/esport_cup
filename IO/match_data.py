@@ -45,14 +45,13 @@ class MatchData:
                         team_b_name,
                         match_date,
                         match_time,
-                        server_id,
                     )
                     # Set additional attributes that are not in the constructor
                     match.set_id(match_id)
                     match.set_match_number(match_number)
                     match.set_score(score_a, score_b)
                     match.set_winner(winner_team_name, completed)
-
+                    match.set_server_id(server_id)
                     matches.append(match)
 
         return matches

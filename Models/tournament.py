@@ -40,6 +40,9 @@ class Tournament:
     def set_id(self, id):
         self.id = id
 
+    def add_team(self, team):
+        self.teams.append(team)
+
     def add_match(self, match: Match):
         self.matches.append(match)
 

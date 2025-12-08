@@ -181,4 +181,3 @@ class OrganiserLL:
 
     def give_club_points(self, club_name: str, points: int):
         self.api_data.give_club_points(club_name, points)
-
