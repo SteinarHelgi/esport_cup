@@ -73,14 +73,24 @@ class OrganiserUI:
                 amount_of_servers,
                 new_contact_person[0],
             )
+            
 
-            if self.APILL.create_tournament(new_tournament) == "OK":
-                val = self.tournament_created(new_tournament)
-                print(new_tournament)
-                return "ORGANISER_MENU"
+            if self.APILL.create_tournament(new_tournament):
+                #val = self.tournament_created(new_tournament)
+                print(tournament_created_menu((new_tournament)))
+                enter_for_ok = input("Enter for ok or q to quit")
+                if enter_for_ok == "q":
+                    return "QUIT"
+                else:
+                    return "ORGANISER_MENU"
+
             else:
                 print("Tournament could not be created, contact developer")
+                enter_for_ok = input("Enter for ok or q to quit")
+                if enter_for_ok == "q":
+                    return "QUIT"
                 return "ORGANISER_MENU"
+                
         return "ORGANISER_MENU"
 
     def create_contact_person_menu(
@@ -111,7 +121,7 @@ class OrganiserUI:
             ]
             return returnlist
 
-    def tournament_created(self, tournament: Tournament):
+    def tournament_created(self, tournament: Tournament) -> str:
         tournament_name = tournament.name
         venue = tournament.venue
         game = tournament.game_id
@@ -145,27 +155,49 @@ class OrganiserUI:
     def show_tournament_view(self, tournament: Tournament):
         """takes in a tournament name and shows the menu for the tournament"""
 
+        w_team = 26
+        w_date = 12
+        w_time = 12
+        w_round = 8
+        w_vs = 4
+        w_completed = 10
         if tournament:
             print(
                 f"{tournament.name.upper()}  |  {tournament.start_date} -- {tournament.end_date} "
             )
             print("--------------------")
             print(" ")
-            for match in tournament.matches:
-                print(f"    Matches: {match}")
-            print("1. Add match")
-            print("")
-            print("b. Back")
-            print("q. Quit")
+            print("Matches: ")
+            header = (
+                f"{'Team 1':<{w_team}}"
+                f"{'vs':^{w_vs}}"
+                f"{'Team 2':>{w_team}} "
+                f"{'Date':^{w_date}}"
+                f"{'Time':^{w_time}}"
+                f"{'Round':>{w_round}}"
+                f"{'Completed':>{w_completed}}"
+                f"{'Winner':<{w_team}}"
+            )
+            print(header)
+            print("-" * len(header))
+            valid_choices = []
+            counter = 1
+            for counter, match in enumerate(tournament.matches):
+                valid_choices.append(str(counter + 1))
+                print(f"{counter}. {match}")
+            print("c. Create new match\nb. Back\nq. Quit")
+            choice: str = self.menu_manager.prompt_choice(
+                valid_choices + ["c", "b", "q"]
+            )
+            if choice in valid_choices:
+                return self.show_register_results(tournament.matches[int(choice) - 1])
 
-        choice: str = self.menu_manager.prompt_choice(["1", "2", "b", "q"])
-        if choice == "1":
-            return self.show_create_match(tournament)
-
-        if choice == "b":
-            return "MY_TOURNAMENTS_ORG"
-        if choice == "q":
-            return "QUIT"
+            if choice == "c":
+                return self.show_create_match(tournament)
+            if choice == "b":
+                return "MY_TOURNAMENTS_ORG"
+            if choice == "q":
+                return "QUIT"
 
     def show_create_match(self, tournament: Tournament):
         prompts = [
@@ -175,29 +207,57 @@ class OrganiserUI:
             "Date YYYY-MM-DD: ",
             "Time HH-MM-SS: ",
         ]
-        user_inputs = []
+        user_inputs = {}
+
         for prompt in prompts:
             current_input = input(prompt)
-            user_inputs.append(current_input)
+            user_inputs[prompt] = current_input
         # match_id,*tournament_id,*round,match_number,*team_a_name,*team_b_name,*match_date,*match_time,server_id,score_a,score_b,winner_team_name,completed
         match = Match(
             tournament.id,
-            user_inputs[0],
-            user_inputs[1],
-            user_inputs[2],
-            user_inputs[3],
-            user_inputs[4],
+            user_inputs["Round: "],
+            user_inputs["Team 1: "],
+            user_inputs["Team 2: "],
+            user_inputs["Date YYYY-MM-DD: "],
+            user_inputs["Time HH-MM-SS: "],
         )
-        self.APILL.create_match(match)
-
+        match = self.APILL.create_match(match)
         # Get information about matc
-        print(*user_inputs)
+        if match:
+            print("Match created with id: ", match.match_id)
+        else:
+            print("Match not created")
 
         pass
 
-    def show_register_results(self):
-        # TODO
-        pass
+    def show_register_results(self, match: Match):
+        print("Which team won the match? ")
+        print(f"1. {match.team_a_name}")
+        print(f"2. {match.team_b_name}")
+        winner = input("1 or 2, b to back and q to quit")
+        if winner == "1":
+            match.set_winner(match.team_a_name)
+            print(f"{match.winner_team_name} has been set as the winner of this match")
+            choice: str = self.menu_manager.prompt_choice(["b", "q"])
+            print("b to back or q to quit")
+            if choice == "b":
+                return "MY_TOURNAMENTS_ORG"
+            if choice == "q":
+                return "QUIT"
+
+        if winner == "2":
+            match.set_winner(match.team_b_name)
+            print(f"{match.winner_team_name} has been set as the winner of this match")
+            print("b to back or q to quit")
+            choice: str = self.menu_manager.prompt_choice(["b", "q"])
+            if choice == "b":
+                return "MY_TOURNAMENTS_ORG"
+            if choice == "q":
+                return "QUIT"
+        if winner == "b":
+            return "MY_TOURNAMENTS_ORG"
+        if winner == "q":
+            return "QUIT"
 
     def show_delete_tournament(self):
         # TODO
