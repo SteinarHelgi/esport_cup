@@ -43,7 +43,7 @@ class Match:
         ]
 
     def __str__(self) -> str:
-        return f"{self.team_1_id} vs {self.team_2_id} {self.match_date} at {self.match_time}"
+        return f"{self.team_a_name} vs {self.team_b_name} {self.match_date} at {self.match_time}"
 
     def set_id(self, id):
         self.match_id = id
