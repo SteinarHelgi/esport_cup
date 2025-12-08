@@ -205,7 +205,7 @@ class TeamCaptainUI:
             w_logo = 15
             w_captain = 15
 
-            team_data_string = f"| CLUB | {team.name:^{w_name}} | {team.social_media:^{w_social}} |  {team.logo:^{w_logo}} |  {team.captain_id:^{w_captain}} |"
+            team_data_string = f"| CLUB | {team.name:^{w_name}} | {team.social_media:^{w_social}} |  {team.logo:^{w_logo}} |  {team.captain_handle:^{w_captain}} |"
 
             print("-" * len(team_data_string))
             print(team_data_string)
@@ -292,7 +292,6 @@ class TeamCaptainUI:
         self.tournament = tournament
         registration = self.APILL.register_team_to_tournament(team, tournament)
 
-        pass
 
     def show_update_team_data(self):
         # TODO b krafa
@@ -305,3 +304,12 @@ class TeamCaptainUI:
     def show_create_team(self):
         # TODO c krafa
         pass
+
+    def add_information_about_team():
+        #TODO
+        pass
+
+    def show_add_team_to_club():
+        #TODO
+        pass
+    
