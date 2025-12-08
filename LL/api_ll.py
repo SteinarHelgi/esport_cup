@@ -103,7 +103,7 @@ class APILL:
     def get_all_teams_on_tournament(self, target_tournament_id: str) -> list[Team]:
         return self.organiser_ll.get_all_teams_on_tournament(target_tournament_id)
     
-    def register_match_result(self, match_id: str, home_score: int, away_score: int, completed: bool):
+    def register_match_result(self, match_id: str, home_score: int, away_score: int, completed: str):
         return self.organiser_ll.register_match_result(match_id, home_score, away_score, completed)
     
     def get_tournament_by_name(self, tournament_name) -> Tournament | None:
@@ -124,14 +124,14 @@ class APILL:
     def give_club_points(self, club_name: str, points: int):
         return self.organiser_ll.give_club_points(club_name, points)
     
-    def show_player_stats_bar_chart(self):
-        return self.userLL.show_player_stats_bar_chart()
+    #def show_player_stats_bar_chart(self):
+    #    return self.userLL.show_player_stats_bar_chart()
     
-    def get_elimination_stats(self, tournament_id):
-        return self.userLL.get_elimination_stats(tournament_id)
+    #def get_elimination_stats(self, tournament_id):
+    #    return self.userLL.get_elimination_stats(tournament_id)
     
-    def get_all_player_stat(self, tournament_id) -> list[PlayerStat]:
-        return self.userLL.get_all_player_stat(tournament_id)
+    #def get_all_player_stat(self, tournament_id) -> list[PlayerStat]:
+    #    return self.userLL.get_all_player_stat(tournament_id)
     
-    def get_player_stat(self, player_handle, tournament_id) -> PlayerStat | None:
-        return self.userLL.get_player_stat(player_handle, tournament_id)
+    #def get_player_stat(self, player_handle, tournament_id) -> PlayerStat | None:
+    #    return self.userLL.get_player_stat(player_handle, tournament_id)
