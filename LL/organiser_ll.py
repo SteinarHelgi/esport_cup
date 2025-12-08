@@ -142,7 +142,7 @@ class OrganiserLL:
                 return self.get_contact_person_by_id(contact_person_id)
         return None
 
-    def show_all_teams_on_tournament(self, target_tournament_id: str) -> list[Team]:
+    def get_all_teams_on_tournament(self, target_tournament_id: str) -> list[Team]:
         # Fetch team registry and search for team_id in a specific tournament id
         team_registry = self.api_data.get_all_team_registry_data()
         all_teams_id_in_tournament: list[str] = []
