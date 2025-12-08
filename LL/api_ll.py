@@ -13,8 +13,8 @@ from Models.models import (
     TeamCaptain,
 )
 from Models.club import Club
-from Models.club_stat import ClubStat
-from Models.player_stat import PlayerStat
+# from Models.club_stat import ClubStat
+# from Models.player_stat import PlayerStat
 
 
 class APILL:
@@ -87,12 +87,10 @@ class APILL:
     def get_team_by_captain_id(self, id) -> Team | None:
         return self.team_captain_ll.get_team_by_captain_id(id)
 
-    def get_all_club_stat(self) -> list[ClubStat]:
-        return self.userLL.get_all_club_stat()
+    # def get_all_club_stat(self) -> list[ClubStat]:
+    #     return self.userLL.get_all_club_stat()
 
-    def show_all_tournaments_for_captain(
-        self, captain: TeamCaptain
-    ) -> list[Tournament]:
+    def get_all_tournaments_for_captain(self, captain: TeamCaptain) -> list[Tournament]:
         return self.team_captain_ll.get_all_tournaments_for_captain(captain)
 
     def get_all_open_tournaments_for_captain(
@@ -142,15 +140,15 @@ class APILL:
     def give_club_points(self, club_name: str, points: int):
         return self.organiser_ll.give_club_points(club_name, points)
 
-    def show_player_stats_bar_chart(self):
-        return self.userLL.show_player_stats_bar_chart()
-
-    def get_elimination_stats(self, tournament_id):
-        return self.userLL.get_elimination_stats(tournament_id)
-
-    def get_all_player_stat(self, tournament_id) -> list[PlayerStat]:
-        return self.userLL.get_all_player_stat(tournament_id)
-
-    def get_player_stat(self, player_handle, tournament_id) -> PlayerStat | None:
-        return self.userLL.get_player_stat(player_handle, tournament_id)
+    # def show_player_stats_bar_chart(self):
+    #     return self.userLL.show_player_stats_bar_chart()
+    #
+    # def get_elimination_stats(self, tournament_id):
+    #     return self.userLL.get_elimination_stats(tournament_id)
+    #
+    # def get_all_player_stat(self, tournament_id) -> list[PlayerStat]:
+    #     return self.userLL.get_all_player_stat(tournament_id)
+    #
+    # def get_player_stat(self, player_handle, tournament_id) -> PlayerStat | None:
+    #     return self.userLL.get_player_stat(player_handle, tournament_id)
 
