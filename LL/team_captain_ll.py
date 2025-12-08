@@ -162,13 +162,11 @@ class TeamCaptainLL:
     def get_team_by_name(self, name: str) -> Team | None:
         teams = self.APIDATA.get_all_team_data()
         players = self.get_players_in_team(name)
-        correct_team = ""
         for team in teams:
             if team.name == name:
-                correct_team = team
-        for player in players:
-            if correct_team:
-                correct_team.add_player(player.name)
+                for player in players:
+                    team.add_player(player.name)
+                return team
 
     def get_player_by_name(self, name: str) -> Player | None:
         players = self.APIDATA.get_all_player_data()

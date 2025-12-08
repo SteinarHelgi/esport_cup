@@ -19,6 +19,7 @@ class TeamData:
                     social_media: str = line[3]
                     logo: str = line[4]
                     team = Team(name, captain_id, social_media, logo)
+                    team.set_id(id)
                     teams.append(team)
             return teams
 
@@ -30,7 +31,7 @@ class TeamData:
             except:
                 return None
         return team
-    
+
     def modify_team_data(self, team: Team) -> None:
         temp_data: list[Team] = []
         target_id: str = team.id
@@ -40,7 +41,7 @@ class TeamData:
             with open(self.team_file_path, "r", newline="") as file:
                 reader = csv.reader(file)
 
-                #Read the header row first and append it to temporary data
+                # Read the header row first and append it to temporary data
                 header = next(reader)
                 temp_data.append(header)
 
@@ -51,22 +52,23 @@ class TeamData:
 
         except FileNotFoundError:
             exit()
-        
-        #Overwrite temporary datafile to csv file
+
+        # Overwrite temporary datafile to csv file
         try:
-            with open(self.team_file_path, "w", newline="", encoding="utf-8") as csvfile:
-                #Create a writer object
+            with open(
+                self.team_file_path, "w", newline="", encoding="utf-8"
+            ) as csvfile:
+                # Create a writer object
                 writer = csv.writer(csvfile)
 
-                #Iterate through the list of strings
+                # Iterate through the list of strings
                 for line in temp_data:
                     writer.writerow(line)
         except:
             return None
-        
-        #add modified team to player database
+
+        # add modified team to player database
         self.store_team_data(team)
-    
 
     def give_team_points(self, team_name: str, added_points: int) -> None:
         temp_data: list[Team] = []
@@ -103,7 +105,9 @@ class TeamData:
 
         # Overwrites temporary datafile to csv file
         try:
-            with open(self.team_file_path, "w", newline="", encoding="utf-8") as csvfile:
+            with open(
+                self.team_file_path, "w", newline="", encoding="utf-8"
+            ) as csvfile:
                 # Create a writer object
                 writer = csv.writer(csvfile)
 
@@ -113,5 +117,6 @@ class TeamData:
         except:
             return None
 
-        #add the modified player to the database
+        # add the modified player to the database
         self.store_team_data(team)
+
