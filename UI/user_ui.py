@@ -2,6 +2,7 @@
 
 from os import name
 from LL.api_ll import APILL
+from Models.tournament import Tournament
 from UI.functions import format_player_list, format_team_list, format_tournament_table
 from Models.models import Team
 from datetime import datetime
@@ -40,11 +41,11 @@ class UserUI:
         choice: str = self.menu_manager.prompt_choice(valid_options)
 
         if choice == "1":
-            return self.show_tournaments_blabla("PAST")
+            return self.show_tournaments_blabla("ONGOING")
         elif choice == "2":
             return self.show_tournaments_blabla("UPCOMING")
         elif choice == "3":
-            return self.show_tournaments_blabla("ONGOING")
+            return self.show_tournaments_blabla("PAST")
         elif choice.lower() == "b":
             return "LOGIN_MENU"
         else:
@@ -69,13 +70,38 @@ class UserUI:
             print("Ongoing Tournaments:")
             print(format_tournament_table(tournaments))
             print("b.Back \nq.Quit")
-        # TODO Detailed tournaments look
-        choice: str = self.menu_manager.prompt_choice(["b", "q"])
+        valid_choices = []
+        for counter, tournament in enumerate(tournaments):
+            valid_choices.append(str(counter + 1))
+
+        choice: str = self.menu_manager.prompt_choice(valid_choices + ["b", "q"])
+        if choice in valid_choices:
+            return self.show_tournament_view(tournaments[int(choice) - 1], time)
 
         if choice.lower() == "b":
             return "TOURNAMENTS"
         else:
             "QUIT"
+
+    def show_tournament_view(self, tournament: Tournament, time: str):
+        """takes in a tournament name and shows the menu for the tournament"""
+
+        if tournament:
+            print(
+                f"{tournament.name.upper()}  |  {tournament.start_date} -- {tournament.end_date} "
+            )
+            print("--------------------")
+            print(" ")
+            print("Matches: ")
+            for match in tournament.matches:
+                print(f"{match}")
+            print("")
+            print("b. Back")
+            print("q. Quit")
+
+        choice: str = self.menu_manager.prompt_choice(["b", "q"])
+        if choice == "b":
+            return self.show_tournaments_blabla(time)
 
     def show_players(self, team: Team):
         players = self.APILL.get_players_in_team(team.name)

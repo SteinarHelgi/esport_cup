@@ -133,7 +133,7 @@ class OrganiserUI:
         print()
         for element in valid_choices:
             if element == choice:
-                return self.show_tournament_view(tournaments[int(element)])
+                return self.show_tournament_view(tournaments[int(element) - 1])
 
         if choice == "b":
             return "ORGANISER_MENU"

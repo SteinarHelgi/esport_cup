@@ -24,7 +24,7 @@ class TeamData:
             return teams
 
     def store_team_data(self, team: Team) -> Team | None:
-        with open(self.team_file_path, "a") as file:
+        with open(self.team_file_path, "a" , newline="" , encoding="utf-8") as file:
             csvWriter = csv.writer(file)
             try:
                 csvWriter.writerow(team.toCSVList())
