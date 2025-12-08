@@ -8,7 +8,7 @@ from Models.club_stat import ClubStat
 from Models.elimination_stat import EliminationStat
 from Models.player_stat import PlayerStat
 import matplotlib.pyplot as plt
-from typing import Union
+from typing import List, Tuple
 
 class UserLL:
     def __init__(self, api_data: APIDATA):
@@ -72,25 +72,28 @@ class UserLL:
 
     def show_player_stats_bar_chart(self):
         """Retrieves player points and shows a bar chart of the top players"""
+        #Breyta stats yfir í dict
         players = self.api_data.get_all_player_data()
-        stats: list[list[Union[int, str]]] = []
+        stats: dict = {}
+        #stats: list[list[Union[int, str]]] = []
         for player in players:
-            results: list[Union[int, str]] = []
-            results = [player.points, player.handle]
-            stats.append(results)
+            stats[player.handle] = player.points
         #Sort the results by points - highest is first.
-        sorted_results = sorted(stats, key=lambda item: item[0], reverse = True)
-        
+        sorted_items: List[Tuple[str, int]] = sorted(stats.items(), key=lambda item: item[1])
+
         #Going to show this many players in our bar chart
         number_of_players_to_display = 5
+        
         #creating the value and keys for the bar chart 
         handle: list[str] = []
         points: list[int] = []
         for i in range(number_of_players_to_display):
-            handle.append(sorted_results[i][1])
-            points.append(sorted_results[i][0])
+            handle.append(sorted_items[i][1])
+            points.append(sorted_items[i][0])
         plt.bar(handle, points)
         plt.show()
+        
+        
 
     def get_elimination_stats(self, tournament_id):
         matches = self.api_data.get_all_match_data()
@@ -154,13 +157,13 @@ class UserLL:
     
     def get_all_club_stat(self)->list[ClubStat]:
         all_clubs_stat: list[ClubStat] = []
-        clubs: list[Club] = self.get_all_club_data()
-        eliminations_stat = #TODO Sækja hér elimination data úr organiser_ll klasanum.
+        #clubs: list[Club] = self.get_all_club_data()
+        #eliminations_stat = #TODO Sækja hér elimination data úr organiser_ll klasanum.
         for club in clubs:
             new_club = ClubStat(club.name)
-            teams_in_club = self.get_all_teams_in_a_club(club.id)
-            for team in teams_in_club:
-                pass
+            #teams_in_club = self.get_all_teams_in_a_club(club.id)
+            #for team in teams_in_club:
+             #   pass
 
 
 

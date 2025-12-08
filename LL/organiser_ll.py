@@ -100,6 +100,15 @@ class OrganiserLL:
         if criteria:
             teams_valid.append("Criteria #4")
 
+        #Critera #5 - Checking to see if a server is free
+        server_names = [
+             "SRV-PEPSI",
+             "SRV-CHUCK",
+             "SRV-DATALAB",
+             "SRV-BOMBLAB",
+             "SRV-DUSTY",
+        ]
+
         # 4 values means all criteria was met and we can add the match to matches.csv
         if len(teams_valid) == 4:
             stored = self.api_data.store_match_data(match)

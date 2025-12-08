@@ -7,6 +7,9 @@ og hvort liðið sé búið að tapa, eða hvort liðið sé í örðu match í 
     - add_team_to_club ***Tilbúið í logic og data***
     - get_all_teams_in_a_club ***TILBÚIÐ Í LOGID OG DATA***
 
+##LOGIC - Þröstur
+Create schedule fyrir 16 liða úrslit. Leikur tekur 2 klst
+Klára get club stats
 
 
 
