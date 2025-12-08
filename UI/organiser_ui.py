@@ -73,14 +73,24 @@ class OrganiserUI:
                 amount_of_servers,
                 new_contact_person[0],
             )
+            
 
-            if self.APILL.create_tournament(new_tournament) == "OK":
-                val = self.tournament_created(new_tournament)
-                print(new_tournament)
-                return "ORGANISER_MENU"
+            if self.APILL.create_tournament(new_tournament):
+                #val = self.tournament_created(new_tournament)
+                print(tournament_created_menu((new_tournament)))
+                enter_for_ok = input("Enter for ok or q to quit")
+                if enter_for_ok == "q":
+                    return "QUIT"
+                else:
+                    return "ORGANISER_MENU"
+
             else:
                 print("Tournament could not be created, contact developer")
+                enter_for_ok = input("Enter for ok or q to quit")
+                if enter_for_ok == "q":
+                    return "QUIT"
                 return "ORGANISER_MENU"
+                
         return "ORGANISER_MENU"
 
     def create_contact_person_menu(
@@ -111,7 +121,7 @@ class OrganiserUI:
             ]
             return returnlist
 
-    def tournament_created(self, tournament: Tournament):
+    def tournament_created(self, tournament: Tournament) -> str:
         tournament_name = tournament.name
         venue = tournament.venue
         game = tournament.game_id
