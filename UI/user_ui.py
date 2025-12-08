@@ -12,20 +12,26 @@ class UserUI:
         self.APILL = APILL
         self.menu_manager = menu_manager
 
-    def show_teams(self) -> str:
+    def show_teams(self):
         teams = self.APILL.get_all_teams()
         print(format_team_list(teams))
-        print("1.Search for team \nb.Back \nq.Quit")
+        print("\nb.Back \nq.Quit")
 
-        choice: str = self.menu_manager.prompt_choice(["1", "b", "q"])
-        if choice == "1":  # TODO Functionality for looking at teams
-            search_for_team = input("Enter team name for details: ")
+        valid_choices = []
+        for counter, team in enumerate(teams):
+            valid_choices.append(str(counter))
+
+        choice: str = self.menu_manager.prompt_choice(valid_choices + ["b", "q"])
+
+        if choice in valid_choices:
+            return self.show_players(teams[int(choice) - 1])
+
         if choice.lower() == "b":
             return "USER_MENU"
 
         return "QUIT"
 
-    def show_tournaments(self) -> str:
+    def show_tournaments(self):
         tournaments = self.APILL.get_all_tournaments()
         valid_options = ["1", "2", "3", "b", "q"]
         print(
@@ -34,23 +40,35 @@ class UserUI:
         choice: str = self.menu_manager.prompt_choice(valid_options)
 
         if choice == "1":
-            return "ONGOING_TOURNAMENTS"
+            return self.show_tournaments_blabla("PAST")
         elif choice == "2":
-            return "UPCOMING_TOURNAMENTS"
+            return self.show_tournaments_blabla("UPCOMING")
         elif choice == "3":
-            return "PAST_TOURNAMENTS"
+            return self.show_tournaments_blabla("ONGOING")
         elif choice.lower() == "b":
             return "LOGIN_MENU"
         else:
             return "QUIT"
 
-    def show_ongoing_tournaments(
-        self,
+    def show_tournaments_blabla(
+        self, time: str
     ):  # Shows the tournaments that are going on at the time of checking
-        tournaments = self.APILL.get_ongoing_tournaments()
-        print("Ongoing Tournaments:")
-        print(format_tournament_table(tournaments))
-        print("b.Back \nq.Quit")
+        tournaments = []
+        if time == "PAST":
+            tournaments = self.APILL.get_past_tournaments()
+            print("Past Tournaments:")
+            print(format_tournament_table(tournaments))
+            print("b.Back \nq.Quit")
+        if time == "UPCOMING":
+            tournaments = self.APILL.get_upcoming_tournaments()
+            print("Upcoming Tournaments:")
+            print(format_tournament_table(tournaments))
+            print("b.Back \nq.Quit")
+        if time == "ONGOING":
+            tournaments = self.APILL.get_ongoing_tournaments()
+            print("Ongoing Tournaments:")
+            print(format_tournament_table(tournaments))
+            print("b.Back \nq.Quit")
         # TODO Detailed tournaments look
         choice: str = self.menu_manager.prompt_choice(["b", "q"])
 
@@ -58,34 +76,6 @@ class UserUI:
             return "TOURNAMENTS"
         else:
             "QUIT"
-
-    def show_upcoming_tournaments(
-        self,
-    ):  # Shows the tournaments that are starting after the date of checking
-        tournaments = self.APILL.get_upcoming_tournaments()
-        print("Upcoming Tournaments")
-        print(format_tournament_table(tournaments))
-
-        print("b. Back \nq. Quit")
-        # TODO add functionality for selecting a tournament
-        choice: str = self.menu_manager.prompt_choice(["b", "q"])
-        if choice.lower() == "b":
-            return "TOURNAMENTS"
-        if choice == "q":
-            return "QUIT"
-
-    def show_past_tournaments(self):
-        tournaments = self.APILL.get_past_tournaments()
-        print("Past Tournaments")
-        print(format_tournament_table(tournaments))
-
-        print("b. Back \nq. Quit")
-        # TODO add functionality for selecting a tournament
-        choice: str = self.menu_manager.prompt_choice(["b", "q"])
-        if choice.lower() == "b":
-            return "TOURNAMENTS"
-        if choice == "q":
-            return "QUIT"
 
     def show_players(self, team: Team):
         players = self.APILL.get_players_in_team(team.name)
@@ -95,7 +85,7 @@ class UserUI:
         if choice.lower() == "q":
             return "QUIT"
         if choice.lower() == "b":
-            return "TEAM"
+            return "TEAMS"
 
     def show_statistics(self):
         # TODO
