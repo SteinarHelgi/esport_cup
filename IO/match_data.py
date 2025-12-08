@@ -49,8 +49,8 @@ class MatchData:
                     match.set_id(match_id)
                     match.set_match_number(match_number)
                     match.set_score(score_a, score_b)
-                    match.set_winner(winner_team_name)
-                    match.set_server_id()
+                    match.set_winner(winner_team_name, completed)
+                    match.set_server_id(server_id)
 
                     matches.append(match)
 
