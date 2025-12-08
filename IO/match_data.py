@@ -55,20 +55,22 @@ class MatchData:
                 return None
         return match
 
-    def register_match_results(self, match_id: str, home_score: int, away_score: int, completed_match: str) -> Match | None:
+    def register_match_results(
+        self, match_id: str, home_score: int, away_score: int, completed_match: str
+    ) -> Match | None:
         temp_data = []
         target_id: str = match_id
-        
-        #Creates a temporary data file
-        try:
-            with open(self.match_file_path, 'r', newline='') as file:
-                reader = csv.reader(file)
-        
-        # Read the header row first
-                header = next(reader) 
-                temp_data.append(header) # Add header to the data we are keeping
 
-        # Read the rest of the rows
+        # Creates a temporary data file
+        try:
+            with open(self.match_file_path, "r", newline="") as file:
+                reader = csv.reader(file)
+
+                # Read the header row first
+                header = next(reader)
+                temp_data.append(header)  # Add header to the data we are keeping
+
+                # Read the rest of the rows
                 for line in reader:
                     # Check the value in the first column (index 0)
                     if line[0] != target_id:
@@ -80,8 +82,8 @@ class MatchData:
                         match_number: str = line[3]
                         team_a_name: str = line[4]
                         team_b_name: str = line[5]
-                        match_date: datetime = line[6]
-                        match_time: datetime = line[7]
+                        match_date: datetime.datetime = line[6]
+                        match_time: datetime.datetime = line[7]
                         server_id: str = line[8]
                         score_a: int = home_score
                         score_b: int = away_score
@@ -103,21 +105,24 @@ class MatchData:
                             score_a,
                             score_b,
                             winner_team_name,
-                            completed]
+                            completed,
+                        ]
                         temp_data.append(new_line)
-                        
-                        
+
         except FileNotFoundError:
             exit()
-        
-        #Overwrites temporary datafile to csv file
+
+        # Overwrites temporary datafile to csv file
         try:
-            with open(self.match_file_path, 'w', newline='', encoding='utf-8') as csvfile:
+            with open(
+                self.match_file_path, "w", newline="", encoding="utf-8"
+            ) as csvfile:
                 # Create a writer object
                 writer = csv.writer(csvfile)
-            
+
                 # Iterate through the list of strings
                 for line in temp_data:
                     writer.writerow(line)
         except:
             return None
+
