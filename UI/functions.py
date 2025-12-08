@@ -24,12 +24,13 @@ def format_tournament_table(tournaments: list[Tournament]):
     # Loop through the data
     for counter, tournament in enumerate(tournaments):
         # Clean up the dates
-        s_date = str(tournament.start_date).split(" ")[0]
-        e_date = str(tournament.end_date).split(" ")[0]
+        if tournament != []:
+            s_date = str(tournament.start_date).split(" ")[0]
+            e_date = str(tournament.end_date).split(" ")[0]
 
-        # Print the actual variables (tournament.name), not the string "NAME"
-        empty_string += f"{counter + 1:>{w_id}}.{tournament.name:<{w_name}}{s_date:^{w_date}}|{e_date:^{w_date}}{tournament.game_id:>{w_game}}\n"
-        empty_string += divider_Line
+            # Print the actual variables (tournament.name), not the string "NAME"
+            empty_string += f"{counter + 1:>{w_id}}.{tournament.name:<{w_name}}{s_date:^{w_date}}|{e_date:^{w_date}}{tournament.game_id:>{w_game}}\n"
+            empty_string += divider_Line
 
     return empty_string
 

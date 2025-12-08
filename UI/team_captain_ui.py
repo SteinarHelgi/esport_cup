@@ -305,11 +305,11 @@ class TeamCaptainUI:
         # TODO c krafa
         pass
 
-    def add_information_about_team():
+    #def add_information_about_team():
         #TODO
-        pass
+       # pass
 
-    def show_add_team_to_club():
+    #def show_add_team_to_club():
         #TODO
-        pass
+        #pass
     

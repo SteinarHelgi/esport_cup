@@ -41,6 +41,7 @@ class MenuManager:
             "ADD_TEAM_TO_CLUB": self.team_captain_ui.show_add_team_to_club,
             "CREATE_TEAM": self.team_captain_ui.show_create_team,
             "SHOW_MY_PLAYERS": self.team_captain_ui.show_my_players,
+            #"EDIT_TEAM_INFO": 
             # ORGANISER MENUS
             "ORGANISER_MENU": self.print_organiser_menu,
             "CREATE_TOURNAMENT_MENU": self.organiser_Ui.show_create_tournament,
