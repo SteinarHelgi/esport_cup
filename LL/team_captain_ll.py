@@ -173,7 +173,7 @@ class TeamCaptainLL:
                 return player
     
 
-    def show_all_tournaments_for_captain(self, captain: TeamCaptain) -> list[Tournament]:
+    def get_all_tournaments_for_captain(self, captain: TeamCaptain) -> list[Tournament]:
         """Returns a list of tournaments that the captain's team is registered for."""
         tournaments_for_captain = []
 
@@ -197,7 +197,7 @@ class TeamCaptainLL:
         return tournaments_for_captain
     
 
-    def show_all_open_tournaments_for_captain(self, captain: TeamCaptain) -> list[Tournament]:
+    def get_all_open_tournaments_for_captain(self, captain: TeamCaptain) -> list[Tournament]:
         """
         Returns a list of tournaments that the captain's team can register for.
         A tournament is considered open if it has not started yet and the team

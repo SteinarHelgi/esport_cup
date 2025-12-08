@@ -58,3 +58,4 @@ class Match:
     def set_winner(self, winner_team, completed):
         self.winner_team_name = winner_team
         self.completed = completed
+    

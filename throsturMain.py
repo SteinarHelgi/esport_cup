@@ -8,6 +8,7 @@ from Models.organiser import Organiser
 from Models.team import Team
 from Models.match import Match
 from LL.team_captain_ll import TeamCaptainLL
+from LL.user_ll import UserLL
 
 new_player = Player(
     "þröstur",
@@ -52,6 +53,7 @@ match_to_add = Match(
 new_organiser = Organiser(1, "robbi", "12345")
 api_data = APIDATA()
 organiser = OrganiserLL(api_data)
+user = UserLL(api_data)
 teamcaptain = TeamCaptainLL(api_data)
 new_captain = TeamCaptain("1", "boss", "pass", "1", "theboss")
 
@@ -71,7 +73,7 @@ new_captain = TeamCaptain("1", "boss", "pass", "1", "theboss")
 #for stat in stats:
 #    print(stat.team_name, stat.games_played, stat.won, stat.lost, stat.score_for, stat.score_against, stat.winning_ratio, stat.points)
 
-#organiser.show_player_stats_bar_chart()
+user.show_player_stats_bar_chart()
 #organiser.give_club_points("KR", 5)
 #organiser.give_team_points("Viking Lite", 4)
 #organiser.give_player_points("DanglingPtrDan", 3)
