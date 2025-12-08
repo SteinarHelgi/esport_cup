@@ -85,11 +85,11 @@ class TeamCaptainUI:
         choice: str = self.menu_manager.prompt_choice(["r", "b", "q"])
         if choice == "r":
             valid_choices = []
-            tournaments = self.APILL.show_all_open_tournaments_for_captain(captain)
+            tournaments = self.APILL.get_all_open_tournaments_for_captain(captain)
             print(f.format_tournament_table(tournaments))
             print("Choose tournament to register for or 'b' to Back and 'q' to Quit")
             for i in range(len(tournaments)):
-                stringI = str(i)
+                stringI = str(i + 1)
                 valid_choices.append(stringI)
             choice: str = self.menu_manager.prompt_choice(valid_choices + ["b", "q"])
             if choice in tournaments:
