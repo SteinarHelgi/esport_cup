@@ -205,9 +205,34 @@ class OrganiserUI:
 
         pass
 
-    def show_register_results(self):
-        # TODO
-        pass
+    def show_register_results(self, match: Match):
+        print("Which team won the match? ")
+        print(f"1. {match.team_a_name}")
+        print(f"2. {match.team_b_name}")
+        winner = input("1 or 2, b to back and q to quit")
+        if winner == "1":
+            match.set_winner(match.team_a_name)
+            print(f"{match.winner_team_name} has been set as the winner of this match")
+            choice: str = self.menu_manager.prompt_choice(["b", "q"])
+            print("b to back or q to quit")
+            if choice == "b":
+                return "MY_TOURNAMENTS_ORG"
+            if choice == "q":
+                return "QUIT"
+
+        if winner == "2":
+            match.set_winner(match.team_b_name)
+            print(f"{match.winner_team_name} has been set as the winner of this match")
+            print("b to back or q to quit")
+            choice: str = self.menu_manager.prompt_choice(["b", "q"])
+            if choice == "b":
+                return "MY_TOURNAMENTS_ORG"
+            if choice == "q":
+                return "QUIT"
+        if winner == "b":
+            return "MY_TOURNAMENTS_ORG"
+        if winner == "q":
+            return "QUIT"
 
     def show_delete_tournament(self):
         # TODO
