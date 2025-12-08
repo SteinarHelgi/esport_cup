@@ -73,10 +73,9 @@ class OrganiserUI:
                 amount_of_servers,
                 new_contact_person[0],
             )
-            
 
             if self.APILL.create_tournament(new_tournament):
-                #val = self.tournament_created(new_tournament)
+                # val = self.tournament_created(new_tournament)
                 print(tournament_created_menu((new_tournament)))
                 enter_for_ok = input("Enter for ok or q to quit")
                 if enter_for_ok == "q":
@@ -90,7 +89,7 @@ class OrganiserUI:
                 if enter_for_ok == "q":
                     return "QUIT"
                 return "ORGANISER_MENU"
-                
+
         return "ORGANISER_MENU"
 
     def create_contact_person_menu(
@@ -236,7 +235,7 @@ class OrganiserUI:
         print(f"2. {match.team_b_name}")
         winner = input("1 or 2, b to back and q to quit")
         if winner == "1":
-            match.set_winner(match.team_a_name)
+            match.set_winner(match.team_a_name, True)
             print(f"{match.winner_team_name} has been set as the winner of this match")
             choice: str = self.menu_manager.prompt_choice(["b", "q"])
             print("b to back or q to quit")
@@ -246,7 +245,7 @@ class OrganiserUI:
                 return "QUIT"
 
         if winner == "2":
-            match.set_winner(match.team_b_name)
+            match.set_winner(match.team_b_name, True)
             print(f"{match.winner_team_name} has been set as the winner of this match")
             print("b to back or q to quit")
             choice: str = self.menu_manager.prompt_choice(["b", "q"])
