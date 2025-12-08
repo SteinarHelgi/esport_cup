@@ -69,9 +69,9 @@ class Match:
         self.score_a = score_a
         self.score_b = score_b
 
-    def set_winner(self, winner_team):
+    def set_winner(self, winner_team, completed):
         self.winner_team_name = winner_team
-        self.completed = True
-    def set_server_id(self,server_id):
+        self.completed = completed
+
+    def set_server_id(self, server_id):
         self.server_id = server_id
-    

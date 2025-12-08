@@ -3,7 +3,6 @@ from Models.models import Match
 
 
 class MatchData:
-
     def __init__(self) -> None:
         self.match_file_path = "Data/matches.csv"
 
@@ -17,7 +16,7 @@ class MatchData:
             csv_reader = csv.reader(file)
 
             # Skip header line
-            next(csv_reader, None) 
+            next(csv_reader, None)
 
             # Read each remaining line in the CSV file
             for line in csv_reader:
@@ -36,7 +35,7 @@ class MatchData:
                     score_b: str = line[10]
                     winner_team_name: str = line[11]
                     completed: str = line[12]
-                    
+
                     # Create Match object from the CSV line
                     match = Match(
                         tournament_id,
@@ -67,7 +66,9 @@ class MatchData:
                 return None
         return match
 
-    def register_match_results(self, match_id: str, home_score: int, away_score: int, completed_match: str) -> Match | None:
+    def register_match_results(
+        self, match_id: str, home_score: int, away_score: int, completed_match: str
+    ) -> Match | None:
         """Updates the results of a given match in the CSV file."""
         temp_data: list[list[str]] = []
         target_id: str = match_id
@@ -79,7 +80,7 @@ class MatchData:
 
                 header = next(reader)
                 if header:
-                    temp_data.append(header)  
+                    temp_data.append(header)
 
                 # Read the rest of the rows
                 for line in reader:
