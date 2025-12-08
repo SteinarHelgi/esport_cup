@@ -1,5 +1,6 @@
 from LL.api_ll import APILL
 from Models.player import Player
+from Models.team_captain import TeamCaptain
 import UI.functions as f
 
 
@@ -76,19 +77,39 @@ class TeamCaptainUI:
 
     def show_my_tournaments(self):
         team = self.APILL.get_team_by_name(self.menu_manager.team_name)
+        captain = TeamCaptain(self.menu_manager.team_name, self.menu_manager.captain_handle)
         if team:
             tournaments = self.APILL.get_my_tournaments(team)
             print(f.format_tournament_table(tournaments))
         print("r. Register for new tournament\nb. Back\nq. Quit")
         choice: str = self.menu_manager.prompt_choice(["r", "b", "q"])
-        if choice == "r": #TODO
-            #Get all tournaments open for captain = tournaments
+        if choice == "r":
+            valid_choices = []
+            tournaments = self.APILL.show_all_open_tournaments_for_captain(captain)
+            print(f.format_tournament_table(tournaments))
+            print("Choose tournament to register for or 'b' to Back and 'q' to Quit")
+            for i in range(len(tournaments)):
+                stringI = str(i)
+                valid_choices.append(stringI)
+            choice: str = self.menu_manager.prompt_choice(valid_choices + ["b", "q"])
+            if choice in tournaments:
+                if team:
+                    self.APILL.register_team_to_tournament(team,choice)
+                    print(f"{team} has been registered for {choice}")
+                    back_or_quit = input("b to go back to tournament menu or q to quit")
+                    if back_or_quit == "b":
+                        return "MY_TOURNAMENTS_CAP"
+                    if back_or_quit == "q":
+                        return "QUIT"
+                    else:
+                        print("Invalid choice, valid choices are B and Q")
+                        back_or_quit = input("b to go back to tournament menu or q to quit")
+
             #print(formattournamenttable(tournaments))
             #choose tournament to register for or b and q
             #register_team_to_tournament(choice)
             #print("Team has been registered to {tournament}")
-            #b to go back to tournament menu or q to quit
-            print("api")
+            #print("b to go back to tournament menu or q to quit")
         if choice == "b":
             return "MY_TEAM"
         if choice == "q":

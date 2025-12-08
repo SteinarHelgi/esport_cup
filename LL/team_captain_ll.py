@@ -51,7 +51,7 @@ class TeamCaptainLL:
         """Creates new team and saves it in the csv file."""
 
         name: str = team.name
-        captain_id: str = team.captain_id
+        captain_id: str = team.captain_handle
         social_media: str | None = team.social_media
         logo: str = team.logo
 
@@ -135,12 +135,12 @@ class TeamCaptainLL:
 
                 return tournament
 
-    def get_team_by_captain_id(self, captain_id) -> Team | None:
+    def get_team_by_captain_handle(self, captain_handle) -> Team | None:
         teams = self.APIDATA.get_all_team_data()
 
         for team in teams:
-            if team.captain_id == captain_id:
-                print(team.captain_id, captain_id)
+            if team.captain_handle == captain_handle:
+                print(team.captain_handle, captain_handle)
                 return team
         return None
 
@@ -178,7 +178,7 @@ class TeamCaptainLL:
         tournaments_for_captain = []
 
         # Find the team captain is registered for
-        team = self.get_team_by_captain_id(captain.id)
+        team = self.get_team_by_captain_handle(captain.handle)
         if team is None:
             return tournaments_for_captain
         
@@ -207,7 +207,7 @@ class TeamCaptainLL:
         open_tournaments = []
 
         # Find the team captain is registered for
-        team = self.get_team_by_captain_id(captain.id)
+        team = self.get_team_by_captain_handle(captain.handle)
         if team is None:
             return open_tournaments
         

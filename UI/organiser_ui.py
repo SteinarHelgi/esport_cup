@@ -128,12 +128,12 @@ class OrganiserUI:
         print("MY_TOURNAMENTS_ORG")
         print(format_tournament_table(tournaments))
 
-        print("s. search for tournament \nb. Back \nq. Quit")
+        print("Select a tournament with their respected id or: \nb. Back \nq. Quit")
         choice: str = self.menu_manager.prompt_choice(valid_choices + ["b", "q"])
         print()
         for element in valid_choices:
             if element == choice:
-                self.show_tournament_view(tournaments[int(element)])
+                return self.show_tournament_view(tournaments[int(element)])
 
         if choice == "b":
             return "ORGANISER_MENU"

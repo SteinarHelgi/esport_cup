@@ -7,7 +7,7 @@ from Models.player import Player
 from Models.club_stat import ClubStat
 from Models.elimination_stat import EliminationStat
 from Models.player_stat import PlayerStat
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 from typing import Union
 
 class UserLL:
@@ -155,7 +155,7 @@ class UserLL:
     def get_all_club_stat(self)->list[ClubStat]:
         all_clubs_stat: list[ClubStat] = []
         clubs: list[Club] = self.get_all_club_data()
-        eliminations_stat = #TODO Sækja hér elimination data úr organiser_ll klasanum.
+        #eliminations_stat = TODO Sækja hér elimination data úr organiser_ll klasanum.
         for club in clubs:
             new_club = ClubStat(club.name)
             teams_in_club = self.get_all_teams_in_a_club(club.id)
