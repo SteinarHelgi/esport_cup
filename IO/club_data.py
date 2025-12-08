@@ -41,7 +41,7 @@ class ClubData:
     
     def add_team_to_club(self, team: Team, club_id: str):
         team_name_to_add = team.name
-        temp_data: list[Club] = []
+        temp_data: list[list[str]] = []
         target_id: str = club_id
 
         # Creates a temporary data file without the modified player
@@ -81,40 +81,50 @@ class ClubData:
             return None
 
     def give_club_points(self, club_name: str, added_points: int) -> None:
-        temp_data: list[Club] = []
+        temp_data: list[list[str]] = []
         target: str = club_name
+        club_found = False
 
-        # Creates a temporary data file without the modified player
         try:
             with open(self.club_file_path, "r", newline="", encoding = "utf-8") as file:
                 reader = csv.reader(file)
 
                 # Read the header row first
-                header = next(reader)
-                temp_data.append(header)  # Add header to the data we are keeping
+                header = next(reader, None)
+                if header:
+                    temp_data.append(header)  # Add header to the data we are keeping
 
                 # Read the rest of the rows
                 for line in reader:
                     # Check the value in the first column (index 0)
-                    if line:
-                        if line[1] != target:
-                            temp_data.append(line)
-                        else:
-                            id: str = line[0]
-                            name: str = line[1]
-                            hometown: str = line[2]
-                            logo: str = line[3]
-                            club_colors: str = line[4]
-                            country: str = line[5]
-                            points: int = int(line[6])
-                            teams: str = line[7]
-                            club: Club = Club(name, hometown, logo, club_colors, country, teams)
-                            club.set_id(id)
-                            club.set_points(points + added_points)
+                    if not line:
+                        continue
+
+
+                    if line[1] != target:
+                        temp_data.append(line)
+                    else:
+                        id: str = line[0]
+                        name: str = line[1]
+                        hometown: str = line[2]
+                        logo: str = line[3]
+                        club_colors: str = line[4]
+                        country: str = line[5]
+                        points: int = int(line[6])
+                        teams: str = line[7]
+                        club: Club = Club(name, hometown, logo, club_colors, country, teams)
+                        club.set_id(id)
+                        club.set_points(points + added_points)
+
+                        temp_data.append(club.toCSVList())
+                        club_found = True
 
         except FileNotFoundError:
-            exit()
-
+            return
+        
+        if not club_found:
+            return
+        
         # Overwrites temporary datafile to csv file
         try:
             with open(self.club_file_path, "w", newline="", encoding="utf-8") as csvfile:
@@ -126,5 +136,3 @@ class ClubData:
                     writer.writerow(line)
         except:
             return None
-        #add the modified player to the database
-        self.store_club_data(club)

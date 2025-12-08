@@ -87,6 +87,7 @@ class TeamCaptainUI:
             if choice == "r":
                 valid_choices: list[str] = []
                 tournaments = self.APILL.get_all_open_tournaments_for_captain(captain)
+
                 print(f.format_tournament_table(tournaments))
                 print(
                     "Choose tournament to register for or 'b' to Back and 'q' to Quit"
