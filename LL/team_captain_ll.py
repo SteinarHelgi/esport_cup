@@ -6,7 +6,7 @@ from Models.tournament import Tournament
 from Models.team_registry import TeamRegistry
 from Models.team_captain import TeamCaptain
 from Models.club import Club
-from Models.club_stat import ClubStat
+
 
 
 class TeamCaptainLL:
@@ -71,7 +71,7 @@ class TeamCaptainLL:
 
         team.set_id(id)
 
-        new_team = Team(id, name, captain_id, social_media, logo)
+        new_team = Team(name, captain_id, social_media, logo)
 
         self.APIDATA.store_team_data(new_team)
 
@@ -235,16 +235,3 @@ class TeamCaptainLL:
 
         return open_tournaments
     
-    def get_all_club_stat(self)->list[ClubStat]:
-        all_clubs_stat: list[ClubStat] = []
-        clubs: list[Club] = self.get_all_club_data()
-        #eliminations_stat = #TODO: Sækja hér elimination data úr organiser_ll klasanum.
-        for club in clubs:
-            new_club = ClubStat(club.name)
-            teams_in_club = self.get_all_teams_in_a_club(club.id)
-            for team in teams_in_club:
-                pass
-
-
-
-        return all_clubs_stat
