@@ -336,6 +336,29 @@ class TeamCaptainUI:
 
     def show_edit_logo(self):
         print("EDIT_LOGO")
+        team = self.APILL.get_team_by_name(self.menu_manager.team_name)
+        if team:
+            print("Currrent Logo: ", team.logo)
+            logo = input("New Logo: ")
+            team.logo = logo
+
+            new_team = self.APILL.modify_team_data(team)
+            if new_team:
+                print("Updated team info:")
+                print("Name: ", new_team.name)
+                print("Players:\n  ", *new_team.players, sep=" | ")
+                print("Captain: ", new_team.captain_handle)
+                print("Social Media: ", new_team.social_media)
+                print("Logo: ", new_team.logo)
+            else:
+                print("Could not update team")
+            print("")
+            print("b. Back\nq. Quit")
+            choice: str = self.menu_manager.prompt_choice(["b", "q"])
+            if choice == "b":
+                return "EDIT_TEAM_INFO"
+            if choice == "b":
+                return "QUIT"
         pass
 
     def show_add_team_to_club(self):

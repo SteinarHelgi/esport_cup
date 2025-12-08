@@ -47,7 +47,7 @@ class UserUI:
         elif choice == "3":
             return self.show_tournaments_blabla("PAST")
         elif choice.lower() == "b":
-            return "LOGIN_MENU"
+            return "TEAM_CAPTAIN_MENU"
         else:
             return "QUIT"
 
@@ -124,7 +124,9 @@ class UserUI:
 
     def show_players(self, team: Team):
         players = self.APILL.get_players_in_team(team.name)
+        print(team.name, team.social_media, team.logo)
         print(format_player_list(players))
+
         valid_options = ["q", "b"]
         choice: str = self.menu_manager.prompt_choice(valid_options)
         if choice.lower() == "q":
