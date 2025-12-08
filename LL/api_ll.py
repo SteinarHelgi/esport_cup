@@ -101,7 +101,7 @@ class APILL:
         return self.organiser_ll.create_contact_person(contact_person)
     
     def get_all_teams_on_tournament(self, target_tournament_id: str) -> list[Team]:
-        return self.organiser_ll.show_all_teams_on_tournament(target_tournament_id)
+        return self.organiser_ll.get_all_teams_on_tournament(target_tournament_id)
     
     def register_match_result(self, match_id: str, home_score: int, away_score: int, completed: bool):
         return self.organiser_ll.register_match_result(match_id, home_score, away_score, completed)
