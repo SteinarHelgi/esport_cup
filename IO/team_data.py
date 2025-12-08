@@ -24,15 +24,15 @@ class TeamData:
             return teams
 
     def store_team_data(self, team: Team) -> Team | None:
-        with open(self.team_file_path, "a" , newline="" , encoding="utf-8") as file:
+        with open(self.team_file_path, "a", newline="", encoding="utf-8") as file:
             csvWriter = csv.writer(file)
             try:
                 csvWriter.writerow(team.toCSVList())
+                return team
             except:
                 return None
-        return team
 
-    def modify_team_data(self, team: Team) -> None:
+    def modify_team_data(self, team: Team) -> Team | None:
         temp_data: list[list[str]] = []
         target_id: str = team.id
 
@@ -64,11 +64,12 @@ class TeamData:
                 # Iterate through the list of strings
                 for line in temp_data:
                     writer.writerow(line)
+            updated_team = self.store_team_data(team)
+            return updated_team
         except:
             return None
 
         # add modified team to player database
-        self.store_team_data(team)
 
     def give_team_points(self, team_name: str, added_points: int) -> None:
         temp_data: list[list[str]] = []
@@ -88,7 +89,7 @@ class TeamData:
                 for line in reader:
                     if not line:
                         continue
-                    
+
                     if line[1] != target:
                         temp_data.append(line)
                     else:
@@ -115,7 +116,9 @@ class TeamData:
 
         # Overwrites temporary datafile to csv file
         try:
-            with open(self.team_file_path, "w", newline="", encoding="utf-8") as csvfile:
+            with open(
+                self.team_file_path, "w", newline="", encoding="utf-8"
+            ) as csvfile:
                 # Create a writer object
                 writer = csv.writer(csvfile)
 
@@ -124,3 +127,4 @@ class TeamData:
                     writer.writerow(line)
         except:
             return None
+

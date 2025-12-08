@@ -38,8 +38,13 @@ class MenuManager:
             "ADD_TEAM_TO_CLUB": self.team_captain_ui.show_add_team_to_club,
             "CREATE_TEAM": self.team_captain_ui.show_create_team,
             "SHOW_MY_PLAYERS": self.team_captain_ui.show_my_players,
-            #"EDIT_TEAM_INFO": 
+            "EDIT_TEAM_INFO": self.team_captain_ui.show_update_team_data,
+            "EDIT_SOCIAL_MEDIA": self.team_captain_ui.show_edit_social_media,
+            "EDIT_LOGO": self.team_captain_ui.show_edit_logo,
+            # "EDIT_TEAM_INFO":
             # ORGANISER MENUS
+            "TEAMS_ORG" : self.organiser_Ui.show_teams_org,
+            "SHOW_PLAYERS_IN_TEAM_ORG": self.organiser_Ui.show_players_in_team_org,
             "ORGANISER_MENU": self.print_organiser_menu,
             "CREATE_TOURNAMENT_MENU": self.organiser_Ui.show_create_tournament,
             "MY_TOURNAMENTS_ORG": self.organiser_Ui.show_my_tournaments,
@@ -159,7 +164,7 @@ class MenuManager:
         )
         choice: str = self.prompt_choice(["1", "2", "3", "4", "b", "q"])
         if choice == "1":
-            return "TEAMS"
+            return "TEAMS_ORG"
         if choice == "2":
             return "TOURNAMENTS"
         if choice == "3":

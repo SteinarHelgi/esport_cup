@@ -106,9 +106,8 @@ class TeamLL:
 
         return new_team
 
-    def modify_team_data(self, team: Team):
-        self.APIDATA.modify_team_data(team)
-        pass
+    def modify_team_data(self, team: Team) -> Team | None:
+        return self.APIDATA.modify_team_data(team)
 
     def register_team_to_tournament(self, team: Team, tournament: Tournament) -> None:
         players_in_team = self.get_players_in_team(team.name)

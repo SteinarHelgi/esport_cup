@@ -19,11 +19,12 @@ class TouranamentLL:
 
     def get_all_tournaments(self) -> list:
         tournaments = self.APIDATA.get_all_tournament_data()
-
         matches = self.APIDATA.get_all_match_data()
+
         for tournament in tournaments:
             for match in matches:
                 if match.tournament_id == tournament.id:
+                    print(match)
                     tournament.add_match(match)
         return tournaments
 
@@ -242,8 +243,10 @@ class TouranamentLL:
         # 4 values means all criteria was met and we can add the match to matches.csv
         if len(teams_valid) == 4:
             stored = self.APIDATA.store_match_data(match)
+            print("Len == 4")
         else:
             stored = None
+            print("Len != 4")
             raise ValueError
         return stored
 
