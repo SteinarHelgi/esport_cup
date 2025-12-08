@@ -25,9 +25,6 @@ class MenuManager:
             "USER_MENU": self.print_user_menu,
             "TEAMS": self.user_ui.show_teams,
             "TOURNAMENTS": self.user_ui.show_tournaments,
-            "ONGOING_TOURNAMENTS": self.user_ui.show_ongoing_tournaments,
-            "UPCOMING_TOURNAMENTS": self.user_ui.show_upcoming_tournaments,
-            "PAST_TOURNAMENTS": self.user_ui.show_past_tournaments,
             "PLAYERS": self.user_ui.show_players,
             "STATISTICS": self.user_ui.show_statistics,
             # TEAM CAPTAIN MENUS
@@ -41,6 +38,7 @@ class MenuManager:
             "ADD_TEAM_TO_CLUB": self.team_captain_ui.show_add_team_to_club,
             "CREATE_TEAM": self.team_captain_ui.show_create_team,
             "SHOW_MY_PLAYERS": self.team_captain_ui.show_my_players,
+            #"EDIT_TEAM_INFO": 
             # ORGANISER MENUS
             "ORGANISER_MENU": self.print_organiser_menu,
             "CREATE_TOURNAMENT_MENU": self.organiser_Ui.show_create_tournament,
@@ -108,8 +106,6 @@ class MenuManager:
                 return "LOGIN_MENU"
             if choice == "q":
                 return "QUIT"
-
-            
 
     def login_credentials_menu_org(self):  # logging in as organiser
         username = input("Username: ")

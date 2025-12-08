@@ -14,6 +14,7 @@ class TournamentData:
 
     def get_all_tournament_data(self) -> list[Tournament]:
         tournaments = []
+
         with open(self.tournament_file_path, "r") as file:
             csvReader = csv.reader(file)
             next(csvReader)  # skip header
