@@ -38,24 +38,26 @@ def format_team_list(teams: list[Team]):  # TODO add club to this
     # Define fixed widths for columns
     w_name = 30
     w_captain = 25
-    w_id = 15
+    w_counter = 15
 
     # print header
-    print(f"{'Id':<{w_id}'TEAM NAME':<{w_name}} {'TEAM CAPTAIN':>{w_captain - 3}}")
+    print(
+        f"{'Id':<{w_counter}}{'TEAM NAME':<{w_name}} {'TEAM CAPTAIN':>{w_captain - 3}}"
+    )
 
     # Print a divider line
-    line_length = w_name + w_captain
-    print("-" * (w_name + w_captain))
+    line_length = w_name + w_captain + w_counter
+    print("-" * (line_length))
     empty_string = ""
     divider_Line = "-" * line_length + "\n"
     # Loop through the data
-    for team in teams:
+    for counter, team in enumerate(teams):
         # Clean up the dates
-        captain_fix = str(team.captain_id).split(" ")[0]
+        captain_fix = str(team.captain_handle).split(" ")[0]
         # e_date = str(tournament.end_date).split(" ")[0]
 
         # Print the actual variables (tournament.name), not the string "NAME"
-        empty_string += f"{team.name:<{w_name}} {captain_fix:>{w_captain - 3}}\n"
+        empty_string += f"{counter + 1:<{w_counter}}{team.name:<{w_name}} {captain_fix:>{w_captain - 3}}\n"
         empty_string += divider_Line
     return empty_string
 
