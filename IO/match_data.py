@@ -125,4 +125,3 @@ class MatchData:
                     writer.writerow(line)
         except:
             return None
-

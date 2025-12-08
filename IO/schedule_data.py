@@ -52,4 +52,3 @@ class ScheduleData:
             #     )
 
         return matches
-

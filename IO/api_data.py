@@ -16,8 +16,6 @@ from Models.match import Match
 from Models.team_registry import TeamRegistry
 
 
-# Steinar
-
 class APIDATA:
     def __init__(self) -> None:
         self.club_data = ClubData()
@@ -103,4 +101,3 @@ class APIDATA:
     
     def give_club_points(self, club_name: str, points: int):
         return self.club_data.give_club_points(club_name, points)
-    
