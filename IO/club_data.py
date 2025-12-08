@@ -44,7 +44,6 @@ class ClubData:
         temp_data: list[list[str]] = []
         target_id: str = club_id
 
-        # Creates a temporary data file without the modified player
         try:
             with open(self.club_file_path, "r", newline="", encoding="utf-8") as file:
                 reader = csv.reader(file)
