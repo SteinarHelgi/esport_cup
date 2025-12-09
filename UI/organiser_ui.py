@@ -12,7 +12,7 @@ class OrganiserUI:
         self.menu_manager = menu_manager
         self.team_to_view: Team
 
-    def show_create_tournament(self):  
+    def show_create_tournament(self):
         """Creates tournaments with options to quit or back anywhere in the process and shows the confirmation of creation"""
         print("Fill in the required info or b.Back or q.Quit")
         name_of_tournament = input("Name: ")
@@ -92,7 +92,7 @@ class OrganiserUI:
 
         return "ORGANISER_MENU"
 
-    def create_contact_person_menu(self): 
+    def create_contact_person_menu(self):
         """Creates the contact person with options to back or quit anywhere in the process"""
         print("Fill in contact person info or 'b' to Back and 'q' to Quit")
         new_contact_person_name = input("Name: ")
@@ -119,7 +119,7 @@ class OrganiserUI:
             ]
             return returnlist
 
-    def tournament_created(self, tournament: Tournament) -> str: 
+    def tournament_created(self, tournament: Tournament) -> str:
         """Menu that confirms that a tournament has been created"""
         tournament_name = tournament.name
         venue = tournament.venue
@@ -131,7 +131,7 @@ class OrganiserUI:
         tournaments = self.APILL.get_upcoming_tournaments()
         valid_choices = []
 
-        for i,tournament in enumerate(tournaments):
+        for i, tournament in enumerate(tournaments):
             string_i = str(i + 1)
             valid_choices.append(string_i)
             print("tournaments: ", tournament.matches)
@@ -236,15 +236,15 @@ class OrganiserUI:
         user_inputs = {}
 
         for prompt in prompts:
-            while True: #prompt until back, quit or valid input
+            while True:  # prompt until back, quit or valid input
                 current_input = input(prompt)
-                if current_input.lower() == 'b':
+                if current_input.lower() == "b":
                     return "MY_TOURNAMENTS_ORG"
-                elif current_input.lower() == 'q':
+                elif current_input.lower() == "q":
                     return "QUIT"
                 else:
                     user_inputs[prompt] = current_input
-                    break #exit the loop
+                    break  # exit the loop
         match = Match(
             tournament.id,
             user_inputs["Round: "],
@@ -325,7 +325,7 @@ class OrganiserUI:
             return "ORGANISER_MENU"
 
         return "QUIT"
-    
+
     def show_players_in_team_org(self):
         """Shows players in the selected team"""
         refresh_logo()
@@ -351,7 +351,7 @@ class OrganiserUI:
                 return "QUIT"
             if choice.lower() == "b":
                 return "TEAMS_ORG"
-            
+
     def show_players_with_personal_info_org(self, player: Player):
         """The actual view of players information"""
         if player:

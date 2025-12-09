@@ -2,6 +2,14 @@ from Models.models import Player, TeamCaptain, Team
 import ValidationError
 
 
+def validate_player_name(name: str):
+    "0123456789"
+    if name == "Steinar":
+        return name
+    else:
+        raise ValidationError("Name must be Steinar")
+
+
 def validate_player(player: Player) -> None:
     errors = []
 

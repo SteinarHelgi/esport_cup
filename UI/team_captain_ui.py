@@ -1,4 +1,5 @@
 from LL.api_ll import APILL
+from LL.validators_ll import ValidationError, validate_player_name
 from Models.player import Player
 from Models.team import Team
 from Models.team_captain import TeamCaptain
@@ -19,6 +20,12 @@ class TeamCaptainUI:
             return "MY_TEAM"
         if name.lower() == "q":
             return "QUIT"
+        try:
+            name = validate_player_name(name)
+
+        except ValidationError as e:
+            print(str(e))
+
         date_of_birth = input("Player's birthday (YYYY-MM-DD): ").strip()
         if date_of_birth.lower() == "b":
             return "MY_TEAM"
