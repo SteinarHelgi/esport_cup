@@ -4,7 +4,7 @@ from LL.api_ll import APILL
 from Models.models import Match, Player, Team, Tournament
 from UI.functions import format_player_list, format_team_list, format_tournament_table
 from UI.ui_functions import refresh_logo
-from LL.validators_ll import ValidationError, 
+from LL.validators_ll import ValidationError, validate_tournament_double_elimination, validate_tournament_end_date, validate_tournament_name, validate_tournament_game, validate_tournament_start_date, validate_tournament_venue, validate_tournament_servers
 
 class OrganiserUI:
     """UI functions for organiser"""
@@ -40,7 +40,7 @@ class OrganiserUI:
         if end_date_of_tournamnet.lower() == "q":
             return "QUIT"
         try:
-            start_date_of_tournament = validate_tournament_end_date(start_date_of_tournament)
+            end_date_of_tournamnet = validate_tournament_end_date(start_date_of_tournament, end_date_of_tournamnet)
         except ValidationError as e:
             print(str(e))
         amount_of_servers = input("Number of servers: ")
@@ -69,10 +69,10 @@ class OrganiserUI:
         if double_elimination.lower() != "y" and double_elimination != "n":
             print("Invalid input, valid inputs are: Y, N, B, Q")
             double_elimination = input("Double elimination(Y/N): ")
-        if double_elimination.lower() == "b":
-            return "ORGANISER_MENU"
-        if double_elimination.lower() == "q":
-            return "QUIT"
+        try:
+            double_elimination = validate_tournament_double_elimination(double_elimination)
+        except ValidationError as e:
+            print(str(e))
         game_for_tournament = input("Game: ")
         if game_for_tournament.lower() == "b":
             return "ORGANISER_MENU"
