@@ -30,7 +30,12 @@ class UserUI:
             return self.show_players(teams[int(choice) - 1])
 
         if choice.lower() == "b":
-            return "USER_MENU"
+            if self.menu_manager.user == "USER":
+                return "USER_MENU"
+            if self.menu_manager.user == "TEAM_CAPTAIN":
+                return "TEAM_CAPTAIN_MENU"
+            if self.menu_manager.user == "ORGANISER":
+                return "ORGANISER_MENU"
 
         return "QUIT"
 
@@ -50,7 +55,12 @@ class UserUI:
         elif choice == "3":
             return self.show_tournaments_calling_function("PAST")
         elif choice.lower() == "b":
-            return "USER_MENU"
+            if self.menu_manager.user == "USER":
+                return "USER_MENU"
+            if self.menu_manager.user == "TEAM_CAPTAIN":
+                return "TEAM_CAPTAIN_MENU"
+            if self.menu_manager.user == "ORGANISER":
+                return "ORGANISER_MENU"
         else:
             return "QUIT"
 
@@ -66,14 +76,22 @@ class UserUI:
             print("b.Back \nq.Quit")
         if time == "UPCOMING":
             tournaments = self.APILL.get_upcoming_tournaments()
-            print("Upcoming Tournaments:")
-            print(format_tournament_table(tournaments))
-            print("b.Back \nq.Quit")
+            if tournaments != []:
+                print("Upcoming Tournaments:")
+                print(format_tournament_table(tournaments))
+                print("b.Back \nq.Quit")
+            else:
+                print("There are no upcoming tournaments")
+                print("b.Back \nq.Quit")
         if time == "ONGOING":
             tournaments = self.APILL.get_ongoing_tournaments()
-            print("Ongoing Tournaments:")
-            print(format_tournament_table(tournaments))
-            print("b.Back \nq.Quit")
+            if tournaments != []:
+                print("Ongoing Tournaments:")
+                print(format_tournament_table(tournaments))
+                print("b.Back \nq.Quit")
+            else:
+                print("There are no ongoing tournaments")
+                print("b.Back \nq.Quit")
         valid_choices = []
         for counter, tournament in enumerate(tournaments):
             valid_choices.append(str(counter + 1))
