@@ -108,7 +108,7 @@ class MenuManager:
                 else:
                     return "LOGIN_MENU"
         if found_name == False:
-            print("Invalid username, press enter to try again or q to quit")
+            print("Invalid username, press enter to try again or q to quit: ")
             choice: str = self.prompt_choice(["", "q"])
             if choice == "":
                 return "LOGIN_MENU"

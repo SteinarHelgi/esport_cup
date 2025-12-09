@@ -4,16 +4,8 @@ from LL.api_ll import APILL
 from Models.models import Match, Player, Team, Tournament
 from UI.functions import format_player_list, format_team_list, format_tournament_table
 from UI.ui_functions import refresh_logo
-from LL.validators_ll import (
-    ValidationError,
-    validate_tournament_double_elimination,
-    validate_tournament_end_date,
-    validate_tournament_name,
-    validate_tournament_game,
-    validate_tournament_start_date,
-    validate_tournament_venue,
-    validate_tournament_servers,
-)
+from LL.validators_ll import ValidationError,validate_tournament_double_elimination,validate_tournament_end_date,validate_tournament_name,validate_tournament_game,validate_tournament_start_date,validate_tournament_venue,validate_tournament_servers,
+
 
 
 class OrganiserUI:
@@ -94,18 +86,16 @@ class OrganiserUI:
                 return "ORGANISER_MENU"
             if double_elimination.lower() == "q":
                 return "QUIT"
-            if double_elimination.lower() != "y" and double_elimination != "n":
-                print("Invalid input, valid inputs are: Y, N, B, Q")
-                double_elimination = input("Double elimination(Y/N): ")
             try:
                 double_elimination = validate_tournament_double_elimination(
-                    double_elimination
-                )
+                    double_elimination)
                 break
             except ValidationError as e:
                 print(str(e))
 
         while True:
+            games = self.APILL.get_all_games()
+            print("Valid games are:", *games)
             game_for_tournament = input("Game: ")
             if game_for_tournament.lower() == "b":
                 return "ORGANISER_MENU"
@@ -144,7 +134,10 @@ class OrganiserUI:
                 if enter_for_ok == "q":
                     return "QUIT"
                 return "ORGANISER_MENU"
-
+        else:
+            print("You did not fill in contact person information, try again")
+            enter_to_leave = input("Press enter to exit: ")
+            return "ORGANISER_MENU"
         return "ORGANISER_MENU"
 
     def create_contact_person_menu(self):

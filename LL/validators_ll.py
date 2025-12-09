@@ -83,7 +83,7 @@ def validate_player_handle(player_handle: str) -> None:
     # Team name
 
 
-"""
+
 def validate_team_captain(team_captain: TeamCaptain) -> None:
     errors: list[str] = []
     # Team id
