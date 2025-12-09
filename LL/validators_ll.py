@@ -80,7 +80,7 @@ def validate_player_handle(player_handle: str) -> None:
         raise ValueError("Handle cannot contain space")
     
 
-    # Team name
+#-----------TEAM CAPTAIN VALIDATION-------------
 
 
 def validate_team_captain(handle: str, api_data: APIDATA) -> None:
@@ -93,6 +93,8 @@ def validate_team_captain(handle: str, api_data: APIDATA) -> None:
     if any(p.handle == handle for p in current_players):
         raise ValueError("Handle already exists, please choose an unique handle")
 
+
+#-------------TEAM VALIDATION---------------
 
 def validate_team_name(name: str) -> None:
     # Name
