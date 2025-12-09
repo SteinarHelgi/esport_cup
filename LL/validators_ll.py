@@ -71,13 +71,13 @@ def validate_team_name(name:str) -> None:
     if len(name) > 64:
         raise ValueError("Team name can't be longer than 64 characters")
 
-def validation_team_handle(handle:str) -> None:
+def validation_team_handle(handle:str, api_data:APIDATA) -> None:
     # Captain handle
 
     if not handle or handle.strip() == "":
         raise ValueError("You must enter a team captain handle ")
     
-    current_players = self.APIDATA.get_all_player_data()
+    current_players = api_data.get_all_player_data()
     # Checking if player handle is available
     for p in current_players:
         if p.handle == handle:
