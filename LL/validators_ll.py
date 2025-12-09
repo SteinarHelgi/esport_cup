@@ -4,7 +4,7 @@ from IO.api_data import APIDATA
 from enum import Enum
 
 
-class Name(Enum):
+class Errors(Enum):
     NAME_EMPTY = 404
     NAME_ONLY_NUMBERS = 403
     OK = 1
@@ -14,13 +14,13 @@ class ValidationError(Exception):
     pass
 
 
-def validate_player_name(player_name: str) -> Name:
+def validate_player_name(player_name: str) -> Errors:
     valid_name = player_name.strip()
     if valid_name == "":
-        return Name.NAME_EMPTY
+        return Errors.NAME_EMPTY
     if any(char.isdigit() for char in valid_name):
-        return Name.NAME_ONLY_NUMBERS
-    return Name.OK
+        return Errors.NAME_ONLY_NUMBERS
+    return Errors.OK
 
 
 def validate_date_of_birth(date_of_birth):
