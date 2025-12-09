@@ -328,11 +328,9 @@ class TournamentLL:
         playing_times: list[str] = ["10:00", "12:00", "14:00", "16:00"]
 
         start_date: datetime = datetime(year=2000, month=1, day=1)
-        end_date = 0
         for t in all_tournaments:
             if t.id == tournament_id:
                 start_date = t.start_date
-                end_date = t.end_date
                 break
         # If tournament id was not found - raise valueerror
         if start_date.year == 2000:
@@ -375,4 +373,3 @@ class TournamentLL:
                 new_match.server_id = server_id
                 self.APIDATA.store_match_data(new_match)
                 match_id += 1
-
