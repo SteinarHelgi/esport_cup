@@ -5,6 +5,7 @@ from IO.api_data import APIDATA
 class ValidationError(Exception):
     pass
 
+#----------PLAYER VALIDATION------------
 
 def validate_player(player: Player) -> None:
     errors = []
@@ -82,8 +83,12 @@ def validate_player_handle(player_handle: str) -> None:
     # Team name
 
 
-
-def validate_team_captain_handle(handle:str,api_data: APIDATA) -> None:
+"""
+def validate_team_captain(team_captain: TeamCaptain) -> None:
+    errors: list[str] = []
+    # Team id
+    if not team_captain.team_id:
+        errors.append("Team id may not be empty")
     # Handle
     if not handle or not handle.strip():
         raise ValueError("Handle may not be empty")
@@ -131,6 +136,7 @@ def validate_team_points(points: int) -> None:
         raise ValueError("Points may not be negative")
 
 
+#-------------TOURNAMENT VALIDATION--------------
 
 def validate_tournament_name(name):
     if len(name.strip()) < 2:
