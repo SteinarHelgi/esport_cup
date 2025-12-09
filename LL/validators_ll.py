@@ -160,7 +160,7 @@ def validate_team_points(points: str) -> str | None:
 # -------------TOURNAMENT VALIDATION--------------
 
 
-def validate_tournament_name(name):
+def validate_tournament_name(name) -> str | None:
     if len(name.strip()) < 2:
         raise ValidationError("Name of tournament be atleast 3 characters")
     if len(name) <= 40:
@@ -169,7 +169,7 @@ def validate_tournament_name(name):
         raise ValidationError("Name cannot be longer than 40 characters")
 
 
-def validate_tournament_start_date(start_date):
+def validate_tournament_start_date(start_date) -> str | None:
     # Verður að vera rétt format
     # Start date verður að vera eftir daginn í dag
     try:
@@ -181,7 +181,7 @@ def validate_tournament_start_date(start_date):
     return start_date
 
 
-def validate_tournament_end_date(start_date, end_date):
+def validate_tournament_end_date(start_date, end_date) -> str | None:
     # Verður að vera rétt format.
     # Verður að byrja eftir start date
     try:
@@ -193,7 +193,7 @@ def validate_tournament_end_date(start_date, end_date):
     return end_date
 
 
-def validate_tournament_servers(servers):
+def validate_tournament_servers(servers) -> str | None:
     if not servers.isdigit():
         raise ValidationError("Amount of servers must be a number")
     if int(servers) < 1:
@@ -201,7 +201,7 @@ def validate_tournament_servers(servers):
     return servers
 
 
-def validate_tournament_venue(venue):
+def validate_tournament_venue(venue) -> str | None:
     if venue.isdigit():
         raise ValidationError("Invalid Venue name")
     return venue
@@ -214,7 +214,7 @@ def validate_tournament_double_elimination(double_elimination):
         raise ValidationError("Only Y or N")
 
 
-def validate_tournament_game(user_input_game, games):
+def validate_tournament_game(user_input_game, games) -> str | None:
     for game in games:
         if game.name == user_input_game:
             return game
