@@ -9,6 +9,7 @@ from UI.ui_functions import refresh_logo
 
 class UserUI:
     """Class for all of ui functions"""
+
     def __init__(self, APILL: APILL, menu_manager) -> None:
         self.APILL = APILL
         self.menu_manager = menu_manager
@@ -53,7 +54,7 @@ class UserUI:
         else:
             return "QUIT"
 
-    def show_tournaments_blabla(
+    def show_tournaments_calling_function(
         self, time: str
     ):  # Shows the tournaments that are going on at the time of checking
         refresh_logo()
@@ -124,7 +125,7 @@ class UserUI:
 
         choice: str = self.menu_manager.prompt_choice(["b", "q"])
         if choice == "b":
-            return self.show_tournaments_blabla(time)
+            return self.show_tournaments_calling_function(time)
 
     def show_players(self, team: Team):
         """Shows a list of players when you select a team"""
