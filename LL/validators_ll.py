@@ -8,7 +8,6 @@ class ValidationError(Exception):
 
 
 def validate_player_name(player_name: str) -> str:
-    errors = []
 
     valid_name = player_name.strip()
 
@@ -160,7 +159,7 @@ def validate_team_points(points: str) -> str | None:
 # -------------TOURNAMENT VALIDATION--------------
 
 
-def validate_tournament_name(name):
+def validate_tournament_name(name) -> str | None:
     if len(name.strip()) < 2:
         raise ValidationError("Name of tournament be atleast 3 characters")
     if len(name) <= 40:
@@ -169,7 +168,7 @@ def validate_tournament_name(name):
         raise ValidationError("Name cannot be longer than 40 characters")
 
 
-def validate_tournament_start_date(start_date):
+def validate_tournament_start_date(start_date) -> str | None:
     # Verður að vera rétt format
     # Start date verður að vera eftir daginn í dag
     try:
@@ -181,7 +180,7 @@ def validate_tournament_start_date(start_date):
     return start_date
 
 
-def validate_tournament_end_date(start_date, end_date):
+def validate_tournament_end_date(start_date, end_date) -> str | None:
     # Verður að vera rétt format.
     # Verður að byrja eftir start date
     try:
@@ -193,7 +192,7 @@ def validate_tournament_end_date(start_date, end_date):
     return end_date
 
 
-def validate_tournament_servers(servers):
+def validate_tournament_servers(servers) -> str | None:
     if not servers.isdigit():
         raise ValidationError("Amount of servers must be a number")
     if int(servers) < 1:
@@ -201,7 +200,7 @@ def validate_tournament_servers(servers):
     return servers
 
 
-def validate_tournament_venue(venue):
+def validate_tournament_venue(venue) -> str | None:
     if venue.isdigit():
         raise ValidationError("Invalid Venue name")
     return venue
@@ -214,15 +213,35 @@ def validate_tournament_double_elimination(double_elimination):
         raise ValidationError("Only Y or N")
 
 
-def validate_tournament_game(user_input_game, games):
+def validate_tournament_game(user_input_game, games) -> str | None:
     for game in games:
         if game.name == user_input_game:
             return game
     raise ValidationError("Not a valid game")
 
 
-# ----------------MATCH VALIDATION-------------------- Steinar
+# ----------------MATCH VALIDATION--------------------
 
+def validate_match_round(round_name: str, matches_in_round: list) -> None:
+
+    expected_matches_by_round = {
+        "R16": 8,
+        "QF": 4,
+        "SF": 2,
+        "Final": 1,
+    }
+
+    if round_name not in expected_matches_by_round:
+        raise ValidationError(f"'{round_name}' is not a valid round.")
+
+    expected = expected_matches_by_round[round_name]
+    actual = len(matches_in_round)
+
+    if actual != expected:
+        raise ValidationError(
+            f"Round '{round_name}' must have {expected} matches, "
+            f"but got {actual}."
+        )
 
 # -----------------GAME VALIDATION--------------------
 
@@ -270,15 +289,20 @@ def validate_club_color(color:str) -> str | None:
     if any(char.isdigit() for char in color):
         raise ValueError("Invalid color")
     
+    color_list = [c.strip().lower() for c in color.split(",") if c.strip()]
+
+    if len(color_list) > 4:
+        raise ValueError("You can only have four colors in club color")
+    
     allowed_colors = ["Red", "Blue", "Green", "Yellow", "Black", "White", "Purple", "Orange", "Pink", "Gray", "Brown"]
     
-    club_color = color.strip().lower()
+    for color in color_list:
+        if color not in allowed_colors:
+            raise ValueError(f"Invalid club color: {color} Allowed colors are: "  ", ".join(allowed_colors))
 
-    if club_color not in allowed_colors:
-        raise ValueError("Invalid club color. Allowed colors are: " + ", ".join(allowed_colors))
+    return ",".join([c.strip() for c in color.split(",") if c.strip()])
     
-    return club_color
-
+ 
 def validate_club_country(country:str) -> str | None:
     if not country or country.strip() == "":
         raise ValueError("You must enter a club country")
@@ -286,4 +310,11 @@ def validate_club_country(country:str) -> str | None:
         raise ValueError("Invalid country")
     return country
 
+def validate_club_teams(teams:str) -> str | None:
+    pass
+
+def validate_club_logo(logo:str) -> str | None:
+    if not logo or logo.strip() == "":
+        raise ValueError("You must enter a club logo")
+    return logo
 
