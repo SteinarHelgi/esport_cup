@@ -111,3 +111,31 @@ def validate_team_points(points: int) -> None:
     # Players 3-5
     # if team.players is None:
     #    errors.append("Team must have players")
+
+
+def validate_tournament_name(name):
+    return name
+
+
+def validate_tournament_start_date(start_date):
+    return start_date
+
+
+def validate_tournament_end_date(end_date):
+    return end_date
+
+
+def validate_tournament_servers(servers):
+    return servers
+
+
+def validate_tournament_venue(venue):
+    return venue
+
+
+def validate_tournament_double_elimination(double_elimination):
+    return double_elimination
+
+
+def validate_tournament_game(game):
+    return game
