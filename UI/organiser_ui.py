@@ -4,10 +4,21 @@ from LL.api_ll import APILL
 from Models.models import Match, Player, Team, Tournament
 from UI.functions import format_player_list, format_team_list, format_tournament_table
 from UI.ui_functions import refresh_logo
-from LL.validators_ll import ValidationError, validate_tournament_double_elimination, validate_tournament_end_date, validate_tournament_name, validate_tournament_game, validate_tournament_start_date, validate_tournament_venue, validate_tournament_servers
+from LL.validators_ll import (
+    ValidationError,
+    validate_tournament_double_elimination,
+    validate_tournament_end_date,
+    validate_tournament_name,
+    validate_tournament_game,
+    validate_tournament_start_date,
+    validate_tournament_venue,
+    validate_tournament_servers,
+)
+
 
 class OrganiserUI:
     """UI functions for organiser"""
+
     def __init__(self, APILL: APILL, menu_manager) -> None:
         self.APILL = APILL
         self.menu_manager = menu_manager
@@ -16,72 +27,95 @@ class OrganiserUI:
     def show_create_tournament(self):
         """Creates tournaments with options to quit or back anywhere in the process and shows the confirmation of creation"""
         print("Fill in the required info or b.Back or q.Quit")
-        name_of_tournament = input("Name: ")
-        if name_of_tournament.lower() == "b":
-            return "ORGANISER_MENU"
-        if name_of_tournament.lower() == "q":
-            return "QUIT"
-        try:
-            name_of_tournament = validate_tournament_name(name_of_tournament)
-        except ValidationError as e:
-            print(str(e))
-        start_date_of_tournament = input("Start date(Year-Month-Day): ")
-        if start_date_of_tournament.lower() == "b":
-            return "ORGANISER_MENU"
-        if start_date_of_tournament.lower() == "q":
-            return "QUIT"
-        try:
-            start_date_of_tournament = validate_tournament_start_date(start_date_of_tournament)
-        except ValidationError as e:
-            print(str(e))
-        end_date_of_tournamnet = input("End date(Year-Month-Day): ")
-        if end_date_of_tournamnet.lower() == "b":
-            return "ORGANISER_MENU"
-        if end_date_of_tournamnet.lower() == "q":
-            return "QUIT"
-        try:
-            end_date_of_tournamnet = validate_tournament_end_date(start_date_of_tournament, end_date_of_tournamnet)
-        except ValidationError as e:
-            print(str(e))
-        amount_of_servers = input("Number of servers: ")
-        if amount_of_servers.lower() == "b":
-            return "ORGANISER_MENU"
-        if amount_of_servers.lower() == "q":
-            return "QUIT"
-        try:
-            amount_of_servers = validate_tournament_servers(amount_of_servers)
-        except ValidationError as e:
-            print(str(e))
-        venue = input("Venue: ")
-        if venue.lower() == "b":
-            return "ORGANISER_MENU"
-        if venue.lower() == "q":
-            return "QUIT"
-        try:
-            venue = validate_tournament_venue(venue)
-        except ValidationError as e:
-            print(str(e))
-        double_elimination = input("Double elimination(Y/N): ")
-        if double_elimination.lower() == "b":
-            return "ORGANISER_MENU"
-        if double_elimination.lower() == "q":
-            return "QUIT"
-        if double_elimination.lower() != "y" and double_elimination != "n":
-            print("Invalid input, valid inputs are: Y, N, B, Q")
+
+        while True:
+            name_of_tournament = input("Name: ")
+            if name_of_tournament.lower() == "b":
+                return "ORGANISER_MENU"
+            if name_of_tournament.lower() == "q":
+                return "QUIT"
+            try:
+                name_of_tournament = validate_tournament_name(name_of_tournament)
+                break
+            except ValidationError as e:
+                print(str(e))
+
+        while True:
+            start_date_of_tournament = input("Start date(Year-MOnth-Day): ")
+            if start_date_of_tournament.lower() == "b":
+                return "ORGANISER_MENU"
+            if start_date_of_tournament.lower() == "q":
+                return "QUIT"
+            try:
+                start_date_of_tournament = validate_tournament_start_date(
+                    start_date_of_tournament
+                )
+                break
+            except ValidationError as e:
+                print(str(e))
+        while True:
+            end_date_of_tournamnet = input("End date(Year-Month-Day): ")
+            if end_date_of_tournamnet.lower() == "b":
+                return "ORGANISER_MENU"
+            if end_date_of_tournamnet.lower() == "q":
+                return "QUIT"
+            try:
+                end_date_of_tournamnet = validate_tournament_end_date(
+                    start_date_of_tournament, end_date_of_tournamnet
+                )
+                break
+            except ValidationError as e:
+                print(str(e))
+        while True:
+            amount_of_servers = input("Number of servers: ")
+            if amount_of_servers.lower() == "b":
+                return "ORGANISER_MENU"
+            if amount_of_servers.lower() == "q":
+                return "QUIT"
+            try:
+                amount_of_servers = validate_tournament_servers(amount_of_servers)
+                break
+            except ValidationError as e:
+                print(str(e))
+        while True:
+            venue = input("Venue: ")
+            if venue.lower() == "b":
+                return "ORGANISER_MENU"
+            if venue.lower() == "q":
+                return "QUIT"
+            try:
+                venue = validate_tournament_venue(venue)
+                break
+            except ValidationError as e:
+                print(str(e))
+        while True:
             double_elimination = input("Double elimination(Y/N): ")
-        try:
-            double_elimination = validate_tournament_double_elimination(double_elimination)
-        except ValidationError as e:
-            print(str(e))
-        game_for_tournament = input("Game: ")
-        if game_for_tournament.lower() == "b":
-            return "ORGANISER_MENU"
-        if game_for_tournament.lower() == "q":
-            return "QUIT"
-        try:
-            game_for_tournament = validate_tournament_game(game_for_tournament)
-        except ValidationError as e:
-            print(str(e))
+            if double_elimination.lower() == "b":
+                return "ORGANISER_MENU"
+            if double_elimination.lower() == "q":
+                return "QUIT"
+            if double_elimination.lower() != "y" and double_elimination != "n":
+                print("Invalid input, valid inputs are: Y, N, B, Q")
+                double_elimination = input("Double elimination(Y/N): ")
+            try:
+                double_elimination = validate_tournament_double_elimination(
+                    double_elimination
+                )
+                break
+            except ValidationError as e:
+                print(str(e))
+
+        while True:
+            game_for_tournament = input("Game: ")
+            if game_for_tournament.lower() == "b":
+                return "ORGANISER_MENU"
+            if game_for_tournament.lower() == "q":
+                return "QUIT"
+            try:
+                game_for_tournament = validate_tournament_game(game_for_tournament)
+                break
+            except ValidationError as e:
+                print(str(e))
         new_contact_person = self.create_contact_person_menu()  # Calls the create contact person function so that it adds that person to the created tournament
         print("b. Back \nq. Quit")
         # TODO setja inn tournament created menuið
@@ -97,7 +131,6 @@ class OrganiserUI:
             )
 
             if self.APILL.create_tournament(new_tournament):
-                
                 print(self.tournament_created((new_tournament)))
                 enter_for_ok = input("Enter for ok or q to quit")
                 if enter_for_ok == "q":
