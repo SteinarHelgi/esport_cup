@@ -222,7 +222,42 @@ def validate_tournament_game(user_input_game, games):
 
 # -----------------CLUB VALIDATION--------------------
 
-def validate_club_name
+def validate_club_name(name:str) -> str | None:
+    if not name or name.strip() == "":
+        raise ValueError("You must enter a club name")
+    if any(char.isdigit() for char in name):
+        raise ValueError("Invalid club name")
+    
+    return name
 
-def validate_club_name():
-    pass
+def validate_club_hometown(hometown:str) -> str | None:
+    if not hometown or hometown.strip() == "":
+        raise ValueError("You must enter a club hometown")
+    if any(char.isdigit() for char in hometown):
+        raise ValueError("Invalid hometown")
+ 
+    return hometown
+
+def validate_club_color(color:str) -> str | None:
+    if not color or color.strip() == "":
+        raise ValueError("You must enter a club color")
+    if any(char.isdigit() for char in color):
+        raise ValueError("Invalid color")
+    
+    allowed_colors = ["Red", "Blue", "Green", "Yellow", "Black", "White", "Purple", "Orange", "Pink", "Gray", "Brown"]
+    
+    club_color = color.strip().lower()
+
+    if club_color not in allowed_colors:
+        raise ValueError("Invalid club color. Allowed colors are: " + ", ".join(allowed_colors))
+    
+    return club_color
+
+def validate_club_country(country:str) -> str | None:
+    if not country or country.strip() == "":
+        raise ValueError("You must enter a club country")
+    if any(char.isdigit() for char in country):
+        raise ValueError("Invalid country")
+    return country
+
+
