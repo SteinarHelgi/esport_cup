@@ -118,12 +118,6 @@ def validate_team_logo(logo: str) -> None:
         raise ValueError("Team logo may not be empty")
 
 
-def validate_team_social_media(social_media: str) -> None:
-    # Social media
-    if social_media is None or social_media.strip() == "":
-        pass
-
-
 def validate_team_players(players: list[str]) -> None:
     pass
 
@@ -135,9 +129,6 @@ def validate_team_points(points: int) -> None:
     elif points < 0:
         raise ValueError("Points may not be negative")
 
-    # Players 3-5
-    # if team.players is None:
-    #    errors.append("Team must have players")
 
 
 def validate_tournament_name(name):
