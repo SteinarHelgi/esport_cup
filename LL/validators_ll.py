@@ -1,11 +1,13 @@
-
-from curses.ascii import isdigit
-from datetime import datetime
 from Models.models import Player, TeamCaptain, Team
-import ValidationError
+from datetime import datetime, date
+from IO.api_data import APIDATA
+
+class ValidationError(Exception):
+    pass
 
 
-def validate_player_name(name: str) -> None:
+def validate_player(player: Player) -> None:
+    errors = []
 
     valid_name = name.strip()
 
@@ -80,7 +82,7 @@ def validate_player_handle(player_handle: str) -> None:
 
     # Team name
 
-
+"""
 def validate_team_captain(team_captain: TeamCaptain) -> None:
     errors: list[str] = []
     # Team id
@@ -89,36 +91,110 @@ def validate_team_captain(team_captain: TeamCaptain) -> None:
     # Handle
     if not team_captain.handle or not team_captain.handle.strip():
         errors.append("Handle may not be empty")
+"""
 
-    if errors:
-        raise ValidationError(errors)
-
-
-def validate_team(team: Team) -> None:
-    errors: list[str] = []
+def validate_team_name(name:str) -> None:
     # Name
-    if not team.name or team.name.strip() == "":
-        errors.append("Team name may not be empty")
-    if len(team.name.strip()) < 3:
-        errors.append("Team name must be at least 3 characters long")
-    # Captain handle
-    if not team.captain_handle or team.captain_handle.strip() == "":
-        errors.append("Team captain handle may not be empty")
-    # Logo
-    if not team.logo or team.logo.strip() == "":
-        errors.append("Team logo may not be empty")
-    # Players 3-5
-    if team.players is None:
-        errors.append("Team must have players")
-    else:
-        player_count = len(team.players)
-        if player_count < 3 or player_count > 5:
-            errors.append("Team must have between 3 and 5 players")
-    # Points
-    if team.points is None:
-        errors.append("Points may not be empty")
-    elif team.points < 0:
-        errors.append("Points may not be negative")
+    if not name or name.strip() == "":
+        raise ValueError("You must enter a team name")
+    if len(name) > 64:
+        raise ValueError("Team name can't be longer than 64 characters")
 
-    if errors:
-        raise ValidationError(errors)
+def validation_team_handle(handle:str, api_data:APIDATA) -> None:
+    # Captain handle
+
+    if not handle or handle.strip() == "":
+        raise ValueError("You must enter a team captain handle ")
+    
+    current_players = api_data.get_all_player_data()
+    # Checking if player handle is available
+    for p in current_players:
+        if p.handle == handle:
+            raise ValueError("No player exists with that handle")
+    
+
+def validate_team_logo(logo:str) -> None:
+    # Logo
+    if not logo or logo.strip() == "":
+        raise ValueError("Team logo may not be empty")
+
+def validate_team_social_media(social_media:str) -> None:
+    # Social media
+    if social_media is None or social_media.strip() == "":
+        pass
+
+def validate_team_players(players:list[str]) -> None:
+    pass
+
+def validate_team_points(points:int) -> None:
+      # Points
+    if points is None:
+        raise ValueError("Points may not be empty")
+    elif points < 0:
+        raise ValueError("Points may not be negative")
+
+    # Players 3-5
+    # if team.players is None:
+    #    errors.append("Team must have players")
+
+
+def validate_tournament_name(name):
+    if len(name.strip()) < 2:
+        raise ValidationError("Name of tournament be atleast 3 characters")
+    if len(name) <= 40:
+        return name
+    else:
+        raise ValidationError("Name cannot be longer than 40 characters")
+
+
+def validate_tournament_start_date(start_date):
+    # Verður að vera rétt format
+    # Start date verður að vera eftir daginn í dag
+    try:
+        start_date_iso = datetime.fromisoformat(start_date)
+    except ValueError:
+        raise ValidationError("Not correct format")
+    if start_date_iso <= date.today():
+        raise ValidationError("Invalid start date")
+    return start_date
+
+
+def validate_tournament_end_date(start_date, end_date):
+    # Verður að vera rétt format.
+    # Verður að byrja eftir start date
+    try:
+        end_date_iso = datetime.fromisoformat(end_date)
+    except ValueError:
+        raise ValidationError("Not correct format")
+    if end_date_iso < datetime.fromisoformat(start_date):
+        raise ValidationError("Invalid end date")
+    return end_date
+
+
+def validate_tournament_servers(servers):
+    if not servers.isdigit():
+        raise ValidationError("Amount of servers must be a number")
+    if int(servers) < 1:
+        raise ValidationError("Amount of servers be greater than 0")
+    return servers
+
+
+def validate_tournament_venue(venue):
+    if venue.isdigit():
+        raise ValidationError("Invalid Venue name")
+    return venue
+
+
+def validate_tournament_double_elimination(double_elimination):
+    if double_elimination.lower() == "y" or double_elimination.lower() == "n":
+        return double_elimination
+    else:
+        raise ValidationError("Only Y or N")
+
+
+def validate_tournament_game(game):
+    games = ["Valorant", "CS:GO", "League of Legends", "Rocket League", "Fortnite"]
+    if game not in games:
+        raise ValidationError("Game must be ", *games)
+
+    return game

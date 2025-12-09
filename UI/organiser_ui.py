@@ -1,9 +1,10 @@
 from datetime import datetime
+from tracemalloc import start
 from LL.api_ll import APILL
 from Models.models import Match, Player, Team, Tournament
 from UI.functions import format_player_list, format_team_list, format_tournament_table
 from UI.ui_functions import refresh_logo
-
+from LL.validators_ll import ValidationError, validate_tournament_double_elimination, validate_tournament_end_date, validate_tournament_name, validate_tournament_game, validate_tournament_start_date, validate_tournament_venue, validate_tournament_servers
 
 class OrganiserUI:
     """UI functions for organiser"""
@@ -12,7 +13,7 @@ class OrganiserUI:
         self.menu_manager = menu_manager
         self.team_to_view: Team
 
-    def show_create_tournament(self):  
+    def show_create_tournament(self):
         """Creates tournaments with options to quit or back anywhere in the process and shows the confirmation of creation"""
         print("Fill in the required info or b.Back or q.Quit")
         name_of_tournament = input("Name: ")
@@ -20,29 +21,46 @@ class OrganiserUI:
             return "ORGANISER_MENU"
         if name_of_tournament.lower() == "q":
             return "QUIT"
+        try:
+            name_of_tournament = validate_tournament_name(name_of_tournament)
+        except ValidationError as e:
+            print(str(e))
         start_date_of_tournament = input("Start date(Year-MOnth-Day): ")
         if start_date_of_tournament.lower() == "b":
             return "ORGANISER_MENU"
         if start_date_of_tournament.lower() == "q":
             return "QUIT"
+        try:
+            start_date_of_tournament = validate_tournament_start_date(start_date_of_tournament)
+        except ValidationError as e:
+            print(str(e))
         end_date_of_tournamnet = input("End date(Year-Month-Day): ")
         if end_date_of_tournamnet.lower() == "b":
             return "ORGANISER_MENU"
         if end_date_of_tournamnet.lower() == "q":
             return "QUIT"
+        try:
+            end_date_of_tournamnet = validate_tournament_end_date(start_date_of_tournament, end_date_of_tournamnet)
+        except ValidationError as e:
+            print(str(e))
         amount_of_servers = input("Number of servers: ")
         if amount_of_servers.lower() == "b":
             return "ORGANISER_MENU"
         if amount_of_servers.lower() == "q":
             return "QUIT"
-        while not amount_of_servers.isdigit():
-            print("Needs to be a number!")
-            amount_of_servers = input("Number of servers: ")
+        try:
+            amount_of_servers = validate_tournament_servers(amount_of_servers)
+        except ValidationError as e:
+            print(str(e))
         venue = input("Venue: ")
         if venue.lower() == "b":
             return "ORGANISER_MENU"
         if venue.lower() == "q":
             return "QUIT"
+        try:
+            venue = validate_tournament_venue(venue)
+        except ValidationError as e:
+            print(str(e))
         double_elimination = input("Double elimination(Y/N): ")
         if double_elimination.lower() == "b":
             return "ORGANISER_MENU"
@@ -51,15 +69,19 @@ class OrganiserUI:
         if double_elimination.lower() != "y" and double_elimination != "n":
             print("Invalid input, valid inputs are: Y, N, B, Q")
             double_elimination = input("Double elimination(Y/N): ")
-        if double_elimination.lower() == "b":
-            return "ORGANISER_MENU"
-        if double_elimination.lower() == "q":
-            return "QUIT"
+        try:
+            double_elimination = validate_tournament_double_elimination(double_elimination)
+        except ValidationError as e:
+            print(str(e))
         game_for_tournament = input("Game: ")
         if game_for_tournament.lower() == "b":
             return "ORGANISER_MENU"
         if game_for_tournament.lower() == "q":
             return "QUIT"
+        try:
+            game_for_tournament = validate_tournament_game(game_for_tournament)
+        except ValidationError as e:
+            print(str(e))
         new_contact_person = self.create_contact_person_menu()  # Calls the create contact person function so that it adds that person to the created tournament
         print("b. Back \nq. Quit")
         # TODO setja inn tournament created menuið
@@ -92,7 +114,7 @@ class OrganiserUI:
 
         return "ORGANISER_MENU"
 
-    def create_contact_person_menu(self): 
+    def create_contact_person_menu(self):
         """Creates the contact person with options to back or quit anywhere in the process"""
         print("Fill in contact person info or 'b' to Back and 'q' to Quit")
         new_contact_person_name = input("Name: ")
@@ -119,7 +141,7 @@ class OrganiserUI:
             ]
             return returnlist
 
-    def tournament_created(self, tournament: Tournament) -> str: 
+    def tournament_created(self, tournament: Tournament) -> str:
         """Menu that confirms that a tournament has been created"""
         tournament_name = tournament.name
         venue = tournament.venue
@@ -131,7 +153,7 @@ class OrganiserUI:
         tournaments = self.APILL.get_upcoming_tournaments()
         valid_choices = []
 
-        for i,tournament in enumerate(tournaments):
+        for i, tournament in enumerate(tournaments):
             string_i = str(i + 1)
             valid_choices.append(string_i)
             print("tournaments: ", tournament.matches)
@@ -236,15 +258,15 @@ class OrganiserUI:
         user_inputs = {}
 
         for prompt in prompts:
-            while True: #prompt until back, quit or valid input
+            while True:  # prompt until back, quit or valid input
                 current_input = input(prompt)
-                if current_input.lower() == 'b':
+                if current_input.lower() == "b":
                     return "MY_TOURNAMENTS_ORG"
-                elif current_input.lower() == 'q':
+                elif current_input.lower() == "q":
                     return "QUIT"
                 else:
                     user_inputs[prompt] = current_input
-                    break #exit the loop
+                    break  # exit the loop
         match = Match(
             tournament.id,
             user_inputs["Round: "],
@@ -325,7 +347,7 @@ class OrganiserUI:
             return "ORGANISER_MENU"
 
         return "QUIT"
-    
+
     def show_players_in_team_org(self):
         """Shows players in the selected team"""
         refresh_logo()
@@ -351,7 +373,7 @@ class OrganiserUI:
                 return "QUIT"
             if choice.lower() == "b":
                 return "TEAMS_ORG"
-            
+
     def show_players_with_personal_info_org(self, player: Player):
         """The actual view of players information"""
         if player:

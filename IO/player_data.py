@@ -185,4 +185,3 @@ class PlayerData:
                     writer.writerow(line)
         except (OSError, csv.Error):
             return None
-
