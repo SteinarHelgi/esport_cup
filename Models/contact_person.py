@@ -1,6 +1,3 @@
-from Models.models import Tournament
-
-
 class ContactPerson:
     def __init__(self, name: str, email: str, phone: str, tournament_id: str):
         self.id = ""
@@ -17,5 +14,6 @@ class ContactPerson:
         ret.append(self.phone)
         ret.append(self.tournament_id)
         return ret
-    def set_id(self,id):
+
+    def set_id(self, id):
         self.id = id

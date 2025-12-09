@@ -50,7 +50,7 @@ class UserUI:
         elif choice == "3":
             return self.show_tournaments_calling_function("PAST")
         elif choice.lower() == "b":
-            return "TEAM_CAPTAIN_MENU"
+            return "USER_MENU"
         else:
             return "QUIT"
 
@@ -135,6 +135,7 @@ class UserUI:
         print(format_player_list(players))
 
         valid_options = ["q", "b"]
+        print("b.Back, q.Quit")
         choice: str = self.menu_manager.prompt_choice(valid_options)
         if choice.lower() == "q":
             return "QUIT"
