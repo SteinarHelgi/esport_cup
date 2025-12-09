@@ -44,11 +44,11 @@ class TournamentData:
         return tournaments
 
     def store_tournament_data(self, tournament: Tournament) -> Tournament | None:
-        with open(self.tournament_file_path, "a", newline="" , encoding="utf-8") as file:
+        with open(self.tournament_file_path, "a", newline="", encoding="utf-8") as file:
             csvWriter = csv.writer(file)
             try:
                 csvWriter.writerow(tournament.toCSVList())
-            except:
+            except (OSError, csv.Error):
                 return None
         return tournament
 
@@ -86,5 +86,6 @@ class TournamentData:
                 # Iterate through the list of strings
                 for line in temp_data:
                     writer.writerow(line)
-        except:
+        except (OSError, csv.Error):
             return None
+

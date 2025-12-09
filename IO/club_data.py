@@ -10,7 +10,7 @@ class ClubData:
         clubs: list[Club] = []
         with open(self.club_file_path, "r", encoding="utf-8") as file:
             csv_reader = csv.reader(file)
-            #Skip header
+            # Skip header
             next(csv_reader)
             for line in csv_reader:
                 if line:
@@ -26,7 +26,7 @@ class ClubData:
                     club = Club(name, hometown, logo, club_colors, country, teams)
                     club.set_id(id)
                     club.set_points(points)
-    
+
                     clubs.append(club)
         return clubs
 
@@ -35,10 +35,10 @@ class ClubData:
             csv_writer = csv.writer(file)
             try:
                 csv_writer.writerow(club.toCSVList())
-            except:
+            except (OSError, csv.Error):
                 return None
         return club
-    
+
     def add_team_to_club(self, team: Team, club_id: str):
         team_name_to_add = team.name
         temp_data: list[list[str]] = []
@@ -69,14 +69,16 @@ class ClubData:
 
         # Overwrites temporary datafile to csv file
         try:
-            with open(self.club_file_path, "w", newline="", encoding="utf-8") as csvfile:
+            with open(
+                self.club_file_path, "w", newline="", encoding="utf-8"
+            ) as csvfile:
                 # Create a writer object
                 writer = csv.writer(csvfile)
 
                 # Iterate through the list of strings
                 for line in temp_data:
                     writer.writerow(line)
-        except:
+        except (OSError, csv.Error):
             return None
 
     def give_club_points(self, club_name: str, added_points: int) -> None:
@@ -85,7 +87,7 @@ class ClubData:
         club_found = False
 
         try:
-            with open(self.club_file_path, "r", newline="", encoding = "utf-8") as file:
+            with open(self.club_file_path, "r", newline="", encoding="utf-8") as file:
                 reader = csv.reader(file)
 
                 # Read the header row first
@@ -99,7 +101,6 @@ class ClubData:
                     if not line:
                         continue
 
-
                     if line[1] != target:
                         temp_data.append(line)
                     else:
@@ -111,7 +112,9 @@ class ClubData:
                         country: str = line[5]
                         points: int = int(line[6])
                         teams: str = line[7]
-                        club: Club = Club(name, hometown, logo, club_colors, country, teams)
+                        club: Club = Club(
+                            name, hometown, logo, club_colors, country, teams
+                        )
                         club.set_id(id)
                         club.set_points(points + added_points)
 
@@ -120,18 +123,21 @@ class ClubData:
 
         except FileNotFoundError:
             return
-        
+
         if not club_found:
             return
-        
+
         # Overwrites temporary datafile to csv file
         try:
-            with open(self.club_file_path, "w", newline="", encoding="utf-8") as csvfile:
+            with open(
+                self.club_file_path, "w", newline="", encoding="utf-8"
+            ) as csvfile:
                 # Create a writer object
                 writer = csv.writer(csvfile)
 
                 # Iterate through the list of strings
                 for line in temp_data:
                     writer.writerow(line)
-        except:
+        except (OSError, csv.Error):
             return None
+

@@ -17,7 +17,9 @@ class TeamRegistryData:
                     tournament_id: str = line[1]
                     team_name: str = line[2]
                     tournament_name: str = line[3]
-                    team_registry = TeamRegistry(team_id, tournament_id, team_name, tournament_name)
+                    team_registry = TeamRegistry(
+                        team_id, tournament_id, team_name, tournament_name
+                    )
                     team_registries.append(team_registry)
             return team_registries
 
@@ -28,6 +30,7 @@ class TeamRegistryData:
             csvWriter = csv.writer(file)
             try:
                 csvWriter.writerow(team_registry.toCSVList())
-            except:
+            except (OSError, csv.Error):
                 return None
         return team_registry
+
