@@ -7,10 +7,9 @@ class ValidationError(Exception):
 
 #----------PLAYER VALIDATION------------
 
-def validate_player(player: Player) -> None:
-    errors = []
+def validate_player_name(name: str) -> None:
 
-    valid_name = player.name.strip()
+    valid_name = name.strip()
 
     if valid_name == "":
         raise ValueError("Name can not be empty.")
@@ -196,10 +195,10 @@ def validate_tournament_game(game):
 
     return game
 
-#-------------CONTACT PERSON VALIDATION--------------
-
 #----------------MATCH VALIDATION--------------------
 
 #-----------------GAME VALIDATION--------------------
+
+
 
 #-----------------CLUB VALIDATION--------------------
