@@ -9,7 +9,7 @@ class ValidationError(Exception):
 def validate_player(player: Player) -> None:
     errors = []
 
-    valid_name = name.strip()
+    valid_name = player.name.strip()
 
     if valid_name == "":
         raise ValueError("Name can not be empty.")
