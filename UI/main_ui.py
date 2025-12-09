@@ -9,6 +9,7 @@ import sys
 import atexit
 
 def clear_terminal():
+    """Clears the terminal"""
     system_name = platform.system()
     if system_name == "Windows":
         os.system("cls")
@@ -21,21 +22,23 @@ RED_COLOR = "\033[91m"
 RESET_CODE = "\033[0m"
 
 def set_system_color_red():
+    """Changes system color to red"""
     sys.stdout.write(RED_COLOR)
 
 def set_system_color_green():
-    #switch to Green
+    """Changes system color to green"""
     sys.stdout.write(GREEN_COLOR)
 
 def reset_system_color():
-    #reset to default colors
+    """Resets the system to default colors
+        done when exiting the system"""
     sys.stdout.write(RESET_CODE)
 
 
 
 
 
-#    automatically back to regular color when program exits (even if it crashes)
+#automatic reset at exit of system
 atexit.register(reset_system_color)
 
 
@@ -43,7 +46,7 @@ atexit.register(reset_system_color)
 
 
 def print_welcome_sign():
-    # No clear_terminal() here, we handle it in the loop/logic
+    """Welcome sign for the system"""
     return(r"""
      __       __  ________  __        ______    ______   __       __  ________        ________   ______                      
     |  \  _  |  \|        \|  \      /      \  /      \ |  \     /  \|        \      |        \ /      \                     
@@ -66,7 +69,7 @@ def print_welcome_sign():
 """)
 
 def print_logo():
-    # Use the smaller ASCII art here
+    """Logo that stays up throughout the system"""
     return(r"""
 ░█▀▄░█▀▄░█▀█░█▀▀░█░█░█▀▀░█▀█░▀█▀░▀▀█░█▀▀░█▀▄
 ░█▀▄░█▀▄░█▀█░█░░░█▀▄░█▀▀░█░█░░█░░▄▀░░█▀▀░█▀▄
@@ -74,6 +77,7 @@ def print_logo():
 """)
 
 class MainUI:
+    """Main ui functions are in here"""
     def __init__(self):
         self.APILL = APILL()
         self.menu_manager = MenuManager(self.APILL)
