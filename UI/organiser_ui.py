@@ -2,20 +2,12 @@ from datetime import datetime
 from os import name
 from tracemalloc import start
 from LL.api_ll import APILL
+from Models import game
 from Models.contact_person import ContactPerson
 from Models.models import Match, Player, Team, Tournament
 from UI.functions import format_player_list, format_team_list, format_tournament_table
 from UI.ui_functions import refresh_logo
-from LL.validators_ll import (
-    ValidationError,
-    validate_tournament_double_elimination,
-    validate_tournament_end_date,
-    validate_tournament_name,
-    validate_tournament_game,
-    validate_tournament_start_date,
-    validate_tournament_venue,
-    validate_tournament_servers,
-)
+from LL.validators_ll import Errors, validate_phone_number, validate_player_email, validate_player_name, validate_tournament_double_elimination, validate_tournament_end_date, validate_tournament_game,validate_tournament_name, validate_tournament_servers, validate_tournament_start_date, validate_tournament_venue
 
 
 class OrganiserUI:
@@ -30,130 +22,161 @@ class OrganiserUI:
         """Creates tournaments with options to quit or back anywhere in the process and shows the confirmation of creation"""
         print("Fill in the required info or b.Back or q.Quit")
 
-        name_of_tournament = ""
-        while validate_tournament_name(name_of_tournament):
-            name_of_tournament = input("Name: ")
-            if name_of_tournament.lower() == "b":
-                return "ORGANISER_MENU"
-            if name_of_tournament.lower() == "q":
-                return "QUIT"
-            try:
-                name_of_tournament = validate_tournament_name(name_of_tournament)
-                break
-            except ValidationError as e:
-                print(str(e))
+        
+        
+        name_of_tournament = input("Tournament name: ")
+        if name_of_tournament.lower() == "b":
+            return "ORGANISER_MENU"
+        if name_of_tournament.lower() == "q":
+            return "QUIT"
+        while validate_tournament_name(name) != Errors.OK:
+            error = validate_tournament_name(name_of_tournament)
+            if error == Errors.TOURNAMENT_NAME_LENGTH:
+                print("Tournament name needs to be atleast two letters")
+            if error == Errors.TOURNAMENT_NAME_LENGTH_TOO_LONG:
+                print("Tournament's name is too long")
+            name_of_tournament = input("Tournament name: ")
 
-        start_date_of_tournament = ""
-        while not validate_tournament_name(start_date_of_tournament):
-            start_date_of_tournament = input("Start date(Year-Month-Day): ")
-            if start_date_of_tournament.lower() == "b":
-                return "ORGANISER_MENU"
-            if start_date_of_tournament.lower() == "q":
-                return "QUIT"
 
-        while True:
+    
+        start_date_of_tournament = input("Start date(Year-Month-Day): ")
+        if start_date_of_tournament.lower() == "b":
+            return "ORGANISER_MENU"
+        if start_date_of_tournament.lower() == "q":
+            return "QUIT"
+        while validate_tournament_start_date(start_date_of_tournament) != Errors.OK:
+            error = validate_tournament_start_date(start_date_of_tournament)
+            if error == Errors.DATE_FORMAT_NOT_VALID:
+                print("Invalid format. Format is 0000-00-00.")
+            if error == Errors.START_DATE_BEFORE_TODAY:
+                print("The start date you entered has already passed, please input a different date.")
+            start_date_of_tournament = input("Start date(Year-Month-Day): ")        
+
+
+        end_date_of_tournamnet = input("End date(Year-Month-Day): ")
+        if end_date_of_tournamnet.lower() == "b":
+            return "ORGANISER_MENU"
+        if end_date_of_tournamnet.lower() == "q":
+            return "QUIT"
+        while validate_tournament_end_date(start_date_of_tournament, end_date_of_tournamnet) != Errors.OK:
+            error = validate_tournament_end_date(start_date_of_tournament, end_date_of_tournamnet)
+            if error == Errors.DATE_FORMAT_NOT_VALID:
+                print("Invalid format. Format is 0000-00-00.")
+            if error == Errors.END_DATE_BEFORE_START:
+                print("The date you have input is before the start date you input. Please input a date that is after the start date.")
             end_date_of_tournamnet = input("End date(Year-Month-Day): ")
-            if end_date_of_tournamnet.lower() == "b":
-                return "ORGANISER_MENU"
-            if end_date_of_tournamnet.lower() == "q":
-                return "QUIT"
-            try:
-                end_date_of_tournamnet = validate_tournament_end_date(
-                    start_date_of_tournament, end_date_of_tournamnet
-                )
-                break
-            except ValidationError as e:
-                print(str(e))
-        while True:
+        
+        amount_of_servers = input("Number of servers: ")
+        if amount_of_servers.lower() == "b":
+            return "ORGANISER_MENU"
+        if amount_of_servers.lower() == "q":
+            return "QUIT"
+        while validate_tournament_servers(amount_of_servers) != Errors.OK:
+            error = validate_tournament_servers(amount_of_servers)
+            if error == Errors.SERVER_NOT_NUMBER:
+                print("Server amount has to be a number.")
+            if error == Errors.SERVER_LESS_THAN_0:
+                print("Server amount cannot be less than 0.")
             amount_of_servers = input("Number of servers: ")
-            if amount_of_servers.lower() == "b":
-                return "ORGANISER_MENU"
-            if amount_of_servers.lower() == "q":
-                return "QUIT"
-            try:
-                amount_of_servers = validate_tournament_servers(amount_of_servers)
-                break
-            except ValidationError as e:
-                print(str(e))
-        while True:
-            venue = input("Venue: ")
-            if venue.lower() == "b":
-                return "ORGANISER_MENU"
-            if venue.lower() == "q":
-                return "QUIT"
-            try:
-                venue = validate_tournament_venue(venue)
-                break
-            except ValidationError as e:
-                print(str(e))
-        while True:
-            double_elimination = input("Double elimination(Y/N): ")
-            if double_elimination.lower() == "b":
-                return "ORGANISER_MENU"
-            if double_elimination.lower() == "q":
-                return "QUIT"
-            try:
-                double_elimination = validate_tournament_double_elimination(
-                    double_elimination
-                )
-                break
-            except ValidationError as e:
-                print(str(e))
 
-        while True:
-            games = self.APILL.get_all_games()
-            print("Valid games are:", *games)
-            game_for_tournament = input("Game: ")
-            if game_for_tournament.lower() == "b":
-                return "ORGANISER_MENU"
-            if game_for_tournament.lower() == "q":
-                return "QUIT"
-            try:
-                game_for_tournament = validate_tournament_game(
-                    game_for_tournament, games
-                )
-                break
-            except ValidationError as e:
-                print(str(e))
+    
+        venue = input("Venue: ")
+        if venue.lower() == "b":
+            return "ORGANISER_MENU"
+        if venue.lower() == "q":
+            return "QUIT"
+        while validate_tournament_venue(venue) != Errors.OK:
+            error = validate_tournament_venue(venue)
+            if error == Errors.VENUE_ONLY_NUMBERS:
+                print("Invalid input, cannot be all numnbers.")
+            venue = input("Venue: ")
+        
+
+        double_elimination = input("Double elimination(Y/N): ")
+        if double_elimination.lower() == "b":
+            return "ORGANISER_MENU"
+        if double_elimination.lower() == "q":
+            return "QUIT"
+        while validate_tournament_double_elimination(double_elimination) != Errors.OK:
+            error = validate_tournament_double_elimination(double_elimination)
+            if error == Errors.NOT_Y_OR_N:
+                print("Invalid input, confirm with Y or N")
+            double_elimination = input("Double elimination(Y/N): ")
+
+    
+        games = self.APILL.get_all_games()
+        print("Valid games are:", *games)
+        game_for_tournament = input("Game: ")
+        if game_for_tournament.lower() == "b":
+            return "ORGANISER_MENU"
+        if game_for_tournament.lower() == "q":
+            return "QUIT"
+        while validate_tournament_game(game_for_tournament,games) != Errors.OK:
+            error = validate_tournament_game(game_for_tournament,games)
+            if error == Errors.GAME_NOT_VALID:
+                print("You have input an invalid game, select a game from the list provided")
+                print("Valid games are:", *games)
+                game_for_tournament = input("Game: ")
 
         print("Fill in contact person info or 'b' to Back and 'q' to Quit")
-        while True:
+
+        new_contact_person_name = input("Name: ")
+        if new_contact_person_name == "b":
+            return "ORGANISER_MENU"
+        if new_contact_person_name == "q":
+            return "QUIT"
+        while validate_player_name(new_contact_person_name) != Errors.OK:
+            error = validate_player_name(new_contact_person_name)
+            if error == Errors.EMPTY:
+                print("Name cannot be empty")
+            if error == Errors.NAME_ONLY_NUMBERS:
+                print("Name cannot include numbers")
             new_contact_person_name = input("Name: ")
-            if new_contact_person_name == "b":
-                return "ORGANISER_MENU"
-            if new_contact_person_name == "q":
-                return "QUIT"
-            break
-        # Try and except fyrir contact person name validation
-        while True:
+
+        
+    
+        new_contact_person_email = input("Email: ")
+        if new_contact_person_email == "b":
+            return "ORGANISER_MENU"
+        if new_contact_person_email == "q":
+            return "QUIT"
+        while validate_player_email(new_contact_person_email) != Errors.OK:
+            error = validate_player_email(new_contact_person_email)
+            if error == Errors.EMPTY:
+                print("Contact person email address cannot be empty.")
+            if error == Errors.EMAIL_NOT_CONTAINING_AT:
+                print("Email has to include an '@': example@example.com")
             new_contact_person_email = input("Email: ")
-            if new_contact_person_email == "b":
-                return "ORGANISER_MENU"
-            if new_contact_person_email == "q":
-                return "QUIT"
-            break
-        # Try and except for contact person email validation
-        while True:
-            new_contact_person_phone_nmbr = input("Phone number: ")
-            if new_contact_person_phone_nmbr == "b":
-                return "ORGANISER_MENU"
-            if new_contact_person_phone_nmbr == "q":
-                return "QUIT"
-            break
+        
+
+        new_contact_person_phone_nmbr = input("Phone number: ")
+        if new_contact_person_phone_nmbr == "b":
+            return "ORGANISER_MENU"
+        if new_contact_person_phone_nmbr == "q":
+            return "QUIT"
+        while validate_phone_number(new_contact_person_phone_nmbr) != Errors.OK:
+            error = validate_phone_number(new_contact_person_phone_nmbr)
+            if error == Errors.EMPTY:
+                print("Phone number cannot be empty.")
+            if error == Errors.NUMBER_HAS_CHARACTERS:
+                print("Phone number cannot have characters, only digits.")
+            if error == Errors.NUMBER_NOT_CORRECT_LENGTH:
+                print("Phone number has to be 7 digits long.")
+                new_contact_person_phone_nmbr = input("Phone number: ")
         # Try and except for contact person phone number validation
         confirmation = input("Confirm(Y): ")
         if confirmation.lower() != "y":
             return "ORGANISER_MENU"
 
         print("b. Back \nq. Quit")
-        # TODO setja inn tournament created menuið
+        
 
         new_tournament = Tournament(
             name_of_tournament,
             datetime.fromisoformat(start_date_of_tournament),
             datetime.fromisoformat(end_date_of_tournamnet),
             venue,
-            game_for_tournament.name,
+            game_for_tournament,
             amount_of_servers,
             new_contact_person_name,
         )

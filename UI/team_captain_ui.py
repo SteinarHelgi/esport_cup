@@ -16,6 +16,10 @@ class TeamCaptainUI:
     def show_create_player(self):
         """Creating a player with the required information"""
         name = input("Player's name: ").strip()
+        if name.lower() == 'b':
+            return "SHOW_MY_PLAYERS"
+        if name.lower() == 'q':
+            return "QUIT"
         while validate_player_name(name) != Errors.OK:
             error = validate_player_name(name)
             if error == Errors.EMPTY:
@@ -25,16 +29,17 @@ class TeamCaptainUI:
             name = input("Player's name: ").strip()
 
         date_of_birth = input("Player's birthday (YYYY-MM-DD): ").strip()
+        if date_of_birth.lower() == "b":
+                return "MY_TEAM"
+        if date_of_birth.lower() == "q":
+                return "QUIT"
         while validate_date_of_birth(date_of_birth) != Errors.OK:
             error = validate_date_of_birth(date_of_birth)
             if error == Errors.DATE_FORMAT_NOT_VALID:
                 print("Use format YYYY-MM-DD")
             if error == Errors.DATE_TOO_OLD:
                 print("Invalid date, choose a date after 1900")
-            if date_of_birth.lower() == "b":
-                return "MY_TEAM"
-            if date_of_birth.lower() == "q":
-                return "QUIT"
+            
         address = input("Enter address: ").strip()
         if address.lower() == "b":
             return "MY_TEAM"
