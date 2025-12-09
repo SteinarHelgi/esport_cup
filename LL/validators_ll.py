@@ -1,5 +1,8 @@
 from Models.models import Player, TeamCaptain, Team
-import ValidationError
+
+
+class ValidationError(Exception):
+    pass
 
 
 def validate_player_name(name: str):
@@ -28,7 +31,7 @@ def validate_player(player: Player) -> None:
     # Address
     if not player.address or player.address.strip() == "":
         errors.append("Address cannot be empty")
-    elif player.address.replace(" ","").isdigit():
+    elif player.address.replace(" ", "").isdigit():
         errors.append("Address cannot be only numbers")
 
     # Phone number
@@ -49,16 +52,15 @@ def validate_player(player: Player) -> None:
     elif "." not in email:
         errors.append("email needs to have 1 '.'")
 
-
     # Social media
 
     if player.social_media is None or player.social_media.strip() == "":
-        pass 
+        pass
 
     # Handle
 
-
     # Team name
+
 
 """
 def validate_team_captain(team_captain: TeamCaptain) -> None:
@@ -74,37 +76,38 @@ def validate_team_captain(team_captain: TeamCaptain) -> None:
         raise ValidationError(errors)
 """
 
-def validate_team_name(name:str) -> None:
+
+def validate_team_name(name: str) -> None:
     # Name
     if not name or name.strip() == "":
         raise ValueError("You must enter a team name")
     elif any(char.isdigit() for char in name):
         raise ValueError("Name can only contain letters")
 
-def validation_team_handle(handle:str) -> None:
+
+def validation_team_handle(handle: str) -> None:
     # Captain handle
     if not handle or handle.strip() == "":
         raise ValueError("You must enter a team captain handle ")
 
-def validate_team_logo(logo:str) -> None:
+
+def validate_team_logo(logo: str) -> None:
     # Logo
     if not logo or logo.strip() == "":
         raise ValueError("Team logo may not be empty")
 
-def validate_team_players(players:list[str]) -> None:
+
+def validate_team_players(players: list[str]) -> None:
     pass
 
-def validate_team_points(points:int) -> None:
-      # Points
+
+def validate_team_points(points: int) -> None:
+    # Points
     if points is None:
         raise ValueError("Points may not be empty")
     elif points < 0:
         raise ValueError("Points may not be negative")
 
-
-
-
-
     # Players 3-5
-    #if team.players is None:
+    # if team.players is None:
     #    errors.append("Team must have players")
