@@ -195,3 +195,11 @@ def validate_tournament_game(game):
         raise ValidationError("Game must be ", *games)
 
     return game
+
+#-------------CONTACT PERSON VALIDATION--------------
+
+#----------------MATCH VALIDATION--------------------
+
+#-----------------GAME VALIDATION--------------------
+
+#-----------------CLUB VALIDATION--------------------
