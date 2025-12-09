@@ -69,18 +69,18 @@ def validate_team_captain(team_captain: TeamCaptain) -> None:
 def validate_team_name(name:str) -> None:
     # Name
     if not name or name.strip() == "":
-        errors.append("You must enter a team name")
+        raise ValueError("You must enter a team name")
     elif any(char.isdigit() for char in name):
-        errors.append("Name can only contain letters")
+        raise ValueError("Name can only contain letters")
 
-    if len(name.strip()) < 3:
-        errors.append("Team name must be at least 3 characters long")
+    #if len(name.strip()) < 3:
+    #    errors.append("Team name must be at least 3 characters long")
 
 
 def validation_team_handle(handle:str) -> None:
     # Captain handle
     if not handle or handle.strip() == "":
-        errors.append("Team captain handle may not be empty")
+        raise ValueError("You must enter a team captain handle ")
 
 
 def validate_team_logo(logo:str) -> None:
