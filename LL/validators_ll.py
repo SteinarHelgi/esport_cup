@@ -243,7 +243,6 @@ def validate_match_round(round_name: str, matches_in_round: list) -> None:
             f"but got {actual}."
         )
 
-
 # -----------------GAME VALIDATION--------------------
 
 def validate_game_name(game_name: str, api_data: APIDATA) -> str | None:
@@ -290,15 +289,20 @@ def validate_club_color(color:str) -> str | None:
     if any(char.isdigit() for char in color):
         raise ValueError("Invalid color")
     
+    color_list = [c.strip().lower() for c in color.split(",") if c.strip()]
+
+    if len(color_list) > 4:
+        raise ValueError("You can only have four colors in club color")
+    
     allowed_colors = ["Red", "Blue", "Green", "Yellow", "Black", "White", "Purple", "Orange", "Pink", "Gray", "Brown"]
     
-    club_color = color.strip().lower()
+    for color in color_list:
+        if color not in allowed_colors:
+            raise ValueError(f"Invalid club color: {color} Allowed colors are: "  ", ".join(allowed_colors))
 
-    if club_color not in allowed_colors:
-        raise ValueError("Invalid club color. Allowed colors are: " + ", ".join(allowed_colors))
+    return ",".join([c.strip() for c in color.split(",") if c.strip()])
     
-    return club_color
-
+ 
 def validate_club_country(country:str) -> str | None:
     if not country or country.strip() == "":
         raise ValueError("You must enter a club country")
@@ -306,4 +310,11 @@ def validate_club_country(country:str) -> str | None:
         raise ValueError("Invalid country")
     return country
 
+def validate_club_teams(teams:str) -> str | None:
+    pass
+
+def validate_club_logo(logo:str) -> str | None:
+    if not logo or logo.strip() == "":
+        raise ValueError("You must enter a club logo")
+    return logo
 

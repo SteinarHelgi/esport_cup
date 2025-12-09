@@ -302,53 +302,40 @@ class OrganiserUI:
     def show_create_match(self, tournament: Tournament):
         """Function for creating matches as an organiser"""
         teams_in_tournament = self.APILL.get_teams_in_tournament(tournament)
-        print("Teams in tournament: ")
-        for team in teams_in_tournament:
-            print(team.name, end=" | ")
+        print("Which teams are competing in this match?")
+        valid_choices = []
+        for counter, team in enumerate(teams_in_tournament):
+            print(str(counter) + "." + team.name)
+            valid_choices.append(str(counter))
+        print("Select team 1:")
+        choice: str = self.menu_manager.prompt_choice(valid_choices)
+        team1 = teams_in_tournament[int(choice)]
+
+        print("Select team 2:")
+        choice: str = self.menu_manager.prompt_choice(valid_choices)
+        team2 = teams_in_tournament[int(choice)]
+
         print("")
-        print("Round types:")
-        print("  R16 QF SF Final")
+        print("Select a round type:")
 
-        prompts = [
-            "Round: ",
-            "Team 1: ",
-            "Team 2: ",
-            "Date YYYY-MM-DD: ",
-            "Time HH-MM-SS: ",
-        ]
-        user_inputs = {}
+        rounds = ["R16", "QF", "SF", "Final"]
 
-        for prompt in prompts:
-            while True:  # prompt until back, quit or valid input
-                current_input = input(prompt)
-                if current_input.lower() == "b":
-                    return "MY_TOURNAMENTS_ORG"
-                elif current_input.lower() == "q":
-                    return "QUIT"
-                else:
-                    user_inputs[prompt] = current_input
-                    break  # exit the loop
-        match = Match(
-            tournament.id,
-            user_inputs["Round: "],
-            user_inputs["Team 1: "],
-            user_inputs["Team 2: "],
-            user_inputs["Date YYYY-MM-DD: "],
-            user_inputs["Time HH-MM-SS: "],
-        )
+        valid_choices = []
+        for counter, round in enumerate(rounds):
+            print(str(counter) + "." + round)
+            valid_choices.append(str(counter))
+        choice: str = self.menu_manager.prompt_choice(valid_choices)
+        round = rounds[int(choice)]
+        date = input("Date: YYYY-MM-DD")
+
+        time = input("Time: HH:MM")
+        match = Match(tournament.id, round, team1.name, team2.name, date, time)
+        print(match)
 
         try:
             match = self.APILL.create_match(match)
         except ValueError:
             print("Invalid values")
-
-        # Get information about matc
-        if match:
-            print("Match created with id: ", match.match_id)
-        else:
-            print("Match not created")
-
-        pass
 
     def show_register_results(self, match: Match):
         """Registering results of a match, chooses a winner and turns match completed to True"""
