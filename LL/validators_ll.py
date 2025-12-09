@@ -1,55 +1,81 @@
 
+from curses.ascii import isdigit
 from datetime import datetime
 from Models.models import Player, TeamCaptain, Team
 import ValidationError
 
 
-def validate_player(player: Player) -> None:
-    errors = []
+def validate_player_name(name: str) -> None:
 
-    # Name
-    if not player.name or player.name.strip() == "":
-        errors.append("Name can not be empty")
-    elif any(char.isdigit() for char in player.name):
-        errors.append("Name can not have numbers")
+    valid_name = name.strip()
 
-    # Date of birth
+    if valid_name == "":
+        raise ValueError("Name can not be empty.")
+    
+    if any(char.isdigit() for char in valid_name):
+        raise ValueError("Name can not include numbers")
+
+def validate_date_of_birth(date_of_birth: str) -> None:
+
+    valid_dob = date_of_birth.strip()
+
+    if valid_dob == "":
+        raise ValueError("Date of birth cannot be empty")
+    
     try:
-        datetime.strptime(player.date_of_birth, "%Y-%M-%D")
+        dob = datetime.strptime(valid_dob, "%Y-%m-%d")
     except ValueError:
-        errors.append("Date of birth should be written YYYY-MM-DD")
+        raise ValueError("Date of birth must be in the format YYYY-MM--DD")
 
-    # Address
-    if not player.address or player.address.strip() == "":
-        errors.append("Address cannot be empty")
-    elif player.address.replace(" ","").isdigit():
-        errors.append("Address cannot be only numbers")
+    if dob.year < 1900:
+        raise ValueError("Please consult a doctor you might be dead, try again")
 
-    # Phone number
-    if not player.phone_number.isdigit():
-        errors.append("Phone number must only be numbers.")
-    elif len(player.phone_number) != 7:
-        errors.append("Phone number should only be 7 numbers")
+def validate_address(address: str) -> None:
 
-    # Email
-    email = player.email.strip()
+    valid_address = address.strip()
+
+    if valid_address == "":
+        raise ValueError("Address cannot be empty")
+    
+    if valid_address.replace(" ","").isdigit():
+        raise ValueError("Address cannot be only numbers")
+
+def validate_phone_number(phone_number: str) -> None:
+
+    number = phone_number.strip()
+
+    if number == "":
+        raise ValueError("Phone number cannot be empty")
+
+    if not number.isdigit():
+        raise ValueError("Phone number must contain numbers only")
+    
+    if len(number) != 7:
+        raise ValueError("Phone number must be exactly 7 digits long")
+    
+def validate_player_email(player_email: str) -> None:
+
+    email = player_email.strip()
 
     if email == "":
-        errors.append("Email can not be empty")
+        raise ValueError("Email cannot be empty")
+    
+    if email.count("@") != 1:
+        raise ValueError("Email must contain exactly one '@'")
+    
+    if "." not in email:
+        raise ValueError("Email must contain at least one '.'")
 
-    elif email.count("@") != 1:
-        errors.append("Email has to include one '@'")
+def validate_player_handle(player_handle: str) -> None:
 
-    elif "." not in email:
-        errors.append("email needs to have 1 '.'")
+    handle = player_handle.strip()
 
-
-    # Social media
-
-    if player.social_media is None or player.social_media.strip() == "":
-        pass 
-
-    # Handle
+    if handle == "":
+        raise ValueError("Hnadle cannot be empty")
+    
+    if " " in handle:
+        raise ValueError("Handle cannot contain space")
+    
 
 
     # Team name
