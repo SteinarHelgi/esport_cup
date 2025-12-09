@@ -14,6 +14,7 @@ class UserUI:
         self.menu_manager = menu_manager
 
     def show_teams(self):
+        """Shows teams that exist within the software"""
         teams = self.APILL.get_all_teams()
         print(format_team_list(teams))
         print("\nb.Back \nq.Quit")
@@ -33,6 +34,7 @@ class UserUI:
         return "QUIT"
 
     def show_tournaments(self):
+        """Prints tournaments according to user choice and time of choosing"""
         tournaments = self.APILL.get_all_tournaments()
         valid_options = ["1", "2", "3", "b", "q"]
         print(
@@ -41,19 +43,18 @@ class UserUI:
         choice: str = self.menu_manager.prompt_choice(valid_options)
 
         if choice == "1":
-            return self.show_tournaments_blabla("ONGOING")
+            return self.show_tournaments_calling_function("ONGOING")
         elif choice == "2":
-            return self.show_tournaments_blabla("UPCOMING")
+            return self.show_tournaments_calling_function("UPCOMING")
         elif choice == "3":
-            return self.show_tournaments_blabla("PAST")
+            return self.show_tournaments_calling_function("PAST")
         elif choice.lower() == "b":
             return "TEAM_CAPTAIN_MENU"
         else:
             return "QUIT"
 
-    def show_tournaments_blabla(
-        self, time: str
-    ):  # Shows the tournaments that are going on at the time of checking
+    def show_tournaments_calling_function(self, time: str):  
+        """Shows the tournaments that are going on at the time of checking"""
         tournaments = []
         if time == "PAST":
             tournaments = self.APILL.get_past_tournaments()
@@ -123,6 +124,7 @@ class UserUI:
             return self.show_tournaments_blabla(time)
 
     def show_players(self, team: Team):
+        """Shows a list of players when you select a team"""
         players = self.APILL.get_players_in_team(team.name)
         print(team.name, team.social_media, team.logo)
         print(format_player_list(players))

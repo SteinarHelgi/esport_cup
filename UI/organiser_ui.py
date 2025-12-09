@@ -215,6 +215,7 @@ class OrganiserUI:
                 return "QUIT"
 
     def show_create_match(self, tournament: Tournament):
+        """Function for creating matches as an organiser"""
         teams_in_tournament = self.APILL.get_teams_in_tournament(tournament)
         print("Teams in tournament: ")
         for team in teams_in_tournament:
@@ -259,6 +260,7 @@ class OrganiserUI:
         pass
 
     def show_register_results(self, match: Match):
+        """Registering results of a match, chooses a winner and turns match completed to True"""
         print("Which team won the match? ")
         print(f"1. {match.team_a_name}")
         print(f"2. {match.team_b_name}")
@@ -296,6 +298,7 @@ class OrganiserUI:
         pass
 
     def show_teams_org(self):
+        """Showing teams for organiser"""
         teams = self.APILL.get_all_teams()
         print(format_team_list(teams))
         print("Select which team you would like to look at: \nb.Back \nq.Quit")
@@ -316,6 +319,7 @@ class OrganiserUI:
         return "QUIT"
     
     def show_players_in_team_org(self):
+        """Showing players in teams with personal information for the organiser"""
         team = self.team_to_view
         if team != "":
             players = self.APILL.get_players_in_team(team.name)
@@ -340,6 +344,7 @@ class OrganiserUI:
                 return "TEAMS_ORG"
             
     def show_players_with_personal_info_org(self, player: Player):
+        """The actual view of players information"""
         if player:
             team = self.APILL.get_team_by_name(player.team_name)
             print(f"{player.name.upper()}  |  {player.handle} ")

@@ -11,6 +11,7 @@ class TeamCaptainUI:
         self.menu_manager = menu_manager
 
     def show_create_player(self):
+        """Creating a player with the required information"""
         print("Enter in thre required information or 'b' to Back and 'q' to Quit")
         name = input("Player's name: ").strip()
         if name.lower() == "b":
@@ -62,6 +63,7 @@ class TeamCaptainUI:
         return self.player_added_screen(name, handle, social_media)
 
     def player_added_screen(self, name, handle, social_media):
+        """Screen that is shown after creating/adding a player"""
         player_name = name
         player_handle = handle
         player_social = social_media
@@ -76,6 +78,7 @@ class TeamCaptainUI:
             return "QUIT"
 
     def show_my_tournaments(self):
+        """Tournaments the team captain has registered to"""
         team = self.APILL.get_team_by_name(self.menu_manager.team_name)
         captain = TeamCaptain(
             self.menu_manager.team_name, self.menu_manager.captain_handle
@@ -194,6 +197,7 @@ class TeamCaptainUI:
                 print("Invalid selection. Please try again.")
 
     def show_my_team(self) -> str | None:
+        """Shows the team captains team info"""
         team_name = self.menu_manager.team_name
         team = self.APILL.get_team_by_name(team_name)
 
@@ -230,6 +234,7 @@ class TeamCaptainUI:
                 return "QUIT"
 
     def show_my_players(self):
+        """shows players that are on the team captains team"""
         # TODO laga útlit
         players = self.APILL.get_players_in_team(self.menu_manager.team_name)
         valid_choices = []
@@ -288,12 +293,13 @@ class TeamCaptainUI:
             return "QUIT"
 
     def show_register_team_to_tournament(self, team, tournament):
-        # TODO
+        """Registration for tournament"""
         self.team = team
         self.tournament = tournament
         registration = self.APILL.register_team_to_tournament(team, tournament)
 
     def show_update_team_data(self):
+        """Updates the data of a team, social media or logo"""
         # TODO b krafa
         # STEINAR
         print("1. Edit social media\n2. Edit Logo")
@@ -310,6 +316,7 @@ class TeamCaptainUI:
             return "QUIT"
 
     def show_edit_social_media(self):
+        """Edits the social media for a team"""
         team = self.APILL.get_team_by_name(self.menu_manager.team_name)
         if team:
             print("Currrent social media: ", team.social_media)
@@ -335,6 +342,7 @@ class TeamCaptainUI:
                 return "QUIT"
 
     def show_edit_logo(self):
+        """Edits the logo for a team"""
         print("EDIT_LOGO")
         team = self.APILL.get_team_by_name(self.menu_manager.team_name)
         if team:
