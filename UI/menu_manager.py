@@ -1,6 +1,5 @@
 import os
 from LL.api_ll import APILL
-from UI.Menus import login_credentials_menu
 from UI.user_ui import UserUI
 from UI.team_captain_ui import TeamCaptainUI
 from UI.organiser_ui import OrganiserUI
@@ -43,7 +42,7 @@ class MenuManager:
             "EDIT_LOGO": self.team_captain_ui.show_edit_logo,
             # "EDIT_TEAM_INFO":
             # ORGANISER MENUS
-            "TEAMS_ORG" : self.organiser_Ui.show_teams_org,
+            "TEAMS_ORG": self.organiser_Ui.show_teams_org,
             "SHOW_PLAYERS_IN_TEAM_ORG": self.organiser_Ui.show_players_in_team_org,
             "ORGANISER_MENU": self.print_organiser_menu,
             "CREATE_TOURNAMENT_MENU": self.organiser_Ui.show_create_tournament,
@@ -65,9 +64,12 @@ class MenuManager:
             if choice in valid_lower:
                 return choice
             print("Not a valid choice")
-            print("valid choices are: ")
-            for choice in valid_lower:
-                print(choice, ".", sep="")
+            formatted = (
+                "Valid choices are | "
+                + " | ".join(f"{c}." for c in valid_choices)
+                + " |"
+            )
+            print(formatted)
 
     def print_login_menu(self):  # Login menu
         print("___ LOGIN ___")

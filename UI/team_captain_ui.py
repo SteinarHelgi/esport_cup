@@ -3,6 +3,7 @@ from Models.player import Player
 from Models.team import Team
 from Models.team_captain import TeamCaptain
 import UI.functions as f
+from UI.ui_functions import refresh_logo
 
 
 class TeamCaptainUI:
@@ -58,6 +59,7 @@ class TeamCaptainUI:
             handle,
             team,
         )
+
         self.APILL.create_player(new_player)
         return self.player_added_screen(name, handle, social_media)
 
@@ -125,6 +127,7 @@ class TeamCaptainUI:
         Displays a menu of player attributes.
         The user selects one to change.
         """
+        refresh_logo()
         while True:
             print(f"\n--- Editing Player: {player.name} ---")
             # Display current values so the user sees what they are changing
@@ -259,6 +262,7 @@ class TeamCaptainUI:
     def show_player_view(self, player: Player):
         """takes in a player name and shows the menu for the player"""
 
+        refresh_logo()
         if player:
             print(f"{player.name.upper()}  |  {player.handle} ")
             print("-" * len(f"    SOCIAL MEDIA: {player.social_media}"))
