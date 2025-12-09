@@ -9,6 +9,7 @@ from datetime import datetime
 
 
 class UserUI:
+    """Class for all of ui functions"""
     def __init__(self, APILL: APILL, menu_manager) -> None:
         self.APILL = APILL
         self.menu_manager = menu_manager

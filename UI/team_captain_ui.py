@@ -376,11 +376,3 @@ class TeamCaptainUI:
     def show_create_team(self):
         # TODO c krafa
         pass
-
-    # def add_information_about_team():
-    # TODO
-    # pass
-
-    # def show_add_team_to_club():
-    # TODO
-    # pass
