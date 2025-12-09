@@ -4,7 +4,7 @@ from Models.models import Schedule
 
 class ScheduleData:
     def __init__(self) -> None:
-        self.schedule_file_path = "Data/Schedule.csv"
+        self.schedule_file_path = "Data/schedule.csv"
 
     def get_schedule_data(self):  # ->  LIST AF SCHEDULE
         """Returns list of all schedule data."""
@@ -52,3 +52,4 @@ class ScheduleData:
             #     )
 
         return matches
+
