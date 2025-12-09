@@ -24,7 +24,7 @@ class OrganiserUI:
 
         
         
-        name_of_tournament = input("Tournament name: ")
+        name_of_tournament = input("Tournament name: ").strip()
         if name_of_tournament.lower() == "b":
             return "ORGANISER_MENU"
         if name_of_tournament.lower() == "q":
@@ -35,11 +35,11 @@ class OrganiserUI:
                 print("Tournament name needs to be atleast two letters")
             if error == Errors.TOURNAMENT_NAME_LENGTH_TOO_LONG:
                 print("Tournament's name is too long")
-            name_of_tournament = input("Tournament name: ")
+            name_of_tournament = input("Tournament name: ").strip()
 
 
     
-        start_date_of_tournament = input("Start date(Year-Month-Day): ")
+        start_date_of_tournament = input("Start date(Year-Month-Day): ").strip()
         if start_date_of_tournament.lower() == "b":
             return "ORGANISER_MENU"
         if start_date_of_tournament.lower() == "q":
@@ -50,10 +50,10 @@ class OrganiserUI:
                 print("Invalid format. Format is 0000-00-00.")
             if error == Errors.START_DATE_BEFORE_TODAY:
                 print("The start date you entered has already passed, please input a different date.")
-            start_date_of_tournament = input("Start date(Year-Month-Day): ")        
+            start_date_of_tournament = input("Start date(Year-Month-Day): ")   .strip()     
 
 
-        end_date_of_tournamnet = input("End date(Year-Month-Day): ")
+        end_date_of_tournamnet = input("End date(Year-Month-Day): ").strip()
         if end_date_of_tournamnet.lower() == "b":
             return "ORGANISER_MENU"
         if end_date_of_tournamnet.lower() == "q":
@@ -64,9 +64,9 @@ class OrganiserUI:
                 print("Invalid format. Format is 0000-00-00.")
             if error == Errors.END_DATE_BEFORE_START:
                 print("The date you have input is before the start date you input. Please input a date that is after the start date.")
-            end_date_of_tournamnet = input("End date(Year-Month-Day): ")
+            end_date_of_tournamnet = input("End date(Year-Month-Day): ").strip()
         
-        amount_of_servers = input("Number of servers: ")
+        amount_of_servers = input("Number of servers: ").strip()
         if amount_of_servers.lower() == "b":
             return "ORGANISER_MENU"
         if amount_of_servers.lower() == "q":
@@ -77,10 +77,10 @@ class OrganiserUI:
                 print("Server amount has to be a number.")
             if error == Errors.SERVER_LESS_THAN_0:
                 print("Server amount cannot be less than 0.")
-            amount_of_servers = input("Number of servers: ")
+            amount_of_servers = input("Number of servers: ").strip()
 
     
-        venue = input("Venue: ")
+        venue = input("Venue: ").strip()
         if venue.lower() == "b":
             return "ORGANISER_MENU"
         if venue.lower() == "q":
@@ -89,10 +89,10 @@ class OrganiserUI:
             error = validate_tournament_venue(venue)
             if error == Errors.VENUE_ONLY_NUMBERS:
                 print("Invalid input, cannot be all numnbers.")
-            venue = input("Venue: ")
+            venue = input("Venue: ").strip()
         
 
-        double_elimination = input("Double elimination(Y/N): ")
+        double_elimination = input("Double elimination(Y/N): ").strip()
         if double_elimination.lower() == "b":
             return "ORGANISER_MENU"
         if double_elimination.lower() == "q":
@@ -101,12 +101,12 @@ class OrganiserUI:
             error = validate_tournament_double_elimination(double_elimination)
             if error == Errors.NOT_Y_OR_N:
                 print("Invalid input, confirm with Y or N")
-            double_elimination = input("Double elimination(Y/N): ")
+            double_elimination = input("Double elimination(Y/N): ").strip()
 
     
         games = self.APILL.get_all_games()
         print("Valid games are:", *games)
-        game_for_tournament = input("Game: ")
+        game_for_tournament = input("Game: ").strip()
         if game_for_tournament.lower() == "b":
             return "ORGANISER_MENU"
         if game_for_tournament.lower() == "q":
@@ -116,11 +116,11 @@ class OrganiserUI:
             if error == Errors.GAME_NOT_VALID:
                 print("You have input an invalid game, select a game from the list provided")
                 print("Valid games are:", *games)
-                game_for_tournament = input("Game: ")
+                game_for_tournament = input("Game: ").strip()
 
         print("Fill in contact person info or 'b' to Back and 'q' to Quit")
 
-        new_contact_person_name = input("Name: ")
+        new_contact_person_name = input("Name: ").strip()
         if new_contact_person_name == "b":
             return "ORGANISER_MENU"
         if new_contact_person_name == "q":
@@ -131,11 +131,11 @@ class OrganiserUI:
                 print("Name cannot be empty")
             if error == Errors.NAME_ONLY_NUMBERS:
                 print("Name cannot include numbers")
-            new_contact_person_name = input("Name: ")
+            new_contact_person_name = input("Name: ").strip()
 
         
     
-        new_contact_person_email = input("Email: ")
+        new_contact_person_email = input("Email: ").strip()
         if new_contact_person_email == "b":
             return "ORGANISER_MENU"
         if new_contact_person_email == "q":
@@ -146,10 +146,10 @@ class OrganiserUI:
                 print("Contact person email address cannot be empty.")
             if error == Errors.EMAIL_NOT_CONTAINING_AT:
                 print("Email has to include an '@': example@example.com")
-            new_contact_person_email = input("Email: ")
+            new_contact_person_email = input("Email: ").strip()
         
 
-        new_contact_person_phone_nmbr = input("Phone number: ")
+        new_contact_person_phone_nmbr = input("Phone number: ").strip()
         if new_contact_person_phone_nmbr == "b":
             return "ORGANISER_MENU"
         if new_contact_person_phone_nmbr == "q":
@@ -162,9 +162,9 @@ class OrganiserUI:
                 print("Phone number cannot have characters, only digits.")
             if error == Errors.NUMBER_NOT_CORRECT_LENGTH:
                 print("Phone number has to be 7 digits long.")
-                new_contact_person_phone_nmbr = input("Phone number: ")
+                new_contact_person_phone_nmbr = input("Phone number: ").strip()
         # Try and except for contact person phone number validation
-        confirmation = input("Confirm(Y): ")
+        confirmation = input("Confirm(Y): ").strip()
         if confirmation.lower() != "y":
             return "ORGANISER_MENU"
 

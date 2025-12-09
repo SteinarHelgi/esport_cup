@@ -1,6 +1,7 @@
 from datetime import date
+from wsgiref import validate
 from LL.api_ll import APILL
-from LL.validators_ll import validate_date_of_birth, validate_player_name, Errors
+from LL.validators_ll import validate_address, validate_date_of_birth, validate_phone_number, validate_player_email, validate_player_handle, validate_player_name, Errors
 from Models.player import Player
 from Models.team import Team
 from Models.team_captain import TeamCaptain
@@ -39,32 +40,65 @@ class TeamCaptainUI:
                 print("Use format YYYY-MM-DD")
             if error == Errors.DATE_TOO_OLD:
                 print("Invalid date, choose a date after 1900")
+            date_of_birth = input("Player's birthday (YYYY-MM-DD): ").strip()
             
         address = input("Enter address: ").strip()
         if address.lower() == "b":
             return "MY_TEAM"
         if address.lower() == "q":
             return "QUIT"
+        while validate_address(address) != Errors.OK:
+            error = validate_address(address)
+            if error == Errors.EMPTY:
+                print("Address cannot be empty.")
+            if error == Errors.ADDRESS_ONLY_NUMBERS:
+                print("Address cannot only be digits.")
+                address = input("Enter address: ").strip()
+
         phone_number = input("Enter phone number: ").strip()
         if phone_number.lower() == "b":
             return "MY_TEAM"
         if phone_number.lower() == "q":
             return "QUIT"
+        while validate_phone_number(phone_number) != Errors.OK:
+            error = validate_phone_number(phone_number)
+            if error == Errors.EMPTY:
+                print("Phone number cannot be empty.")
+            if error == Errors.NUMBER_HAS_CHARACTERS:
+                print("Phone number cannot include characters.")
+            if error == Errors.NUMBER_NOT_CORRECT_LENGTH:
+                print("Phone number has to be exactly 7 digits.")
         email = input("Enter email: ").strip()
         if email.lower() == "b":
             return "MY_TEAM"
         if email.lower() == "q":
             return "QUIT"
+        while validate_player_email(email) != Errors.OK:
+            error = validate_player_email(email)
+            if error == Errors.EMPTY:
+                print("Email address cannot be empty.")
+            if error == Errors.EMAIL_NOT_CONTAINING_AT:
+                print("Email has to include '@', example@example.com.")
+            email = input("Enter email: ").strip()
+
         social_media = input("Enter social media handle: ").strip()
         if social_media.lower() == "b":
             return "MY_TEAM"
         if social_media.lower() == "q":
             return "QUIT"
+        
         handle = input("Enter player handle: ").strip()
         if handle.lower() == "b":
             return "MY_TEAM"
         if handle.lower() == "q":
             return "QUIT"
+        while validate_player_handle(handle) != Errors.OK:
+            error = validate_player_handle(handle)
+            if error == Errors.EMPTY:
+                print("Player handle cannot be empty.")
+            if error == Errors.HANDLE_CONTAINS_SPACE:
+                print("Handle cannot contain empty spaces.")
+            handle = input("Enter player handle: ").strip()
         team = self.menu_manager.team_name
         new_player = Player(
             name,
