@@ -7,6 +7,9 @@ from UI.functions import format_player_list, format_team_list, format_tournament
 from UI.ui_functions import refresh_logo
 from LL.validators_ll import (
     ValidationError,
+    validate_phone_number,
+    validate_player_email,
+    validate_player_name,
     validate_tournament_double_elimination,
     validate_tournament_end_date,
     validate_tournament_name,
@@ -126,7 +129,12 @@ class OrganiserUI:
                 return "ORGANISER_MENU"
             if new_contact_person_name == "q":
                 return "QUIT"
-            break
+            try:
+                new_contact_person_name = validate_player_name(new_contact_person_name)
+                break
+            except ValidationError as e:
+                print(str(e))
+                
         # Try and except fyrir contact person name validation
         while True:
             new_contact_person_email = input("Email: ")
@@ -134,7 +142,11 @@ class OrganiserUI:
                 return "ORGANISER_MENU"
             if new_contact_person_email == "q":
                 return "QUIT"
-            break
+            try:
+                new_contact_person_email = validate_player_email(new_contact_person_email)
+                break
+            except ValidationError as e:
+                print(str(e))
         # Try and except for contact person email validation
         while True:
             new_contact_person_phone_nmbr = input("Phone number: ")
@@ -142,7 +154,11 @@ class OrganiserUI:
                 return "ORGANISER_MENU"
             if new_contact_person_phone_nmbr == "q":
                 return "QUIT"
-            break
+            try:
+                new_contact_person_phone_nmbr = validate_phone_number(new_contact_person_phone_nmbr)
+                break
+            except ValidationError as e:
+                print(str(e))
         # Try and except for contact person phone number validation
         confirmation = input("Confirm(Y): ")
         if confirmation.lower() != "y":
