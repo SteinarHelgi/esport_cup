@@ -1,10 +1,11 @@
 from LL.api_ll import APILL
+from LL.validators_ll import validate_player_name, Name
 from Models.player import Player
 from Models.team import Team
 from Models.team_captain import TeamCaptain
 import UI.functions as f
 from UI.ui_functions import refresh_logo
-from LL.validators_ll import ValidationError, validate_player_name
+
 
 class TeamCaptainUI:
     def __init__(self, APILL: APILL, menu_manager) -> None:
@@ -13,17 +14,14 @@ class TeamCaptainUI:
 
     def show_create_player(self):
         """Creating a player with the required information"""
-        print("Enter in thre required information or 'b' to Back and 'q' to Quit")
         name = input("Player's name: ").strip()
-        if name.lower() == "b":
-            return "MY_TEAM"
-        if name.lower() == "q":
-            return "QUIT"
-        try:
-            name = validate_player_name(name)
-
-        except ValidationError as e:
-            print(str(e))
+        while validate_player_name(name) != Name.OK:
+            error = validate_player_name(name)
+            if error == Name.NAME_EMPTY:
+                print("Name cannot be empty")
+            if error == Name.NAME_ONLY_NUMBERS:
+                print("Name cannot be only numbers")
+            name = input("Player's name: ").strip()
 
         date_of_birth = input("Player's birthday (YYYY-MM-DD): ").strip()
         if date_of_birth.lower() == "b":
@@ -383,28 +381,30 @@ class TeamCaptainUI:
         # TODO b krafa
         pass
 
-    def show_create_team(self):#TODO Klára þetta
+    def show_create_team(self):  # TODO Klára þetta
         """If you are a new team captain you get this option to create a team"""
-        print("Input the required information about the team or 'b' to Back and 'q' to Quuit")
+        print(
+            "Input the required information about the team or 'b' to Back and 'q' to Quuit"
+        )
         team_name = input("Team name: ")
-        if team_name.lower == 'b':
+        if team_name.lower == "b":
             return "TEAM_CAPTAIN_MENU"
-        if team_name.lower == 'q':
+        if team_name.lower == "q":
             return "QUIT"
-        #try except for validation here
-        #captain handle stuff
+        # try except for validation here
+        # captain handle stuff
         social_media = input("Social media: ")
-        if social_media.lower() == 'b':
+        if social_media.lower() == "b":
             return "TEAM_CAPTAIN_MENU"
-        if social_media.lower() == 'q':
+        if social_media.lower() == "q":
             return "QUIT"
-        #Try except for validation here
+        # Try except for validation here
         team_logo = input("Input team logo in ASCII lettering: ")
-        if team_logo.lower() == 'q':
+        if team_logo.lower() == "q":
             return "QUIT"
-        if team_logo.lower() == 'b':
+        if team_logo.lower() == "b":
             return "TEAM_CAPTAIN_MENU"
-        #try except for validation here
+        # try except for validation here
         team = self.menu_manager.team_name
         new_team = Team(
             team_name,

@@ -18,6 +18,8 @@ class UserUI:
         """Shows teams that exist within the software"""
         teams = self.APILL.get_all_teams()
         print(format_team_list(teams))
+        for team in teams:
+            print(team)
         print("\nb.Back \nq.Quit")
 
         valid_choices = []

@@ -1,4 +1,5 @@
 from datetime import datetime
+from os import name
 from tracemalloc import start
 from LL.api_ll import APILL
 from Models.contact_person import ContactPerson
@@ -7,9 +8,6 @@ from UI.functions import format_player_list, format_team_list, format_tournament
 from UI.ui_functions import refresh_logo
 from LL.validators_ll import (
     ValidationError,
-    validate_phone_number,
-    validate_player_email,
-    validate_player_name,
     validate_tournament_double_elimination,
     validate_tournament_end_date,
     validate_tournament_name,
@@ -32,7 +30,8 @@ class OrganiserUI:
         """Creates tournaments with options to quit or back anywhere in the process and shows the confirmation of creation"""
         print("Fill in the required info or b.Back or q.Quit")
 
-        while True:
+        name_of_tournament = ""
+        while validate_tournament_name(name_of_tournament):
             name_of_tournament = input("Name: ")
             if name_of_tournament.lower() == "b":
                 return "ORGANISER_MENU"
@@ -44,19 +43,14 @@ class OrganiserUI:
             except ValidationError as e:
                 print(str(e))
 
-        while True:
+        start_date_of_tournament = ""
+        while not validate_tournament_name(start_date_of_tournament):
             start_date_of_tournament = input("Start date(Year-Month-Day): ")
             if start_date_of_tournament.lower() == "b":
                 return "ORGANISER_MENU"
             if start_date_of_tournament.lower() == "q":
                 return "QUIT"
-            try:
-                start_date_of_tournament = validate_tournament_start_date(
-                    start_date_of_tournament
-                )
-                break
-            except ValidationError as e:
-                print(str(e))
+
         while True:
             end_date_of_tournamnet = input("End date(Year-Month-Day): ")
             if end_date_of_tournamnet.lower() == "b":
@@ -129,12 +123,7 @@ class OrganiserUI:
                 return "ORGANISER_MENU"
             if new_contact_person_name == "q":
                 return "QUIT"
-            try:
-                new_contact_person_name = validate_player_name(new_contact_person_name)
-                break
-            except ValidationError as e:
-                print(str(e))
-                
+            break
         # Try and except fyrir contact person name validation
         while True:
             new_contact_person_email = input("Email: ")
@@ -142,11 +131,7 @@ class OrganiserUI:
                 return "ORGANISER_MENU"
             if new_contact_person_email == "q":
                 return "QUIT"
-            try:
-                new_contact_person_email = validate_player_email(new_contact_person_email)
-                break
-            except ValidationError as e:
-                print(str(e))
+            break
         # Try and except for contact person email validation
         while True:
             new_contact_person_phone_nmbr = input("Phone number: ")
@@ -154,11 +139,7 @@ class OrganiserUI:
                 return "ORGANISER_MENU"
             if new_contact_person_phone_nmbr == "q":
                 return "QUIT"
-            try:
-                new_contact_person_phone_nmbr = validate_phone_number(new_contact_person_phone_nmbr)
-                break
-            except ValidationError as e:
-                print(str(e))
+            break
         # Try and except for contact person phone number validation
         confirmation = input("Confirm(Y): ")
         if confirmation.lower() != "y":
@@ -332,10 +313,7 @@ class OrganiserUI:
         match = Match(tournament.id, round, team1.name, team2.name, date, time)
         print(match)
 
-        try:
-            match = self.APILL.create_match(match)
-        except ValueError:
-            print("Invalid values")
+        match = self.APILL.create_match(match)
 
     def show_register_results(self, match: Match):
         """Registering results of a match, chooses a winner and turns match completed to True"""
