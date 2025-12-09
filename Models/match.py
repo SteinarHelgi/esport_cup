@@ -54,8 +54,8 @@ class Match:
             f"{self.team_b_name:>{w_team}}"
             f"{self.match_date:^{w_date}}"
             f"{self.match_time:^{w_time}}"
-            f"{self.round:>{w_round}}"
-            f"{str(self.completed):>{w_completed}}"
+            f"{self.round:^{w_round}}"
+            f"{str(self.completed):^{w_completed}}"
             f"{self.winner_team_name:>{w_team}}"
         )
 

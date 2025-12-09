@@ -133,16 +133,14 @@ class OrganiserUI:
         # Shows all of the upcoming tournamnets for the organiser to look at
         """Finds all upcoming tournaments and prompts for choice"""
         tournaments = self.APILL.get_upcoming_tournaments()
-        print(*tournaments[0].matches)
-
         valid_choices = []
 
         for i in range(len(tournaments)):
             stringI = str(i + 1)
             valid_choices.append(stringI)
-            print("tournaments: ", tournaments[i].matches)
 
         print("MY_TOURNAMENTS_ORG")
+        print("")
         print(format_tournament_table(tournaments))
 
         print("Select a tournament with their respected id or: \nb. Back \nq. Quit")
@@ -168,30 +166,32 @@ class OrganiserUI:
         w_round = 8
         w_vs = 4
         w_completed = 10
+        line_length = w_team + w_team + w_date + w_time + w_round + w_vs + w_completed
         if tournament:
             print(
                 f"{tournament.name.upper()}  |  {tournament.start_date} -- {tournament.end_date} "
             )
-            print("--------------------")
-            print(" ")
             print("Matches: ")
+            print(" ")
             header = (
+                "   "
                 f"{'Team 1':<{w_team}}"
                 f"{'vs':^{w_vs}}"
                 f"{'Team 2':>{w_team}} "
                 f"{'Date':^{w_date}}"
                 f"{'Time':^{w_time}}"
-                f"{'Round':>{w_round}}"
-                f"{'Completed':>{w_completed}}"
-                f"{'Winner':<{w_team}}"
+                f"{'Round':^{w_round}}"
+                f"{'Completed':^{w_completed}}"
+                f"{'Winner':>{w_team}}"
             )
+            print("-" * len(header))
             print(header)
             print("-" * len(header))
             valid_choices = []
-            counter = 1
             for counter, match in enumerate(tournament.matches):
                 valid_choices.append(str(counter + 1))
                 print(f"{counter}. {match}")
+            print(" ")
             print("c. Create new match\nb. Back\nq. Quit")
             choice: str = self.menu_manager.prompt_choice(
                 valid_choices + ["c", "b", "q"]
@@ -199,14 +199,34 @@ class OrganiserUI:
             if choice in valid_choices:
                 return self.show_register_results(tournament.matches[int(choice) - 1])
 
+            teams_in_tournament = self.APILL.get_teams_in_tournament(tournament)
             if choice == "c":
-                return self.show_create_match(tournament)
+                if teams_in_tournament:
+                    return self.show_create_match(tournament)
+                else:
+                    print("No teams have registered for this tournament")
+                    print("")
+                    print("b. Back\nq. Quit")
+                    choice: str = self.menu_manager.prompt_choice(["b", "q"])
+                    if choice == "b":
+                        return "MY_TOURNAMENTS_ORG"
+                    if choice == "q":
+                        return "QUIT"
+
             if choice == "b":
                 return "MY_TOURNAMENTS_ORG"
             if choice == "q":
                 return "QUIT"
 
     def show_create_match(self, tournament: Tournament):
+        teams_in_tournament = self.APILL.get_teams_in_tournament(tournament)
+        print("Teams in tournament: ")
+        for team in teams_in_tournament:
+            print(team.name, end=" | ")
+        print("")
+        print("Round types:")
+        print("  R16 QF SF Final")
+
         prompts = [
             "Round: ",
             "Team 1: ",
@@ -278,7 +298,7 @@ class OrganiserUI:
     def show_give_points(self):
         # TODO
         pass
-    
+
     def show_teams_org(self):
         teams = self.APILL.get_all_teams()
         print(format_team_list(teams))
@@ -298,6 +318,7 @@ class OrganiserUI:
             return "ORGANISER_MENU"
 
         return "QUIT"
+
     def show_players_in_team_org(self):
         team = self.team_to_view
         if team != "":
@@ -308,19 +329,20 @@ class OrganiserUI:
             for i in range(len(players)):
                 stringI = str(i + 1)
                 valid_choices.append(stringI)
-            choice: str = self.menu_manager.prompt_choice(
-                valid_choices + ["b", "q"]
-            )
+            choice: str = self.menu_manager.prompt_choice(valid_choices + ["b", "q"])
 
             for element in valid_choices:
                 if element == choice:
-                    player = self.show_players_with_personal_info_org(players[int(element) - 1])
+                    player = self.show_players_with_personal_info_org(
+                        players[int(element) - 1]
+                    )
                     return player
 
             if choice.lower() == "q":
                 return "QUIT"
             if choice.lower() == "b":
                 return "TEAMS_ORG"
+
     def show_players_with_personal_info_org(self, player: Player):
         if player:
             team = self.APILL.get_team_by_name(player.team_name)
@@ -338,3 +360,4 @@ class OrganiserUI:
             input("Enter to return")
             if team:
                 return "SHOW_PLAYERS_IN_TEAM_ORG"
+

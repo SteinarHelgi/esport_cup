@@ -4,6 +4,7 @@ from Models.models import Team, Tournament, Player, TeamRegistry
 MIN_PLAYERS_PER_TEAM = 3
 MAX_PLAYERS_PER_TEAM = 5
 
+
 class TeamLL:
     def __init__(self, api_data: APIDATA, main_ll):
         self.APIDATA = api_data
@@ -46,7 +47,6 @@ class TeamLL:
         ]
         if len(players_in_team) >= 5:
             raise ValueError()
-
 
         # Checking if player handle is available
         for p in current_players:
@@ -120,6 +120,12 @@ class TeamLL:
         tournament_name: str = tournament.name
         team_registry = TeamRegistry(team_id, tournament_id, team_name, tournament_name)
         new_team_registry = self.APIDATA.store_team_registry_data(team_registry)
+
+    def get_team_by_id(self, id) -> Team | None:
+        teams = self.get_all_teams()
+        for team in teams:
+            if team.id == id:
+                return team
 
     def get_team_by_captain_handle(self, captain_handle) -> Team | None:
         teams = self.APIDATA.get_all_team_data()

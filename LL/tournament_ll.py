@@ -2,8 +2,8 @@ import datetime
 from IO import match_data
 import random
 from IO.api_data import APIDATA
-from datetime import date
-from datetime import time
+from datetime import datetime
+from Models import team_registry
 from Models.models import (
     Tournament,
     TeamRegistry,
@@ -28,7 +28,6 @@ class TournamentLL:
         for tournament in tournaments:
             for match in matches:
                 if match.tournament_id == tournament.id:
-                    print(match)
                     tournament.add_match(match)
         return tournaments
 
@@ -97,6 +96,15 @@ class TournamentLL:
                             tournaments_for_captain.append(tournament)
 
         return tournaments_for_captain
+
+    def get_teams_in_tournament(self, tournament: Tournament) -> list[Team]:
+        all_teams_in_tournament = self.APIDATA.get_all_team_registry_data()
+        teams_in_tournament = []
+        for team_tournamnet in all_teams_in_tournament:
+            if team_tournamnet.tournament_id == tournament.id:
+                team = self.MAINLL.team_ll.get_team_by_id(team_tournamnet.team_id)
+                teams_in_tournament.append(team)
+        return teams_in_tournament
 
     def get_all_open_tournaments_for_captain(
         self, captain: TeamCaptain
