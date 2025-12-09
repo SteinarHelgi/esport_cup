@@ -1,6 +1,7 @@
 import random
 from IO.api_data import APIDATA
 from datetime import datetime
+from Models import contact_person
 from Models.models import (
     Tournament,
     ContactPerson,
@@ -285,11 +286,18 @@ class TournamentLL:
                 all_teams_in_tournament.append(team)
         return all_teams_in_tournament
 
-    def create_contact_person(self, contact: ContactPerson) -> ContactPerson | None:
-        contact.id = self._next_contact_id
-        self._next_contact_id += 1
+    def create_contact_person(
+        self, contact_person: ContactPerson
+    ) -> ContactPerson | None:
+        all_contact_person = self.APIDATA.get_all_contact_person_data()
 
-        stored = self.APIDATA.store_contact_person_data(contact)
+        if all_contact_person:
+            next_id = (
+                max(int(contact_person.id) for contact_person in all_contact_person) + 1
+            )
+            contact_person.set_id(next_id)
+
+        stored = self.APIDATA.store_contact_person_data(contact_person)
         return stored
 
     def get_contact_person_by_id(self, id: str) -> ContactPerson | None:

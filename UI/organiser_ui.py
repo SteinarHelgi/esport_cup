@@ -7,6 +7,9 @@ from UI.functions import format_player_list, format_team_list, format_tournament
 from UI.ui_functions import refresh_logo
 from LL.validators_ll import (
     ValidationError,
+    validate_phone_number,
+    validate_player_email,
+    validate_player_name,
     validate_tournament_double_elimination,
     validate_tournament_end_date,
     validate_tournament_name,
@@ -42,7 +45,7 @@ class OrganiserUI:
                 print(str(e))
 
         while True:
-            start_date_of_tournament = input("Start date(Year-MOnth-Day): ")
+            start_date_of_tournament = input("Start date(Year-Month-Day): ")
             if start_date_of_tournament.lower() == "b":
                 return "ORGANISER_MENU"
             if start_date_of_tournament.lower() == "q":
@@ -126,7 +129,12 @@ class OrganiserUI:
                 return "ORGANISER_MENU"
             if new_contact_person_name == "q":
                 return "QUIT"
-            break
+            try:
+                new_contact_person_name = validate_player_name(new_contact_person_name)
+                break
+            except ValidationError as e:
+                print(str(e))
+                
         # Try and except fyrir contact person name validation
         while True:
             new_contact_person_email = input("Email: ")
@@ -134,7 +142,11 @@ class OrganiserUI:
                 return "ORGANISER_MENU"
             if new_contact_person_email == "q":
                 return "QUIT"
-            break
+            try:
+                new_contact_person_email = validate_player_email(new_contact_person_email)
+                break
+            except ValidationError as e:
+                print(str(e))
         # Try and except for contact person email validation
         while True:
             new_contact_person_phone_nmbr = input("Phone number: ")
@@ -142,18 +154,16 @@ class OrganiserUI:
                 return "ORGANISER_MENU"
             if new_contact_person_phone_nmbr == "q":
                 return "QUIT"
-            break
+            try:
+                new_contact_person_phone_nmbr = validate_phone_number(new_contact_person_phone_nmbr)
+                break
+            except ValidationError as e:
+                print(str(e))
         # Try and except for contact person phone number validation
-        while True:
-            confirmation = input("Confirm(Y): ")
-            if confirmation.lower() == "y":
-                new_contact_person = [
-                    new_contact_person_name,
-                    new_contact_person_email,
-                    new_contact_person_phone_nmbr,
-                ]
-                return new_contact_person
-            break
+        confirmation = input("Confirm(Y): ")
+        if confirmation.lower() != "y":
+            return "ORGANISER_MENU"
+
         print("b. Back \nq. Quit")
         # TODO setja inn tournament created menuið
 
@@ -162,7 +172,7 @@ class OrganiserUI:
             datetime.fromisoformat(start_date_of_tournament),
             datetime.fromisoformat(end_date_of_tournamnet),
             venue,
-            game_for_tournament,
+            game_for_tournament.name,
             amount_of_servers,
             new_contact_person_name,
         )
@@ -175,8 +185,11 @@ class OrganiserUI:
                 new_contact_person_phone_nmbr,
                 tournament.id,
             )
+
+            contact_person = self.APILL.create_contact_person(new_contact_person)
+
             print(self.tournament_created((new_tournament)))
-            enter_for_ok = input("Enter for ok or q to quit")
+            enter_for_ok = input("Press enter for OK or q to quit")
             if enter_for_ok == "q":
                 return "QUIT"
             else:

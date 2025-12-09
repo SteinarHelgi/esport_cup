@@ -30,8 +30,9 @@ class ContactPersonData:
                 tournament_id: str = line[4]
 
                 contact_person: ContactPerson = ContactPerson(
-                    id, name, email, phone, tournament_id
+                    name, email, phone, tournament_id
                 )
+                contact_person.set_id(id)
                 contact_persons.append(contact_person)
 
         return contact_persons
@@ -47,4 +48,3 @@ class ContactPersonData:
             except (OSError, csv.Error):
                 return None
         return contact_person
-
