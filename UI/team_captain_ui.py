@@ -1,5 +1,6 @@
+from datetime import date
 from LL.api_ll import APILL
-from LL.validators_ll import validate_player_name, Errors
+from LL.validators_ll import validate_date_of_birth, validate_player_name, Errors
 from Models.player import Player
 from Models.team import Team
 from Models.team_captain import TeamCaptain
@@ -12,24 +13,28 @@ class TeamCaptainUI:
         self.APILL = APILL
         self.menu_manager = menu_manager
 
-    """SKOÐA ÞETTA"""
-
     def show_create_player(self):
         """Creating a player with the required information"""
         name = input("Player's name: ").strip()
         while validate_player_name(name) != Errors.OK:
             error = validate_player_name(name)
-            if error == Errors.NAME_EMPTY:
+            if error == Errors.EMPTY:
                 print("Name cannot be empty")
             if error == Errors.NAME_ONLY_NUMBERS:
                 print("Name cannot be only numbers")
             name = input("Player's name: ").strip()
 
         date_of_birth = input("Player's birthday (YYYY-MM-DD): ").strip()
-        if date_of_birth.lower() == "b":
-            return "MY_TEAM"
-        if date_of_birth.lower() == "q":
-            return "QUIT"
+        while validate_date_of_birth(date_of_birth) != Errors.OK:
+            error = validate_date_of_birth(date_of_birth)
+            if error == Errors.DATE_FORMAT_NOT_VALID:
+                print("Use format YYYY-MM-DD")
+            if error == Errors.DATE_TOO_OLD:
+                print("Invalid date, choose a date after 1900")
+            if date_of_birth.lower() == "b":
+                return "MY_TEAM"
+            if date_of_birth.lower() == "q":
+                return "QUIT"
         address = input("Enter address: ").strip()
         if address.lower() == "b":
             return "MY_TEAM"
