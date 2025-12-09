@@ -79,8 +79,8 @@ def validate_player_handle(player_handle: str) -> None:
         raise ValueError("Handle cannot contain space")
     
 
-
     # Team name
+
 
 """
 def validate_team_captain(team_captain: TeamCaptain) -> None:
@@ -93,7 +93,8 @@ def validate_team_captain(team_captain: TeamCaptain) -> None:
         errors.append("Handle may not be empty")
 """
 
-def validate_team_name(name:str) -> None:
+
+def validate_team_name(name: str) -> None:
     # Name
     if not name or name.strip() == "":
         raise ValueError("You must enter a team name")
@@ -110,21 +111,25 @@ def validation_team_handle(handle:str, api_data:APIDATA) -> None:
     if not any(p.handle == handle for p in current_players):
         raise ValueError("No team captain exists with that handle")
 
-def validate_team_logo(logo:str) -> None:
+
+def validate_team_logo(logo: str) -> None:
     # Logo
     if not logo or logo.strip() == "":
         raise ValueError("Team logo may not be empty")
 
-def validate_team_social_media(social_media:str) -> None:
+
+def validate_team_social_media(social_media: str) -> None:
     # Social media
     if social_media is None or social_media.strip() == "":
         pass
 
-def validate_team_players(players:list[str]) -> None:
+
+def validate_team_players(players: list[str]) -> None:
     pass
 
-def validate_team_points(points:int) -> None:
-      # Points
+
+def validate_team_points(points: int) -> None:
+    # Points
     if points is None:
         raise ValueError("Points may not be empty")
     elif points < 0:
@@ -148,7 +153,7 @@ def validate_tournament_start_date(start_date):
     # Verður að vera rétt format
     # Start date verður að vera eftir daginn í dag
     try:
-        start_date_iso = datetime.fromisoformat(start_date)
+        start_date_iso = date.fromisoformat(start_date)
     except ValueError:
         raise ValidationError("Not correct format")
     if start_date_iso <= date.today():
@@ -160,10 +165,10 @@ def validate_tournament_end_date(start_date, end_date):
     # Verður að vera rétt format.
     # Verður að byrja eftir start date
     try:
-        end_date_iso = datetime.fromisoformat(end_date)
+        end_date_iso = date.fromisoformat(end_date)
     except ValueError:
         raise ValidationError("Not correct format")
-    if end_date_iso < datetime.fromisoformat(start_date):
+    if end_date_iso < date.fromisoformat(start_date):
         raise ValidationError("Invalid end date")
     return end_date
 
