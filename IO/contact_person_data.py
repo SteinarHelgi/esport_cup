@@ -21,7 +21,7 @@ class ContactPersonData:
             # Read each remaining line and create ContactPerson objects
             for line in csvReader:
                 if not line:
-                    continue # Skip empty lines if any
+                    continue  # Skip empty lines if any
 
                 id: str = line[0]
                 name: str = line[1]
@@ -29,17 +29,22 @@ class ContactPersonData:
                 phone: str = line[3]
                 tournament_id: str = line[4]
 
-                contact_person: ContactPerson = ContactPerson(id, name, email, phone, tournament_id)
+                contact_person: ContactPerson = ContactPerson(
+                    id, name, email, phone, tournament_id
+                )
                 contact_persons.append(contact_person)
 
         return contact_persons
 
-    def store_contact_person_data(self, contact_person: ContactPerson) -> ContactPerson | None:
+    def store_contact_person_data(
+        self, contact_person: ContactPerson
+    ) -> ContactPerson | None:
         """Appends a single contact person to the CSV file. Returns the contact person if successful, otherwise None."""
         with open(self._filepath, "a") as file:
             csvWriter = csv.writer(file)
             try:
                 csvWriter.writerow(contact_person.toCSVList())
-            except:
+            except (OSError, csv.Error):
                 return None
         return contact_person
+

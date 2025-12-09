@@ -2,6 +2,7 @@ from datetime import datetime
 from LL.api_ll import APILL
 from Models.models import Match, Player, Team, Tournament
 from UI.functions import format_player_list, format_team_list, format_tournament_table
+from UI.ui_functions import refresh_logo
 
 
 class OrganiserUI:
@@ -155,6 +156,7 @@ class OrganiserUI:
     def show_tournament_view(self, tournament: Tournament):
         """takes in a tournament name and shows the menu for the tournament"""
 
+        refresh_logo()
         w_team = 26
         w_date = 12
         w_time = 12
@@ -324,7 +326,7 @@ class OrganiserUI:
         return "QUIT"
     
     def show_players_in_team_org(self):
-        """Showing players in teams with personal information for the organiser"""
+        refresh_logo()
         team = self.team_to_view
         if team != "":
             players = self.APILL.get_players_in_team(team.name)

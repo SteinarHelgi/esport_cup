@@ -1,11 +1,10 @@
 """This is the page where everything related to the users UI is shown"""
 
-from os import name
 from LL.api_ll import APILL
 from Models.tournament import Tournament
 from UI.functions import format_player_list, format_team_list, format_tournament_table
 from Models.models import Team
-from datetime import datetime
+from UI.ui_functions import refresh_logo
 
 
 class UserUI:
@@ -54,8 +53,10 @@ class UserUI:
         else:
             return "QUIT"
 
-    def show_tournaments_calling_function(self, time: str):  
-        """Shows the tournaments that are going on at the time of checking"""
+    def show_tournaments_blabla(
+        self, time: str
+    ):  # Shows the tournaments that are going on at the time of checking
+        refresh_logo()
         tournaments = []
         if time == "PAST":
             tournaments = self.APILL.get_past_tournaments()
@@ -88,6 +89,7 @@ class UserUI:
     def show_tournament_view(self, tournament: Tournament, time: str):
         """takes in a tournament name and shows the menu for the tournament"""
 
+        refresh_logo()
         w_team = 26
         w_date = 12
         w_time = 12
@@ -125,7 +127,11 @@ class UserUI:
             return self.show_tournaments_blabla(time)
 
     def show_players(self, team: Team):
+<<<<<<< HEAD
         """Shows a list of players when you select a team"""
+=======
+        refresh_logo()
+>>>>>>> 300c44f369abe656b8d96259529886bb1221bf4a
         players = self.APILL.get_players_in_team(team.name)
         print(team.name, team.social_media, team.logo)
         print(format_player_list(players))

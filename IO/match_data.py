@@ -56,18 +56,25 @@ class MatchData:
 
         return matches
 
-    def store_match_data(self, match: Match, filepath: str = "Data/matches.csv") -> Match | None:
+    def store_match_data(
+        self, match: Match, filepath: str = "Data/matches.csv"
+    ) -> Match | None:
         """Appends a single match to the CSV file. Returns the match if successful, otherwise None."""
         with open(filepath, "a", newline="", encoding="utf-8") as file:
             csv_writer = csv.writer(file)
             try:
                 csv_writer.writerow(match.toCSVList())
-            except:
+            except (OSError, csv.Error):
                 return None
         return match
 
     def register_match_results(
-        self, match_id: str, home_score: int, away_score: int, completed_match: str, filepath: str = "Data/matches.csv"
+        self,
+        match_id: str,
+        home_score: int,
+        away_score: int,
+        completed_match: str,
+        filepath: str = "Data/matches.csv",
     ) -> Match | None:
         """Updates the results of a given match in the CSV file."""
         temp_data: list[list[str]] = []
@@ -125,14 +132,12 @@ class MatchData:
 
         # Overwrites temporary datafile to csv file
         try:
-            with open(
-                filepath, "w", newline="", encoding="utf-8"
-            ) as csvfile:
+            with open(filepath, "w", newline="", encoding="utf-8") as csvfile:
                 # Create a writer object
                 writer = csv.writer(csvfile)
 
                 # Iterate through the list of strings
                 for line in temp_data:
                     writer.writerow(line)
-        except:
+        except (OSError, csv.Error):
             return None

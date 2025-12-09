@@ -1,6 +1,7 @@
 import csv
 from Models.models import Game
 
+
 class GameData:
     def __init__(self) -> None:
         self.game_file_path = "Data/Games.csv"
@@ -37,6 +38,7 @@ class GameData:
             csv_writer = csv.writer(file)
             try:
                 csv_writer.writerow(game.toCSVList())
-            except:
+            except (OSError, csv.Error):
                 return None
         return game
+

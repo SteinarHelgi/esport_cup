@@ -1,5 +1,8 @@
 from Models.models import Player, TeamCaptain, Team
-import ValidationError
+
+
+class ValidationError(Exception):
+    pass
 
 
 def validate_player(player: Player) -> None:
