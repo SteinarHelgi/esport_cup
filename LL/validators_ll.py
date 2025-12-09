@@ -196,7 +196,6 @@ def validate_tournament_double_elimination(double_elimination):
 
 
 def validate_tournament_game(game):
-    games = ["Valorant", "CS:GO", "League of Legends", "Rocket League", "Fortnite"]
     if game not in games:
         raise ValidationError("Game must be ", *games)
 
@@ -206,6 +205,7 @@ def validate_tournament_game(game):
 # -------------CONTACT PERSON VALIDATION--------------
 
 # ----------------MATCH VALIDATION-------------------- Steinar
+
 
 # -----------------GAME VALIDATION--------------------
 

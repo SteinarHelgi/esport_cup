@@ -4,7 +4,7 @@ from Models.models import Game
 
 class GameData:
     def __init__(self) -> None:
-        self.game_file_path = "Data/Games.csv"
+        self.game_file_path = "Data/games.csv"
 
     def get_all_game_data(self) -> list[Game]:
         """Reads all games from the CSV file and returns a list of Game objects."""
@@ -41,4 +41,3 @@ class GameData:
             except (OSError, csv.Error):
                 return None
         return game
-
