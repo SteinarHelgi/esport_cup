@@ -52,7 +52,7 @@ def validate_player(player: Player) -> None:
 
     # Team name
 
-
+"""
 def validate_team_captain(team_captain: TeamCaptain) -> None:
     errors: list[str] = []
     # Team id
@@ -64,7 +64,7 @@ def validate_team_captain(team_captain: TeamCaptain) -> None:
 
     if errors:
         raise ValidationError(errors)
-
+"""
 
 def validate_team_name(name:str) -> None:
     # Name
@@ -73,35 +73,30 @@ def validate_team_name(name:str) -> None:
     elif any(char.isdigit() for char in name):
         raise ValueError("Name can only contain letters")
 
-    #if len(name.strip()) < 3:
-    #    errors.append("Team name must be at least 3 characters long")
-
-
 def validation_team_handle(handle:str) -> None:
     # Captain handle
     if not handle or handle.strip() == "":
         raise ValueError("You must enter a team captain handle ")
 
-
 def validate_team_logo(logo:str) -> None:
     # Logo
     if not logo or logo.strip() == "":
-        errors.append("Team logo may not be empty")
+        raise ValueError("Team logo may not be empty")
+
+def validate_team_players(players:list[str]) -> None:
+    pass
+
+def validate_team_points(points:int) -> None:
+      # Points
+    if points is None:
+        raise ValueError("Points may not be empty")
+    elif points < 0:
+        raise ValueError("Points may not be negative")
+
+
 
 
 
     # Players 3-5
-    if team.players is None:
-        errors.append("Team must have players")
-    else:
-        player_count = len(team.players)
-        if player_count < 3 or player_count > 5:
-            errors.append("Team must have between 3 and 5 players")
-    # Points
-    if team.points is None:
-        errors.append("Points may not be empty")
-    elif team.points < 0:
-        errors.append("Points may not be negative")
-
-    if errors:
-        raise ValidationError(errors)
+    #if team.players is None:
+    #    errors.append("Team must have players")
