@@ -14,6 +14,11 @@ class Errors(Enum):
     LOGO_EMPTY = 6
     POINTS_EMPTY = 7
     POINTS_NEGATIVE = 8
+    CLUB_NAME_EMPTY = 9
+    CLUB_NAME_INVALID = 10
+    HOMETOWN_EMPTY = 11
+    HOMETOWN_INVALID = 12
+
     OK = 1
 
 
@@ -166,7 +171,6 @@ def validate_team_points(points: str) -> Errors:
 
 # -------------TOURNAMENT VALIDATION--------------
 
-
 def validate_tournament_name(name) -> str | None:
     if len(name.strip()) < 2:
         raise ValidationError("Name of tournament be atleast 3 characters")
@@ -252,6 +256,7 @@ def validate_match_round(round_name: str, matches_in_round: list) -> None:
         )
 
 # -----------------GAME VALIDATION--------------------
+
 def validate_game_name(game_name: str, api_data: APIDATA) -> str | None:
     valid_game = game_name.strip()
 
@@ -269,26 +274,26 @@ def validate_game_name(game_name: str, api_data: APIDATA) -> str | None:
         )
     
     return valid_game
+
 # -----------------CLUB VALIDATION--------------------
 
-
-def validate_club_name(name:str) -> str | None:
+def validate_club_name(name:str) -> Errors:
     if not name or name.strip() == "":
-        raise ValueError("You must enter a club name")
+        Errors.CLUB_NAME_EMPTY
     if any(char.isdigit() for char in name):
-        raise ValueError("Invalid club name")
+        Errors.CLUB_NAME_INVALID
     
-    return name
+    return Errors.OK
 
-def validate_club_hometown(hometown:str) -> str | None:
+def validate_club_hometown(hometown:str) -> Errors:
     if not hometown or hometown.strip() == "":
-        raise ValueError("You must enter a club hometown")
+        Errors.HOMETOWN_EMPTY
     if any(char.isdigit() for char in hometown):
-        raise ValueError("Invalid hometown")
+        Errors.HOMETOWN_INVALID
  
-    return hometown
+    return Errors.OK
 
-def validate_club_color(color:str) -> str | None:
+def validate_club_color(color:str) -> Errors:
     if not color or color.strip() == "":
         raise ValueError("You must enter a club color")
     if any(char.isdigit() for char in color):
@@ -301,11 +306,11 @@ def validate_club_color(color:str) -> str | None:
     if club_color not in allowed_colors:
         raise ValueError("Invalid club color. Allowed colors are: " + ", ".join(allowed_colors))
     
-    return club_color
+    return Errors.OK
 
-def validate_club_country(country:str) -> str | None:
+def validate_club_country(country:str) -> Errors:
     if not country or country.strip() == "":
         raise ValueError("You must enter a club country")
     if any(char.isdigit() for char in country):
         raise ValueError("Invalid country")
-    return country
+    return Errors.OK
