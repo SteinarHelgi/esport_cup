@@ -50,7 +50,7 @@ class UserUI:
         elif choice == "3":
             return self.show_tournaments_calling_function("PAST")
         elif choice.lower() == "b":
-            return "TEAM_CAPTAIN_MENU"
+            return "USER_MENU"
         else:
             return "QUIT"
 

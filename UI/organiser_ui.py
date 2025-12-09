@@ -144,16 +144,10 @@ class OrganiserUI:
                 return "QUIT"
             break
         # Try and except for contact person phone number validation
-        while True:
-            confirmation = input("Confirm(Y): ")
-            if confirmation.lower() == "y":
-                new_contact_person = [
-                    new_contact_person_name,
-                    new_contact_person_email,
-                    new_contact_person_phone_nmbr,
-                ]
-                return new_contact_person
-            break
+        confirmation = input("Confirm(Y): ")
+        if confirmation.lower() != "y":
+            return "ORGANISER_MENU"
+
         print("b. Back \nq. Quit")
         # TODO setja inn tournament created menuið
 
@@ -162,7 +156,7 @@ class OrganiserUI:
             datetime.fromisoformat(start_date_of_tournament),
             datetime.fromisoformat(end_date_of_tournamnet),
             venue,
-            game_for_tournament,
+            game_for_tournament.name,
             amount_of_servers,
             new_contact_person_name,
         )
@@ -175,8 +169,11 @@ class OrganiserUI:
                 new_contact_person_phone_nmbr,
                 tournament.id,
             )
+
+            contact_person = self.APILL.create_contact_person(new_contact_person)
+
             print(self.tournament_created((new_tournament)))
-            enter_for_ok = input("Enter for ok or q to quit")
+            enter_for_ok = input("Press enter for OK or q to quit")
             if enter_for_ok == "q":
                 return "QUIT"
             else:
