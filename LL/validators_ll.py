@@ -214,5 +214,24 @@ def validate_tournament_game(game):
 
 # -----------------CLUB VALIDATION--------------------
 
-def validate_club_name
+def validate_club_name(name: str) -> str | None:
+    if not name or name.strip() == "":
+        raise ValueError("You must enter a club name")
+    return name
+
+def validate_club_hometown(hometown: str) -> str | None:
+    if not hometown or hometown.strip() == "":
+        raise ValueError("You must enter a club hometown")
+    elif any(char.isdigit() for char in hometown):
+        raise ValueError("Invaldi hometown name")
+    return hometown
+
+def validate_club_colors(club_colors: str) -> str | None:
+    if not club_colors or club_colors.strip() == "":
+        raise ValueError("You must enter club colors")
+    elif any(char.isdigit() for char in club_colors):
+        raise ValueError("Invalid club colors")
+    
+    allowed_colors = {"red", "blue", "green", "yellow", "black", "white", "purple", "orange", "pink", "brown", "gray"}
+    return club_colors
 
