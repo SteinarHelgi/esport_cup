@@ -1,6 +1,6 @@
 ## LOGIC- TODO 
 modify matches
-
+ef ekki 16 lið á móti þá deletast mót
 ##LOGIC - Þröstur
 Create matches fyrir 16 liða úrslit. Leikur tekur 2 klst: Mánudagur
 Klára get club stats - Þriðjudagur
@@ -15,8 +15,8 @@ create match þarf að ákveða server id og athuga hvort serverid se upptekið.
 ## UI
 * req 3: klara að skkoða teams functionaliy ( prenta lista af leikmönnum er klárt fyrir teamcaptain,vantar_ show_team_by_name(name) fall )
 * req 18: create a match sem organiser 
-*
-*
+* Allt club shit vantar inn
+* vantar að logga sig inn sem nýr team captain og búa til lið...C krafa
 UI: HILMIR
 
 

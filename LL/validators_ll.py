@@ -222,7 +222,7 @@ def validate_tournament_game(user_input_game, games):
 
 # -----------------CLUB VALIDATION--------------------
 
-def validate_club_name
+
 
 def validate_club_name():
     pass
