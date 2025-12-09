@@ -6,6 +6,7 @@ from UI.ui_functions import refresh_logo
 
 
 class OrganiserUI:
+    """UI functions for organiser"""
     def __init__(self, APILL: APILL, menu_manager) -> None:
         self.APILL = APILL
         self.menu_manager = menu_manager
@@ -75,7 +76,7 @@ class OrganiserUI:
 
             if self.APILL.create_tournament(new_tournament):
                 
-                print(tournament_created_menu((new_tournament)))
+                print(self.tournament_created((new_tournament)))
                 enter_for_ok = input("Enter for ok or q to quit")
                 if enter_for_ok == "q":
                     return "QUIT"
@@ -326,6 +327,7 @@ class OrganiserUI:
         return "QUIT"
     
     def show_players_in_team_org(self):
+        """Shows players in the selected team"""
         refresh_logo()
         team = self.team_to_view
         if team != "":

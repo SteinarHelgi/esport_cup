@@ -1,4 +1,4 @@
-from Models.models import Player, TeamCaptain, Team, Tournament
+from Models.models import Player, TeamCaptain, Team
 import ValidationError
 
 
@@ -7,11 +7,50 @@ def validate_player(player: Player) -> None:
 
     # Name
     if not player.name or player.name.strip() == "":
-        errors.append("Nafn má ekki vera tómt")
+        errors.append("Name can not be empty")
     elif any(char.isdigit() for char in player.name):
-        errors.append("Nafn má ekki innihalda tölustafi")
+        errors.append("Name can not have numbers")
 
     # Date of birth
+    try:
+        datetime.strptime(player.date_of_birth, "%Y-%M-%D")
+    except ValueError:
+        errors.append("Date of birth should be written YYYY-MM-DD")
+
+    # Address
+    if not player.address or player.address.strip() == "":
+        errors.append("Address cannot be empty")
+    elif player.address.replace(" ","").isdigit():
+        errors.append("Address cannot be only numbers")
+
+    # Phone number
+    if not player.phone_number.isdigit():
+        errors.append("Phone number must only be numbers.")
+    elif len(player.phone_number) != 7:
+        errors.append("Phone number should only be 7 numbers")
+
+    # Email
+    email = player.email.strip()
+
+    if email == "":
+        errors.append("Email can not be empty")
+
+    elif email.count("@") != 1:
+        errors.append("Email has to include one '@'")
+
+    elif "." not in email:
+        errors.append("email needs to have 1 '.'")
+
+
+    # Social media
+
+    if player.social_media is None or player.social_media.strip() == "":
+        pass 
+
+    # Handle
+
+
+    # Team name
 
 
 def validate_team_captain(team_captain: TeamCaptain) -> None:
@@ -32,6 +71,8 @@ def validate_team(team: Team) -> None:
     # Name
     if not team.name or team.name.strip() == "":
         errors.append("Team name may not be empty")
+    if len(team.name.strip()) < 3:
+        errors.append("Team name must be at least 3 characters long")
     # Captain handle
     if not team.captain_handle or team.captain_handle.strip() == "":
         errors.append("Team captain handle may not be empty")
@@ -39,42 +80,17 @@ def validate_team(team: Team) -> None:
     if not team.logo or team.logo.strip() == "":
         errors.append("Team logo may not be empty")
     # Players 3-5
-    #if team.players is None:
-    #    errors.append("Team must have players")
-    #else:
-    #    player_count = len(team.players)
-    #    if player_count < 3 or player_count > 5:
-    #        errors.append("Team must have between 3 and 5 players")
+    if team.players is None:
+        errors.append("Team must have players")
+    else:
+        player_count = len(team.players)
+        if player_count < 3 or player_count > 5:
+            errors.append("Team must have between 3 and 5 players")
     # Points
     if team.points is None:
         errors.append("Points may not be empty")
     elif team.points < 0:
         errors.append("Points may not be negative")
 
-    if errors:
-        raise ValidationError(errors)
-
-
-def validate_tournament(tournament: Tournament) -> None:
-    errors: list[str] = []
-    # Name
-    if not tournament.name or tournament.name.strip() == "":
-        errors.append("Tournament name may not be empty")
-    # Date
-    #
-    if not tournament.start_date < tournament.end_date:
-        errors.append("Start date must be before end date")
-    # venue
-    if not tournament.venue or tournament.venue.strip() == "":
-        errors.append("Venue may not be empty")
-    # number of servers
-    if not tournament.no_servers or tournament.no_servers.strip() == "":
-        errors.append("Number of servers may not be empty")
-    elif not tournament.no_servers.isdigit() or int(tournament.no_servers) <= 0:
-        errors.append("Number of servers must be a positive integer")
-    # contact_person
-    if not tournament.contact_person or tournament.contact_person.strip() == "":
-        errors.append("Contact person may not be empty")
-    
     if errors:
         raise ValidationError(errors)
