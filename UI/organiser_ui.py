@@ -25,7 +25,7 @@ class OrganiserUI:
             name_of_tournament = validate_tournament_name(name_of_tournament)
         except ValidationError as e:
             print(str(e))
-        start_date_of_tournament = input("Start date(Year-MOnth-Day): ")
+        start_date_of_tournament = input("Start date(Year-Month-Day): ")
         if start_date_of_tournament.lower() == "b":
             return "ORGANISER_MENU"
         if start_date_of_tournament.lower() == "q":

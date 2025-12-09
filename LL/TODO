@@ -15,12 +15,14 @@ create match þarf að ákveða server id og athuga hvort serverid se upptekið.
 ## UI
 * req 3: klara að skkoða teams functionaliy ( prenta lista af leikmönnum er klárt fyrir teamcaptain,vantar_ show_team_by_name(name) fall )
 * req 18: create a match sem organiser 
-* req 11: register team to tournament
-* velja mot til að create match
 *
 *
 UI: HILMIR
-cleare eftir error key og cleara eftir að systemið lokar.
+ef þú bakkar áður en þú fyllir inn contact person info þá kemur samt mót, á ekki að gerast
+laga start date capitalization
+taka út dbl elim inpupt checkið i UI, nota LL checkið
+búa til global game lista, prenta hann út áður en valið er leik fyrir mót sem þú ert að búa til
+enter for quit vantar tvípunkt
 UI: Steinar
-Klára teams information
+
 
