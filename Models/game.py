@@ -11,3 +11,6 @@ class Game:
         ret.append(self.name)
         ret.append(self.duration)
         return ret
+
+    def __str__(self) -> str:
+        return f"{self.name}"
