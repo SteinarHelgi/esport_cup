@@ -66,6 +66,9 @@ class APILL:
     def get_team_by_name(self, name) -> Team | None:
         return self.main_ll.team_ll.get_team_by_name(name)
 
+    def get_team_by_id(self, id) -> Team | None:
+        return self.main_ll.team_ll.get_team_by_id(id)
+
     def get_players_in_team(self, team: str) -> list[Player]:
         return self.main_ll.team_ll.get_players_in_team(team)
 
@@ -86,6 +89,9 @@ class APILL:
 
     def get_all_tournaments_for_captain(self, captain: TeamCaptain) -> list[Tournament]:
         return self.main_ll.tournament_ll.get_all_tournaments_for_captain(captain)
+
+    def get_teams_in_tournament(self, tournament: Tournament) -> list[Team]:
+        return self.main_ll.tournament_ll.get_teams_in_tournament(tournament)
 
     def get_all_open_tournaments_for_captain(
         self, captain: TeamCaptain
