@@ -66,19 +66,28 @@ def validate_team_captain(team_captain: TeamCaptain) -> None:
         raise ValidationError(errors)
 
 
-def validate_team(team: Team) -> None:
-    errors: list[str] = []
+def validate_team_name(name:str) -> None:
     # Name
-    if not team.name or team.name.strip() == "":
-        errors.append("Team name may not be empty")
-    if len(team.name.strip()) < 3:
+    if not name or name.strip() == "":
+        errors.append("You must enter a team name")
+
+    if len(name.strip()) < 3:
         errors.append("Team name must be at least 3 characters long")
+
+
+def validation_team_handle(handle:str) -> None:
     # Captain handle
     if not team.captain_handle or team.captain_handle.strip() == "":
         errors.append("Team captain handle may not be empty")
+
+
+def validate_team_logo(logo:str) -> None:
     # Logo
     if not team.logo or team.logo.strip() == "":
         errors.append("Team logo may not be empty")
+
+
+
     # Players 3-5
     if team.players is None:
         errors.append("Team must have players")
