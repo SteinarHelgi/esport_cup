@@ -1,4 +1,5 @@
 from datetime import datetime
+from xml.dom import ValidationErr
 from LL.api_ll import APILL
 from Models.models import Match, Player, Team, Tournament
 from UI.functions import format_player_list, format_team_list, format_tournament_table
@@ -20,6 +21,10 @@ class OrganiserUI:
             return "ORGANISER_MENU"
         if name_of_tournament.lower() == "q":
             return "QUIT"
+        try:
+            name_of_tournament = validate_name_of_tournament(name_of_tournament)
+        except ValidationError as e:
+            print(str(e))
         start_date_of_tournament = input("Start date(Year-MOnth-Day): ")
         if start_date_of_tournament.lower() == "b":
             return "ORGANISER_MENU"
