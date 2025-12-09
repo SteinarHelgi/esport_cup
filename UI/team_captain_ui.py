@@ -384,6 +384,33 @@ class TeamCaptainUI:
         # TODO b krafa
         pass
 
-    def show_create_team(self):
-        # TODO c krafa
+    def show_create_team(self):#TODO Klára þetta
+        """If you are a new team captain you get this option to create a team"""
+        print("Input the required information about the team or 'b' to Back and 'q' to Quuit")
+        team_name = input("Team name: ")
+        if team_name.lower == 'b':
+            return "TEAM_CAPTAIN_MENU"
+        if team_name.lower == 'q':
+            return "QUIT"
+        #try except for validation here
+        #captain handle stuff
+        social_media = input("Social media: ")
+        if social_media.lower() == 'b':
+            return "TEAM_CAPTAIN_MENU"
+        if social_media.lower() == 'q':
+            return "QUIT"
+        #Try except for validation here
+        team_logo = input("Input team logo in ASCII lettering: ")
+        if team_logo.lower() == 'q':
+            return "QUIT"
+        if team_logo.lower() == 'b':
+            return "TEAM_CAPTAIN_MENU"
+        #try except for validation here
+        team = self.menu_manager.team_name
+        new_team = Team(
+            team_name,
+            captain_handle,
+            social_media,
+            team_logo,
+        )
         pass

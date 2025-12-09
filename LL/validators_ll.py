@@ -102,4 +102,8 @@ def validate_team_points(points:int) -> None:
     if points is None:
         raise ValueError("Points may not be empty")
     elif points < 0:
-        raise ValueError("Points can't be negative")
+        raise ValueError("Points may not be negative")
+
+    # Players 3-5
+    # if team.players is None:
+    #    errors.append("Team must have players")
