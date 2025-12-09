@@ -1,5 +1,6 @@
 from datetime import datetime
 from IO.api_data import APIDATA
+from Models.game import Game
 from Models.models import (
     Tournament,
     Player,
@@ -141,6 +142,9 @@ class APILL:
 
     def give_club_points(self, club_name: str, points: int):
         return self.main_ll.tournament_ll.give_club_points(club_name, points)
+
+    def get_all_games(self) -> list[Game]:
+        return self.main_ll.game_ll.get_all_games()
 
     # def show_player_stats_bar_chart(self):
     #    return self.userLL.show_player_stats_bar_chart()
