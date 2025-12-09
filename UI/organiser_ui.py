@@ -25,7 +25,7 @@ class OrganiserUI:
             name_of_tournament = validate_tournament_name(name_of_tournament)
         except ValidationError as e:
             print(str(e))
-        start_date_of_tournament = input("Start date(Year-MOnth-Day): ")
+        start_date_of_tournament = input("Start date(Year-Month-Day): ")
         if start_date_of_tournament.lower() == "b":
             return "ORGANISER_MENU"
         if start_date_of_tournament.lower() == "q":
@@ -122,16 +122,19 @@ class OrganiserUI:
             return "ORGANISER_MENU"
         if new_contact_person_name == "q":
             return "QUIT"
+        #Try and except fyrir contact person name validation
         new_contact_person_email = input("Email: ")
         if new_contact_person_email == "b":
             return "ORGANISER_MENU"
         if new_contact_person_email == "q":
             return "QUIT"
+        #Try and except for contact person email validation
         new_contact_person_phone_nmbr = input("Phone number: ")
         if new_contact_person_phone_nmbr == "b":
             return "ORGANISER_MENU"
         if new_contact_person_phone_nmbr == "q":
             return "QUIT"
+        #Try and except for contact person phone number validation
         confirmation = input("Confirm(Y): ")
         if confirmation.lower() == "y":
             returnlist = [
