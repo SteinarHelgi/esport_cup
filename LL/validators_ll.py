@@ -8,7 +8,6 @@ class ValidationError(Exception):
 
 
 def validate_player_name(player_name: str) -> str:
-    errors = []
 
     valid_name = player_name.strip()
 
