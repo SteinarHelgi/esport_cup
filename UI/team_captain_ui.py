@@ -1,5 +1,5 @@
 from LL.api_ll import APILL
-from LL.validators_ll import validate_player_name, Name
+from LL.validators_ll import validate_player_name, Errors
 from Models.player import Player
 from Models.team import Team
 from Models.team_captain import TeamCaptain
@@ -12,14 +12,16 @@ class TeamCaptainUI:
         self.APILL = APILL
         self.menu_manager = menu_manager
 
+    """SKOÐA ÞETTA"""
+
     def show_create_player(self):
         """Creating a player with the required information"""
         name = input("Player's name: ").strip()
-        while validate_player_name(name) != Name.OK:
+        while validate_player_name(name) != Errors.OK:
             error = validate_player_name(name)
-            if error == Name.NAME_EMPTY:
+            if error == Errors.NAME_EMPTY:
                 print("Name cannot be empty")
-            if error == Name.NAME_ONLY_NUMBERS:
+            if error == Errors.NAME_ONLY_NUMBERS:
                 print("Name cannot be only numbers")
             name = input("Player's name: ").strip()
 

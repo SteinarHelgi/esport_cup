@@ -1,23 +1,42 @@
 from Models.models import Player, TeamCaptain, Team
 from datetime import datetime, date
 from IO.api_data import APIDATA
-from enum import Enum
+from enum import Enum, auto
 
 
 class Errors(Enum):
-    NAME_EMPTY = 404
-    NAME_ONLY_NUMBERS = 403
-    HANDLE_EMPTY = 2
-    HANDLE_EXIST = 3
-    TEAM_NAME_EMPTY = 4
-    TEAM_NAME_TOO_LONG = 5
-    LOGO_EMPTY = 6
-    POINTS_EMPTY = 7
-    POINTS_NEGATIVE = 8
-    OK = 1
+    EMPTY = auto()
+    NAME_ONLY_NUMBERS = auto()
+    HANDLE_EXIST = auto()
+    TEAM_NAME_TOO_LONG = auto()
+    LOGO_EMPTY = auto()
+    POINTS_NEGATIVE = auto()
+    DATE_NOT_VALID = auto()
+    DATE_TOO_OLD = auto()
+    ADDRESS_ONLY_NUMBERS = auto()
+    NUMBER_HAS_CHARACTERS = auto()
+    NUMBER_NOT_CORRECT_LENGTH = auto()
+    EMAIL_NOT_CONTAINING_AT = auto()
+    HANDLE_CONTAINS_SPACE = auto()
+    TOURNAMENT_NAME_LENGTH = auto()
+    TOURNAMENT_NAME_LENGTH_TOO_LONG = auto()
+    END_DATE_BEFORE_START = auto()
+    DATE_FORMAT_NOT_VALID = auto()
+    START_DATE_BEFORE_TODAY = auto()
+    SERVER_LESS_THAN_0 = auto()
+    SERVER_NOT_NUMBER = auto()
+    NOT_Y_OR_N = auto()
+    VENUE_ONLY_NUMBERS = auto()
+    GAME_NOT_VALID = auto()
+    ROUND_NOT_VALID = auto()
+    TOO_MANY_GAMES_IN_ROUND = auto()
+    CLUB_ONLY_NUMBERS = auto()
+    HOMETOWN_CONTAINS_NUMBER = auto()
+    INVALID_COLOR = auto()
+    COLOR_HAS_NUMBER = auto()
+    CLUB_COUNTRY_HAS_NUMBER = auto()
 
-
-
+    OK = auto()
 
 
 class ValidationError(Exception):
@@ -27,7 +46,7 @@ class ValidationError(Exception):
 def validate_player_name(player_name: str) -> Errors:
     valid_name = player_name.strip()
     if valid_name == "":
-        return Errors.NAME_EMPTY
+        return Errors.EMPTY
     if any(char.isdigit() for char in valid_name):
         return Errors.NAME_ONLY_NUMBERS
     return Errors.OK
@@ -37,54 +56,49 @@ def validate_date_of_birth(date_of_birth):
     valid_dob = date_of_birth.strip()
 
     if valid_dob == "":
-        raise ValueError("Date of birth cannot be empty")
-
+        return Errors.EMPTY
     try:
         dob = datetime.strptime(valid_dob, "%Y-%m-%d")
+        if dob.year < 1900:
+            return Errors.DATE_TOO_OLD
+        return Errors.OK
     except ValueError:
-        raise ValueError("Date of birth must be in the format YYYY-MM--DD")
-
-    if dob.year < 1900:
-        raise ValueError("Please consult a doctor you might be dead, try again")
-    return date_of_birth
+        return Errors.DATE_NOT_VALID
 
 
 def validate_address(address):
     valid_address = address.strip()
 
     if valid_address == "":
-        raise ValueError("Address cannot be empty")
+        return Errors.EMPTY
 
     if valid_address.replace(" ", "").isdigit():
-        raise ValueError("Address cannot be only numbers")
-    return address
+        return Errors.ADDRESS_ONLY_NUMBERS
+    return Errors.OK
 
 
 def validate_phone_number(phone_number):
     number = phone_number.strip()
 
     if number == "":
-        raise ValueError("Phone number cannot be empty")
+        return Errors.EMPTY
 
     if not number.isdigit():
-        raise ValueError("Phone number must contain numbers only")
+        return Errors.NUMBER_HAS_CHARACTERS
 
     if len(number) != 7:
-        raise ValueError("Phone number must be exactly 7 digits long")
-    return phone_number
+        return Errors.NUMBER_NOT_CORRECT_LENGTH
+    return Errors.OK
 
 
 def validate_player_email(player_email):
     email = player_email.strip()
 
     if email == "":
-        raise ValueError("Email cannot be empty")
+        return Errors.EMPTY
 
     if email.count("@") != 1:
-        raise ValueError("Email must contain exactly one '@'")
-
-    if "." not in email:
-        raise ValueError("Email must contain at least one '.'")
+        return Errors.EMAIL_NOT_CONTAINING_AT
     return player_email
 
 
@@ -92,11 +106,11 @@ def validate_player_handle(player_handle):
     handle = player_handle.strip()
 
     if handle == "":
-        raise ValueError("Hnadle cannot be empty")
+        return Errors.EMPTY
 
     if " " in handle:
-        raise ValueError("Handle cannot contain space")
-    return player_handle
+        return Errors.HANDLE_CONTAINS_SPACE
+    return Errors.OK
 
 
 # -----------TEAM CAPTAIN VALIDATION-------------
@@ -105,12 +119,12 @@ def validate_player_handle(player_handle):
 def validate_team_captain(handle: str, api_data: APIDATA) -> Errors:
     # Handle
     if not handle or not handle.strip():
-        return Errors.HANDLE_EMPTY
+        return Errors.EMPTY
 
     current_players = api_data.get_all_player_data()
 
     if any(p.handle == handle for p in current_players):
-       return Errors.HANDLE_EXIST
+        return Errors.HANDLE_EXIST
 
     return Errors.OK
 
@@ -121,7 +135,7 @@ def validate_team_captain(handle: str, api_data: APIDATA) -> Errors:
 def validate_team_name(name: str) -> Errors:
     # Name
     if not name or name.strip() == "":
-        return Errors.TEAM_NAME_EMPTY
+        return Errors.EMPTY
 
     if len(name) > 40:
         return Errors.TEAM_NAME_TOO_LONG
@@ -146,7 +160,7 @@ def validation_team_handle(handle: str, api_data: APIDATA) -> Errors:
 def validate_team_logo(logo: str) -> Errors:
     # Logo
     if not logo or logo.strip() == "":
-        return Errors.LOGO_EMPTY
+        return Errors.EMPTY
     return Errors.OK
 
 
@@ -167,71 +181,71 @@ def validate_team_points(points: str) -> Errors:
 # -------------TOURNAMENT VALIDATION--------------
 
 
-def validate_tournament_name(name) -> str | None:
+def validate_tournament_name(name) -> Errors:
     if len(name.strip()) < 2:
-        raise ValidationError("Name of tournament be atleast 3 characters")
-    if len(name) <= 40:
-        return name
-    else:
-        raise ValidationError("Name cannot be longer than 40 characters")
+        return Errors.TOURNAMENT_NAME_LENGTH
+    if len(name) >= 40:
+        return Errors.TOURNAMENT_NAME_LENGTH_TOO_LONG
+    return Errors.OK
 
 
-def validate_tournament_start_date(start_date) -> str | None:
+def validate_tournament_start_date(start_date) -> Errors:
     # Verður að vera rétt format
     # Start date verður að vera eftir daginn í dag
     try:
         start_date_iso = date.fromisoformat(start_date)
     except ValueError:
-        raise ValidationError("Not correct format")
+        return Errors.DATE_FORMAT_NOT_VALID
     if start_date_iso <= date.today():
-        raise ValidationError("Invalid start date")
-    return start_date
+        return Errors.START_DATE_BEFORE_TODAY
+    return Errors.OK
 
 
-def validate_tournament_end_date(start_date, end_date) -> str | None:
+def validate_tournament_end_date(start_date, end_date) -> Errors:
     # Verður að vera rétt format.
     # Verður að byrja eftir start date
     try:
         end_date_iso = date.fromisoformat(end_date)
     except ValueError:
-        raise ValidationError("Not correct format")
+        return Errors.DATE_FORMAT_NOT_VALID
+
     if end_date_iso < date.fromisoformat(start_date):
-        raise ValidationError("Invalid end date")
-    return end_date
+        return Errors.END_DATE_BEFORE_START
+    return Errors.OK
 
 
-def validate_tournament_servers(servers) -> str | None:
+def validate_tournament_servers(servers) -> Errors:
     if not servers.isdigit():
-        raise ValidationError("Amount of servers must be a number")
+        return Errors.SERVER_NOT_NUMBER
     if int(servers) < 1:
-        raise ValidationError("Amount of servers be greater than 0")
-    return servers
+        return Errors.SERVER_LESS_THAN_0
+    return Errors.OK
 
 
-def validate_tournament_venue(venue) -> str | None:
+def validate_tournament_venue(venue) -> Errors:
     if venue.isdigit():
-        raise ValidationError("Invalid Venue name")
-    return venue
+        return Errors.VENUE_ONLY_NUMBERS
+    return Errors.OK
 
 
-def validate_tournament_double_elimination(double_elimination):
+def validate_tournament_double_elimination(double_elimination) -> Errors:
     if double_elimination.lower() == "y" or double_elimination.lower() == "n":
-        return double_elimination
+        return Errors.OK
     else:
-        raise ValidationError("Only Y or N")
+        return Errors.NOT_Y_OR_N
 
 
-def validate_tournament_game(user_input_game, games) -> str | None:
+def validate_tournament_game(user_input_game, games) -> Errors:
     for game in games:
         if game.name == user_input_game:
-            return game
-    raise ValidationError("Not a valid game")
+            return Errors.OK
+    return Errors.GAME_NOT_VALID
 
 
-# ----------------MATCH VALIDATION-------------------- 
+# ----------------MATCH VALIDATION--------------------
 
-def validate_match_round(round_name: str, matches_in_round: list) -> None:
 
+def validate_match_round(round_name: str, matches_in_round: list) -> Errors:
     expected_matches_by_round = {
         "R16": 8,
         "QF": 4,
@@ -240,72 +254,86 @@ def validate_match_round(round_name: str, matches_in_round: list) -> None:
     }
 
     if round_name not in expected_matches_by_round:
-        raise ValidationError(f"'{round_name}' is not a valid round.")
+        return Errors.ROUND_NOT_VALID
 
     expected = expected_matches_by_round[round_name]
     actual = len(matches_in_round)
 
     if actual != expected:
-        raise ValidationError(
-            f"Round '{round_name}' must have {expected} matches, "
-            f"but got {actual}."
-        )
+        return Errors.TOO_MANY_GAMES_IN_ROUND
+    return Errors.OK
+
 
 # -----------------GAME VALIDATION--------------------
-def validate_game_name(game_name: str, api_data: APIDATA) -> str | None:
+def validate_game_name(game_name: str, api_data: APIDATA) -> Errors:
     valid_game = game_name.strip()
 
     if valid_game == "":
-        raise ValidationError("Game name cannot be empty")
-    
+        return Errors.EMPTY
+
     available_games = api_data.get_all_game_data()
 
     game_names = [g.name for g in available_games]
 
     if valid_game not in game_names:
-        raise ValidationError(
-            f"'{valid_game}' is not an available game. "
-            f"Available gmaes are: {', '.join(game_names)}."
-        )
-    
-    return valid_game
+        Errors.GAME_NOT_VALID
+    return Errors.OK
+
+
 # -----------------CLUB VALIDATION--------------------
 
 
-def validate_club_name(name:str) -> str | None:
+def validate_club_name(name: str) -> Errors:
     if not name or name.strip() == "":
-        raise ValueError("You must enter a club name")
+        return Errors.OK
     if any(char.isdigit() for char in name):
-        raise ValueError("Invalid club name")
-    
-    return name
+        return Errors.CLUB_ONLY_NUMBERS
 
-def validate_club_hometown(hometown:str) -> str | None:
+    return Errors.OK
+
+
+def validate_club_hometown(hometown: str) -> Errors:
     if not hometown or hometown.strip() == "":
         raise ValueError("You must enter a club hometown")
+        return Errors.EMPTY
     if any(char.isdigit() for char in hometown):
-        raise ValueError("Invalid hometown")
- 
-    return hometown
+        return Errors.HOMETOWN_CONTAINS_NUMBER
 
-def validate_club_color(color:str) -> str | None:
+    return Errors.OK
+
+
+def validate_club_color(color: str) -> Errors:
     if not color or color.strip() == "":
-        raise ValueError("You must enter a club color")
+        return Errors.OK
     if any(char.isdigit() for char in color):
-        raise ValueError("Invalid color")
-    
-    allowed_colors = ["Red", "Blue", "Green", "Yellow", "Black", "White", "Purple", "Orange", "Pink", "Gray", "Brown"]
-    
+        return Errors.COLOR_HAS_NUMBER
+
+    allowed_colors = [
+        "Red",
+        "Blue",
+        "Green",
+        "Yellow",
+        "Black",
+        "White",
+        "Purple",
+        "Orange",
+        "Pink",
+        "Gray",
+        "Brown",
+    ]
+
     club_color = color.strip().lower()
 
     if club_color not in allowed_colors:
-        raise ValueError("Invalid club color. Allowed colors are: " + ", ".join(allowed_colors))
-    
-    return club_color
+        return Errors.INVALID_COLOR
 
-def validate_club_country(country:str) -> str | None:
+    return Errors.OK
+
+
+def validate_club_country(country: str) -> Errors:
     if not country or country.strip() == "":
-        raise ValueError("You must enter a club country")
+        return Errors.EMPTY
     if any(char.isdigit() for char in country):
-        raise ValueError("Invalid country")
-    return country
+        return Errors.CLUB_COUNTRY_HAS_NUMBER
+    return Errors.OK
+
