@@ -48,7 +48,7 @@ class APIDATA:
     def get_all_match_data(self) -> list[Match]:
         return self.match_data.get_all_match_data()
 
-    def store_match_data(self, match: Match):
+    def store_match_data(self, match: Match, filepath:str = "Data/matches.csv"):
         return self.match_data.store_match_data(match)
 
     def get_all_player_data(self) -> list[Player]:

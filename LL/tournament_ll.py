@@ -1,5 +1,9 @@
+import datetime
+from IO import match_data
+import random
 from IO.api_data import APIDATA
-from datetime import datetime
+from datetime import date
+from datetime import time
 from Models.models import (
     Tournament,
     TeamRegistry,
@@ -12,7 +16,7 @@ from Models.models import (
 )
 
 
-class TouranamentLL:
+class TournamentLL:
     def __init__(self, api_data: APIDATA, main_ll):
         self.APIDATA = api_data
         self.MAINLL = main_ll
@@ -240,6 +244,15 @@ class TouranamentLL:
             "SRV-DUSTY",
         ]
 
+        #Check to see if a valid server has been selected
+        if match.server_id not in server_names:
+            raise ValueError
+
+        #Check to see if the selected server is busy
+        for matchcsv in matches:
+            if matchcsv.match_date == match.match_date and matchcsv.match_time == match.match_time and matchcsv.server_id == match.server_id:
+                raise ValueError
+
         # 4 values means all criteria was met and we can add the match to matches.csv
         if len(teams_valid) == 4:
             stored = self.APIDATA.store_match_data(match)
@@ -304,3 +317,61 @@ class TouranamentLL:
 
     def give_club_points(self, club_name: str, points: int):
         self.APIDATA.give_club_points(club_name, points)
+
+    def setup_R16_qualifying_matches(self, tournament_id: str):
+        """Create a new matches.csv with the R16 qualifying round ready"""
+        team_registry = self.APIDATA.get_all_team_registry_data()
+        all_tournaments = self.APIDATA.get_all_tournament_data()
+        playing_times: list[str] = ["10:00", "12:00", "14:00", "16:00"]
+        
+        start_date: date = date(year=2000, month=1, day=1)
+        end_date = 0
+        for t in all_tournaments:
+            if t.id == tournament_id:
+                start_date = t.start_date
+                end_date = t.end_date
+                break
+        #If tournament id was not found - raise valueerror
+        if start_date.year == 2000:
+            raise ValueError
+        next_day = start_date.day + 1
+        next_date: date = date(year = start_date.year, month = start_date.month, day = next_day)
+
+        dates: list[date] = [start_date, next_date]
+
+        teams_playing: list[str] = []
+        for registry in team_registry:
+            if registry.tournament_id == tournament_id:
+                teams_playing.append(registry.team_name)
+        
+        #R16 is 8 matches
+        for _ in range(8):
+            new_tournament_id: str = tournament_id
+            round: str = "R16"
+            team_a_name: str = random.choice(teams_playing)
+            teams_playing.remove(team_a_name)
+            team_b_name: str = random.choice(teams_playing)
+            teams_playing.remove(team_b_name)
+            
+            # Four matches per day for 2 days = total of 8 matches
+            for j in range(2):
+                match_id = 1
+                date_of_game = dates[j]
+                for i in range(4):
+                    time_of_match = playing_times[i]
+                    new_match = Match(
+                        new_tournament_id,
+                        round,
+                        team_a_name,
+                        team_b_name,
+                        str(date_of_game),
+                        time_of_match
+                    )
+                    new_match.match_id = str(match_id)
+                    new_match.match_number = str(match_id)
+                    server_id = "SRV-PEPSI"
+                    new_match.server_id = server_id
+                    match_id += 1
+
+                    self.APIDATA.store_match_data(new_match, filepath="Data/new_matches.csv")
+            

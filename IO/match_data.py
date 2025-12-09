@@ -6,13 +6,13 @@ class MatchData:
     def __init__(self) -> None:
         self.match_file_path = "Data/matches.csv"
 
-    def get_all_match_data(self) -> list[Match]:
+    def get_all_match_data(self, filepath: str = "Data/matches.csv") -> list[Match]:
         """Reads all matches from the CSV file and returns them as a list of Match objects."""
 
         matches: list[Match] = []
 
         # Open the CSV file in read mode
-        with open(self.match_file_path, "r", encoding="utf-8") as file:
+        with open(filepath, "r", encoding="utf-8") as file:
             csv_reader = csv.reader(file)
 
             # Skip header line
@@ -56,9 +56,9 @@ class MatchData:
 
         return matches
 
-    def store_match_data(self, match: Match) -> Match | None:
+    def store_match_data(self, match: Match, filepath: str = "Data/matches.csv") -> Match | None:
         """Appends a single match to the CSV file. Returns the match if successful, otherwise None."""
-        with open(self.match_file_path, "a", newline="", encoding="utf-8") as file:
+        with open(filepath, "a", newline="", encoding="utf-8") as file:
             csv_writer = csv.writer(file)
             try:
                 csv_writer.writerow(match.toCSVList())
@@ -67,7 +67,7 @@ class MatchData:
         return match
 
     def register_match_results(
-        self, match_id: str, home_score: int, away_score: int, completed_match: str
+        self, match_id: str, home_score: int, away_score: int, completed_match: str, filepath: str = "Data/matches.csv"
     ) -> Match | None:
         """Updates the results of a given match in the CSV file."""
         temp_data: list[list[str]] = []
@@ -75,7 +75,7 @@ class MatchData:
 
         # Creates a temporary data list
         try:
-            with open(self.match_file_path, "r", newline="") as file:
+            with open(filepath, "r", newline="") as file:
                 reader = csv.reader(file)
 
                 header = next(reader)
@@ -126,7 +126,7 @@ class MatchData:
         # Overwrites temporary datafile to csv file
         try:
             with open(
-                self.match_file_path, "w", newline="", encoding="utf-8"
+                filepath, "w", newline="", encoding="utf-8"
             ) as csvfile:
                 # Create a writer object
                 writer = csv.writer(csvfile)
