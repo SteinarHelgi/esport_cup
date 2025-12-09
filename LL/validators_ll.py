@@ -5,6 +5,7 @@ from IO.api_data import APIDATA
 class ValidationError(Exception):
     pass
 
+#----------PLAYER VALIDATION------------
 
 def validate_player(player: Player) -> None:
     errors = []
@@ -78,10 +79,7 @@ def validate_player_handle(player_handle: str) -> None:
     if " " in handle:
         raise ValueError("Handle cannot contain space")
     
-
-
-    # Team name
-
+#--------------TEAM VALIDATION---------------
 """
 def validate_team_captain(team_captain: TeamCaptain) -> None:
     errors: list[str] = []
@@ -135,6 +133,7 @@ def validate_team_points(points:int) -> None:
     # if team.players is None:
     #    errors.append("Team must have players")
 
+#-------------TOURNAMENT VALIDATION--------------
 
 def validate_tournament_name(name):
     if len(name.strip()) < 2:
