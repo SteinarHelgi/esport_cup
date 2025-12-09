@@ -107,7 +107,6 @@ def validation_team_handle(handle:str, api_data:APIDATA) -> None:
         raise ValueError("You must enter a team captain handle")
     
     current_players = api_data.get_all_player_data()
-    # Checking if player handle is available
     if not any(p.handle == handle for p in current_players):
         raise ValueError("No team captain exists with that handle")
 
