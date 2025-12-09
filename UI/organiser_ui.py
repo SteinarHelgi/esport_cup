@@ -42,7 +42,7 @@ class OrganiserUI:
                 print(str(e))
 
         while True:
-            start_date_of_tournament = input("Start date(Year-MOnth-Day): ")
+            start_date_of_tournament = input("Start date(Year-Month-Day): ")
             if start_date_of_tournament.lower() == "b":
                 return "ORGANISER_MENU"
             if start_date_of_tournament.lower() == "q":
