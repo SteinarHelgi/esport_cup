@@ -7,22 +7,19 @@ class ValidationError(Exception):
     pass
 
 
-# ----------PLAYER VALIDATION------------
-
-
-def validate_player(player: Player) -> None:
+def validate_player_name(player_name:str) -> str:
     errors = []
 
-    valid_name = player.name.strip()
+    valid_name = player_name.strip()
 
     if valid_name == "":
         raise ValueError("Name can not be empty.")
 
     if any(char.isdigit() for char in valid_name):
         raise ValueError("Name can not include numbers")
+    return valid_name
 
-
-def validate_date_of_birth(date_of_birth: str) -> None:
+def validate_date_of_birth(date_of_birth):
     valid_dob = date_of_birth.strip()
 
     if valid_dob == "":
@@ -35,9 +32,9 @@ def validate_date_of_birth(date_of_birth: str) -> None:
 
     if dob.year < 1900:
         raise ValueError("Please consult a doctor you might be dead, try again")
+    return date_of_birth
 
-
-def validate_address(address: str) -> None:
+def validate_address(address):
     valid_address = address.strip()
 
     if valid_address == "":
@@ -45,9 +42,9 @@ def validate_address(address: str) -> None:
 
     if valid_address.replace(" ", "").isdigit():
         raise ValueError("Address cannot be only numbers")
+    return address
 
-
-def validate_phone_number(phone_number: str) -> None:
+def validate_phone_number(phone_number):
     number = phone_number.strip()
 
     if number == "":
@@ -58,9 +55,9 @@ def validate_phone_number(phone_number: str) -> None:
 
     if len(number) != 7:
         raise ValueError("Phone number must be exactly 7 digits long")
+    return phone_number
 
-
-def validate_player_email(player_email: str) -> None:
+def validate_player_email(player_email):
     email = player_email.strip()
 
     if email == "":
@@ -71,9 +68,9 @@ def validate_player_email(player_email: str) -> None:
 
     if "." not in email:
         raise ValueError("Email must contain at least one '.'")
+    return player_email
 
-
-def validate_player_handle(player_handle: str) -> None:
+def validate_player_handle(player_handle):
     handle = player_handle.strip()
 
     if handle == "":
@@ -81,7 +78,7 @@ def validate_player_handle(player_handle: str) -> None:
 
     if " " in handle:
         raise ValueError("Handle cannot contain space")
-
+    return player_handle
 
 # -----------TEAM CAPTAIN VALIDATION-------------
 
@@ -203,7 +200,6 @@ def validate_tournament_double_elimination(double_elimination):
 
 
 def validate_tournament_game(game):
-    games = ["Valorant", "CS:GO", "League of Legends", "Rocket League", "Fortnite"]
     if game not in games:
         raise ValidationError("Game must be ", *games)
 
@@ -212,6 +208,7 @@ def validate_tournament_game(game):
 
 
 # ----------------MATCH VALIDATION-------------------- Steinar
+
 
 # -----------------GAME VALIDATION--------------------
 

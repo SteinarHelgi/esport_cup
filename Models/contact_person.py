@@ -2,8 +2,8 @@ from Models.models import Tournament
 
 
 class ContactPerson:
-    def __init__(self, id: str, name: str, email: str, phone: str, tournament_id: str):
-        self.id = id
+    def __init__(self, name: str, email: str, phone: str, tournament_id: str):
+        self.id = ""
         self.name = name
         self.email = email
         self.phone = phone
@@ -17,3 +17,5 @@ class ContactPerson:
         ret.append(self.phone)
         ret.append(self.tournament_id)
         return ret
+    def set_id(self,id):
+        self.id = id

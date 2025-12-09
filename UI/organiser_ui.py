@@ -1,10 +1,11 @@
 from datetime import datetime
 from tracemalloc import start
 from LL.api_ll import APILL
+from Models.contact_person import ContactPerson
 from Models.models import Match, Player, Team, Tournament
 from UI.functions import format_player_list, format_team_list, format_tournament_table
 from UI.ui_functions import refresh_logo
-from LL.validators_ll import ValidationError,validate_tournament_double_elimination,validate_tournament_end_date,validate_tournament_name,validate_tournament_game,validate_tournament_start_date,validate_tournament_venue,validate_tournament_servers,
+from LL.validators_ll import ValidationError,validate_tournament_double_elimination,validate_tournament_end_date,validate_tournament_name,validate_tournament_game,validate_tournament_start_date,validate_tournament_venue,validate_tournament_servers
 
 
 
@@ -106,69 +107,73 @@ class OrganiserUI:
                 break
             except ValidationError as e:
                 print(str(e))
-        new_contact_person = self.create_contact_person_menu()  # Calls the create contact person function so that it adds that person to the created tournament
+
+        print("Fill in contact person info or 'b' to Back and 'q' to Quit")
+        while True:
+            new_contact_person_name = input("Name: ")
+            if new_contact_person_name == "b":
+                return "ORGANISER_MENU"
+            if new_contact_person_name == "q":
+                return "QUIT"
+            break
+        #Try and except fyrir contact person name validation
+        while True:
+            new_contact_person_email = input("Email: ")
+            if new_contact_person_email == "b":
+                return "ORGANISER_MENU"
+            if new_contact_person_email == "q":
+                return "QUIT"
+            break
+        #Try and except for contact person email validation
+        while True:
+            new_contact_person_phone_nmbr = input("Phone number: ")
+            if new_contact_person_phone_nmbr == "b":
+                return "ORGANISER_MENU"
+            if new_contact_person_phone_nmbr == "q":
+                return "QUIT"
+            break
+        #Try and except for contact person phone number validation
+        while True:
+            confirmation = input("Confirm(Y): ")
+            if confirmation.lower() == "y":
+                new_contact_person = [
+                    new_contact_person_name,
+                    new_contact_person_email,
+                    new_contact_person_phone_nmbr,
+                ]
+                return new_contact_person
+            break
         print("b. Back \nq. Quit")
         # TODO setja inn tournament created menuið
-        if new_contact_person:
-            new_tournament = Tournament(
-                name_of_tournament,
-                datetime.fromisoformat(start_date_of_tournament),
-                datetime.fromisoformat(end_date_of_tournamnet),
-                venue,
-                game_for_tournament,
-                amount_of_servers,
-                new_contact_person[0],
-            )
-
-            if self.APILL.create_tournament(new_tournament):
-                print(self.tournament_created((new_tournament)))
-                enter_for_ok = input("Enter for ok or q to quit")
-                if enter_for_ok == "q":
-                    return "QUIT"
-                else:
-                    return "ORGANISER_MENU"
-
+        
+        new_tournament = Tournament(
+            name_of_tournament,
+            datetime.fromisoformat(start_date_of_tournament),
+            datetime.fromisoformat(end_date_of_tournamnet),
+            venue,
+            game_for_tournament,
+            amount_of_servers,
+            new_contact_person_name,
+        )
+        tournament = self.APILL.create_tournament(new_tournament)
+        
+        if tournament:
+            new_contact_person = ContactPerson(new_contact_person_name, new_contact_person_email, new_contact_person_phone_nmbr,tournament.id)
+            print(self.tournament_created((new_tournament)))
+            enter_for_ok = input("Enter for ok or q to quit")
+            if enter_for_ok == "q":
+                return "QUIT"
             else:
-                print("Tournament could not be created, contact developer")
-                enter_for_ok = input("Enter for ok or q to quit")
-                if enter_for_ok == "q":
-                    return "QUIT"
                 return "ORGANISER_MENU"
+
         else:
-            print("You did not fill in contact person information, try again")
-            enter_to_leave = input("Press enter to exit: ")
-            return "ORGANISER_MENU"
+            print("Tournament could not be created, contact developer")
+            enter_for_ok = input("Enter for ok or q to quit")
+            if enter_for_ok == "q":
+                return "QUIT"
         return "ORGANISER_MENU"
 
-    def create_contact_person_menu(self):
-        """Creates the contact person with options to back or quit anywhere in the process"""
-        print("Fill in contact person info or 'b' to Back and 'q' to Quit")
-        new_contact_person_name = input("Name: ")
-        if new_contact_person_name == "b":
-            return "ORGANISER_MENU"
-        if new_contact_person_name == "q":
-            return "QUIT"
-        #Try and except fyrir contact person name validation
-        new_contact_person_email = input("Email: ")
-        if new_contact_person_email == "b":
-            return "ORGANISER_MENU"
-        if new_contact_person_email == "q":
-            return "QUIT"
-        #Try and except for contact person email validation
-        new_contact_person_phone_nmbr = input("Phone number: ")
-        if new_contact_person_phone_nmbr == "b":
-            return "ORGANISER_MENU"
-        if new_contact_person_phone_nmbr == "q":
-            return "QUIT"
-        #Try and except for contact person phone number validation
-        confirmation = input("Confirm(Y): ")
-        if confirmation.lower() == "y":
-            returnlist = [
-                new_contact_person_name,
-                new_contact_person_email,
-                new_contact_person_phone_nmbr,
-            ]
-            return returnlist
+
 
     def tournament_created(self, tournament: Tournament) -> str:
         """Menu that confirms that a tournament has been created"""
