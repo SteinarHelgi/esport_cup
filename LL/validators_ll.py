@@ -221,7 +221,28 @@ def validate_tournament_game(user_input_game, games):
     raise ValidationError("Not a valid game")
 
 
-# ----------------MATCH VALIDATION-------------------- Steinar
+# ----------------MATCH VALIDATION--------------------
+
+def validate_match_round(round_name: str, matches_in_round: list) -> None:
+
+    expected_matches_by_round = {
+        "R16": 8,
+        "QF": 4,
+        "SF": 2,
+        "Final": 1,
+    }
+
+    if round_name not in expected_matches_by_round:
+        raise ValidationError(f"'{round_name}' is not a valid round.")
+
+    expected = expected_matches_by_round[round_name]
+    actual = len(matches_in_round)
+
+    if actual != expected:
+        raise ValidationError(
+            f"Round '{round_name}' must have {expected} matches, "
+            f"but got {actual}."
+        )
 
 
 # -----------------GAME VALIDATION--------------------
