@@ -1,4 +1,4 @@
-from Models.models import Player, TeamCaptain, Team
+from Models.models import Player, TeamCaptain, Team, Tournament
 import ValidationError
 
 
@@ -52,6 +52,31 @@ def validate_team(team: Team) -> None:
         errors.append("Points may not be empty")
     elif team.points < 0:
         errors.append("Points may not be negative")
+
+    if errors:
+        raise ValidationError(errors)
+
+
+def validate_tournament(tournament: Tournament) -> None:
+    errors: list[str] = []
+    # Name
+    if not tournament.name or tournament.name.strip() == "":
+        errors.append("Tournament name may not be empty")
+    # Date
+    if not tournament.start_date < tournament.end_date:
+        errors.append("Start date must be before end date")
+    # venue
+    if not tournament.venue or tournament.venue.strip() == "":
+        errors.append("Venue may not be empty")
+    # number of servers
+    if not tournament.no_servers or tournament.no_servers.strip() == "":
+        errors.append("Number of servers may not be empty")
+    elif not tournament.no_servers.isdigit() or int(tournament.no_servers) <= 0:
+        errors.append("Number of servers must be a positive integer")
+    # contact_person
+    if not tournament.contact_person or tournament.contact_person.strip() == "":
+        errors.append("Contact person may not be empty")
+
 
     if errors:
         raise ValidationError(errors)
