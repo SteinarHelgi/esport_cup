@@ -5,6 +5,7 @@ from UI.main_ui import MainUI
 
 
 def main():
+    """running the system"""
     user = MainUI()
     user.run()
     

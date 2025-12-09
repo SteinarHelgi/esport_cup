@@ -127,11 +127,8 @@ class UserUI:
             return self.show_tournaments_blabla(time)
 
     def show_players(self, team: Team):
-<<<<<<< HEAD
         """Shows a list of players when you select a team"""
-=======
         refresh_logo()
->>>>>>> 300c44f369abe656b8d96259529886bb1221bf4a
         players = self.APILL.get_players_in_team(team.name)
         print(team.name, team.social_media, team.logo)
         print(format_player_list(players))
