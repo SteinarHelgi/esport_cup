@@ -86,7 +86,7 @@ def validate_player_handle(player_handle: str) -> None:
 # -----------TEAM CAPTAIN VALIDATION-------------
 
 
-def validate_team_captain(handle: str, api_data: APIDATA) -> None:
+def validate_team_captain(handle: str, api_data: APIDATA) -> str | None: 
     # Handle
     if not handle or not handle.strip():
         raise ValueError("Handle may not be empty")
@@ -95,21 +95,25 @@ def validate_team_captain(handle: str, api_data: APIDATA) -> None:
 
     if any(p.handle == handle for p in current_players):
         raise ValueError("Handle already exists, please choose an unique handle")
+    
+    return handle
 
 
 # -------------TEAM VALIDATION---------------
 
 
-def validate_team_name(name: str) -> None:
+def validate_team_name(name: str) -> str | None:
     # Name
     if not name or name.strip() == "":
         raise ValueError("You must enter a team name")
 
     if len(name) > 40:
         raise ValueError("Team name can't be longer than 40 characters")
+    
+    return name
 
 
-def validation_team_handle(handle: str, api_data: APIDATA) -> None:
+def validation_team_handle(handle: str, api_data: APIDATA) -> str | None :
     # Captain handle
 
     if not handle or handle.strip() == "":
@@ -119,25 +123,27 @@ def validation_team_handle(handle: str, api_data: APIDATA) -> None:
 
     if not any(p.handle == handle for p in current_players):
         raise ValueError("No team captain exists with that handle")
+    
+    return handle
 
-
-def validate_team_logo(logo: str) -> None:
+def validate_team_logo(logo: str) -> str | None:
     # Logo
     if not logo or logo.strip() == "":
         raise ValueError("Team logo may not be empty")
-
+    return logo
 
 def validate_team_players(players: list[str]) -> None:
     pass
 
 
-def validate_team_points(points: int) -> None:
+def validate_team_points(points: str) -> str | None:
     # Points
     if points is None:
         raise ValueError("Points may not be empty")
-    elif points < 0:
+    elif int(points) < 0:
         raise ValueError("Points may not be negative")
-
+    
+    return points
 
 # -------------TOURNAMENT VALIDATION--------------
 
@@ -204,11 +210,12 @@ def validate_tournament_game(game):
     return game
 
 
-# -------------CONTACT PERSON VALIDATION--------------
 
 # ----------------MATCH VALIDATION-------------------- Steinar
 
 # -----------------GAME VALIDATION--------------------
 
 # -----------------CLUB VALIDATION--------------------
+
+def validate_club_name
 
