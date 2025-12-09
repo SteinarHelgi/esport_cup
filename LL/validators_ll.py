@@ -32,8 +32,6 @@ def validate_team(team: Team) -> None:
     # Name
     if not team.name or team.name.strip() == "":
         errors.append("Team name may not be empty")
-    if len(team.name.strip()) < 3:
-        errors.append("Team name must be at least 3 characters long")
     # Captain handle
     if not team.captain_handle or team.captain_handle.strip() == "":
         errors.append("Team captain handle may not be empty")
@@ -41,12 +39,12 @@ def validate_team(team: Team) -> None:
     if not team.logo or team.logo.strip() == "":
         errors.append("Team logo may not be empty")
     # Players 3-5
-    if team.players is None:
-        errors.append("Team must have players")
-    else:
-        player_count = len(team.players)
-        if player_count < 3 or player_count > 5:
-            errors.append("Team must have between 3 and 5 players")
+    #if team.players is None:
+    #    errors.append("Team must have players")
+    #else:
+    #    player_count = len(team.players)
+    #    if player_count < 3 or player_count > 5:
+    #        errors.append("Team must have between 3 and 5 players")
     # Points
     if team.points is None:
         errors.append("Points may not be empty")
@@ -63,6 +61,7 @@ def validate_tournament(tournament: Tournament) -> None:
     if not tournament.name or tournament.name.strip() == "":
         errors.append("Tournament name may not be empty")
     # Date
+    #
     if not tournament.start_date < tournament.end_date:
         errors.append("Start date must be before end date")
     # venue
@@ -76,7 +75,6 @@ def validate_tournament(tournament: Tournament) -> None:
     # contact_person
     if not tournament.contact_person or tournament.contact_person.strip() == "":
         errors.append("Contact person may not be empty")
-
-
+    
     if errors:
         raise ValidationError(errors)

@@ -41,7 +41,7 @@ class Player:
         ret.append(self.social_media)
         ret.append(self.handle)
         ret.append(self.team_name)
-        ret.append(self.points)
+        ret.append(str(self.points))
         return ret
 
     def set_id(self, id: str):
