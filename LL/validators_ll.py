@@ -228,12 +228,84 @@ def validate_tournament_game(user_input_game, games) -> str | None:
     raise ValidationError("Not a valid game")
 
 
-# ----------------MATCH VALIDATION-------------------- Steinar
+# ----------------MATCH VALIDATION-------------------- 
+
+def validate_match_round(round_name: str, matches_in_round: list) -> None:
+
+    expected_matches_by_round = {
+        "R16": 8,
+        "QF": 4,
+        "SF": 2,
+        "Final": 1,
+    }
+
+    if round_name not in expected_matches_by_round:
+        raise ValidationError(f"'{round_name}' is not a valid round.")
+
+    expected = expected_matches_by_round[round_name]
+    actual = len(matches_in_round)
+
+    if actual != expected:
+        raise ValidationError(
+            f"Round '{round_name}' must have {expected} matches, "
+            f"but got {actual}."
+        )
 
 # -----------------GAME VALIDATION--------------------
+def validate_game_name(game_name: str, api_data: APIDATA) -> str | None:
+    valid_game = game_name.strip()
 
+    if valid_game == "":
+        raise ValidationError("Game name cannot be empty")
+    
+    available_games = api_data.get_all_game_data()
+
+    game_names = [g.name for g in available_games]
+
+    if valid_game not in game_names:
+        raise ValidationError(
+            f"'{valid_game}' is not an available game. "
+            f"Available gmaes are: {', '.join(game_names)}."
+        )
+    
+    return valid_game
 # -----------------CLUB VALIDATION--------------------
 
 
-def validate_club_name():
-    pass
+def validate_club_name(name:str) -> str | None:
+    if not name or name.strip() == "":
+        raise ValueError("You must enter a club name")
+    if any(char.isdigit() for char in name):
+        raise ValueError("Invalid club name")
+    
+    return name
+
+def validate_club_hometown(hometown:str) -> str | None:
+    if not hometown or hometown.strip() == "":
+        raise ValueError("You must enter a club hometown")
+    if any(char.isdigit() for char in hometown):
+        raise ValueError("Invalid hometown")
+ 
+    return hometown
+
+def validate_club_color(color:str) -> str | None:
+    if not color or color.strip() == "":
+        raise ValueError("You must enter a club color")
+    if any(char.isdigit() for char in color):
+        raise ValueError("Invalid color")
+    
+    allowed_colors = ["Red", "Blue", "Green", "Yellow", "Black", "White", "Purple", "Orange", "Pink", "Gray", "Brown"]
+    
+    club_color = color.strip().lower()
+
+    if club_color not in allowed_colors:
+        raise ValueError("Invalid club color. Allowed colors are: " + ", ".join(allowed_colors))
+    
+    return club_color
+
+def validate_club_country(country:str) -> str | None:
+    if not country or country.strip() == "":
+        raise ValueError("You must enter a club country")
+    if any(char.isdigit() for char in country):
+        raise ValueError("Invalid country")
+    return country
