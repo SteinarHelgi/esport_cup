@@ -83,7 +83,12 @@ def validate_player_handle(player_handle: str) -> None:
     # Team name
 
 
-def validate_team_captain(handle, api_data: APIDATA) -> None:
+"""
+def validate_team_captain(team_captain: TeamCaptain) -> None:
+    errors: list[str] = []
+    # Team id
+    if not team_captain.team_id:
+        errors.append("Team id may not be empty")
     # Handle
     if not handle or not handle.strip():
         raise ValueError("Handle may not be empty")
