@@ -7,16 +7,17 @@ class ValidationError(Exception):
 
 #----------PLAYER VALIDATION------------
 
-def validate_player(player: Player) -> None:
+def validate_player_name(player_name:str) -> str:
     errors = []
 
-    valid_name = player.name.strip()
+    valid_name = player_name.strip()
 
     if valid_name == "":
         raise ValueError("Name can not be empty.")
     
     if any(char.isdigit() for char in valid_name):
         raise ValueError("Name can not include numbers")
+    return valid_name
 
 def validate_date_of_birth(date_of_birth: str) -> None:
 

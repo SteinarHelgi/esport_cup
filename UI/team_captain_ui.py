@@ -1,11 +1,10 @@
 from LL.api_ll import APILL
-from LL.validators_ll import ValidationError, validate_player_name
 from Models.player import Player
 from Models.team import Team
 from Models.team_captain import TeamCaptain
 import UI.functions as f
 from UI.ui_functions import refresh_logo
-
+from LL.validators_ll import ValidationError, validate_player_name
 
 class TeamCaptainUI:
     def __init__(self, APILL: APILL, menu_manager) -> None:
