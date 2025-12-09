@@ -7,7 +7,17 @@ from enum import Enum
 class Errors(Enum):
     NAME_EMPTY = 404
     NAME_ONLY_NUMBERS = 403
+    HANDLE_EMPTY = 2
+    HANDLE_EXIST = 3
+    TEAM_NAME_EMPTY = 4
+    TEAM_NAME_TOO_LONG = 5
+    LOGO_EMPTY = 6
+    POINTS_EMPTY = 7
+    POINTS_NEGATIVE = 8
     OK = 1
+
+
+
 
 
 class ValidationError(Exception):
@@ -92,34 +102,34 @@ def validate_player_handle(player_handle):
 # -----------TEAM CAPTAIN VALIDATION-------------
 
 
-def validate_team_captain(handle: str, api_data: APIDATA) -> str | None:
+def validate_team_captain(handle: str, api_data: APIDATA) -> Errors:
     # Handle
     if not handle or not handle.strip():
-        raise ValueError("Handle may not be empty")
+        return Errors.HANDLE_EMPTY
 
     current_players = api_data.get_all_player_data()
 
     if any(p.handle == handle for p in current_players):
-        raise ValueError("Handle already exists, please choose an unique handle")
+       return Errors.HANDLE_EXIST
 
-    return handle
+    return Errors.OK
 
 
 # -------------TEAM VALIDATION---------------
 
 
-def validate_team_name(name: str) -> str | None:
+def validate_team_name(name: str) -> Errors:
     # Name
     if not name or name.strip() == "":
-        raise ValueError("You must enter a team name")
+        return Errors.TEAM_NAME_EMPTY
 
     if len(name) > 40:
-        raise ValueError("Team name can't be longer than 40 characters")
+        return Errors.TEAM_NAME_TOO_LONG
 
-    return name
+    return Errors.OK
 
 
-def validation_team_handle(handle: str, api_data: APIDATA) -> str | None:
+def validation_team_handle(handle: str, api_data: APIDATA) -> Errors:
     # Captain handle
 
     if not handle or handle.strip() == "":
@@ -130,28 +140,28 @@ def validation_team_handle(handle: str, api_data: APIDATA) -> str | None:
     if not any(p.handle == handle for p in current_players):
         raise ValueError("No team captain exists with that handle")
 
-    return handle
+    return Errors.OK
 
 
-def validate_team_logo(logo: str) -> str | None:
+def validate_team_logo(logo: str) -> Errors:
     # Logo
     if not logo or logo.strip() == "":
-        raise ValueError("Team logo may not be empty")
-    return logo
+        return Errors.LOGO_EMPTY
+    return Errors.OK
 
 
 def validate_team_players(players: list[str]) -> None:
     pass
 
 
-def validate_team_points(points: str) -> str | None:
+def validate_team_points(points: str) -> Errors:
     # Points
     if points is None:
-        raise ValueError("Points may not be empty")
+        Errors.POINTS_EMPTY
     elif int(points) < 0:
-        raise ValueError("Points may not be negative")
+        Errors.POINTS_NEGATIVE
 
-    return points
+    return Errors.OK
 
 
 # -------------TOURNAMENT VALIDATION--------------
