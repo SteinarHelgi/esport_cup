@@ -82,16 +82,16 @@ def validate_player_handle(player_handle: str) -> None:
     # Team name
 
 
-"""
-def validate_team_captain(team_captain: TeamCaptain) -> None:
-    errors: list[str] = []
-    # Team id
-    if not team_captain.team_id:
-        errors.append("Team id may not be empty")
+
+def validate_team_captain_handle(handle:str,api_data: APIDATA) -> None:
     # Handle
-    if not team_captain.handle or not team_captain.handle.strip():
-        errors.append("Handle may not be empty")
-"""
+    if not handle or not handle.strip():
+        raise ValueError("Handle may not be empty")
+    
+    current_players = api_data.get_all_player_data()
+
+    if any(p.handle == handle for p in current_players):
+        raise ValueError("Handle already exists, please choose an unique handle")
 
 
 def validate_team_name(name: str) -> None:
