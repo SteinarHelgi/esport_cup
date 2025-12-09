@@ -332,7 +332,7 @@ class TournamentLL:
         all_tournaments = self.APIDATA.get_all_tournament_data()
         playing_times: list[str] = ["10:00", "12:00", "14:00", "16:00"]
         
-        start_date: date = date(year=2000, month=1, day=1)
+        start_date: datetime = datetime(year=2000, month=1, day=1)
         end_date = 0
         for t in all_tournaments:
             if t.id == tournament_id:
@@ -343,9 +343,9 @@ class TournamentLL:
         if start_date.year == 2000:
             raise ValueError
         next_day = start_date.day + 1
-        next_date: date = date(year = start_date.year, month = start_date.month, day = next_day)
+        next_date: datetime = datetime(year = start_date.year, month = start_date.month, day = next_day)
 
-        dates: list[date] = [start_date, next_date]
+        dates: list[datetime] = [start_date, next_date]
 
         teams_playing: list[str] = []
         for registry in team_registry:
