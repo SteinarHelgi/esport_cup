@@ -1,4 +1,4 @@
-from Models.models import Player, TeamCaptain, Team
+from Models.models import Player, TeamCaptain, Team, Tournament
 import ValidationError
 
 
