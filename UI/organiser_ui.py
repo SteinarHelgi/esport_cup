@@ -1,7 +1,6 @@
 from datetime import datetime
 from LL.api_ll import APILL
 from Models.models import Match, Player, Team, Tournament
-from UI.Menus import tournament_created_menu
 from UI.functions import format_player_list, format_team_list, format_tournament_table
 
 
@@ -234,9 +233,15 @@ class OrganiserUI:
         user_inputs = {}
 
         for prompt in prompts:
-            current_input = input(prompt)
-            user_inputs[prompt] = current_input
-        # match_id,*tournament_id,*round,match_number,*team_a_name,*team_b_name,*match_date,*match_time,server_id,score_a,score_b,winner_team_name,completed
+            while True: #prompt until back, quit or valid input
+                current_input = input(prompt)
+                if current_input.lower() == 'b':
+                    return "MY_TOURNAMENTS_ORG"
+                elif current_input.lower() == 'q':
+                    return "QUIT"
+                else:
+                    user_inputs[prompt] = current_input
+                    break #exit the loop
         match = Match(
             tournament.id,
             user_inputs["Round: "],
