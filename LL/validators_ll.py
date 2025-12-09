@@ -2,10 +2,13 @@ from Models.models import Player, TeamCaptain, Team
 from datetime import datetime, date
 from IO.api_data import APIDATA
 
+
 class ValidationError(Exception):
     pass
 
-#----------PLAYER VALIDATION------------
+
+# ----------PLAYER VALIDATION------------
+
 
 def validate_player(player: Player) -> None:
     errors = []
@@ -14,17 +17,17 @@ def validate_player(player: Player) -> None:
 
     if valid_name == "":
         raise ValueError("Name can not be empty.")
-    
+
     if any(char.isdigit() for char in valid_name):
         raise ValueError("Name can not include numbers")
 
-def validate_date_of_birth(date_of_birth: str) -> None:
 
+def validate_date_of_birth(date_of_birth: str) -> None:
     valid_dob = date_of_birth.strip()
 
     if valid_dob == "":
         raise ValueError("Date of birth cannot be empty")
-    
+
     try:
         dob = datetime.strptime(valid_dob, "%Y-%m-%d")
     except ValueError:
@@ -33,18 +36,18 @@ def validate_date_of_birth(date_of_birth: str) -> None:
     if dob.year < 1900:
         raise ValueError("Please consult a doctor you might be dead, try again")
 
-def validate_address(address: str) -> None:
 
+def validate_address(address: str) -> None:
     valid_address = address.strip()
 
     if valid_address == "":
         raise ValueError("Address cannot be empty")
-    
-    if valid_address.replace(" ","").isdigit():
+
+    if valid_address.replace(" ", "").isdigit():
         raise ValueError("Address cannot be only numbers")
 
-def validate_phone_number(phone_number: str) -> None:
 
+def validate_phone_number(phone_number: str) -> None:
     number = phone_number.strip()
 
     if number == "":
@@ -52,68 +55,71 @@ def validate_phone_number(phone_number: str) -> None:
 
     if not number.isdigit():
         raise ValueError("Phone number must contain numbers only")
-    
+
     if len(number) != 7:
         raise ValueError("Phone number must be exactly 7 digits long")
-    
-def validate_player_email(player_email: str) -> None:
 
+
+def validate_player_email(player_email: str) -> None:
     email = player_email.strip()
 
     if email == "":
         raise ValueError("Email cannot be empty")
-    
+
     if email.count("@") != 1:
         raise ValueError("Email must contain exactly one '@'")
-    
+
     if "." not in email:
         raise ValueError("Email must contain at least one '.'")
 
-def validate_player_handle(player_handle: str) -> None:
 
+def validate_player_handle(player_handle: str) -> None:
     handle = player_handle.strip()
 
     if handle == "":
         raise ValueError("Hnadle cannot be empty")
-    
+
     if " " in handle:
         raise ValueError("Handle cannot contain space")
-    
 
-#-----------TEAM CAPTAIN VALIDATION-------------
+
+# -----------TEAM CAPTAIN VALIDATION-------------
 
 
 def validate_team_captain(handle: str, api_data: APIDATA) -> None:
     # Handle
     if not handle or not handle.strip():
         raise ValueError("Handle may not be empty")
-    
+
     current_players = api_data.get_all_player_data()
 
     if any(p.handle == handle for p in current_players):
         raise ValueError("Handle already exists, please choose an unique handle")
 
 
-#-------------TEAM VALIDATION---------------
+# -------------TEAM VALIDATION---------------
+
 
 def validate_team_name(name: str) -> None:
     # Name
     if not name or name.strip() == "":
         raise ValueError("You must enter a team name")
-    
+
     if len(name) > 40:
         raise ValueError("Team name can't be longer than 40 characters")
 
-def validation_team_handle(handle:str, api_data:APIDATA) -> None:
+
+def validation_team_handle(handle: str, api_data: APIDATA) -> None:
     # Captain handle
 
     if not handle or handle.strip() == "":
         raise ValueError("You must enter a team captain handle")
-    
+
     current_players = api_data.get_all_player_data()
 
     if not any(p.handle == handle for p in current_players):
         raise ValueError("No team captain exists with that handle")
+
 
 def validate_team_logo(logo: str) -> None:
     # Logo
@@ -128,12 +134,13 @@ def validate_team_players(players: list[str]) -> None:
 def validate_team_points(points: int) -> None:
     # Points
     if points is None:
-        raise ValueError("Points may not be empty") 
+        raise ValueError("Points may not be empty")
     elif points < 0:
         raise ValueError("Points may not be negative")
 
 
-#-------------TOURNAMENT VALIDATION--------------
+# -------------TOURNAMENT VALIDATION--------------
+
 
 def validate_tournament_name(name):
     if len(name.strip()) < 2:
@@ -196,10 +203,12 @@ def validate_tournament_game(game):
 
     return game
 
-#-------------CONTACT PERSON VALIDATION--------------
 
-#----------------MATCH VALIDATION--------------------
+# -------------CONTACT PERSON VALIDATION--------------
 
-#-----------------GAME VALIDATION--------------------
+# ----------------MATCH VALIDATION-------------------- Steinar
 
-#-----------------CLUB VALIDATION--------------------
+# -----------------GAME VALIDATION--------------------
+
+# -----------------CLUB VALIDATION--------------------
+
