@@ -135,6 +135,7 @@ class UserUI:
         print(format_player_list(players))
 
         valid_options = ["q", "b"]
+        print("b.Back, q.Quit")
         choice: str = self.menu_manager.prompt_choice(valid_options)
         if choice.lower() == "q":
             return "QUIT"
