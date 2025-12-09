@@ -1,5 +1,6 @@
 from Models.models import Player, TeamCaptain, Team
 import ValidationError
+from IO.api_data import APIDATA
 
 
 def validate_player(player: Player) -> None:
@@ -72,8 +73,16 @@ def validate_team_name(name:str) -> None:
 
 def validation_team_handle(handle:str) -> None:
     # Captain handle
+
     if not handle or handle.strip() == "":
         raise ValueError("You must enter a team captain handle ")
+    
+    current_players = self.APIDATA.get_all_player_data()
+    # Checking if player handle is available
+    for p in current_players:
+        if p.handle == handle:
+            raise ValueError("No player exists with that handle")
+    
 
 def validate_team_logo(logo:str) -> None:
     # Logo
@@ -93,4 +102,4 @@ def validate_team_points(points:int) -> None:
     if points is None:
         raise ValueError("Points may not be empty")
     elif points < 0:
-        raise ValueError("Points may not be negative")
+        raise ValueError("Points can't be negative")
