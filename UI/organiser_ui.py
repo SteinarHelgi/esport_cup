@@ -14,9 +14,8 @@ class OrganiserUI:
         self.menu_manager = menu_manager
         self.team_to_view: Team
 
-    def show_create_tournament(
-        self,
-    ):  # Creates tournaments with options to quit or back anywhere in the process
+    def show_create_tournament(self):  
+        """Creates tournaments with options to quit or back anywhere in the process and shows the confirmation of creation"""
         print("Fill in the required info or b.Back or q.Quit")
         name_of_tournament = input("Name: ")
         if name_of_tournament.lower() == "b":
@@ -78,7 +77,7 @@ class OrganiserUI:
             )
 
             if self.APILL.create_tournament(new_tournament):
-                # val = self.tournament_created(new_tournament)
+                
                 print(tournament_created_menu((new_tournament)))
                 enter_for_ok = input("Enter for ok or q to quit")
                 if enter_for_ok == "q":
@@ -95,9 +94,8 @@ class OrganiserUI:
 
         return "ORGANISER_MENU"
 
-    def create_contact_person_menu(
-        self,
-    ):  # Creates the contact person with options to back or quit anywhere in the process
+    def create_contact_person_menu(self): 
+        """Creates the contact person with options to back or quit anywhere in the process"""
         print("Fill in contact person info or 'b' to Back and 'q' to Quit")
         new_contact_person_name = input("Name: ")
         if new_contact_person_name == "b":
@@ -123,24 +121,24 @@ class OrganiserUI:
             ]
             return returnlist
 
-    def tournament_created(self, tournament: Tournament) -> str:
+    def tournament_created(self, tournament: Tournament) -> str: 
+        """Menu that confirms that a tournament has been created"""
         tournament_name = tournament.name
         venue = tournament.venue
         game = tournament.game_id
         return f"TOURNAMENT CREATED! \nOpen for registration \n{tournament_name} \n{venue} \n{game}"
 
     def show_my_tournaments(self):
-        # Shows all of the upcoming tournamnets for the organiser to look at
         """Finds all upcoming tournaments and prompts for choice"""
         tournaments = self.APILL.get_upcoming_tournaments()
         print(*tournaments[0].matches)
 
         valid_choices = []
 
-        for i in range(len(tournaments)):
-            stringI = str(i + 1)
-            valid_choices.append(stringI)
-            print("tournaments: ", tournaments[i].matches)
+        for i,tournament in enumerate(tournaments):
+            string_i = str(i + 1)
+            valid_choices.append(string_i)
+            print("tournaments: ", tournament.matches)
 
         print("MY_TOURNAMENTS_ORG")
         print(format_tournament_table(tournaments))
@@ -298,6 +296,7 @@ class OrganiserUI:
             return "ORGANISER_MENU"
 
         return "QUIT"
+    
     def show_players_in_team_org(self):
         team = self.team_to_view
         if team != "":
@@ -321,6 +320,7 @@ class OrganiserUI:
                 return "QUIT"
             if choice.lower() == "b":
                 return "TEAMS_ORG"
+            
     def show_players_with_personal_info_org(self, player: Player):
         if player:
             team = self.APILL.get_team_by_name(player.team_name)
