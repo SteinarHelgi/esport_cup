@@ -244,7 +244,6 @@ def validate_match_round(round_name: str, matches_in_round: list) -> None:
             f"but got {actual}."
         )
 
-
 # -----------------GAME VALIDATION--------------------
 
 def validate_game_name(game_name: str, api_data: APIDATA) -> str | None:
