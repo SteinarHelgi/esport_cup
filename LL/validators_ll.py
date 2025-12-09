@@ -98,6 +98,7 @@ def validate_team_name(name: str) -> None:
     # Name
     if not name or name.strip() == "":
         raise ValueError("You must enter a team name")
+    
     if len(name) > 40:
         raise ValueError("Team name can't be longer than 40 characters")
 
@@ -108,9 +109,9 @@ def validation_team_handle(handle:str, api_data:APIDATA) -> None:
         raise ValueError("You must enter a team captain handle")
     
     current_players = api_data.get_all_player_data()
+
     if not any(p.handle == handle for p in current_players):
         raise ValueError("No team captain exists with that handle")
-
 
 def validate_team_logo(logo: str) -> None:
     # Logo
@@ -125,7 +126,7 @@ def validate_team_players(players: list[str]) -> None:
 def validate_team_points(points: int) -> None:
     # Points
     if points is None:
-        raise ValueError("Points may not be empty")
+        raise ValueError("Points may not be empty") 
     elif points < 0:
         raise ValueError("Points may not be negative")
 
