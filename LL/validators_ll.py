@@ -79,10 +79,7 @@ def validate_player_handle(player_handle: str) -> None:
     if " " in handle:
         raise ValueError("Handle cannot contain space")
     
-
-    # Team name
-
-
+#-------------TEAM VALIDATION--------------------
 
 def validate_team_captain(team_captain: TeamCaptain) -> None:
     errors: list[str] = []
