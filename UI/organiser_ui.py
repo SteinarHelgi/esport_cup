@@ -122,16 +122,19 @@ class OrganiserUI:
             return "ORGANISER_MENU"
         if new_contact_person_name == "q":
             return "QUIT"
+        #Try and except fyrir contact person name validation
         new_contact_person_email = input("Email: ")
         if new_contact_person_email == "b":
             return "ORGANISER_MENU"
         if new_contact_person_email == "q":
             return "QUIT"
+        #Try and except for contact person email validation
         new_contact_person_phone_nmbr = input("Phone number: ")
         if new_contact_person_phone_nmbr == "b":
             return "ORGANISER_MENU"
         if new_contact_person_phone_nmbr == "q":
             return "QUIT"
+        #Try and except for contact person phone number validation
         confirmation = input("Confirm(Y): ")
         if confirmation.lower() == "y":
             returnlist = [
