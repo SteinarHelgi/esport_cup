@@ -1,19 +1,20 @@
 """This is the page where everything related to the users UI is shown"""
 
-from os import name
 from LL.api_ll import APILL
 from Models.tournament import Tournament
 from UI.functions import format_player_list, format_team_list, format_tournament_table
 from Models.models import Team
-from datetime import datetime
+from UI.ui_functions import refresh_logo
 
 
 class UserUI:
+    """Class for all of ui functions"""
     def __init__(self, APILL: APILL, menu_manager) -> None:
         self.APILL = APILL
         self.menu_manager = menu_manager
 
     def show_teams(self):
+        """Shows teams that exist within the software"""
         teams = self.APILL.get_all_teams()
         print(format_team_list(teams))
         print("\nb.Back \nq.Quit")
@@ -33,6 +34,7 @@ class UserUI:
         return "QUIT"
 
     def show_tournaments(self):
+        """Prints tournaments according to user choice and time of choosing"""
         tournaments = self.APILL.get_all_tournaments()
         valid_options = ["1", "2", "3", "b", "q"]
         print(
@@ -41,11 +43,11 @@ class UserUI:
         choice: str = self.menu_manager.prompt_choice(valid_options)
 
         if choice == "1":
-            return self.show_tournaments_blabla("ONGOING")
+            return self.show_tournaments_calling_function("ONGOING")
         elif choice == "2":
-            return self.show_tournaments_blabla("UPCOMING")
+            return self.show_tournaments_calling_function("UPCOMING")
         elif choice == "3":
-            return self.show_tournaments_blabla("PAST")
+            return self.show_tournaments_calling_function("PAST")
         elif choice.lower() == "b":
             return "TEAM_CAPTAIN_MENU"
         else:
@@ -54,6 +56,7 @@ class UserUI:
     def show_tournaments_blabla(
         self, time: str
     ):  # Shows the tournaments that are going on at the time of checking
+        refresh_logo()
         tournaments = []
         if time == "PAST":
             tournaments = self.APILL.get_past_tournaments()
@@ -86,6 +89,7 @@ class UserUI:
     def show_tournament_view(self, tournament: Tournament, time: str):
         """takes in a tournament name and shows the menu for the tournament"""
 
+        refresh_logo()
         w_team = 26
         w_date = 12
         w_time = 12
@@ -123,6 +127,11 @@ class UserUI:
             return self.show_tournaments_blabla(time)
 
     def show_players(self, team: Team):
+<<<<<<< HEAD
+        """Shows a list of players when you select a team"""
+=======
+        refresh_logo()
+>>>>>>> 300c44f369abe656b8d96259529886bb1221bf4a
         players = self.APILL.get_players_in_team(team.name)
         print(team.name, team.social_media, team.logo)
         print(format_player_list(players))

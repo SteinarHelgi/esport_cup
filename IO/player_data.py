@@ -81,7 +81,7 @@ class PlayerData:
                 # Iterate through the list of strings
                 for line in temp_data:
                     writer.writerow(line)
-        except:
+        except (OSError, csv.Error):
             return None
 
         # add the modified player to the database
@@ -119,7 +119,7 @@ class PlayerData:
                 # Iterate through the list of strings
                 for line in temp_data:
                     writer.writerow(line)
-        except:
+        except (OSError, csv.Error):
             return None
 
     def give_player_points(self, player_handle: str, added_points: int) -> None:
@@ -183,5 +183,6 @@ class PlayerData:
                 # Iterate through the list of strings
                 for line in temp_data:
                     writer.writerow(line)
-        except:
+        except (OSError, csv.Error):
             return None
+

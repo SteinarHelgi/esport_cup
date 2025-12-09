@@ -66,7 +66,7 @@ class TeamData:
                     writer.writerow(line)
             updated_team = self.store_team_data(team)
             return updated_team
-        except:
+        except (OSError, csv.Error):
             return None
 
         # add modified team to player database
@@ -125,6 +125,5 @@ class TeamData:
                 # Iterate through the list of strings
                 for line in temp_data:
                     writer.writerow(line)
-        except:
+        except (OSError, csv.Error):
             return None
-

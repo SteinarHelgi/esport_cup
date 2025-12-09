@@ -48,8 +48,8 @@ class APIDATA:
     def get_all_match_data(self) -> list[Match]:
         return self.match_data.get_all_match_data()
 
-    def store_match_data(self, match: Match, filepath:str = "Data/matches.csv"):
-        return self.match_data.store_match_data(match, filepath = "Data/matches.csv")
+    def store_match_data(self, match: Match):
+        return self.match_data.store_match_data(match)
 
     def get_all_player_data(self) -> list[Player]:
         return self.player_data.get_all_player_data()
@@ -105,4 +105,3 @@ class APIDATA:
 
     def give_club_points(self, club_name: str, points: int):
         return self.club_data.give_club_points(club_name, points)
-

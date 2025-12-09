@@ -1,8 +1,8 @@
 from datetime import datetime
 from LL.api_ll import APILL
 from Models.models import Match, Player, Team, Tournament
-from UI.Menus import tournament_created_menu
 from UI.functions import format_player_list, format_team_list, format_tournament_table
+from UI.ui_functions import refresh_logo
 
 
 class OrganiserUI:
@@ -11,9 +11,8 @@ class OrganiserUI:
         self.menu_manager = menu_manager
         self.team_to_view: Team
 
-    def show_create_tournament(
-        self,
-    ):  # Creates tournaments with options to quit or back anywhere in the process
+    def show_create_tournament(self):  
+        """Creates tournaments with options to quit or back anywhere in the process and shows the confirmation of creation"""
         print("Fill in the required info or b.Back or q.Quit")
         name_of_tournament = input("Name: ")
         if name_of_tournament.lower() == "b":
@@ -75,7 +74,7 @@ class OrganiserUI:
             )
 
             if self.APILL.create_tournament(new_tournament):
-                # val = self.tournament_created(new_tournament)
+                
                 print(tournament_created_menu((new_tournament)))
                 enter_for_ok = input("Enter for ok or q to quit")
                 if enter_for_ok == "q":
@@ -92,9 +91,8 @@ class OrganiserUI:
 
         return "ORGANISER_MENU"
 
-    def create_contact_person_menu(
-        self,
-    ):  # Creates the contact person with options to back or quit anywhere in the process
+    def create_contact_person_menu(self): 
+        """Creates the contact person with options to back or quit anywhere in the process"""
         print("Fill in contact person info or 'b' to Back and 'q' to Quit")
         new_contact_person_name = input("Name: ")
         if new_contact_person_name == "b":
@@ -120,21 +118,22 @@ class OrganiserUI:
             ]
             return returnlist
 
-    def tournament_created(self, tournament: Tournament) -> str:
+    def tournament_created(self, tournament: Tournament) -> str: 
+        """Menu that confirms that a tournament has been created"""
         tournament_name = tournament.name
         venue = tournament.venue
         game = tournament.game_id
         return f"TOURNAMENT CREATED! \nOpen for registration \n{tournament_name} \n{venue} \n{game}"
 
     def show_my_tournaments(self):
-        # Shows all of the upcoming tournamnets for the organiser to look at
         """Finds all upcoming tournaments and prompts for choice"""
         tournaments = self.APILL.get_upcoming_tournaments()
         valid_choices = []
 
-        for i in range(len(tournaments)):
-            stringI = str(i + 1)
-            valid_choices.append(stringI)
+        for i,tournament in enumerate(tournaments):
+            string_i = str(i + 1)
+            valid_choices.append(string_i)
+            print("tournaments: ", tournament.matches)
 
         print("MY_TOURNAMENTS_ORG")
         print("")
@@ -157,6 +156,7 @@ class OrganiserUI:
     def show_tournament_view(self, tournament: Tournament):
         """takes in a tournament name and shows the menu for the tournament"""
 
+        refresh_logo()
         w_team = 26
         w_date = 12
         w_time = 12
@@ -216,6 +216,7 @@ class OrganiserUI:
                 return "QUIT"
 
     def show_create_match(self, tournament: Tournament):
+        """Function for creating matches as an organiser"""
         teams_in_tournament = self.APILL.get_teams_in_tournament(tournament)
         print("Teams in tournament: ")
         for team in teams_in_tournament:
@@ -234,9 +235,15 @@ class OrganiserUI:
         user_inputs = {}
 
         for prompt in prompts:
-            current_input = input(prompt)
-            user_inputs[prompt] = current_input
-        # match_id,*tournament_id,*round,match_number,*team_a_name,*team_b_name,*match_date,*match_time,server_id,score_a,score_b,winner_team_name,completed
+            while True: #prompt until back, quit or valid input
+                current_input = input(prompt)
+                if current_input.lower() == 'b':
+                    return "MY_TOURNAMENTS_ORG"
+                elif current_input.lower() == 'q':
+                    return "QUIT"
+                else:
+                    user_inputs[prompt] = current_input
+                    break #exit the loop
         match = Match(
             tournament.id,
             user_inputs["Round: "],
@@ -260,6 +267,7 @@ class OrganiserUI:
         pass
 
     def show_register_results(self, match: Match):
+        """Registering results of a match, chooses a winner and turns match completed to True"""
         print("Which team won the match? ")
         print(f"1. {match.team_a_name}")
         print(f"2. {match.team_b_name}")
@@ -297,6 +305,7 @@ class OrganiserUI:
         pass
 
     def show_teams_org(self):
+        """Showing teams for organiser"""
         teams = self.APILL.get_all_teams()
         print(format_team_list(teams))
         print("Select which team you would like to look at: \nb.Back \nq.Quit")
@@ -315,8 +324,9 @@ class OrganiserUI:
             return "ORGANISER_MENU"
 
         return "QUIT"
-
+    
     def show_players_in_team_org(self):
+        refresh_logo()
         team = self.team_to_view
         if team != "":
             players = self.APILL.get_players_in_team(team.name)
@@ -339,8 +349,9 @@ class OrganiserUI:
                 return "QUIT"
             if choice.lower() == "b":
                 return "TEAMS_ORG"
-
+            
     def show_players_with_personal_info_org(self, player: Player):
+        """The actual view of players information"""
         if player:
             team = self.APILL.get_team_by_name(player.team_name)
             print(f"{player.name.upper()}  |  {player.handle} ")

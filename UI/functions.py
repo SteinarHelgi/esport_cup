@@ -5,6 +5,7 @@ from Models.tournament import Tournament
 
 
 def format_tournament_table(tournaments: list[Tournament]):
+    """Formats how tournaments are printed out"""
     # Define fixed widths for columns
     w_name = 20
     w_date = 12
@@ -44,7 +45,8 @@ def format_tournament_table(tournaments: list[Tournament]):
     return empty_string
 
 
-def format_team_list(teams: list[Team]):  # TODO add club to this
+def format_team_list(teams: list[Team]):  #TODO add club to this
+    """Formats how lists of teams are put out"""
     # Define fixed widths for columns
     w_name = 30
     w_captain = 25
@@ -73,6 +75,7 @@ def format_team_list(teams: list[Team]):  # TODO add club to this
 
 
 def format_player_list(players: list[Player]):  # TODO KLÁRA?
+    """Formats how lists of players are printed out"""
     # Define fixed widths for columns
     w_player_name = 25
     w_player_handle = 20

@@ -1,6 +1,5 @@
 import os
 from LL.api_ll import APILL
-from UI.Menus import login_credentials_menu
 from UI.user_ui import UserUI
 from UI.team_captain_ui import TeamCaptainUI
 from UI.organiser_ui import OrganiserUI
@@ -43,7 +42,7 @@ class MenuManager:
             "EDIT_LOGO": self.team_captain_ui.show_edit_logo,
             # "EDIT_TEAM_INFO":
             # ORGANISER MENUS
-            "TEAMS_ORG" : self.organiser_Ui.show_teams_org,
+            "TEAMS_ORG": self.organiser_Ui.show_teams_org,
             "SHOW_PLAYERS_IN_TEAM_ORG": self.organiser_Ui.show_players_in_team_org,
             "ORGANISER_MENU": self.print_organiser_menu,
             "CREATE_TOURNAMENT_MENU": self.organiser_Ui.show_create_tournament,
@@ -65,11 +64,15 @@ class MenuManager:
             if choice in valid_lower:
                 return choice
             print("Not a valid choice")
-            print("valid choices are: ")
-            for choice in valid_lower:
-                print(choice, ".", sep="")
+            formatted = (
+                "Valid choices are | "
+                + " | ".join(f"{c}." for c in valid_choices)
+                + " |"
+            )
+            print(formatted)
 
-    def print_login_menu(self):  # Login menu
+    def print_login_menu(self):  
+        """Menu for logging in depending on who the user is at the time"""
         print("___ LOGIN ___")
         print("1. continue as user \n2. Login as Team Captain \n3. Login as Organiser")
         choice: str = self.prompt_choice(["1", "2", "3", "q"])
@@ -86,8 +89,8 @@ class MenuManager:
             return "ORGANISER_MENU"
         return "QUIT"
 
-    def login_credentials_menu(self):  # logging in as organiser
-        """Username Getur loggað þig inn sem team_captain með team captain handle"""
+    def login_credentials_menu(self):
+        """Username logging in as a team captain"""
 
         username = input("Your handle: ")
         teams = self.api_ll.get_all_teams()
@@ -112,7 +115,8 @@ class MenuManager:
             if choice == "q":
                 return "QUIT"
 
-    def login_credentials_menu_org(self):  # logging in as organiser
+    def login_credentials_menu_org(self):
+        """Logging in as an organiser, not yet implemented"""
         username = input("Username: ")
         print(f"Username: {username}\nConfirm(Y/N)? ")
         choice: str = self.prompt_choice(["y", "n"])
@@ -121,7 +125,8 @@ class MenuManager:
         else:
             return "LOGIN_MENU"
 
-    def print_user_menu(self):  # Option menu for user
+    def print_user_menu(self):
+        """Menu of options for an organiser"""
         # TODO
         print("__USER__")
         print("1. Teams \n2. Tournaments \nb. Back \nq. Quit")
@@ -135,8 +140,8 @@ class MenuManager:
             return "LOGIN_MENU"
         return "QUIT"
 
-    def print_team_captain_menu(self):  # Option menu for team captain
-        # TODO
+    def print_team_captain_menu(self):
+        """Menu of options for team captain"""
         print("__TEAM_CAPTAIN_MENU__")
         print(
             "1. Teams \n2. Tournaments \n3. My Team \n4. My Tournaments \nb. back \nq. Quit"
@@ -156,8 +161,8 @@ class MenuManager:
 
         return "QUIT"
 
-    def print_organiser_menu(self):  # option menu for organiser
-        # TODO
+    def print_organiser_menu(self):
+        """Menu of options for an organiser"""
         print("__ORGANISER_MENU__")
         print(
             "1. Teams \n2. Tournaments \n3. Create Tournaments \n4. My Tournaments \nb. Back \nq. Quit"
@@ -175,9 +180,3 @@ class MenuManager:
             return "LOGIN_MENU"
 
         return "QUIT"
-
-    def player_added_screen(self, name, handle, social_media):
-        player_name = name
-        player_handle = handle
-        player_social = social_media
-        print(f"PLAYER ADDED!\n{player_name} \n{player_handle} \n{player_social}")
