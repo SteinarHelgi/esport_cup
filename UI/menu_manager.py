@@ -1,5 +1,6 @@
 import os
 from LL.api_ll import APILL
+from UI.ui_functions import refresh_logo
 from UI.user_ui import UserUI
 from UI.team_captain_ui import TeamCaptainUI
 from UI.organiser_ui import OrganiserUI
@@ -92,28 +93,34 @@ class MenuManager:
     def login_credentials_menu(self):
         """Username logging in as a team captain"""
 
-        username = input("Your handle: ")
-        teams = self.api_ll.get_all_teams()
+        while True:  # Loop until a valid username is entered or the user quits
+            username = input("Your handle: ")
+            teams = self.api_ll.get_all_teams()
 
-        print(f"Handle: {username}\nConfirm(Y/N)? ")
-        found_name = False
-        for team in teams:
-            if team.captain_handle == username:
-                choice: str = self.prompt_choice(["y", "n"])
-                found_name = True
-                self.team_name = team.name
-                self.captain_handle = team.captain_handle
-                if choice.lower() == "y":
-                    return "TEAM_CAPTAIN_MENU"
-                else:
-                    return "LOGIN_MENU"
-        if found_name == False:
-            print("Invalid username, press enter to try again or q to quit: ")
-            choice: str = self.prompt_choice(["", "q"])
-            if choice == "":
-                return "LOGIN_MENU"
-            if choice == "q":
-                return "QUIT"
+            print(f"Handle: {username}\nConfirm(Y/N)? ")
+            found_name = False
+            
+            for team in teams:
+                if team.captain_handle == username:
+                    choice: str = self.prompt_choice(["y", "n"])
+                    found_name = True
+                    self.team_name = team.name
+                    self.captain_handle = team.captain_handle
+                    if choice.lower() == "y":
+                        return "TEAM_CAPTAIN_MENU"
+                    else:
+                        return "LOGIN_MENU"
+            
+            # If the username is not found
+            if not found_name:
+                print("Invalid username, press enter to try again or q to quit: ")
+                choice: str = self.prompt_choice(["", "q"])
+                if choice == "":
+                    refresh_logo()
+                    continue  # Loop again to prompt for the username
+                if choice == "q":
+                    return "QUIT"
+
 
     def login_credentials_menu_org(self):
         """Logging in as an organiser, not yet implemented"""
