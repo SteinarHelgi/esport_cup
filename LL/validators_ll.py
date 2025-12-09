@@ -77,13 +77,13 @@ def validate_team_name(name:str) -> None:
 
 def validation_team_handle(handle:str) -> None:
     # Captain handle
-    if not team.captain_handle or team.captain_handle.strip() == "":
+    if not handle or handle.strip() == "":
         errors.append("Team captain handle may not be empty")
 
 
 def validate_team_logo(logo:str) -> None:
     # Logo
-    if not team.logo or team.logo.strip() == "":
+    if not logo or logo.strip() == "":
         errors.append("Team logo may not be empty")
 
 
