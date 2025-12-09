@@ -5,8 +5,16 @@ from Models.contact_person import ContactPerson
 from Models.models import Match, Player, Team, Tournament
 from UI.functions import format_player_list, format_team_list, format_tournament_table
 from UI.ui_functions import refresh_logo
-from LL.validators_ll import ValidationError,validate_tournament_double_elimination,validate_tournament_end_date,validate_tournament_name,validate_tournament_game,validate_tournament_start_date,validate_tournament_venue,validate_tournament_servers
-
+from LL.validators_ll import (
+    ValidationError,
+    validate_tournament_double_elimination,
+    validate_tournament_end_date,
+    validate_tournament_name,
+    validate_tournament_game,
+    validate_tournament_start_date,
+    validate_tournament_venue,
+    validate_tournament_servers,
+)
 
 
 class OrganiserUI:
@@ -89,7 +97,8 @@ class OrganiserUI:
                 return "QUIT"
             try:
                 double_elimination = validate_tournament_double_elimination(
-                    double_elimination)
+                    double_elimination
+                )
                 break
             except ValidationError as e:
                 print(str(e))
@@ -103,7 +112,9 @@ class OrganiserUI:
             if game_for_tournament.lower() == "q":
                 return "QUIT"
             try:
-                game_for_tournament = validate_tournament_game(game_for_tournament)
+                game_for_tournament = validate_tournament_game(
+                    game_for_tournament, games
+                )
                 break
             except ValidationError as e:
                 print(str(e))
@@ -116,7 +127,7 @@ class OrganiserUI:
             if new_contact_person_name == "q":
                 return "QUIT"
             break
-        #Try and except fyrir contact person name validation
+        # Try and except fyrir contact person name validation
         while True:
             new_contact_person_email = input("Email: ")
             if new_contact_person_email == "b":
@@ -124,7 +135,7 @@ class OrganiserUI:
             if new_contact_person_email == "q":
                 return "QUIT"
             break
-        #Try and except for contact person email validation
+        # Try and except for contact person email validation
         while True:
             new_contact_person_phone_nmbr = input("Phone number: ")
             if new_contact_person_phone_nmbr == "b":
@@ -132,7 +143,7 @@ class OrganiserUI:
             if new_contact_person_phone_nmbr == "q":
                 return "QUIT"
             break
-        #Try and except for contact person phone number validation
+        # Try and except for contact person phone number validation
         while True:
             confirmation = input("Confirm(Y): ")
             if confirmation.lower() == "y":
@@ -145,7 +156,7 @@ class OrganiserUI:
             break
         print("b. Back \nq. Quit")
         # TODO setja inn tournament created menuið
-        
+
         new_tournament = Tournament(
             name_of_tournament,
             datetime.fromisoformat(start_date_of_tournament),
@@ -156,9 +167,14 @@ class OrganiserUI:
             new_contact_person_name,
         )
         tournament = self.APILL.create_tournament(new_tournament)
-        
+
         if tournament:
-            new_contact_person = ContactPerson(new_contact_person_name, new_contact_person_email, new_contact_person_phone_nmbr,tournament.id)
+            new_contact_person = ContactPerson(
+                new_contact_person_name,
+                new_contact_person_email,
+                new_contact_person_phone_nmbr,
+                tournament.id,
+            )
             print(self.tournament_created((new_tournament)))
             enter_for_ok = input("Enter for ok or q to quit")
             if enter_for_ok == "q":
@@ -172,8 +188,6 @@ class OrganiserUI:
             if enter_for_ok == "q":
                 return "QUIT"
         return "ORGANISER_MENU"
-
-
 
     def tournament_created(self, tournament: Tournament) -> str:
         """Menu that confirms that a tournament has been created"""

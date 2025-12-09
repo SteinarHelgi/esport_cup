@@ -7,7 +7,7 @@ class ValidationError(Exception):
     pass
 
 
-def validate_player_name(player_name:str) -> str:
+def validate_player_name(player_name: str) -> str:
     errors = []
 
     valid_name = player_name.strip()
@@ -18,6 +18,7 @@ def validate_player_name(player_name:str) -> str:
     if any(char.isdigit() for char in valid_name):
         raise ValueError("Name can not include numbers")
     return valid_name
+
 
 def validate_date_of_birth(date_of_birth):
     valid_dob = date_of_birth.strip()
@@ -34,6 +35,7 @@ def validate_date_of_birth(date_of_birth):
         raise ValueError("Please consult a doctor you might be dead, try again")
     return date_of_birth
 
+
 def validate_address(address):
     valid_address = address.strip()
 
@@ -43,6 +45,7 @@ def validate_address(address):
     if valid_address.replace(" ", "").isdigit():
         raise ValueError("Address cannot be only numbers")
     return address
+
 
 def validate_phone_number(phone_number):
     number = phone_number.strip()
@@ -57,6 +60,7 @@ def validate_phone_number(phone_number):
         raise ValueError("Phone number must be exactly 7 digits long")
     return phone_number
 
+
 def validate_player_email(player_email):
     email = player_email.strip()
 
@@ -70,6 +74,7 @@ def validate_player_email(player_email):
         raise ValueError("Email must contain at least one '.'")
     return player_email
 
+
 def validate_player_handle(player_handle):
     handle = player_handle.strip()
 
@@ -80,10 +85,11 @@ def validate_player_handle(player_handle):
         raise ValueError("Handle cannot contain space")
     return player_handle
 
+
 # -----------TEAM CAPTAIN VALIDATION-------------
 
 
-def validate_team_captain(handle: str, api_data: APIDATA) -> str | None: 
+def validate_team_captain(handle: str, api_data: APIDATA) -> str | None:
     # Handle
     if not handle or not handle.strip():
         raise ValueError("Handle may not be empty")
@@ -92,7 +98,7 @@ def validate_team_captain(handle: str, api_data: APIDATA) -> str | None:
 
     if any(p.handle == handle for p in current_players):
         raise ValueError("Handle already exists, please choose an unique handle")
-    
+
     return handle
 
 
@@ -106,11 +112,11 @@ def validate_team_name(name: str) -> str | None:
 
     if len(name) > 40:
         raise ValueError("Team name can't be longer than 40 characters")
-    
+
     return name
 
 
-def validation_team_handle(handle: str, api_data: APIDATA) -> str | None :
+def validation_team_handle(handle: str, api_data: APIDATA) -> str | None:
     # Captain handle
 
     if not handle or handle.strip() == "":
@@ -120,14 +126,16 @@ def validation_team_handle(handle: str, api_data: APIDATA) -> str | None :
 
     if not any(p.handle == handle for p in current_players):
         raise ValueError("No team captain exists with that handle")
-    
+
     return handle
+
 
 def validate_team_logo(logo: str) -> str | None:
     # Logo
     if not logo or logo.strip() == "":
         raise ValueError("Team logo may not be empty")
     return logo
+
 
 def validate_team_players(players: list[str]) -> None:
     pass
@@ -139,8 +147,9 @@ def validate_team_points(points: str) -> str | None:
         raise ValueError("Points may not be empty")
     elif int(points) < 0:
         raise ValueError("Points may not be negative")
-    
+
     return points
+
 
 # -------------TOURNAMENT VALIDATION--------------
 
@@ -199,12 +208,11 @@ def validate_tournament_double_elimination(double_elimination):
         raise ValidationError("Only Y or N")
 
 
-def validate_tournament_game(game):
-    if game not in games:
-        raise ValidationError("Game must be ", *games)
-
-    return game
-
+def validate_tournament_game(user_input_game, games):
+    for game in games:
+        if game.name == user_input_game:
+            return game
+    raise ValidationError("Not a valid game")
 
 
 # ----------------MATCH VALIDATION-------------------- Steinar
@@ -214,5 +222,6 @@ def validate_tournament_game(game):
 
 # -----------------CLUB VALIDATION--------------------
 
-def validate_club_name
 
+def validate_club_name():
+    pass
