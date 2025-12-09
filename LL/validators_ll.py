@@ -1,6 +1,17 @@
 from Models.models import Player, TeamCaptain, Team
-import ValidationError
-from IO.api_data import APIDATA
+from datetime import datetime, date
+
+
+class ValidationError(Exception):
+    pass
+
+
+def validate_player_name(name: str):
+    "0123456789"
+    if name == "Steinar":
+        return name
+    else:
+        raise ValidationError("Name must be Steinar")
 
 
 def validate_player(player: Player) -> None:
@@ -107,3 +118,65 @@ def validate_team_points(points:int) -> None:
     # Players 3-5
     # if team.players is None:
     #    errors.append("Team must have players")
+
+
+def validate_tournament_name(name):
+    if len(name.strip()) < 2:
+        raise ValidationError("Name of tournament be atleast 3 characters")
+    if len(name) <= 40:
+        return name
+    else:
+        raise ValidationError("Name cannot be longer than 40 characters")
+
+
+def validate_tournament_start_date(start_date):
+    # Verður að vera rétt format
+    # Start date verður að vera eftir daginn í dag
+    try:
+        start_date_iso = datetime.fromisoformat(start_date)
+    except ValueError:
+        raise ValidationError("Not correct format")
+    if start_date_iso <= date.today():
+        raise ValidationError("Invalid start date")
+    return start_date
+
+
+def validate_tournament_end_date(start_date, end_date):
+    # Verður að vera rétt format.
+    # Verður að byrja eftir start date
+    try:
+        end_date_iso = datetime.fromisoformat(end_date)
+    except ValueError:
+        raise ValidationError("Not correct format")
+    if end_date_iso < datetime.fromisoformat(start_date):
+        raise ValidationError("Invalid end date")
+    return end_date
+
+
+def validate_tournament_servers(servers):
+    if not servers.isdigit():
+        raise ValidationError("Amount of servers must be a number")
+    if int(servers) < 1:
+        raise ValidationError("Amount of servers be greater than 0")
+    return servers
+
+
+def validate_tournament_venue(venue):
+    if venue.isdigit():
+        raise ValidationError("Invalid Venue name")
+    return venue
+
+
+def validate_tournament_double_elimination(double_elimination):
+    if double_elimination.lower() == "y" or double_elimination.lower() == "n":
+        return double_elimination
+    else:
+        raise ValidationError("Only Y or N")
+
+
+def validate_tournament_game(game):
+    games = ["Valorant", "CS:GO", "League of Legends", "Rocket League", "Fortnite"]
+    if game not in games:
+        raise ValidationError("Game must be ", *games)
+
+    return game
