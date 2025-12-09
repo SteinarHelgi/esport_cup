@@ -344,34 +344,30 @@ class TournamentLL:
             if registry.tournament_id == tournament_id:
                 teams_playing.append(registry.team_name)
         
-        #R16 is 8 matches
-        for _ in range(8):
-            new_tournament_id: str = tournament_id
-            round: str = "R16"
-            team_a_name: str = random.choice(teams_playing)
-            teams_playing.remove(team_a_name)
-            team_b_name: str = random.choice(teams_playing)
-            teams_playing.remove(team_b_name)
-            
-            # Four matches per day for 2 days = total of 8 matches
-            for j in range(2):
-                match_id = 1
-                date_of_game = dates[j]
-                for i in range(4):
-                    time_of_match = playing_times[i]
-                    new_match = Match(
-                        new_tournament_id,
-                        round,
-                        team_a_name,
-                        team_b_name,
-                        str(date_of_game),
-                        time_of_match
-                    )
-                    new_match.match_id = str(match_id)
-                    new_match.match_number = str(match_id)
-                    server_id = "SRV-PEPSI"
-                    new_match.server_id = server_id
-                    match_id += 1
-
-                    self.APIDATA.store_match_data(new_match, filepath="Data/new_matches.csv")
-            
+        
+        #R16 is 8 matches Four matches per day for 2 days
+        match_id = 1
+        for j in range(2):
+            date_of_game = dates[j]
+            for i in range(4):
+                new_tournament_id: str = tournament_id
+                round: str = "R16"
+                team_a_name: str = random.choice(teams_playing)
+                teams_playing.remove(team_a_name)
+                team_b_name: str = random.choice(teams_playing)
+                teams_playing.remove(team_b_name)
+                time_of_match = playing_times[i]
+                new_match = Match(
+                    new_tournament_id,
+                    round,
+                    team_a_name,
+                    team_b_name,
+                    str(date_of_game),
+                    time_of_match
+                )
+                new_match.match_id = str(match_id)
+                new_match.match_number = str(match_id)
+                server_id = "SRV-PEPSI"
+                new_match.server_id = server_id
+                self.APIDATA.store_match_data(new_match, "Data/new_matches.csv")
+                match_id += 1
