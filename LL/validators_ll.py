@@ -13,76 +13,82 @@ def validate_player_name(player_name: str) -> str:
     valid_name = player_name.strip()
 
     if valid_name == "":
-        raise ValueError("Name can not be empty.")
+        raise ValidationError("Name can not be empty.")
 
     if any(char.isdigit() for char in valid_name):
-        raise ValueError("Name can not include numbers")
+        raise ValidationError("Name can not include numbers")
     return valid_name
 
 
-def validate_date_of_birth(date_of_birth):
+def validate_date_of_birth(date_of_birth) -> str | None:
     valid_dob = date_of_birth.strip()
 
     if valid_dob == "":
-        raise ValueError("Date of birth cannot be empty")
+        raise ValidationError("Date of birth cannot be empty")
 
     try:
         dob = datetime.strptime(valid_dob, "%Y-%m-%d")
-    except ValueError:
-        raise ValueError("Date of birth must be in the format YYYY-MM--DD")
+    except ValidationError:
+        raise ValidationError("Date of birth must be in the format YYYY-MM--DD")
 
     if dob.year < 1900:
-        raise ValueError("Please consult a doctor you might be dead, try again")
+        raise ValidationError("Please consult a doctor you might be dead, try again")
     return date_of_birth
 
 
-def validate_address(address):
+def validate_address(address) -> str | None:
     valid_address = address.strip()
 
     if valid_address == "":
-        raise ValueError("Address cannot be empty")
+        raise ValidationError("Address cannot be empty")
 
     if valid_address.replace(" ", "").isdigit():
-        raise ValueError("Address cannot be only numbers")
+        raise ValidationError("Address cannot be only numbers")
     return address
 
 
-def validate_phone_number(phone_number):
+def validate_phone_number(phone_number) -> str | None:
     number = phone_number.strip()
 
     if number == "":
-        raise ValueError("Phone number cannot be empty")
+        raise ValidationError("Phone number cannot be empty")
 
     if not number.isdigit():
-        raise ValueError("Phone number must contain numbers only")
+        raise ValidationError("Phone number must contain numbers only")
 
     if len(number) != 7:
-        raise ValueError("Phone number must be exactly 7 digits long")
+        raise ValidationError("Phone number must be exactly 7 digits long")
     return phone_number
 
 
-def validate_player_email(player_email):
+def validate_player_email(player_email) -> str | None:
     email = player_email.strip()
 
     if email == "":
-        raise ValueError("Email cannot be empty")
+        raise ValidationError("Email cannot be empty")
 
     if email.count("@") != 1:
-        raise ValueError("Email must contain exactly one '@'")
+        raise ValidationError("Email must contain exactly one '@'")
 
     if "." not in email:
-        raise ValueError("Email must contain at least one '.'")
+        raise ValidationError("Email must contain at least one '.'")
     return player_email
 
 
-def validate_player_handle(player_handle):
+def validate_player_handle(player_handle: str, api_data: APIDATA) -> str | None:
     handle = player_handle.strip()
 
     if handle == "":
-        raise ValueError("Hnadle cannot be empty")
+        raise ValidationError("Hnadle cannot be empty")
 
     if " " in handle:
-        raise ValueError("Handle cannot contain space")
+        raise ValidationError("Handle cannot contain space")
+    
+    current_players = api_data.get_all_player_data()
+    for p in current_players:
+        if p.handle == handle:
+            raise ValidationError("Handle is already taken")
+        
     return player_handle
 
 
@@ -219,6 +225,26 @@ def validate_tournament_game(user_input_game, games):
 
 
 # -----------------GAME VALIDATION--------------------
+
+def validate_game_name(game_name: str, api_data: APIDATA) -> str | None:
+    valid_game = game_name.strip()
+
+    if valid_game == "":
+        raise ValidationError("Game name cannot be empty")
+    
+    available_games = api_data.get_all_game_data()
+
+    game_names = [g.name for g in available_games]
+
+    if valid_game not in game_names:
+        raise ValidationError(
+            f"'{valid_game}' is not an available game. "
+            f"Available gmaes are: {', '.join(game_names)}."
+        )
+    
+    return valid_game
+
+
 
 # -----------------CLUB VALIDATION--------------------
 
