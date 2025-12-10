@@ -324,10 +324,14 @@ class OrganiserUI:
         """Function for creating matches as an organiser"""
         teams_in_tournament = self.APILL.get_teams_in_tournament(tournament)
         print("Which teams are competing in this match?")
+        print("")
         valid_choices = []
+        teams_in_tournament[0]._print_header()
+        teams_in_tournament[0]._print_divider_line()
         for counter, team in enumerate(teams_in_tournament):
-            print(str(counter) + "." + team.name)
+            team.format_row(counter)
             valid_choices.append(str(counter))
+            team._print_divider_line()
         print("Select team 1:")
         choice: str = self.menu_manager.prompt_choice(valid_choices)
         team1 = teams_in_tournament[int(choice)]
