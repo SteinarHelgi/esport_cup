@@ -148,19 +148,19 @@ class OrganiserLL:
         for contact in contact_persons:
             if str(contact.id) == str(id):
                 return contact
-            return None
+        return None
 
     def get_contact_person(self, tournament_id: str) -> ContactPerson | None:
         """Returns contact person that is connected to certain tournament."""
-        tournaments = self.api_data.get_all_contact_person_data()
+        tournaments = self.api_data.get_all_tournament_data()
         for t in tournaments:
-            if t.id == tournament_id:
-                contact_person_id = t.id
+            if str(t.id) == str(tournament_id):
+                contact_person_id = t.contact_person
                 return self.get_contact_person_by_id(contact_person_id)
         return None
 
     def get_all_teams_on_tournament(self, target_tournament_id: str) -> list[Team]:
-        # Fetch team registry and search for team_id in a specific tournament id
+        """Returns all teams that are registered to the given tournament."""
         team_registry = self.api_data.get_all_team_registry_data()
         all_teams_id_in_tournament: list[str] = []
         for registry in team_registry:
@@ -181,10 +181,13 @@ class OrganiserLL:
         
 
     def give_player_points(self, handle: str, points: int):
+        """Adds points to the player with the given handle."""
         self.api_data.give_player_points(handle, points)
 
     def give_team_points(self, team_name: str, points: int):
+        """Adds points to the team with the given name"""
         self.api_data.give_team_points(team_name, points)
 
     def give_club_points(self, club_name: str, points: int):
+        """Adds points to the club with the given name"""
         self.api_data.give_club_points(club_name, points)

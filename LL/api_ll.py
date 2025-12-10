@@ -82,6 +82,16 @@ class APILL:
     def get_tournament_by_id(self, tournament_id: str) -> Tournament | None:
         return self.main_ll.tournament_ll.get_tournament_by_id(tournament_id)
 
+    def get_all_matches_by_type(
+        self, tournament: Tournament, type_of_round: str
+    ) -> list[Match]:
+        return self.main_ll.tournament_ll.get_all_matches_by_type(
+            tournament, type_of_round
+        )
+
+    def get_teams_not_in_round(self, tournament: Tournament):
+        return self.main_ll.tournament_ll.get_teams_not_in_round(tournament)
+
     def get_team_by_captain_id(self, handle) -> Team | None:
         return self.main_ll.team_ll.get_team_by_captain_handle(handle)
 
@@ -145,8 +155,6 @@ class APILL:
 
     def get_all_games(self) -> list[Game]:
         return self.main_ll.game_ll.get_all_games()
- 
-
 
     # def show_player_stats_bar_chart(self):
     #    return self.userLL.show_player_stats_bar_chart()
