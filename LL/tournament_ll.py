@@ -11,6 +11,7 @@ from Models.models import (
 
 VALID_TEAM_COUNT = 16
 
+
 class TournamentLL:
     def __init__(self, api_data: APIDATA, main_ll):
         """Initializes the TournamentLL logic layer with access to APIDATA and the main logic layer."""
@@ -181,9 +182,6 @@ class TournamentLL:
 
     def create_tournament(self, tournament: Tournament) -> Tournament | None:
         """Creates a new tournament, validates dates, assigns an ID and saves it."""
-        if tournament.end_date < tournament.start_date:
-            raise
-
         all_tournaments = self.APIDATA.get_all_tournament_data()
 
         if all_tournaments:
@@ -210,7 +208,7 @@ class TournamentLL:
     def delete_tournament(self, tournament_id: str) -> None:
         """Deletes the tournament with the given ID from the data storage."""
         self.APIDATA.delete_tournament_data(tournament_id)
-    
+
     def cancel_tournament_if_not_enough_teams(self, tournament: Tournament) -> None:
         """Cancels the tournament if the number of registered teams is below VALID_TEAM_COUNT"""
         teams_in_tournament = self.get_all_teams_on_tournament(tournament.id)
@@ -328,7 +326,9 @@ class TournamentLL:
                 all_teams_in_tournament.append(team)
         return all_teams_in_tournament
 
-    def create_contact_person(self, contact_person: ContactPerson) -> ContactPerson | None:
+    def create_contact_person(
+        self, contact_person: ContactPerson
+    ) -> ContactPerson | None:
         """Creates a new contact person, assigns and ID and stores it."""
         all_contact_person = self.APIDATA.get_all_contact_person_data()
 
@@ -359,7 +359,6 @@ class TournamentLL:
 
     def register_match_result(self, match_id: str, winner_name: str, completed: str):
         self.APIDATA.register_match_results(match_id, winner_name, completed)
-
 
     def give_player_points(self, handle: str, points: int) -> None:
         """Adds points to the player with the given handle."""
