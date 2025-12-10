@@ -441,7 +441,9 @@ class OrganiserUI:
             self.APILL.delete_tournament(tournament.id)
             print(f"{tournament.name} has been deleted")
             enter_to_leave = input("Enter to exit or q to Quit.")
-            if enter_to_leave == "q":
+            if enter_to_leave.lower() == "q":
                 return "QUIT"
             else:
                 return "MY_TOURNAMENTS_ORG"
+        if confirm.lower == "n":
+            return "MY_TOURNAMENTS_ORG"
