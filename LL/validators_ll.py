@@ -35,6 +35,7 @@ class Errors(Enum):
     INVALID_COLOR = auto()
     COLOR_HAS_NUMBER = auto()
     CLUB_COUNTRY_HAS_NUMBER = auto()
+    TOO_MANY_PLAYERS = auto()
 
     OK = auto()
 
@@ -132,13 +133,20 @@ def validate_team_captain(handle: str, api_data: APIDATA) -> Errors:
 # -------------TEAM VALIDATION---------------
 
 
-def validate_team_name(name: str) -> Errors:
+def validate_team_name(name: str, api_data:APIDATA) -> Errors:
     # Name
     if not name or name.strip() == "":
         return Errors.EMPTY
 
     if len(name) > 40:
         return Errors.TEAM_NAME_TOO_LONG
+
+    # Max 5 players in a team
+    current_players = api_data.get_all_player_data()
+
+    players_in_team = [ p for p in current_players if p.team_name == name]
+    if len(players_in_team) >= 5:
+        Errors.TOO_MANY_PLAYERS
 
     return Errors.OK
 
@@ -295,7 +303,7 @@ def validate_club_name(name: str) -> Errors:
 def validate_club_hometown(hometown: str) -> Errors:
     if not hometown or hometown.strip() == "":
         raise ValueError("You must enter a club hometown")
-        return Errors.EMPTY
+        return Errors.Hom
     if any(char.isdigit() for char in hometown):
         return Errors.HOMETOWN_CONTAINS_NUMBER
 
