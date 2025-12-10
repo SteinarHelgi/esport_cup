@@ -409,7 +409,7 @@ class OrganiserUI:
         if winner == "q":
             return "QUIT"
         
-        # Determine winner name based on selection
+        #pick winner
         if winner == "1":
             winner_name = match.team_a_name
         elif winner == "2":
@@ -418,7 +418,7 @@ class OrganiserUI:
             print("Invalid input.")
             return
 
-        # Update local object
+        #set winner
         match.set_winner(winner_name, "TRUE")
         
         
