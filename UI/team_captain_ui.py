@@ -150,8 +150,8 @@ class TeamCaptainUI:
             print("r. Register for new tournament\nb. Back\nq. Quit")
             choice: str = self.menu_manager.prompt_choice(["r", "b", "q"])
             if choice == "r":
-                while validate_players_in_teams(players, self.APILL.APIDATA) != Errors.OK:
-                    error = validate_players_in_teams(players, self.APILL.APIDATA)
+                while validate_players_in_teams(players) != Errors.OK:
+                    error = validate_players_in_teams(players)
                     if error == Errors.PLAYERS_NOT_ENOUGH:
                         print("Not enough players on team to register.")
                     if error == Errors.PLAYERS_TOO_MANY:
