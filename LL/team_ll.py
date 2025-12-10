@@ -43,8 +43,8 @@ class TeamLL:
    # Max 5 players in a team
 
         players_in_team = [ p for p in current_players if p.team_name == player.team_name]
-            if len(players_in_team) >= 5:
-                raise ValueError()
+        if len(players_in_team) >= 5:
+            raise ValueError()
 
         # Checking if player handle is available
         for p in current_players:
