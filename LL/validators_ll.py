@@ -104,7 +104,7 @@ def validate_player_email(player_email):
 
     if email.count("@") != 1:
         return Errors.EMAIL_NOT_CONTAINING_AT
-    return player_email
+    return Errors.OK
 
 
 def validate_player_handle(player_handle, api_data:APIDATA):
@@ -172,7 +172,7 @@ def validate_team_name(name: str, api_data:APIDATA) -> Errors:
     return Errors.OK
 
 
-def validation_team_handle(handle: str, api_data: APIDATA) -> Errors:
+def validation_team_captain_handle(handle: str, api_data: APIDATA) -> Errors:
     # Captain handle
 
     if not handle or handle.strip() == "":

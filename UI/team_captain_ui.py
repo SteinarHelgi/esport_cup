@@ -10,6 +10,7 @@ from LL.validators_ll import (
     validate_player_handle,
     validate_player_name,
     Errors,
+    validate_players_in_teams,
     validate_social_media,
     validate_team_logo,
     validate_team_name,
@@ -334,7 +335,7 @@ class TeamCaptainUI:
             stringI = str(i + 1)
             valid_choices.append(stringI)
         print("")
-        print("6. Add player: \n7. Remove player \nb. Back \nq.Quit")
+        print("6. Add player: \nb. Back \nq.Quit")
         choice: str = self.menu_manager.prompt_choice(
             valid_choices + ["6", "7", "b", "q"]
         )
@@ -345,9 +346,7 @@ class TeamCaptainUI:
                 return player
         if choice == "6":
             return "CREATE_PLAYER"
-        if choice == "7":
-            # TODO select_player_to_remove_menu
-            pass
+
         if choice.lower() == "q":
             return "QUIT"
         if choice.lower() == "b":
@@ -374,7 +373,7 @@ class TeamCaptainUI:
             valid_choices = []
             if self.menu_manager.user == "TEAM_CAPTAIN":
                 print("1. Edit player data")
-                print("2. Hurt player emotionally")
+                print("2. Remove player from team")
                 valid_choices = ["1", "2"]
 
             print("")
@@ -386,6 +385,8 @@ class TeamCaptainUI:
             if choice == "1":
                 # Modify player menuið
                 return self.show_modify_player_menu(player)
+            if choice == "2":
+                return(self.remove_selected_player(player))
             if choice == "b" and self.menu_manager.user == "TEAM_CAPTAIN":
                 return "SHOW_MY_PLAYERS"
             if choice == "b" and self.menu_manager.user == "ORGANISER":
@@ -485,8 +486,8 @@ class TeamCaptainUI:
             return "TEAM_CAPTAIN_MENU"
         if team_name.lower == "q":
             return "QUIT"
-        while validate_team_name(team_name) != Errors.OK:
-            error = validate_team_name(team_name)
+        while validate_team_name(team_name,self.APILL.APIDATA) != Errors.OK:
+            error = validate_team_name(team_name,self.APILL.APIDATA)
             if error == Errors.EMPTY:
                 print("Team name cannot be empty.")
             if error == Errors.TEAM_NAME_TOO_LONG:
@@ -524,5 +525,17 @@ class TeamCaptainUI:
         # )
         pass
 
-    def delete_player_from_team(self):
-        pass 
+
+    def remove_selected_player(self, player:Player):
+        print(f"Are you sure you want to remove {player.name}?")
+        confirmation = input("Confirm(Y/N)")
+        if confirmation.lower() == "y":
+            self.APILL.delete_player(player.id)
+            print("DELETED PLAYER")
+            enter_to_leave = input("Enter to exit or q to Quit.")
+            if enter_to_leave.lower() == "q":
+                return "QUIT"
+            else:
+                return "MY_TEAM"
+        else:
+            return "MY_TEAM"
