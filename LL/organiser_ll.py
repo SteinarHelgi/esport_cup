@@ -175,9 +175,12 @@ class OrganiserLL:
                 all_teams_in_tournament.append(team)
         return all_teams_in_tournament
 
-    def register_match_result(self, match_id: str, home_score: int, away_score: int, completed: str) -> None:
-        """Registers the result of a match in the data storage."""
-        self.api_data.register_match_results(match_id, home_score, away_score, completed)
+    def register_match_result(
+        self, match_id: str, home_score: int, away_score: int, completed: str
+    ):
+        self.api_data.register_match_results(
+            match_id, home_score, away_score, completed
+        )
 
     def give_player_points(self, handle: str, points: int):
         """Adds points to the player with the given handle."""
