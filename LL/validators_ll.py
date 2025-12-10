@@ -40,7 +40,8 @@ class Errors(Enum):
     TEAM_CAPTAIN_NOT_EXISTS = auto()
     PLAYERS_NOT_ENOUGH = auto()
     PLAYERS_TOO_MANY = auto()
-
+    DATE_NOT_IN_TOURNAMENT_DATE = auto()
+    TIME_NOT_IN_TIMESLOT = auto()
     OK = auto()
 
 
@@ -193,6 +194,7 @@ def validate_team_logo(logo: str) -> Errors:
         return Errors.EMPTY
     return Errors.OK
 
+
 def validate_team_points(points: str) -> Errors:
     # Points
     if points == "":
@@ -301,6 +303,25 @@ def validate_match_round(round_name: str, matches_in_round: list) -> Errors:
     return Errors.OK
 
 
+def validate_match_date(
+    date_input: str, tournament_start_date: datetime, tournament_end_date: datetime
+) -> Errors:
+    try:
+        date_input_iso = datetime.fromisoformat(date_input)
+    except ValueError:
+        return Errors.DATE_FORMAT_NOT_VALID
+    if tournament_start_date > date_input_iso < tournament_end_date:
+        return Errors.DATE_NOT_IN_TOURNAMENT_DATE
+    return Errors.OK
+
+
+def validate_match_time(time_input: str):
+    time_slots = ["08:00", "10:00", "12:00", "14:00", "16:00", "18:00", "20:00"]
+    if time_input not in time_slots:
+        return Errors.TIME_NOT_IN_TIMESLOT
+    return Errors.OK
+
+
 # -----------------GAME VALIDATION--------------------
 def validate_game_name(game_name: str, api_data: APIDATA) -> Errors:
     valid_game = game_name.strip()
@@ -315,17 +336,6 @@ def validate_game_name(game_name: str, api_data: APIDATA) -> Errors:
     if valid_game not in game_names:
         Errors.GAME_NOT_VALID
     return Errors.OK
-
-
-# def validate_match_date(date: str):
-# Verður að vera rétt format
-# try:
-#     start_date_iso = date.fromisoformat(start_date)
-# except ValueError:
-#     return Errors.DATE_FORMAT_NOT_VALID
-# if start_date_iso <= date.today():
-#     return Errors.START_DATE_BEFORE_TODAY
-# return Errors.OK
 
 
 # -----------------CLUB VALIDATION--------------------
