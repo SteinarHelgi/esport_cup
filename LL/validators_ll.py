@@ -243,7 +243,7 @@ def validate_tournament_end_date(start_date, end_date) -> Errors:
     return Errors.OK
 
 
-def validate_players_in_teams(players_in_team, api_data:APIDATA) -> Errors:
+def validate_players_in_teams(players_in_team) -> Errors:
     MIN_PLAYERS_PER_TEAM = 3
     MAX_PLAYERS_PER_TEAM = 5
 
