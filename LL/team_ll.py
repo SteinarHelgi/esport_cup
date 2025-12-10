@@ -1,10 +1,6 @@
 from IO.api_data import APIDATA
 from Models.models import Team, Tournament, Player, TeamRegistry
 
-MIN_PLAYERS_PER_TEAM = 3
-MAX_PLAYERS_PER_TEAM = 5
-
-
 class TeamLL:
     def __init__(self, api_data: APIDATA, main_ll):
         self.APIDATA = api_data
