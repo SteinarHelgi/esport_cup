@@ -135,6 +135,7 @@ class OrganiserLL:
         return stored
 
     def create_contact_person(self, contact: ContactPerson) -> ContactPerson | None:
+        """Creates a new contact person, assigns an ID and stores it."""
         contact.id = self._next_contact_id
         self._next_contact_id += 1
 
@@ -142,12 +143,12 @@ class OrganiserLL:
         return stored
 
     def get_contact_person_by_id(self, id: str) -> ContactPerson | None:
+        """Returns the contact person with the given ID, or None if not found."""
         contact_persons = self.api_data.get_all_contact_person_data()
         for contact in contact_persons:
-            try:
-                if contact.id == id:
+            for contact in contact_persons:
+                if str(contact.id) == str(id):
                     return contact
-            except:
                 return None
 
     def get_contact_person(self, tournament_id: str) -> ContactPerson | None:
