@@ -146,10 +146,9 @@ class OrganiserLL:
         """Returns the contact person with the given ID, or None if not found."""
         contact_persons = self.api_data.get_all_contact_person_data()
         for contact in contact_persons:
-            for contact in contact_persons:
-                if str(contact.id) == str(id):
-                    return contact
-                return None
+            if str(contact.id) == str(id):
+                return contact
+            return None
 
     def get_contact_person(self, tournament_id: str) -> ContactPerson | None:
         """Returns contact person that is connected to certain tournament."""
