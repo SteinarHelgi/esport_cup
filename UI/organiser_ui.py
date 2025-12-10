@@ -323,40 +323,40 @@ class OrganiserUI:
 
     def show_create_match(self, tournament: Tournament):
         """Function for creating matches as an organiser"""
-        teams_in_tournament = self.APILL.get_teams_in_tournament(tournament)
+
+        if len(tournament.matches) < 8:
+            round = "R16"
+        elif len(tournament.matches) < 12:
+            round = "QF"
+        elif len(tournament.matches) < 14:
+            round = "SF"
+        else:
+            round = "Final"
+        teams_not_in_round = self.APILL.get_teams_not_in_round(tournament)
         print("Which teams are competing in this match?")
         print("")
         valid_choices = []
-        teams_in_tournament[0]._print_header()
-        teams_in_tournament[0]._print_divider_line()
-        for counter, team in enumerate(teams_in_tournament):
+        teams_not_in_round[0]._print_header()
+        teams_not_in_round[0]._print_divider_line()
+        for counter, team in enumerate(teams_not_in_round):
             team.format_row(counter)
             valid_choices.append(str(counter))
             team._print_divider_line()
+        print("")
+        print("Round type ", round)
         print("Select team 1:", end="")
 
         choice: str = self.menu_manager.prompt_choice(valid_choices)
-        team1 = teams_in_tournament[int(choice)]
+        team1 = teams_not_in_round[int(choice)]
         if choice in valid_choices:
             print(team1.name, "as Team 1")
 
         print("Select team 2:", end="")
         choice: str = self.menu_manager.prompt_choice(valid_choices)
-        team2 = teams_in_tournament[int(choice)]
+        team2 = teams_not_in_round[int(choice)]
         if choice in valid_choices:
             print(team2.name, "as Team 2")
 
-        print("")
-        print("Select a round type:")
-
-        rounds = ["R16", "QF", "SF", "Final"]
-
-        valid_choices = []
-        for counter, round in enumerate(rounds):
-            print(str(counter) + "." + round)
-            valid_choices.append(str(counter))
-        choice: str = self.menu_manager.prompt_choice(valid_choices)
-        round = rounds[int(choice)]
         date = input("Date (YYYY-MM-DD): ")
         while (
             validate_match_date(date, tournament.start_date, tournament.end_date)
@@ -396,35 +396,43 @@ class OrganiserUI:
         return self.show_tournament_view(tournament)
 
     def show_register_results(self, match: Match):
-        """Registering results of a match, chooses a winner and turns match completed to True"""
-        print("Which team won the match? ")
+        """Registering results of a match, chooses a winner and marks match as completed"""
+        print(f"Registering result for match: {match.team_a_name} vs {match.team_b_name}")
+        print("Which team won the match?")
         print(f"1. {match.team_a_name}")
         print(f"2. {match.team_b_name}")
-        winner = input("1 or 2, b to back and q to quit")
-        if winner == "1":
-            match.set_winner(match.team_a_name, True)
-            self.APILL.register_match_result(match.match_id, )
-            print(f"{match.winner_team_name} has been set as the winner of this match")
-            choice: str = self.menu_manager.prompt_choice(["b", "q"])
-            print("b to back or q to quit")
-            if choice == "b":
-                return "MY_TOURNAMENTS_ORG"
-            if choice == "q":
-                return "QUIT"
+        
+        winner = input("1 or 2, b to back and q to quit: ")
 
-        if winner == "2":
-            match.set_winner(match.team_b_name, True)
-            print(f"{match.winner_team_name} has been set as the winner of this match")
-            print("b to back or q to quit")
-            choice: str = self.menu_manager.prompt_choice(["b", "q"])
-            if choice == "b":
-                return "MY_TOURNAMENTS_ORG"
-            if choice == "q":
-                return "QUIT"
         if winner == "b":
             return "MY_TOURNAMENTS_ORG"
         if winner == "q":
             return "QUIT"
+        
+        #pick winner
+        if winner == "1":
+            winner_name = match.team_a_name
+        elif winner == "2":
+            winner_name = match.team_b_name
+        else:
+            print("Invalid input.")
+            return
+
+        #set winner
+        match.set_winner(winner_name, "TRUE")
+        
+        
+        self.APILL.register_match_result(match.match_id, winner_name, "TRUE")
+        
+        print(f"{winner_name} has been set as the winner of this match.")
+
+        
+        choice = self.menu_manager.prompt_choice(["b", "q"])
+        if choice == "b":
+            return "MY_TOURNAMENTS_ORG"
+        if choice == "q":
+            return "QUIT"
+
 
     def show_delete_tournament(self,tournament):
         print(f"Are you sure you wish to delete {tournament.name}")
