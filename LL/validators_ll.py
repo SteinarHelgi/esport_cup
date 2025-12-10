@@ -47,6 +47,7 @@ class Errors(Enum):
     INVALID_SERVER_COUNT = auto()
     TIMESLOT_FULL = auto()
     TEAM_LOST_LAST_ROUND = auto()
+    TEAM_NAME_TAKEN = auto()
     OK = auto()
 
 
