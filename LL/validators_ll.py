@@ -36,6 +36,8 @@ class Errors(Enum):
     COLOR_HAS_NUMBER = auto()
     CLUB_COUNTRY_HAS_NUMBER = auto()
     TOO_MANY_PLAYERS = auto()
+    SAME_HANDLE = auto()
+    TEAM_CAPTAIN_NOT_EXISTS = auto()
 
     OK = auto()
 
