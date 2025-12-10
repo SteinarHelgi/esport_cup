@@ -180,10 +180,13 @@ class OrganiserLL:
         self.api_data.register_match_results(match_id, home_score, away_score, completed)
 
     def give_player_points(self, handle: str, points: int):
+        """Adds points to the player with the given handle."""
         self.api_data.give_player_points(handle, points)
 
     def give_team_points(self, team_name: str, points: int):
+        """Adds points to the team with the given name"""
         self.api_data.give_team_points(team_name, points)
 
     def give_club_points(self, club_name: str, points: int):
+        """Adds points to the club with the given name"""
         self.api_data.give_club_points(club_name, points)
