@@ -108,7 +108,7 @@ def validate_player_email(player_email):
     return player_email
 
 
-def validate_player_handle(player_handle, api_data: APIDATA):
+def validate_player_handle(player_handle, api_data:APIDATA):
     handle = player_handle.strip()
 
     if handle == "":
@@ -116,13 +116,13 @@ def validate_player_handle(player_handle, api_data: APIDATA):
 
     if " " in handle:
         return Errors.HANDLE_CONTAINS_SPACE
-
+    
     current_players = api_data.get_all_player_data()
 
     for p in current_players:
         if p.handle == handle:
             Errors.SAME_HANDLE
-
+        
     return Errors.OK
 
 
@@ -155,8 +155,7 @@ def validate_team_captain(handle: str, api_data: APIDATA) -> Errors:
 
 MAX_PLAYERS = 5
 
-
-def validate_team_name(name: str, api_data: APIDATA) -> Errors:
+def validate_team_name(name: str, api_data:APIDATA) -> Errors:
     # Name
     if not name or name.strip() == "":
         return Errors.EMPTY
@@ -167,9 +166,15 @@ def validate_team_name(name: str, api_data: APIDATA) -> Errors:
     # Max 5 players in a team
     current_players = api_data.get_all_player_data()
 
-    players_in_team = [p for p in current_players if p.team_name == name]
+    players_in_team = [ p for p in current_players if p.team_name == name]
     if len(players_in_team) >= MAX_PLAYERS:
         Errors.TOO_MANY_PLAYERS
+
+    current_teams = api_data.get_all_team_data()
+
+    for t in current_teams:
+        if t.name == name:
+            return Errors.TEAM_NAME_TAKEN
 
     return Errors.OK
 
@@ -249,9 +254,8 @@ def validate_players_in_teams(players_in_team) -> Errors:
     if num_players < MIN_PLAYERS_PER_TEAM:
         return Errors.PLAYERS_NOT_ENOUGH
     elif num_players > MAX_PLAYERS_PER_TEAM:
-        return Errors.PLAYERS_TOO_MANY
+       return Errors.PLAYERS_TOO_MANY
     return Errors.OK
-
 
 def validate_tournament_servers(servers) -> Errors:
     if not servers.isdigit():

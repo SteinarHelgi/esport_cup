@@ -36,7 +36,7 @@ class TeamLL:
         return tournaments
 
     def create_player(self, player: Player) -> Player:
-        """Creates a new player, assigns a unique ID and saves them to the CSV file."""
+        """Creates a new player, assigns a unique ID and saves them to the data storage."""
         current_players = self.APIDATA.get_all_player_data()
         nums = [        
             int(p.id[1:])
@@ -62,18 +62,13 @@ class TeamLL:
         self.APIDATA.delete_player_data(player_id)
 
     def create_new_team(self, team: Team) -> Team:
-        """Creates new team and saves it in the csv file."""
-
+        """Creates new team, assigns an ID and saves it."""
         name: str = team.name
         captain_id: str = team.captain_handle
         social_media: str | None = team.social_media
         logo: str = team.logo
 
         current_teams = self.APIDATA.get_all_team_data()
-
-        for t in current_teams:
-            if t.name == team.name:
-                raise ValueError
 
         if current_teams:
             next_id: int = max(int(team.id) for team in current_teams) + 1
@@ -82,11 +77,9 @@ class TeamLL:
         id = str(next_id)
 
         team.set_id(id)
-
         new_team = Team(name, captain_id, social_media, logo)
 
         self.APIDATA.store_team_data(new_team)
-
         return new_team
 
     def modify_team_data(self, team: Team) -> Team | None:
@@ -103,14 +96,14 @@ class TeamLL:
         new_team_registry = self.APIDATA.store_team_registry_data(team_registry)
 
     def get_team_by_id(self, id) -> Team | None:
-        """Looks up a team by its ID."""
+        """Returns the team with the given ID, or None if no such team exists."""
         teams = self.get_all_teams()
         for team in teams:
             if team.id == id:
                 return team
 
     def get_team_by_captain_handle(self, captain_handle) -> Team | None:
-        """Returns the team where the given handle is the captain's handle."""
+        """Returns the team whose captain has the given handle, or None if not found."""
         teams = self.APIDATA.get_all_team_data()
 
         for team in teams:
@@ -120,7 +113,7 @@ class TeamLL:
         return None
 
     def get_players_in_team(self, team_name: str) -> list[Player]:
-        """Returns all players that belong to a given team."""
+        """Returns all players that belong to a given team name."""
         players_in_team = []
 
         players = self.APIDATA.get_all_player_data()
@@ -131,7 +124,7 @@ class TeamLL:
         return players_in_team
 
     def get_team_by_name(self, name: str) -> Team | None:
-        """Looks up a team by its name and attaches its players."""
+        """Returns the team with the given name and attaches its players, or None if not found."""
         teams = self.APIDATA.get_all_team_data()
         players = self.get_players_in_team(name)
         for team in teams:
@@ -141,7 +134,7 @@ class TeamLL:
                 return team
 
     def get_player_by_name(self, name: str) -> Player | None:
-        """Looks up a player by their name"""
+        """Returns the player with the given name, or None if no such player exists."""
         players = self.APIDATA.get_all_player_data()
         for player in players:
             if player.name == name:
