@@ -318,7 +318,7 @@ def validate_match_creation(match: Match, tournament: Tournament, api_data: APID
     date_str = match.match_date
     time_str = match.match_time
     round_name = match.round
-    tournament_id = match.tournament_id
+    tournament_id = str(match.tournament_id)
 
     try:
         servers = int(tournament.no_servers)
@@ -329,7 +329,7 @@ def validate_match_creation(match: Match, tournament: Tournament, api_data: APID
 
     all_matches = api_data.get_all_match_data()
     matches_in_tournament = [
-        m for m in all_matches if m.tournament_id == tournament_id
+        m for m in all_matches if str(m.tournament_id) == tournament_id
     ]
 
 # Same team already playing (date+time)
