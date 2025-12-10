@@ -27,7 +27,7 @@ class TeamCaptainUI:
             if error == Errors.EMPTY:
                 print("Name cannot be empty")
             if error == Errors.NAME_ONLY_NUMBERS:
-                print("Name cannot be only numbers")
+                print("Name cannot include a number")
             name = input("Player's name: ").strip()
 
         date_of_birth = input("Player's birthday (YYYY-MM-DD): ").strip()
@@ -37,7 +37,7 @@ class TeamCaptainUI:
                 return "QUIT"
         while validate_date_of_birth(date_of_birth) != Errors.OK:
             error = validate_date_of_birth(date_of_birth)
-            if error == Errors.DATE_FORMAT_NOT_VALID:
+            if error == Errors.NOT_CORRECT_FORMAT:
                 print("Use format YYYY-MM-DD")
             if error == Errors.DATE_TOO_OLD:
                 print("Invalid date, choose a date after 1900")
@@ -69,6 +69,7 @@ class TeamCaptainUI:
                 print("Phone number cannot include characters.")
             if error == Errors.NUMBER_NOT_CORRECT_LENGTH:
                 print("Phone number has to be exactly 7 digits.")
+            phone_number = input("Enter phone number: ").strip()
         email = input("Enter email: ").strip()
         if email.lower() == "b":
             return "MY_TEAM"
@@ -176,9 +177,13 @@ class TeamCaptainUI:
                         back_or_quit = input(
                             "b to go back to tournament menu or q to quit"
                         )
+                if choice == 'b':
+                    return "MY_TOURNAMENTS_CAP"
+                if choice == 'q':
+                    return "QUIT"
 
             if choice == "b":
-                return "MY_TEAM"
+                return "TEAM_CAPTAIN_MENU"
             if choice == "q":
                 return "QUIT"
 
@@ -299,7 +304,7 @@ class TeamCaptainUI:
         players = self.APILL.get_players_in_team(self.menu_manager.team_name)
         valid_choices = []
         print(f.format_player_list(players))
-        print("6. Add player: \n7. Remove player \nb. Back \nq.Quit")
+        print("6. Add player: \n7. Remove player \nb. Back \nq. Quit")
         for i in range(len(players)):
             stringI = str(i + 1)
             valid_choices.append(stringI)
@@ -340,7 +345,6 @@ class TeamCaptainUI:
 
             print("")
             print("1. Edit player data")
-            print("2. Hurt player emotionally")
             print("b. Back")
             print("q. Quit")
 

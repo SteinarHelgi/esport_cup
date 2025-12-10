@@ -17,6 +17,8 @@ create match þarf að ákveða server id og athuga hvort serverid se upptekið.
 * req 18: create a match sem organiser eilla buið
 * Allt club shit vantar inn
 * delete tournament fyrir organiser
+* add team to club fyrir captain
+* remove player sem team captain, komið í LL vantar UI
 * register results á bara vera hægt ef leikur er búinn
 * Give points to club, team, player
 * losers bracket

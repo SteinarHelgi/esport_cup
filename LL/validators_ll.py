@@ -1,3 +1,4 @@
+import re
 from Models.models import Player, TeamCaptain, Team
 from datetime import datetime, date
 from IO.api_data import APIDATA
@@ -37,7 +38,7 @@ class Errors(Enum):
     CLUB_COUNTRY_HAS_NUMBER = auto()
     TOO_MANY_PLAYERS = auto()
     TEAM_CAPTAIN_NOT_EXISTS = auto()
-
+    NOT_CORRECT_FORMAT = auto()
     OK = auto()
 
 
@@ -59,13 +60,13 @@ def validate_date_of_birth(date_of_birth):
 
     if valid_dob == "":
         return Errors.EMPTY
-    try:
-        dob = datetime.strptime(valid_dob, "%Y-%m-%d")
-        if dob.year < 1900:
-            return Errors.DATE_TOO_OLD
-        return Errors.OK
-    except ValueError:
-        return Errors.DATE_NOT_VALID
+    iso_format_regex = r'^\d{4}-\d{2}-\d{2}$'
+    if not re.match(iso_format_regex, valid_dob):
+        return Errors.NOT_CORRECT_FORMAT
+    dob = datetime.strptime(valid_dob, "%Y-%m-%d")
+    if dob.year < 1900:
+        return Errors.DATE_TOO_OLD
+    return Errors.OK
 
 
 def validate_address(address):
@@ -101,7 +102,7 @@ def validate_player_email(player_email):
 
     if email.count("@") != 1:
         return Errors.EMAIL_NOT_CONTAINING_AT
-    return player_email
+    return Errors.OK
 
 
 def validate_player_handle(player_handle):
@@ -119,7 +120,7 @@ def validate_social_media(social_media):
     socials = social_media.strip()
     if socials == "":
         return Errors.EMPTY
-    if socials == " ":
+    if " " in socials:
         return Errors.HANDLE_CONTAINS_SPACE
     return Errors.OK
 
@@ -199,10 +200,10 @@ def validate_team_points(points: str) -> Errors:
 # -------------TOURNAMENT VALIDATION--------------
 
 
-def validate_tournament_name(name) -> Errors:
+def validate_tournament_name(name:str) -> Errors:
     if len(name.strip()) < 2:
         return Errors.TOURNAMENT_NAME_LENGTH
-    if len(name) >= 40:
+    if len(name.strip()) >= 40:
         return Errors.TOURNAMENT_NAME_LENGTH_TOO_LONG
     return Errors.OK
 

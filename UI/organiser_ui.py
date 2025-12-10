@@ -34,12 +34,12 @@ class OrganiserUI:
         """Creates tournaments with options to quit or back anywhere in the process and shows the confirmation of creation"""
         print("Fill in the required info or b.Back or q.Quit")
 
-        name_of_tournament = input("Tournament name: ").strip()
+        name_of_tournament = input("Tournament name: ")
         if name_of_tournament.lower() == "b":
             return "ORGANISER_MENU"
         if name_of_tournament.lower() == "q":
             return "QUIT"
-        while validate_tournament_name(name) != Errors.OK:
+        while validate_tournament_name(name_of_tournament) != Errors.OK:
             error = validate_tournament_name(name_of_tournament)
             if error == Errors.TOURNAMENT_NAME_LENGTH:
                 print("Tournament name needs to be atleast two letters")
@@ -80,7 +80,7 @@ class OrganiserUI:
                 print("Invalid format. Format is 0000-00-00.")
             if error == Errors.END_DATE_BEFORE_START:
                 print(
-                    "The date you have input is before the start date you input. Please input a date that is after the start date."
+                    "The date you have input is before or on the start date you input. Please input a date that is after the start date."
                 )
             end_date_of_tournamnet = input("End date(Year-Month-Day): ").strip()
 
@@ -120,7 +120,7 @@ class OrganiserUI:
             double_elimination = input("Double elimination(Y/N): ").strip()
 
         games = self.APILL.get_all_games()
-        print("Valid games are:", *games)
+        print("Valid games are:", *[f"{game}," for game in games[:-1]], games[-1])
         game_for_tournament = input("Game: ").strip()
         if game_for_tournament.lower() == "b":
             return "ORGANISER_MENU"
@@ -176,7 +176,7 @@ class OrganiserUI:
                 print("Phone number cannot have characters, only digits.")
             if error == Errors.NUMBER_NOT_CORRECT_LENGTH:
                 print("Phone number has to be 7 digits long.")
-                new_contact_person_phone_nmbr = input("Phone number: ").strip()
+            new_contact_person_phone_nmbr = input("Phone number: ").strip()
         # Try and except for contact person phone number validation
         confirmation = input("Confirm(Y): ").strip()
         if confirmation.lower() != "y":

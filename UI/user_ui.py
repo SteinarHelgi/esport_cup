@@ -18,8 +18,9 @@ class UserUI:
         """Shows teams that exist within the software"""
         teams = self.APILL.get_all_teams()
         print(format_team_list(teams))
-        for team in teams:
-            print(team)
+        #for team in teams:
+            #print(team)
+        print("Select team by ID")
         print("\nb.Back \nq.Quit")
 
         valid_choices = []
@@ -75,12 +76,14 @@ class UserUI:
             tournaments = self.APILL.get_past_tournaments()
             print("Past Tournaments:")
             print(format_tournament_table(tournaments))
+            print("Select tournament by ID")
             print("b.Back \nq.Quit")
         if time == "UPCOMING":
             tournaments = self.APILL.get_upcoming_tournaments()
             if tournaments != []:
                 print("Upcoming Tournaments:")
                 print(format_tournament_table(tournaments))
+                print("Select tournament by ID")
                 print("b.Back \nq.Quit")
             else:
                 print("There are no upcoming tournaments")
@@ -90,6 +93,7 @@ class UserUI:
             if tournaments != []:
                 print("Ongoing Tournaments:")
                 print(format_tournament_table(tournaments))
+                print("Select tournament by ID")
                 print("b.Back \nq.Quit")
             else:
                 print("There are no ongoing tournaments")
@@ -140,6 +144,7 @@ class UserUI:
                 print(f"{match}")
 
             print("")
+            
             print("b. Back")
             print("q. Quit")
 
