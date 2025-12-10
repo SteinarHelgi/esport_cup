@@ -452,10 +452,10 @@ class TeamCaptainUI:
             return "TEAM_CAPTAIN_MENU"
         # try except for validation here
         team = self.menu_manager.team_name
-        new_team = Team(
-            team_name,
-            captain_handle,
-            social_media,
-            team_logo,
-        )
+        #new_team = Team(
+           # team_name,
+           # captain_handle,
+           # social_media,
+           # team_logo,
+        #)
         pass
