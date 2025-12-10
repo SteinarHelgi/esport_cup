@@ -1,6 +1,7 @@
 """This is the page where everything related to the users UI is shown"""
 
 from LL.api_ll import APILL
+from Models.player import Player
 from Models.tournament import Tournament
 from UI.functions import format_player_list, format_tournament_table
 from Models.models import Team
@@ -16,6 +17,7 @@ class UserUI:
 
     def show_teams(self):
         """Shows teams that exist within the software"""
+        print("ALL_TEAMS")
         teams = self.APILL.get_all_teams()
         teams[0]._print_header()
         for index, team in enumerate(teams):
@@ -30,7 +32,8 @@ class UserUI:
         choice: str = self.menu_manager.prompt_choice(valid_choices + ["b", "q"])
 
         if choice in valid_choices:
-            return self.show_players(teams[int(choice) - 1])
+            self.menu_manager.team_to_view = teams[int(choice) - 1]
+            return "PLAYERS"
 
         if choice.lower() == "b":
             if self.menu_manager.user == "USER":
@@ -41,6 +44,74 @@ class UserUI:
                 return "ORGANISER_MENU"
 
         return "QUIT"
+
+    def show_player_view(self, player: Player):
+        """takes in a player name and shows the menu for the player"""
+
+        refresh_logo()
+        print("PLAYER_VIEW")
+        if player:
+            print(f"{player.name.upper()}  |  {player.handle} ")
+            print("-" * len(f"    SOCIAL MEDIA: {player.social_media}"))
+
+            print(f"    DATE OF BIRTH: {player.date_of_birth}")
+            print(f"    ADDRESS: {player.address}")
+            print(f"    PHONE: {player.phone_number}")
+            print(f"    EMAIL: {player.email}")
+            print(f"    HANDLE: {player.handle}")
+            print(f"    SOCIAL MEDIA: {player.social_media}")
+            print(f"    TEAM: {player.team_name}")
+            print("-" * len(f"    SOCIAL MEDIA: {player.social_media}"))
+
+            print("")
+            valid_choices = []
+            if self.menu_manager.user == "TEAM_CAPTAIN":
+                print("1. Edit player data")
+                valid_choices = ["1"]
+
+            print("")
+            print("b. Back")
+            print("q. Quit")
+
+            choice: str = self.menu_manager.prompt_choice(valid_choices + ["b", "q"])
+
+            if choice == "1" and self.menu_manager.user == "TEAM_CAPTAIN":
+                # Modify player menuið
+                return self.menu_manager.team_captain_ui.show_modify_player_menu(player)
+            if choice == "b":
+                return "PLAYERS"
+
+            if choice == "q":
+                return "QUIT"
+
+    def show_players(self):
+        """Shows a list of players when you select a team"""
+        refresh_logo()
+        print("PLAYRS")
+        team = self.menu_manager.team_to_view
+        print(team.my_team_header())
+        players = self.APILL.get_players_in_team(team.name)
+        for index, player in enumerate(players):
+            player.format_row(index + 1)
+        if self.menu_manager.user == "ORGANISER":
+            valid_options = []
+        if self.menu_manager.user == "TEAM_CAPTAIN":
+            valid_options = ["6", "7"]
+        else:
+            valid_options = []
+
+        print("")
+        print("\nb.Back\nq.Quit")
+        choice: str = self.menu_manager.prompt_choice(valid_options + ["b", "q"])
+        for element in valid_options:
+            if element == choice:
+                player = self.show_player_view(players[int(element) - 1])
+                return player
+
+        if choice.lower() == "q":
+            return "QUIT"
+        if choice.lower() == "b":
+            return "TEAMS"
 
     def show_tournaments(self):
         """Prints tournaments according to user choice and time of choosing"""
@@ -151,25 +222,6 @@ class UserUI:
         choice: str = self.menu_manager.prompt_choice(["b", "q"])
         if choice == "b":
             return self.show_tournaments_calling_function(time)
-
-    def show_players(self, team: Team):
-        """Shows a list of players when you select a team"""
-        refresh_logo()
-        print(team.my_team_header())
-        players = self.APILL.get_players_in_team(team.name)
-        for index, player in enumerate(players):
-            player.format_row(index + 1)
-        if self.menu_manager.user == "USER":
-            valid_options = ["q", "b"]
-        if self.menu_manager.user == "ORGANISER":
-            valid_options
-        print("\nb.Back\nq.Quit")
-        choice: str = self.menu_manager.prompt_choice(valid_options)
-
-        if choice.lower() == "q":
-            return "QUIT"
-        if choice.lower() == "b":
-            return "TEAMS"
 
     def show_statistics(self):
         # TODO

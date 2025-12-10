@@ -1,5 +1,6 @@
 import os
 from LL.api_ll import APILL
+from Models.team import Team
 from UI.ui_functions import refresh_logo
 from UI.user_ui import UserUI
 from UI.team_captain_ui import TeamCaptainUI
@@ -16,6 +17,7 @@ class MenuManager:
         self.organiser_Ui = OrganiserUI(self.api_ll, self)
         self.user = ""
         self.team_name = ""
+        self.team_to_view: Team
 
         self.pages = {
             "LOGIN_MENU": self.print_login_menu,
@@ -43,8 +45,6 @@ class MenuManager:
             "EDIT_LOGO": self.team_captain_ui.show_edit_logo,
             # "EDIT_TEAM_INFO":
             # ORGANISER MENUS
-            "TEAMS_ORG": self.organiser_Ui.show_teams_org,
-            "SHOW_PLAYERS_IN_TEAM_ORG": self.organiser_Ui.show_players_in_team_org,
             "ORGANISER_MENU": self.print_organiser_menu,
             "CREATE_TOURNAMENT_MENU": self.organiser_Ui.show_create_tournament,
             "MY_TOURNAMENTS_ORG": self.organiser_Ui.show_my_tournaments,
@@ -72,7 +72,7 @@ class MenuManager:
             )
             print(formatted)
 
-    def print_login_menu(self):  
+    def print_login_menu(self):
         """Menu for logging in depending on who the user is at the time"""
         print("___ LOGIN ___")
         print("1. continue as user \n2. Login as Team Captain \n3. Login as Organiser")
@@ -99,7 +99,7 @@ class MenuManager:
 
             print(f"Handle: {username}\nConfirm(Y/N)? ")
             found_name = False
-            
+
             for team in teams:
                 if team.captain_handle == username:
                     choice: str = self.prompt_choice(["y", "n"])
@@ -110,7 +110,7 @@ class MenuManager:
                         return "TEAM_CAPTAIN_MENU"
                     else:
                         return "LOGIN_MENU"
-            
+
             # If the username is not found
             if not found_name:
                 print("Invalid username, press enter to try again or q to quit: ")
@@ -120,7 +120,6 @@ class MenuManager:
                     continue  # Loop again to prompt for the username
                 if choice == "q":
                     return "QUIT"
-
 
     def login_credentials_menu_org(self):
         """Logging in as an organiser, not yet implemented"""
@@ -176,7 +175,7 @@ class MenuManager:
         )
         choice: str = self.prompt_choice(["1", "2", "3", "4", "b", "q"])
         if choice == "1":
-            return "TEAMS_ORG"
+            return "TEAMS"
         if choice == "2":
             return "TOURNAMENTS"
         if choice == "3":

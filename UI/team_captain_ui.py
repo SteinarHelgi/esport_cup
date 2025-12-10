@@ -370,7 +370,13 @@ class TeamCaptainUI:
             print("-" * len(f"    SOCIAL MEDIA: {player.social_media}"))
 
             print("")
-            print("1. Edit player data")
+            valid_choices = []
+            if self.menu_manager.user == "TEAM_CAPTAIN":
+                print("1. Edit player data")
+                print("2. Hurt player emotionally")
+                valid_choices = ["1", "2"]
+
+            print("")
             print("b. Back")
             print("q. Quit")
 
@@ -379,8 +385,11 @@ class TeamCaptainUI:
             if choice == "1":
                 # Modify player menuið
                 return self.show_modify_player_menu(player)
-            if choice == "b":
+            if choice == "b" and self.menu_manager.user == "TEAM_CAPTAIN":
                 return "SHOW_MY_PLAYERS"
+            if choice == "b" and self.menu_manager.user == "ORGANISER":
+                return "SHOW_"
+
             if choice == "q":
                 return "QUIT"
 
