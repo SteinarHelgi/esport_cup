@@ -40,6 +40,7 @@ class Errors(Enum):
     TEAM_CAPTAIN_NOT_EXISTS = auto()
     PLAYERS_NOT_ENOUGH = auto()
     PLAYERS_TOO_MANY = auto()
+    TEAM_NAME_TAKEN = auto()
 
     OK = auto()
 
@@ -168,6 +169,12 @@ def validate_team_name(name: str, api_data:APIDATA) -> Errors:
     players_in_team = [ p for p in current_players if p.team_name == name]
     if len(players_in_team) >= MAX_PLAYERS:
         Errors.TOO_MANY_PLAYERS
+
+    current_teams = api_data.get_all_team_data()
+
+    for t in current_teams:
+        if t.name == name:
+            return Errors.TEAM_NAME_TAKEN
 
     return Errors.OK
 

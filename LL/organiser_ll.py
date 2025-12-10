@@ -13,31 +13,27 @@ VALID_TEAM_COUNT = 16
 
 class OrganiserLL:
     def __init__(self, api_data: APIDATA) -> None:
+        """Initializes the OrganiserLL logic layer"""
         self.api_data = api_data
 
     def create_tournament(self, tournament: Tournament) -> Tournament | None:
+        """Create a new tournament, assigns the next available ID and stores it."""
         if tournament.end_date < tournament.start_date:
             raise
 
         all_tournaments = self.api_data.get_all_tournament_data()
 
-        """ notað til að búa til tournament id """
         if all_tournaments:
             next_id = max(int(tournament.id) for tournament in all_tournaments) + 1
-
         else:
             next_id = 1
-
+            
         tournament.set_id(next_id)
-
-        # TODO
-        # mögulegar aðrar reglur ( t.d. start date ekki í fortíð)
-
         stored = self.api_data.store_tournament_data(tournament)
-
         return stored
 
     def get_tournament_by_name(self, tournament_name) -> Tournament | None:
+        """Looks up a tournament by its name and attaches its matches."""
         tournaments = self.api_data.get_all_tournament_data()
         matches = self.api_data.get_all_match_data()
         for tournament in tournaments:
