@@ -88,7 +88,7 @@ class APIDATA:
         self, match_id: str, home_score: int, away_score: int, completed_match: str
     ):
         return self.match_data.register_match_results(
-            match_id, home_score, away_score, completed_match
+            match_id, winner_name, completed_match
         )
 
     def modify_team_data(self, team: Team) -> Team | None:
