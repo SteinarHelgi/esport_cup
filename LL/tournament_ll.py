@@ -1,7 +1,6 @@
 import random
 from IO.api_data import APIDATA
 from datetime import datetime
-from Models import contact_person
 from Models.models import (
     Tournament,
     ContactPerson,
@@ -75,6 +74,15 @@ class TournamentLL:
 
                 return tournament
 
+    def get_all_matches_by_type(
+        self, tournament: Tournament, type_of_round: str
+    ) -> list[Match]:
+        matches = []
+        for match in tournament.matches:
+            if str(match.round) == type_of_round:
+                matches.append(match)
+        return matches
+
     def get_all_tournaments_for_captain(self, captain: TeamCaptain) -> list[Tournament]:
         """Returns all tournaments that the captain's team is registered for."""
         tournaments_for_captain = []
@@ -97,6 +105,30 @@ class TournamentLL:
                             tournaments_for_captain.append(tournament)
 
         return tournaments_for_captain
+
+    def get_teams_not_in_round(self, tournament):
+        teams_in_tournament = self.get_teams_in_tournament(tournament)
+        if len(tournament.matches) < 8:
+            round = "R16"
+        elif len(tournament.matches) < 12:
+            round = "QF"
+        elif len(tournament.matches) < 14:
+            round = "SF"
+        else:
+            round = "Final"
+        matches = self.get_all_matches_by_type(tournament, round)
+        teams_not_in_round = []
+
+        for team in teams_in_tournament:
+            in_match = False  # assume not in a match
+            for match in matches:
+                if match.team_a_name == team.name or match.team_b_name == team.name:
+                    in_match = True
+                    break  # no need to check more matches
+
+            if not in_match:
+                teams_not_in_round.append(team)
+        return teams_not_in_round
 
     def get_teams_in_tournament(self, tournament: Tournament) -> list[Team]:
         """Returns all teams that are registered to the given tournament."""
