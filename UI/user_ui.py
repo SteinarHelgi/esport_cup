@@ -3,8 +3,7 @@
 from LL.api_ll import APILL
 from Models.player import Player
 from Models.tournament import Tournament
-from UI.functions import format_player_list, format_tournament_table
-from Models.models import Team
+from UI.functions import format_tournament_table
 from UI.ui_functions import refresh_logo
 
 
@@ -212,7 +211,7 @@ class UserUI:
                 print(f"{match}")
 
             print("")
-            
+
             print("b. Back")
             print("q. Quit")
 
