@@ -236,7 +236,7 @@ def validate_tournament_end_date(start_date, end_date) -> Errors:
     except ValueError:
         return Errors.DATE_FORMAT_NOT_VALID
 
-    if end_date_iso < date.fromisoformat(start_date):
+    if end_date_iso <= date.fromisoformat(start_date):
         return Errors.END_DATE_BEFORE_START
     return Errors.OK
 
