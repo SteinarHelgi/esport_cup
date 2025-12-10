@@ -425,13 +425,16 @@ class OrganiserUI:
         refresh_logo()
         team = self.team_to_view
         if team != "":
+            print(team.my_team_header())
+            print("")
             players = self.APILL.get_players_in_team(team.name)
             valid_choices = []
-            print(format_player_list(players))
+            for index, player in enumerate(players):
+                player.format_row(index + 1)
+                stringI = str(index + 1)
+                if self.menu_manager.user != "USER":
+                    valid_choices.append(stringI)
             print("b. Back \nq.Quit")
-            for i in range(len(players)):
-                stringI = str(i + 1)
-                valid_choices.append(stringI)
             choice: str = self.menu_manager.prompt_choice(valid_choices + ["b", "q"])
 
             for element in valid_choices:

@@ -2,7 +2,7 @@
 
 from LL.api_ll import APILL
 from Models.tournament import Tournament
-from UI.functions import format_player_list, format_team_list, format_tournament_table
+from UI.functions import format_player_list, format_tournament_table
 from Models.models import Team
 from UI.ui_functions import refresh_logo
 
@@ -17,15 +17,15 @@ class UserUI:
     def show_teams(self):
         """Shows teams that exist within the software"""
         teams = self.APILL.get_all_teams()
-        print(format_team_list(teams))
-        #for team in teams:
-            #print(team)
-        print("Select team by ID")
+        teams[0]._print_header()
+        for index, team in enumerate(teams):
+            team.format_row(index + 1)
+            team._print_divider_line()
         print("\nb.Back \nq.Quit")
 
         valid_choices = []
         for counter, team in enumerate(teams):
-            valid_choices.append(str(counter))
+            valid_choices.append(str(counter + 1))
 
         choice: str = self.menu_manager.prompt_choice(valid_choices + ["b", "q"])
 
@@ -155,13 +155,17 @@ class UserUI:
     def show_players(self, team: Team):
         """Shows a list of players when you select a team"""
         refresh_logo()
+        print(team.my_team_header())
         players = self.APILL.get_players_in_team(team.name)
-        print(team.name, team.social_media, team.logo)
-        print(format_player_list(players))
-
-        valid_options = ["q", "b"]
-        print("b.Back, q.Quit")
+        for index, player in enumerate(players):
+            player.format_row(index + 1)
+        if self.menu_manager.user == "USER":
+            valid_options = ["q", "b"]
+        if self.menu_manager.user == "ORGANISER":
+            valid_options
+        print("\nb.Back\nq.Quit")
         choice: str = self.menu_manager.prompt_choice(valid_options)
+
         if choice.lower() == "q":
             return "QUIT"
         if choice.lower() == "b":

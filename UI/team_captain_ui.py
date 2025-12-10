@@ -2,7 +2,18 @@ from datetime import date
 from pickle import EMPTY_TUPLE
 from wsgiref import validate
 from LL.api_ll import APILL
-from LL.validators_ll import validate_address, validate_date_of_birth, validate_phone_number, validate_player_email, validate_player_handle, validate_player_name, Errors, validate_players_in_teams, validate_social_media, validate_team_logo, validate_team_name
+from LL.validators_ll import (
+    validate_address,
+    validate_date_of_birth,
+    validate_phone_number,
+    validate_player_email,
+    validate_player_handle,
+    validate_player_name,
+    Errors,
+    validate_social_media,
+    validate_team_logo,
+    validate_team_name,
+)
 from Models.player import Player
 from Models.team import Team
 from Models.team_captain import TeamCaptain
@@ -18,9 +29,9 @@ class TeamCaptainUI:
     def show_create_player(self):
         """Creating a player with the required information"""
         name = input("Player's name: ").strip()
-        if name.lower() == 'b':
+        if name.lower() == "b":
             return "SHOW_MY_PLAYERS"
-        if name.lower() == 'q':
+        if name.lower() == "q":
             return "QUIT"
         while validate_player_name(name) != Errors.OK:
             error = validate_player_name(name)
@@ -32,9 +43,9 @@ class TeamCaptainUI:
 
         date_of_birth = input("Player's birthday (YYYY-MM-DD): ").strip()
         if date_of_birth.lower() == "b":
-                return "MY_TEAM"
+            return "MY_TEAM"
         if date_of_birth.lower() == "q":
-                return "QUIT"
+            return "QUIT"
         while validate_date_of_birth(date_of_birth) != Errors.OK:
             error = validate_date_of_birth(date_of_birth)
             if error == Errors.DATE_NOT_VALID:
@@ -42,7 +53,7 @@ class TeamCaptainUI:
             if error == Errors.DATE_TOO_OLD:
                 print("Invalid date, choose a date after 1900")
             date_of_birth = input("Player's birthday (YYYY-MM-DD): ").strip()
-            
+
         address = input("Enter address: ").strip()
         if address.lower() == "b":
             return "MY_TEAM"
@@ -310,13 +321,19 @@ class TeamCaptainUI:
     def show_my_players(self):
         """shows players that are on the team captains team"""
         # TODO laga útlit
+        team = self.APILL.get_team_by_name(self.menu_manager.team_name)
         players = self.APILL.get_players_in_team(self.menu_manager.team_name)
         valid_choices = []
-        print(f.format_player_list(players))
-        print("6. Add player: \n7. Remove player \nb. Back \nq. Quit")
-        for i in range(len(players)):
+
+        if team:
+            print(team.my_team_header())
+
+        for i, player in enumerate(players):
+            player.format_row(i + 1)
             stringI = str(i + 1)
             valid_choices.append(stringI)
+        print("")
+        print("6. Add player: \n7. Remove player \nb. Back \nq.Quit")
         choice: str = self.menu_manager.prompt_choice(
             valid_choices + ["6", "7", "b", "q"]
         )
@@ -357,14 +374,15 @@ class TeamCaptainUI:
             print("b. Back")
             print("q. Quit")
 
-        choice: str = self.menu_manager.prompt_choice(["1", "2", "b", "q"])
-        if choice == "1":
-            # Modify player menuið
-            return self.show_modify_player_menu(player)
-        if choice == "b":
-            return "SHOW_MY_PLAYERS"
-        if choice == "q":
-            return "QUIT"
+            choice: str = self.menu_manager.prompt_choice(valid_choices + ["b", "q"])
+
+            if choice == "1":
+                # Modify player menuið
+                return self.show_modify_player_menu(player)
+            if choice == "b":
+                return "SHOW_MY_PLAYERS"
+            if choice == "q":
+                return "QUIT"
 
     def show_register_team_to_tournament(self, team, tournament):
         """Registration for tournament"""
@@ -444,7 +462,7 @@ class TeamCaptainUI:
         pass
 
     def show_add_team_to_club(self):
-        #TODO
+        # TODO
         pass
 
     def show_create_team(self):  # TODO Klára þetta
@@ -464,7 +482,7 @@ class TeamCaptainUI:
             if error == Errors.TEAM_NAME_TOO_LONG:
                 print("Team name is too many characters.")
                 team_name = input("Team name: ")
-        #New team captain
+        # New team captain
         social_media = input("Social media: ")
         if social_media.lower() == "b":
             return "TEAM_CAPTAIN_MENU"
@@ -488,10 +506,10 @@ class TeamCaptainUI:
                 print("Logo cannot be empty.")
                 team_logo = input("Input team logo in ASCII lettering: ")
         team = self.menu_manager.team_name
-        #new_team = Team(
-           # team_name,
-           # captain_handle,
-           # social_media,
-           # team_logo,
-        #)
+        # new_team = Team(
+        # team_name,
+        # captain_handle,
+        # social_media,
+        # team_logo,
+        # )
         pass
