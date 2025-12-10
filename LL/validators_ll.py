@@ -36,7 +36,6 @@ class Errors(Enum):
     COLOR_HAS_NUMBER = auto()
     CLUB_COUNTRY_HAS_NUMBER = auto()
     TOO_MANY_PLAYERS = auto()
-    SAME_HANDLE = auto()
 
     OK = auto()
 
@@ -121,6 +120,7 @@ def validate_player_handle(player_handle, api_data:APIDATA):
         
     return Errors.OK
 
+
 def validate_social_media(social_media):
     socials = social_media.strip()
     if socials == "":
@@ -128,6 +128,8 @@ def validate_social_media(social_media):
     if socials == " ":
         return Errors.HANDLE_CONTAINS_SPACE
     return Errors.OK
+
+
 # -----------TEAM CAPTAIN VALIDATION-------------
 
 
@@ -170,12 +172,12 @@ def validation_team_handle(handle: str, api_data: APIDATA) -> Errors:
     # Captain handle
 
     if not handle or handle.strip() == "":
-        raise ValueError("You must enter a team captain handle")
+        return Errors.EMPTY
 
     current_players = api_data.get_all_player_data()
 
     if not any(p.handle == handle for p in current_players):
-        raise ValueError("No team captain exists with that handle")
+        return Errors.TEAM_CAPTAIN_NOT_EXISTS
 
     return Errors.OK
 

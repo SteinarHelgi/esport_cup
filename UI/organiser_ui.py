@@ -265,7 +265,10 @@ class OrganiserUI:
         w_vs = 4
         w_completed = 10
         line_length = w_team + w_team + w_date + w_time + w_round + w_vs + w_completed
-        if tournament:
+        updated_tournament = self.APILL.get_tournament_by_id(tournament.id)
+
+        if updated_tournament:
+            tournament = updated_tournament
             print(
                 f"{tournament.name.upper()}  |  {tournament.start_date} -- {tournament.end_date} "
             )
@@ -286,6 +289,7 @@ class OrganiserUI:
             print(header)
             print("-" * len(header))
             valid_choices = []
+
             for counter, match in enumerate(tournament.matches):
                 valid_choices.append(str(counter + 1))
                 print(f"{counter}. {match}")
@@ -347,9 +351,13 @@ class OrganiserUI:
 
         time = input("Time (HH:MM): ")
         match = Match(tournament.id, round, team1.name, team2.name, date, time)
-        print(match)
 
-        match = self.APILL.create_match(match)
+        print("Confirm ? (Y/N)")
+        choice: str = self.menu_manager.prompt_choice(["y", "n"])
+        if choice == "y":
+            match = self.APILL.create_match(match)
+        if choice == "n":
+            pass
 
         return self.show_tournament_view(tournament)
 
