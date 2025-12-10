@@ -10,6 +10,7 @@ from Models.models import (
     Match,
 )
 
+VALID_TEAM_COUNT = 16
 
 class TournamentLL:
     def __init__(self, api_data: APIDATA, main_ll):
@@ -177,6 +178,14 @@ class TournamentLL:
     def delete_tournament(self, tournament_id: str) -> None:
         """Deletes the tournament with the given ID from the data storage."""
         self.APIDATA.delete_tournament_data(tournament_id)
+    
+    def cancel_tournament_if_not_enough_teams(self, tournament: Tournament) -> None:
+        """Cancels the tournament if the number of registered teams is below VALID_TEAM_COUNT"""
+        teams_in_tournament = self.get_all_teams_on_tournament(tournament.id)
+        num_teams = len(teams_in_tournament)
+
+        if num_teams < VALID_TEAM_COUNT:
+            self.delete_tournament(tournament.id)
 
     def create_match(self, match: Match) -> Match | None:
         """Creates a new match, assigns ID and match number, and stores it."""
