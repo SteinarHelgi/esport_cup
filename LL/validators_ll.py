@@ -176,10 +176,10 @@ def validate_team_players(players: list[str]) -> None:
 
 def validate_team_points(points: str) -> Errors:
     # Points
-    if points is None:
-        Errors.POINTS_EMPTY
+    if points == "":
+        return Errors.EMPTY
     elif int(points) < 0:
-        Errors.POINTS_NEGATIVE
+        return Errors.POINTS_NEGATIVE
 
     return Errors.OK
 
@@ -342,4 +342,3 @@ def validate_club_country(country: str) -> Errors:
     if any(char.isdigit() for char in country):
         return Errors.CLUB_COUNTRY_HAS_NUMBER
     return Errors.OK
-
