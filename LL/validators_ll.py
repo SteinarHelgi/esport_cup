@@ -37,6 +37,7 @@ class Errors(Enum):
     COLOR_HAS_NUMBER = auto()
     CLUB_COUNTRY_HAS_NUMBER = auto()
     TOO_MANY_PLAYERS = auto()
+    SAME_HANDLE = auto()
     TEAM_CAPTAIN_NOT_EXISTS = auto()
     NOT_CORRECT_FORMAT = auto()
     OK = auto()
@@ -105,7 +106,7 @@ def validate_player_email(player_email):
     return Errors.OK
 
 
-def validate_player_handle(player_handle):
+def validate_player_handle(player_handle, api_data:APIDATA):
     handle = player_handle.strip()
 
     if handle == "":
@@ -113,6 +114,13 @@ def validate_player_handle(player_handle):
 
     if " " in handle:
         return Errors.HANDLE_CONTAINS_SPACE
+    
+    current_players = api_data.get_all_player_data()
+
+    for p in current_players:
+        if p.handle == handle:
+            Errors.SAME_HANDLE
+        
     return Errors.OK
 
 
@@ -143,6 +151,7 @@ def validate_team_captain(handle: str, api_data: APIDATA) -> Errors:
 
 # -------------TEAM VALIDATION---------------
 
+MAX_PLAYERS = 5
 
 def validate_team_name(name: str, api_data:APIDATA) -> Errors:
     # Name
@@ -156,7 +165,7 @@ def validate_team_name(name: str, api_data:APIDATA) -> Errors:
     current_players = api_data.get_all_player_data()
 
     players_in_team = [ p for p in current_players if p.team_name == name]
-    if len(players_in_team) >= 5:
+    if len(players_in_team) >= MAX_PLAYERS:
         Errors.TOO_MANY_PLAYERS
 
     return Errors.OK
@@ -228,7 +237,7 @@ def validate_tournament_end_date(start_date, end_date) -> Errors:
     except ValueError:
         return Errors.DATE_FORMAT_NOT_VALID
 
-    if end_date_iso < date.fromisoformat(start_date):
+    if end_date_iso <= date.fromisoformat(start_date):
         return Errors.END_DATE_BEFORE_START
     return Errors.OK
 
