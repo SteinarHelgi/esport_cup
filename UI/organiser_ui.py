@@ -336,12 +336,22 @@ class OrganiserUI:
         print("Which teams are competing in this match?")
         print("")
         valid_choices = []
-        teams_not_in_round[0]._print_header()
-        teams_not_in_round[0]._print_divider_line()
-        for counter, team in enumerate(teams_not_in_round):
-            team.format_row(counter)
-            valid_choices.append(str(counter))
-            team._print_divider_line()
+        if teams_not_in_round:
+            teams_not_in_round[0]._print_header()
+            teams_not_in_round[0]._print_divider_line()
+            for counter, team in enumerate(teams_not_in_round):
+                team.format_row(counter)
+                valid_choices.append(str(counter))
+                team._print_divider_line()
+        else:
+            print("No teams have registered for this tournament")
+            print("b. Back\nq. Quit")
+            choice: str = self.menu_manager.prompt_choice(["b", "q"])
+            if choice == "b":
+                return "MY_TOURNAMENTS_ORG"
+            if choice == "q":
+                return "QUIT"
+
         print("")
         print("Round type ", round)
         print("Select team 1:", end="")
