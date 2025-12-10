@@ -192,11 +192,6 @@ def validate_team_logo(logo: str) -> Errors:
         return Errors.EMPTY
     return Errors.OK
 
-
-def validate_team_players(players: list[str]) -> None:
-    pass
-
-
 def validate_team_points(points: str) -> Errors:
     # Points
     if points == "":
