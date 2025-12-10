@@ -54,7 +54,7 @@ class TeamLL:
                 raise ValueError()
 
         # Find next player id
-        nums = [
+        nums = [        
             int(p.id[1:])
             for p in current_players
             if p.id.startswith(("p", "P")) and p.id[1:].isdigit

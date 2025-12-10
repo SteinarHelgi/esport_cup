@@ -431,7 +431,7 @@ class TeamCaptainUI:
         pass
 
     def show_add_team_to_club(self):
-        # TODO b krafa
+        #TODO
         pass
 
     def show_create_team(self):  # TODO Klára þetta
