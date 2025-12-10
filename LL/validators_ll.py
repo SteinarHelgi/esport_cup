@@ -111,7 +111,7 @@ def validate_player_email(player_email):
 
     if email.count("@") != 1:
         return Errors.EMAIL_NOT_CONTAINING_AT
-    return player_email
+    return Errors.OK
 
 
 def validate_player_handle(player_handle, api_data:APIDATA):
