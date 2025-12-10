@@ -16,12 +16,14 @@ class UserUI:
 
     def show_teams(self):
         """Shows teams that exist within the software"""
-        print("ALL_TEAMS")
         teams = self.APILL.get_all_teams()
         teams[0]._print_header()
+        teams[0]._print_divider_line()
         for index, team in enumerate(teams):
             team.format_row(index + 1)
             team._print_divider_line()
+        print("Select a team by ID")
+        print("")
         print("\nb.Back \nq.Quit")
 
         valid_choices = []
@@ -48,7 +50,6 @@ class UserUI:
         """takes in a player name and shows the menu for the player"""
 
         refresh_logo()
-        print("PLAYER_VIEW")
         if player:
             print(f"{player.name.upper()}  |  {player.handle} ")
             print("-" * len(f"    SOCIAL MEDIA: {player.social_media}"))
@@ -86,7 +87,6 @@ class UserUI:
     def show_players(self):
         """Shows a list of players when you select a team"""
         refresh_logo()
-        print("PLAYRS")
         team = self.menu_manager.team_to_view
         print(team.my_team_header())
         players = self.APILL.get_players_in_team(team.name)

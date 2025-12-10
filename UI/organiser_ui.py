@@ -7,8 +7,9 @@ from Models.contact_person import ContactPerson
 from Models.models import Match, Player, Team, Tournament
 from UI.functions import format_player_list, format_team_list, format_tournament_table
 from UI.ui_functions import refresh_logo
-from LL.validators_ll import (
-    Errors,
+from LL.validators_ll import (Errors,
+    validate_match_date,
+    validate_match_time,
     validate_phone_number,
     validate_player_email,
     validate_player_name,
@@ -18,8 +19,8 @@ from LL.validators_ll import (
     validate_tournament_name,
     validate_tournament_servers,
     validate_tournament_start_date,
-    validate_tournament_venue,
-)
+    validate_tournament_venue)
+
 
 
 class OrganiserUI:
@@ -234,10 +235,7 @@ class OrganiserUI:
         for i, tournament in enumerate(tournaments):
             string_i = str(i + 1)
             valid_choices.append(string_i)
-            print("tournaments: ", tournament.matches)
 
-        print("MY_TOURNAMENTS_ORG")
-        print("")
         print(format_tournament_table(tournaments))
 
         print("Select a tournament with their respected id or: \nb. Back \nq. Quit")
@@ -332,13 +330,18 @@ class OrganiserUI:
             team.format_row(counter)
             valid_choices.append(str(counter))
             team._print_divider_line()
-        print("Select team 1:")
+        print("Select team 1:", end="")
+
         choice: str = self.menu_manager.prompt_choice(valid_choices)
         team1 = teams_in_tournament[int(choice)]
+        if choice in valid_choices:
+            print(team1.name, "as Team 1")
 
-        print("Select team 2:")
+        print("Select team 2:", end="")
         choice: str = self.menu_manager.prompt_choice(valid_choices)
         team2 = teams_in_tournament[int(choice)]
+        if choice in valid_choices:
+            print(team2.name, "as Team 2")
 
         print("")
         print("Select a round type:")
@@ -352,8 +355,32 @@ class OrganiserUI:
         choice: str = self.menu_manager.prompt_choice(valid_choices)
         round = rounds[int(choice)]
         date = input("Date (YYYY-MM-DD): ")
+        while (
+            validate_match_date(date, tournament.start_date, tournament.end_date)
+            != Errors.OK
+        ):
+            print("Date not in tournament")
+            date = input("Date (YYYY-MM-DD): ")
 
         time = input("Time (HH:MM): ")
+        error = validate_match_time(time)
+        timeslots = [
+            "08:00",
+            "10:00",
+            "12:00",
+            "14:00",
+            "16:00",
+            "18:00",
+            "20:00",
+        ]
+
+        while error != Errors.OK:
+            if error == Errors.TIME_NOT_IN_TIMESLOT:
+                print("Choose a time in time slot:")
+                print("Timeslots : ", *timeslots)
+            time = input("Time (HH:MM): ")
+            error = validate_match_time(time)
+
         match = Match(tournament.id, round, team1.name, team2.name, date, time)
 
         print("Confirm ? (Y/N)")

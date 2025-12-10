@@ -40,8 +40,8 @@ class Errors(Enum):
     TEAM_CAPTAIN_NOT_EXISTS = auto()
     PLAYERS_NOT_ENOUGH = auto()
     PLAYERS_TOO_MANY = auto()
-    TEAM_NAME_TAKEN = auto()
-
+    DATE_NOT_IN_TOURNAMENT_DATE = auto()
+    TIME_NOT_IN_TIMESLOT = auto()
     OK = auto()
 
 
@@ -200,10 +200,6 @@ def validate_team_logo(logo: str) -> Errors:
     return Errors.OK
 
 
-def validate_team_players(players: list[str]) -> None:
-    pass
-
-
 def validate_team_points(points: str) -> Errors:
     # Points
     if points == "":
@@ -308,6 +304,25 @@ def validate_match_round(round_name: str, matches_in_round: list) -> Errors:
 
     if actual != expected:
         return Errors.TOO_MANY_GAMES_IN_ROUND
+    return Errors.OK
+
+
+def validate_match_date(
+    date_input: str, tournament_start_date: datetime, tournament_end_date: datetime
+) -> Errors:
+    try:
+        date_input_iso = datetime.fromisoformat(date_input)
+    except ValueError:
+        return Errors.DATE_FORMAT_NOT_VALID
+    if tournament_start_date > date_input_iso < tournament_end_date:
+        return Errors.DATE_NOT_IN_TOURNAMENT_DATE
+    return Errors.OK
+
+
+def validate_match_time(time_input: str):
+    time_slots = ["08:00", "10:00", "12:00", "14:00", "16:00", "18:00", "20:00"]
+    if time_input not in time_slots:
+        return Errors.TIME_NOT_IN_TIMESLOT
     return Errors.OK
 
 
