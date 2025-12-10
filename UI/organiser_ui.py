@@ -7,7 +7,8 @@ from Models.contact_person import ContactPerson
 from Models.models import Match, Player, Team, Tournament
 from UI.functions import format_player_list, format_team_list, format_tournament_table
 from UI.ui_functions import refresh_logo
-from LL.validators_ll import (Errors,
+from LL.validators_ll import (
+    Errors,
     validate_match_date,
     validate_match_time,
     validate_phone_number,
@@ -19,8 +20,8 @@ from LL.validators_ll import (Errors,
     validate_tournament_name,
     validate_tournament_servers,
     validate_tournament_start_date,
-    validate_tournament_venue)
-
+    validate_tournament_venue,
+)
 
 
 class OrganiserUI:
@@ -294,7 +295,7 @@ class OrganiserUI:
             print(" ")
             print("c. Create new match \nd. Delete tournament \nb. Back \nq. Quit")
             choice: str = self.menu_manager.prompt_choice(
-                valid_choices + ["c","d", "b", "q"]
+                valid_choices + ["c", "d", "b", "q"]
             )
             if choice in valid_choices:
                 return self.show_register_results(tournament.matches[int(choice) - 1])
@@ -314,7 +315,6 @@ class OrganiserUI:
                         return "QUIT"
             if choice == "d":
                 return self.show_delete_tournament(tournament)
-
 
             if choice == "b":
                 return "MY_TOURNAMENTS_ORG"
@@ -396,45 +396,39 @@ class OrganiserUI:
         return self.show_tournament_view(tournament)
 
     def show_register_results(self, match: Match):
-        """Registering results of a match, chooses a winner and marks match as completed"""
-        print(f"Registering result for match: {match.team_a_name} vs {match.team_b_name}")
-        print("Which team won the match?")
+        """Registering results of a match, chooses a winner and turns match completed to True"""
+        print("Which team won the match? ")
         print(f"1. {match.team_a_name}")
         print(f"2. {match.team_b_name}")
-        
-        winner = input("1 or 2, b to back and q to quit: ")
+        winner = input("1 or 2, b to back and q to quit")
+        if winner == "1":
+            match.set_winner(match.team_a_name, True)
+            self.APILL.register_match_result(
+                match.match_id,
+            )
+            print(f"{match.winner_team_name} has been set as the winner of this match")
+            choice: str = self.menu_manager.prompt_choice(["b", "q"])
+            print("b to back or q to quit")
+            if choice == "b":
+                return "MY_TOURNAMENTS_ORG"
+            if choice == "q":
+                return "QUIT"
 
+        if winner == "2":
+            match.set_winner(match.team_b_name, True)
+            print(f"{match.winner_team_name} has been set as the winner of this match")
+            print("b to back or q to quit")
+            choice: str = self.menu_manager.prompt_choice(["b", "q"])
+            if choice == "b":
+                return "MY_TOURNAMENTS_ORG"
+            if choice == "q":
+                return "QUIT"
         if winner == "b":
             return "MY_TOURNAMENTS_ORG"
         if winner == "q":
             return "QUIT"
-        
-        #pick winner
-        if winner == "1":
-            winner_name = match.team_a_name
-        elif winner == "2":
-            winner_name = match.team_b_name
-        else:
-            print("Invalid input.")
-            return
 
-        #set winner
-        match.set_winner(winner_name, "TRUE")
-        
-        
-        self.APILL.register_match_result(match.match_id, winner_name, "TRUE")
-        
-        print(f"{winner_name} has been set as the winner of this match.")
-
-        
-        choice = self.menu_manager.prompt_choice(["b", "q"])
-        if choice == "b":
-            return "MY_TOURNAMENTS_ORG"
-        if choice == "q":
-            return "QUIT"
-
-
-    def show_delete_tournament(self,tournament):
+    def show_delete_tournament(self, tournament):
         print(f"Are you sure you wish to delete {tournament.name}")
         confirm = input("Confirm(Y/N): ")
         if confirm.lower() == "y":
@@ -445,5 +439,3 @@ class OrganiserUI:
                 return "QUIT"
             else:
                 return "MY_TOURNAMENTS_ORG"
-
-
