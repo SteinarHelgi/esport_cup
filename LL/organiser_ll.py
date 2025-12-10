@@ -33,7 +33,7 @@ class OrganiserLL:
         return stored
 
     def get_tournament_by_name(self, tournament_name) -> Tournament | None:
-        """Looks up a tournament by its name and attaches its matches."""
+        """Returns the tournament with the given name and attaches its matches, or None if not found."""
         tournaments = self.api_data.get_all_tournament_data()
         matches = self.api_data.get_all_match_data()
         for tournament in tournaments:
@@ -45,10 +45,12 @@ class OrganiserLL:
                 return tournament
 
     def delete_tournament(self, tournament_id: str):
+        """Deletes the tournament with the given ID from the data storage."""
         self.api_data.delete_tournament_data(tournament_id)
 
     
     def cancel_tournament_if_not_enough_teams(self, tournament: Tournament) -> None:
+        """Cancels the tournament if the number of registered teams is below VALID_TEAM_COUNT"""
         teams_in_tournament = self.get_all_teams_on_tournament(tournament.id)
         num_teams = len(teams_in_tournament)
 
@@ -57,6 +59,7 @@ class OrganiserLL:
     
 
     def create_match(self, match: Match) -> Match | None:
+        """Creates a new match, assigns ID and match number, validates critereia and stores it."""
         round = match.round
 
         matches = self.api_data.get_all_match_data()
