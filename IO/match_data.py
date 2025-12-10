@@ -71,73 +71,48 @@ class MatchData:
     def register_match_results(
         self,
         match_id: str,
-        home_score: int,
-        away_score: int,
+        winner_name: str,
         completed_match: str,
         filepath: str = "Data/matches.csv",
     ) -> Match | None:
-        """Updates the results of a given match in the CSV file."""
+        """Updates the winner and completion status in the CSV, ignoring scores."""
         temp_data: list[list[str]] = []
-        target_id: str = match_id
+        found = False
 
-        # Creates a temporary data list
         try:
-            with open(filepath, "r", newline="") as file:
+            with open(filepath, "r", newline="", encoding="utf-8") as file:
                 reader = csv.reader(file)
-
-                header = next(reader)
+                
+                # Handle Header
+                header = next(reader, None)
                 if header:
                     temp_data.append(header)
 
-                # Read the rest of the rows
+                # Iterate through rows
                 for line in reader:
-                    if line[0] != target_id:
-                        temp_data.append(line)
-                    else:
-                        new_match_id: str = line[0]
-                        tournament_id: str = line[1]
-                        round: str = line[2]
-                        match_number: str = line[3]
-                        team_a_name: str = line[4]
-                        team_b_name: str = line[5]
-                        match_date: str = line[6]
-                        match_time: str = line[7]
-                        server_id: str = line[8]
-                        score_a: int = home_score
-                        score_b: int = away_score
-                        if home_score > away_score:
-                            winner_team_name: str = team_a_name
-                        else:
-                            winner_team_name: str = team_b_name
-                        completed: str = completed_match
-                        new_line = [
-                            match_id,
-                            tournament_id,
-                            round,
-                            match_number,
-                            team_a_name,
-                            team_b_name,
-                            match_date,
-                            match_time,
-                            server_id,
-                            score_a,
-                            score_b,
-                            winner_team_name,
-                            completed,
-                        ]
-                        temp_data.append(new_line)
+                    if not line:
+                        continue
+                    
+                    # Check if this is the target match
+                    if line[0] == match_id:
+                        # Update Winner (Index 11) and Completed (Index 12)
+                        # We leave Score A (Index 9) and Score B (Index 10) alone
+                        line[11] = winner_name
+                        line[12] = completed_match
+                        found = True
+                    
+                    temp_data.append(line)
 
         except FileNotFoundError:
-            exit()
+            return None
 
-        # Overwrites temporary datafile to csv file
+        if not found:
+            return None
+
+        # Write updated data back to CSV
         try:
             with open(filepath, "w", newline="", encoding="utf-8") as csvfile:
-                # Create a writer object
                 writer = csv.writer(csvfile)
-
-                # Iterate through the list of strings
-                for line in temp_data:
-                    writer.writerow(line)
+                writer.writerows(temp_data)
         except (OSError, csv.Error):
             return None

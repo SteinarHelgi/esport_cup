@@ -118,12 +118,12 @@ class APILL:
             target_tournament_id
         )
 
-    def register_match_result(
-        self, match_id: str, home_score: int, away_score: int, completed: str
-    ):
+    def register_match_result(self, match_id: str, winner_name: str, completed: str):
         return self.main_ll.tournament_ll.register_match_result(
-            match_id, home_score, away_score, completed
+            match_id, winner_name, completed
         )
+
+
 
     def get_tournament_by_name(self, tournament_name) -> Tournament | None:
         return self.main_ll.tournament_ll.get_tournament_by_name(tournament_name)

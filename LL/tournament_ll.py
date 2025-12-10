@@ -317,10 +317,9 @@ class TournamentLL:
                 return self.get_contact_person_by_id(contact_person_id)
         return None
 
-    def register_match_result(
-        self, match_id: str, home_score: int, away_score: int, completed: str
-    ):
-        self.APIDATA.register_match_results(match_id, home_score, away_score, completed)
+    def register_match_result(self, match_id: str, winner_name: str, completed: str):
+        self.APIDATA.register_match_results(match_id, winner_name, completed)
+
 
     def give_player_points(self, handle: str, points: int):
         self.APIDATA.give_player_points(handle, points)
