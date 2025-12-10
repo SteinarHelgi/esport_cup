@@ -21,34 +21,18 @@ team_id,tournament_id, team_name, tournament_name
 2,24,NullPointer Ninjas,Teresa's Tournament
 5,23,Chuck Norris Fan Club,NOWAYHOME 2025
 1,28,SegFault Spartans,RU Open
-
 2,28,NullPointer Ninjas,RU Open
-
 3,28,OffByOne Offense,RU Open
-
 4,28,Pepsi Max Punishers,RU Open
-
 5,28,Chuck Norris Fan Club,RU Open
-
 6,28,IndentationError Invaders,RU Open
-
 7,28,Assembly Avengers,RU Open
-
 8,28,Datalab Dominators,RU Open
-
 9,28,Bomblab Bombers,RU Open
-
 10,28,StackOverflow Stackers,RU Open
-
 11,28,CacheHit Crusaders,RU Open
-
 13,28,Segmentation Foul,RU Open
-
-
-
+14,28,RaceCondition Racers,RU Open
 15,28,Undefined Behavior United,RU Open
-
 16,28,Pepsi Max Overflow,RU Open
-
 12,28,WhileTrue Tryhards,RU Open
-
