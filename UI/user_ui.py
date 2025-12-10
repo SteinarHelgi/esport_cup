@@ -91,20 +91,17 @@ class UserUI:
         team = self.menu_manager.team_to_view
         print(team.my_team_header())
         players = self.APILL.get_players_in_team(team.name)
+        valid_options = []
         for index, player in enumerate(players):
             player.format_row(index + 1)
-        if self.menu_manager.user == "ORGANISER":
-            valid_options = []
-        if self.menu_manager.user == "TEAM_CAPTAIN":
-            valid_options = ["6", "7"]
-        else:
-            valid_options = []
+            if self.menu_manager.user == "ORGANISER":
+                valid_options.append(str(index + 1))
 
         print("")
         print("\nb.Back\nq.Quit")
         choice: str = self.menu_manager.prompt_choice(valid_options + ["b", "q"])
         for element in valid_options:
-            if element == choice:
+            if element == choice and self.menu_manager.user == "ORGANISER":
                 player = self.show_player_view(players[int(element) - 1])
                 return player
 

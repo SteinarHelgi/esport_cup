@@ -306,6 +306,7 @@ class TeamCaptainUI:
             )
 
             choice: str = self.menu_manager.prompt_choice(["1", "2", "3", "b", "q"])
+
             if choice == "1":
                 return "ADD_TEAM_TO_CLUB"
             if choice == "2":
