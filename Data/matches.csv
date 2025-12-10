@@ -20,3 +20,4 @@ match_id,tournament_id,round,match_number,team_a_name,team_b_name,match_date,mat
 19,23,SF,3,WhileTrue Tryhards,Chuck Norris Fan Club,2025-12-11,12:00,,0,0,,False
 20,23,Final,2,WhileTrue Tryhards,Chuck Norris Fan Club,2025-12-11,14:00,,0,0,,False
 21,24,QF,6,WhileTrue Tryhards,NullPointer Ninjas,2025-12-15,14:00,,0,0,,False
+22,28,R16,11,SegFault Spartans,WhileTrue Tryhards,2026-01-06,08:00:00,,0,0,,False
