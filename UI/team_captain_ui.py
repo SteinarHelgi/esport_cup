@@ -527,6 +527,7 @@ class TeamCaptainUI:
 
 
     def remove_selected_player(self, player:Player):
+        """Removes the selected player from the team"""
         print(f"Are you sure you want to remove {player.name}?")
         confirmation = input("Confirm(Y/N)")
         if confirmation.lower() == "y":
