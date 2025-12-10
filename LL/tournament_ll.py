@@ -272,7 +272,7 @@ class TournamentLL:
         return self.APIDATA.store_match_data(match)
 
     def get_all_teams_on_tournament(self, target_tournament_id: str) -> list[Team]:
-        # Fetch team registry and search for team_id in a specific tournament id
+        """Returns all teams that are registered to the given tournament ID."""
         team_registry = self.APIDATA.get_all_team_registry_data()
         all_teams_id_in_tournament: list[str] = []
         for registry in team_registry:
@@ -287,9 +287,8 @@ class TournamentLL:
                 all_teams_in_tournament.append(team)
         return all_teams_in_tournament
 
-    def create_contact_person(
-        self, contact_person: ContactPerson
-    ) -> ContactPerson | None:
+    def create_contact_person(self, contact_person: ContactPerson) -> ContactPerson | None:
+        """Creates a new contact person, assigns and ID and stores it."""
         all_contact_person = self.APIDATA.get_all_contact_person_data()
 
         if all_contact_person:
@@ -302,13 +301,14 @@ class TournamentLL:
         return stored
 
     def get_contact_person_by_id(self, id: str) -> ContactPerson | None:
+        """Returns the contact person with the given ID, or None if not found."""
         contact_persons = self.APIDATA.get_all_contact_person_data()
         for contact in contact_persons:
             if contact.id == id:
                 return contact
 
     def get_contact_person(self, tournament_id: str) -> ContactPerson | None:
-        """Returns contact person that is connected to certain tournament."""
+        """Returns contact person that is connected to the given tournament ID."""
         tournaments = self.APIDATA.get_all_contact_person_data()
         for t in tournaments:
             if t.id == tournament_id:
@@ -316,22 +316,24 @@ class TournamentLL:
                 return self.get_contact_person_by_id(contact_person_id)
         return None
 
-    def register_match_result(
-        self, match_id: str, home_score: int, away_score: int, completed: str
-    ):
+    def register_match_result(self, match_id: str, home_score: int, away_score: int, completed: str) -> None:
+        """Registers the result of a match in the data storage."""
         self.APIDATA.register_match_results(match_id, home_score, away_score, completed)
 
-    def give_player_points(self, handle: str, points: int):
+    def give_player_points(self, handle: str, points: int) -> None:
+        """Adds points to the player with the given handle."""
         self.APIDATA.give_player_points(handle, points)
 
-    def give_team_points(self, team_name: str, points: int):
+    def give_team_points(self, team_name: str, points: int) -> None:
+        """Adds points to the team with the given name."""
         self.APIDATA.give_team_points(team_name, points)
 
-    def give_club_points(self, club_name: str, points: int):
+    def give_club_points(self, club_name: str, points: int) -> None:
+        """Adds points to the club with the given name."""
         self.APIDATA.give_club_points(club_name, points)
 
-    def setup_R16_qualifying_matches(self, tournament_id: str):
-        """Create a new matches.csv with the R16 qualifying round ready"""
+    def setup_R16_qualifying_matches(self, tournament_id: str) -> None:
+        """Creates R16 qualifying matches for the given tournament."""
         team_registry = self.APIDATA.get_all_team_registry_data()
         all_tournaments = self.APIDATA.get_all_tournament_data()
         playing_times: list[str] = ["10:00", "12:00", "14:00", "16:00"]
