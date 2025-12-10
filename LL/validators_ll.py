@@ -36,6 +36,7 @@ class Errors(Enum):
     COLOR_HAS_NUMBER = auto()
     CLUB_COUNTRY_HAS_NUMBER = auto()
     TOO_MANY_PLAYERS = auto()
+    SAME_HANDLE = auto()
 
     OK = auto()
 
@@ -103,7 +104,7 @@ def validate_player_email(player_email):
     return player_email
 
 
-def validate_player_handle(player_handle):
+def validate_player_handle(player_handle, api_data:APIDATA):
     handle = player_handle.strip()
 
     if handle == "":
@@ -111,6 +112,13 @@ def validate_player_handle(player_handle):
 
     if " " in handle:
         return Errors.HANDLE_CONTAINS_SPACE
+    
+    current_players = api_data.get_all_player_data()
+
+    for p in current_players:
+        if p.handle == handle:
+            Errors.SAME_HANDLE
+        
     return Errors.OK
 
 def validate_social_media(social_media):
