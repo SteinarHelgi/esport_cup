@@ -495,3 +495,6 @@ class TeamCaptainUI:
            # team_logo,
         #)
         pass
+
+    def delete_player_from_team(self):
+        pass 
