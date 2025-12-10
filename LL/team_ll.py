@@ -98,10 +98,6 @@ class TeamLL:
         return self.APIDATA.modify_team_data(team)
 
     def register_team_to_tournament(self, team: Team, tournament: Tournament) -> None:
-        players_in_team = self.get_players_in_team(team.name)
-        num_players = len(players_in_team)
-        if num_players < MIN_PLAYERS_PER_TEAM or num_players > MAX_PLAYERS_PER_TEAM:
-            raise ValueError
         team_id: str = team.id
         tournament_id: str = tournament.id
         team_name: str = team.name
