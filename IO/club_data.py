@@ -31,7 +31,7 @@ class ClubData:
         return clubs
 
     def store_club_data(self, club: Club) -> Club | None:
-        with open(self.club_file_path, "a", encoding="utf-8") as file:
+        with open(self.club_file_path, "a" , newline="" , encoding="utf-8") as file:
             csv_writer = csv.writer(file)
             try:
                 csv_writer.writerow(club.toCSVList())

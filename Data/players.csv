@@ -43,6 +43,7 @@ P043,Ulfar UB,2003-02-14,UBgata 1 Reykjavik,+3546110043,ulfar.ub@example.com,htt
 P044,Sara StrictAlias,2004-05-19,UBgata 2 Reykjavik,+3546110044,sara.strictalias@example.com,https://github.com/StrictAliasSara,StrictAliasSara,Undefined Behavior United,0
 P045,Vala Volatile,2005-08-28,UBgata 3 Reykjavik,+3546110045,vala.volatile@example.com,https://twitter.com/VolatileVala,VolatileVala,Undefined Behavior United,0
 P046,Petra PepsiOverflow,2003-07-07,Fizzgata 1 Reykjavik,+3546110046,petra.pepsioverflow@example.com,https://twitch.tv/PepsiMaxOverflowPetra,PepsiMaxOverflowPetra,Pepsi Max Overflow,0
-P047,Bogi Buffer,2004-01-25,Fizzgata 2 Reykjavik,+3546110047,bogi.buffer@example.com,https://github.com/BufferOverflowBogi,BufferOverflowBogi,Pepsi Max OverflowP048,0
-P042,ÃƒÆ’Ã…Â¾rÃƒÆ’Ã‚Â¶stur,2005-03-29,Fizzgata 3 Reykjavik,+3546110048,sif.canary@example.com,https://twitter.com/StackCanarySif,StackCanarySif,Pepsi Max Overflow,0
+P047,Bogi Buffer,2004-01-25,Fizzgata 2 Reykjavik,+3546110047,bogi.buffer@example.com,https://github.com/BufferOverflowBogi,BufferOverflowBogi,Pepsi Max Overflow,0
 P005,Dan Dangling,2003-11-30,Kennarabraut 2 Reykjavik,+3546110005,dan.dangling@example.com,https://github.com/DanglingPtrDan,DanglingPtrDan,NullPointer Ninjas,0
+P048,Hlynur Valsson,1985-09-12,VesturbÃ¦r 69,8991412,hlynurvals@icepharma.com,hlynurvals,HlynurVals,RaceCondition Racers,0
+P042,Sif Canary,2005-03-29,Fizzgata 3 Reykjavik,+3546110048,sif.canary@example.com,https://twitter.com/StackCanarySif,StackCanarySif,Pepsi Max Overflow,0
