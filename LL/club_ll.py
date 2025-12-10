@@ -5,6 +5,7 @@ from Models.club import Club
 
 class ClubLL:
     def __init__(self, api_data: APIDATA, main_ll) -> None:
+        """"""
         self.APIDATA = api_data
         self.MAINLL = main_ll
 
