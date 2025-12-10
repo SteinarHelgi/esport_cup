@@ -13,10 +13,12 @@ from Models.models import (
 
 class TournamentLL:
     def __init__(self, api_data: APIDATA, main_ll):
+        """Initializes the TournamentLL logic layer with access to APIDATA and the main logic layer."""
         self.APIDATA = api_data
         self.MAINLL = main_ll
 
-    def get_all_tournaments(self) -> list:
+    def get_all_tournaments(self) -> list[Tournament]:
+        """Returns all tournaments with their matches attached."""
         tournaments = self.APIDATA.get_all_tournament_data()
         matches = self.APIDATA.get_all_match_data()
 
@@ -26,7 +28,8 @@ class TournamentLL:
                     tournament.add_match(match)
         return tournaments
 
-    def get_ongoing_tournament(self):
+    def get_ongoing_tournament(self) -> list[Tournament]:
+        """Returns all tournaments that are ongoing."""
         today = datetime.today()
         tournament = self.get_all_tournaments()
         ongoing = []
@@ -36,7 +39,8 @@ class TournamentLL:
                 ongoing.append(t)
         return ongoing
 
-    def get_past_tournament(self):
+    def get_past_tournament(self) -> list[Tournament]:
+        """Returns all tournaments that have already finished."""
         tournament = self.get_all_tournaments()
         today = datetime.today()
         past = []
@@ -47,7 +51,8 @@ class TournamentLL:
 
         return past
 
-    def get_upcoming_tournament(self):
+    def get_upcoming_tournament(self) -> list[Tournament]:
+        """Returns all tournaments that start in the future."""
         tournament = self.get_all_tournaments()
         upcoming = []
         today = datetime.today()
@@ -59,6 +64,7 @@ class TournamentLL:
         return upcoming
 
     def get_tournament_by_id(self, tournament_id: str) -> Tournament | None:
+        """Returns the tournament with the given ID and attached its matches, or None if not found."""
         tournaments = self.APIDATA.get_all_tournament_data()
         matches = self.APIDATA.get_all_match_data()
         for tournament in tournaments:
@@ -70,7 +76,7 @@ class TournamentLL:
                 return tournament
 
     def get_all_tournaments_for_captain(self, captain: TeamCaptain) -> list[Tournament]:
-        """Returns a list of tournaments that the captain's team is registered for."""
+        """Returns all tournaments that the captain's team is registered for."""
         tournaments_for_captain = []
 
         # Find the team captain is registered for
@@ -93,6 +99,7 @@ class TournamentLL:
         return tournaments_for_captain
 
     def get_teams_in_tournament(self, tournament: Tournament) -> list[Team]:
+        """Returns all teams that are registered to the given tournament."""
         all_teams_in_tournament = self.APIDATA.get_all_team_registry_data()
         teams_in_tournament = []
         for team_tournamnet in all_teams_in_tournament:
@@ -104,12 +111,7 @@ class TournamentLL:
     def get_all_open_tournaments_for_captain(
         self, captain: TeamCaptain
     ) -> list[Tournament]:
-        """
-        Returns a list of tournaments that the captain's team can register for.
-        A tournament is considered open if it has not started yet and the team
-        is not already registered for it.
-        """
-
+        """Returns all tournaments the captain's team can register for (not started and not already registered.)"""
         open_tournaments = []
 
         # Find the team captain is registered for
@@ -145,28 +147,23 @@ class TournamentLL:
         return open_tournaments
 
     def create_tournament(self, tournament: Tournament) -> Tournament | None:
+        """Creates a new tournament, validates dates, assigns an ID and saves it."""
         if tournament.end_date < tournament.start_date:
             raise
 
         all_tournaments = self.APIDATA.get_all_tournament_data()
 
-        """ notað til að búa til tournament id """
         if all_tournaments:
             next_id = max(int(tournament.id) for tournament in all_tournaments) + 1
-
         else:
             next_id = 1
 
         tournament.set_id(next_id)
-
-        # TODO
-        # mögulegar aðrar reglur ( t.d. start date ekki í fortíð)
-
         stored = self.APIDATA.store_tournament_data(tournament)
-
         return stored
 
     def get_tournament_by_name(self, tournament_name) -> Tournament | None:
+        """Returns the tournament with the given name and attaches its matches, or None if not found."""
         tournaments = self.APIDATA.get_all_tournament_data()
         matches = self.APIDATA.get_all_match_data()
         for tournament in tournaments:
@@ -177,10 +174,12 @@ class TournamentLL:
 
                 return tournament
 
-    def delete_tournament(self, tournament_id: str):
+    def delete_tournament(self, tournament_id: str) -> None:
+        """Deletes the tournament with the given ID from the data storage."""
         self.APIDATA.delete_tournament_data(tournament_id)
 
     def create_match(self, match: Match) -> Match | None:
+        """Creates a new match, assigns ID and match number, and stores it."""
         round = match.round
 
         matches = self.APIDATA.get_all_match_data()
