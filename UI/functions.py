@@ -45,7 +45,7 @@ def format_tournament_table(tournaments: list[Tournament]):
     return empty_string
 
 
-def format_team_list(teams: list[Team]):  #TODO add club to this
+def format_team_list(teams: list[Team]):  # TODO add club to this
     """Formats how lists of teams are put out"""
     # Define fixed widths for columns
     w_name = 30

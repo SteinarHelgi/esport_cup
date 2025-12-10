@@ -1,10 +1,14 @@
 import datetime as datetime
-from Models.team import Team
 
 # player_id,name,date_of_birth,address,phone,email,link,handle,team_name
 
 
 class Player:
+    w_player_name = 25
+    w_player_handle = 20
+    w_counter = 3
+    w_club = 15
+
     def __init__(
         self,
         name: str,
@@ -26,7 +30,21 @@ class Player:
         self.handle = handle
         self.team_name = team_name
         self.points = 0
-        
+
+    # print header
+
+    def print_header(self):
+        print(
+            f"{'ID':<{Player.w_counter}} {'PLAYER NAME':<{Player.w_player_name}} {'PLAYER HANDLE':<{Player.w_player_handle}}"
+        )
+
+    def format_row(self, index: int):
+        print(
+            f"{str(index) + '.':<{Player.w_counter}}"
+            f"{self.name:<{Player.w_player_name}}"
+            f"{self.handle:<{Player.w_player_handle}}"
+        )
+
     def get_team_name(self):
         return self.team_name
 
@@ -49,3 +67,4 @@ class Player:
 
     def set_points(self, points: int):
         self.points = points
+
