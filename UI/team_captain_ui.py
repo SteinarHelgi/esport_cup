@@ -2,7 +2,7 @@ from datetime import date
 from pickle import EMPTY_TUPLE
 from wsgiref import validate
 from LL.api_ll import APILL
-from LL.validators_ll import validate_address, validate_date_of_birth, validate_phone_number, validate_player_email, validate_player_handle, validate_player_name, Errors, validate_social_media, validate_team_logo, validate_team_name
+from LL.validators_ll import validate_address, validate_date_of_birth, validate_phone_number, validate_player_email, validate_player_handle, validate_player_name, Errors, validate_players_in_teams, validate_social_media, validate_team_logo, validate_team_name
 from Models.player import Player
 from Models.team import Team
 from Models.team_captain import TeamCaptain
@@ -26,7 +26,7 @@ class TeamCaptainUI:
             error = validate_player_name(name)
             if error == Errors.EMPTY:
                 print("Name cannot be empty")
-            if error == Errors.NAME_ONLY_NUMBERS:
+            if error == Errors.NAME_INCLUDE_NUMBERS:
                 print("Name cannot include a number")
             name = input("Player's name: ").strip()
 
@@ -37,7 +37,7 @@ class TeamCaptainUI:
                 return "QUIT"
         while validate_date_of_birth(date_of_birth) != Errors.OK:
             error = validate_date_of_birth(date_of_birth)
-            if error == Errors.NOT_CORRECT_FORMAT:
+            if error == Errors.DATE_NOT_VALID:
                 print("Use format YYYY-MM-DD")
             if error == Errors.DATE_TOO_OLD:
                 print("Invalid date, choose a date after 1900")
@@ -140,6 +140,7 @@ class TeamCaptainUI:
     def show_my_tournaments(self):
         """Tournaments the team captain has registered to"""
         team = self.APILL.get_team_by_name(self.menu_manager.team_name)
+        players = self.APILL.get_players_in_team(self.menu_manager.team_name)
         captain = TeamCaptain(
             self.menu_manager.team_name, self.menu_manager.captain_handle
         )
@@ -149,6 +150,15 @@ class TeamCaptainUI:
             print("r. Register for new tournament\nb. Back\nq. Quit")
             choice: str = self.menu_manager.prompt_choice(["r", "b", "q"])
             if choice == "r":
+                while validate_players_in_teams(players) != Errors.OK:
+                    error = validate_players_in_teams(players)
+                    if error == Errors.PLAYERS_NOT_ENOUGH:
+                        print("Not enough players on team to register.")
+                    if error == Errors.PLAYERS_TOO_MANY:
+                        print("Too many players on this team to register for a tournament.")
+                    enter_to_leave = input("Enter to exit")
+                    return "MY_TOURNAMENTS_CAP"
+
                 valid_choices: list[str] = []
                 tournaments = self.APILL.get_all_open_tournaments_for_captain(captain)
 
