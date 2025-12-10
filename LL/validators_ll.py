@@ -1,4 +1,4 @@
-from Models.models import Player, TeamCaptain, Team
+from Models.models import Player, TeamCaptain, Team, Match, Tournament
 from datetime import datetime, date
 from IO.api_data import APIDATA
 from enum import Enum, auto
@@ -42,6 +42,11 @@ class Errors(Enum):
     PLAYERS_TOO_MANY = auto()
     DATE_NOT_IN_TOURNAMENT_DATE = auto()
     TIME_NOT_IN_TIMESLOT = auto()
+    TEAM_ALREADY_IN_SLOT = auto()
+    TEAM_ALREADY_IN_ROUND = auto()
+    INVALID_SERVER_COUNT = auto()
+    TIMESLOT_FULL = auto()
+    TEAM_LOST_LAST_ROUND = auto()
     OK = auto()
 
 
@@ -306,6 +311,65 @@ def validate_match_round(round_name: str, matches_in_round: list) -> Errors:
         return Errors.TOO_MANY_GAMES_IN_ROUND
     return Errors.OK
 
+def validate_match_creation(match: Match, tournament: Tournament, api_data: APIDATA ) -> Errors:
+    team_a = match.team_a_name
+    team_b = match.team_b_name
+    date_str = match.match_date
+    time_str = match.match_time
+    round_name = match.round
+    tournament_id = match.tournament_id
+
+    try:
+        servers = int(tournament.no_servers)
+        if servers < 1:
+            return Errors.INVALID_SERVER_COUNT
+    except ValueError:
+        return Errors.INVALID_SERVER_COUNT
+
+    all_matches = api_data.get_all_match_data()
+    matches_in_tournament = [
+        m for m in all_matches if m.tournament_id == tournament_id
+    ]
+
+# Same team already playing (date+time)
+    for m in matches_in_tournament:
+        if m.match_date == date_str and m.match_time == time_str:
+            teams_in_match = (m.team_a_name, m.team_b_name)
+            if team_a in teams_in_match or team_b in teams_in_match:
+                return Errors.TEAM_ALREADY_IN_SLOT
+    
+# Team already in the round for the tournament
+    for m in matches_in_tournament:
+        if m.round == round_name:
+            teams_in_match = (m.team_a_name, m.team_b_name)
+            if team_a in teams_in_match or team_b in teams_in_match:
+                return Errors.TEAM_ALREADY_IN_ROUND
+    
+# time slot availability vs server availability
+    matches_in_same_slot = [
+        m for m in matches_in_tournament
+        if m.match_date == date_str and m.match_time == time_str
+    ]
+    if len(matches_in_same_slot) >= servers:
+        return Errors.TIMESLOT_FULL
+    
+# Only winners advance
+    round_order = ["R16", "QF", "SF", "Final"]
+    if round_name in round_order:
+        idx = round_order.index(round_name)
+        if idx > 0:
+            prev_round = round_order[idx - 1]
+            prev_round_matches = [
+                m for m in matches_in_tournament if m.round == prev_round
+            ]
+            winners = {
+                m.winner_team_name
+                for m in prev_round_matches
+                if m.winner_team_name != ""
+            }
+            if team_a not in winners or team_b not in winners:
+                return Errors.TEAM_LOST_LAST_ROUND
+    return Errors.OK
 
 def validate_match_date(
     date_input: str, tournament_start_date: datetime, tournament_end_date: datetime
