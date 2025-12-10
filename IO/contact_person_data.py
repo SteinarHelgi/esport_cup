@@ -41,7 +41,7 @@ class ContactPersonData:
         self, contact_person: ContactPerson
     ) -> ContactPerson | None:
         """Appends a single contact person to the CSV file. Returns the contact person if successful, otherwise None."""
-        with open(self._filepath, "a") as file:
+        with open(self._filepath, "a" , newline="" , encoding="utf-8") as file:
             csvWriter = csv.writer(file)
             try:
                 csvWriter.writerow(contact_person.toCSVList())
