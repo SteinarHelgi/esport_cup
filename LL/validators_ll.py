@@ -104,10 +104,10 @@ def validate_player_email(player_email):
 
     if email.count("@") != 1:
         return Errors.EMAIL_NOT_CONTAINING_AT
-    return Errors.OK
+    return player_email
 
 
-def validate_player_handle(player_handle, api_data:APIDATA):
+def validate_player_handle(player_handle, api_data: APIDATA):
     handle = player_handle.strip()
 
     if handle == "":
@@ -115,13 +115,13 @@ def validate_player_handle(player_handle, api_data:APIDATA):
 
     if " " in handle:
         return Errors.HANDLE_CONTAINS_SPACE
-    
+
     current_players = api_data.get_all_player_data()
 
     for p in current_players:
         if p.handle == handle:
             Errors.SAME_HANDLE
-        
+
     return Errors.OK
 
 
@@ -154,7 +154,8 @@ def validate_team_captain(handle: str, api_data: APIDATA) -> Errors:
 
 MAX_PLAYERS = 5
 
-def validate_team_name(name: str, api_data:APIDATA) -> Errors:
+
+def validate_team_name(name: str, api_data: APIDATA) -> Errors:
     # Name
     if not name or name.strip() == "":
         return Errors.EMPTY
@@ -165,14 +166,14 @@ def validate_team_name(name: str, api_data:APIDATA) -> Errors:
     # Max 5 players in a team
     current_players = api_data.get_all_player_data()
 
-    players_in_team = [ p for p in current_players if p.team_name == name]
+    players_in_team = [p for p in current_players if p.team_name == name]
     if len(players_in_team) >= MAX_PLAYERS:
         Errors.TOO_MANY_PLAYERS
 
     return Errors.OK
 
 
-def validation_team_captain_handle(handle: str, api_data: APIDATA) -> Errors:
+def validation_team_handle(handle: str, api_data: APIDATA) -> Errors:
     # Captain handle
 
     if not handle or handle.strip() == "":
@@ -191,11 +192,6 @@ def validate_team_logo(logo: str) -> Errors:
     if not logo or logo.strip() == "":
         return Errors.EMPTY
     return Errors.OK
-
-
-def validate_team_players(players: list[str]) -> None:
-    pass
-
 
 def validate_team_points(points: str) -> Errors:
     # Points
@@ -251,8 +247,9 @@ def validate_players_in_teams(players_in_team) -> Errors:
     if num_players < MIN_PLAYERS_PER_TEAM:
         return Errors.PLAYERS_NOT_ENOUGH
     elif num_players > MAX_PLAYERS_PER_TEAM:
-       return Errors.PLAYERS_TOO_MANY
+        return Errors.PLAYERS_TOO_MANY
     return Errors.OK
+
 
 def validate_tournament_servers(servers) -> Errors:
     if not servers.isdigit():
@@ -318,6 +315,17 @@ def validate_game_name(game_name: str, api_data: APIDATA) -> Errors:
     if valid_game not in game_names:
         Errors.GAME_NOT_VALID
     return Errors.OK
+
+
+# def validate_match_date(date: str):
+# Verður að vera rétt format
+# try:
+#     start_date_iso = date.fromisoformat(start_date)
+# except ValueError:
+#     return Errors.DATE_FORMAT_NOT_VALID
+# if start_date_iso <= date.today():
+#     return Errors.START_DATE_BEFORE_TODAY
+# return Errors.OK
 
 
 # -----------------CLUB VALIDATION--------------------
