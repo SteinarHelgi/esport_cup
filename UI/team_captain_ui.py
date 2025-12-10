@@ -100,8 +100,8 @@ class TeamCaptainUI:
             return "MY_TEAM"
         if handle.lower() == "q":
             return "QUIT"
-        while validate_player_handle(handle) != Errors.OK:
-            error = validate_player_handle(handle)
+        while validate_player_handle(handle,self.APILL.APIDATA) != Errors.OK:
+            error = validate_player_handle(handle,self.APILL.APIDATA)
             if error == Errors.EMPTY:
                 print("Player handle cannot be empty.")
             if error == Errors.HANDLE_CONTAINS_SPACE:
@@ -167,16 +167,15 @@ class TeamCaptainUI:
                         team, tournaments[int(choice) - 1]
                     )
                     print(f"{team} has been registered for {choice}")
-                    back_or_quit = input("b to go back to tournament menu or q to quit")
-                    if back_or_quit == "b":
-                        return "MY_TOURNAMENTS_CAP"
-                    if back_or_quit == "q":
-                        return "QUIT"
-                    else:
-                        print("Invalid choice, valid choices are B and Q")
-                        back_or_quit = input(
-                            "b to go back to tournament menu or q to quit"
-                        )
+                    while True:
+                        back_or_quit = input("b to go back to tournament menu or q to quit: ").strip().lower()
+
+                        if back_or_quit == "b":
+                            return "MY_TOURNAMENTS_CAP"  # Go back to tournament menu
+                        elif back_or_quit == "q":
+                            return "QUIT"  # Quit command
+                        else:
+                            print("Invalid choice, valid choices are B and Q.")
                 if choice == 'b':
                     return "MY_TOURNAMENTS_CAP"
                 if choice == 'q':
