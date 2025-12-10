@@ -145,6 +145,8 @@ class APILL:
 
     def get_all_games(self) -> list[Game]:
         return self.main_ll.game_ll.get_all_games()
+ 
+
 
     # def show_player_stats_bar_chart(self):
     #    return self.userLL.show_player_stats_bar_chart()
