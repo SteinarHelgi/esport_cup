@@ -403,9 +403,7 @@ class OrganiserUI:
         winner = input("1 or 2, b to back and q to quit")
         if winner == "1":
             match.set_winner(match.team_a_name, True)
-            self.APILL.register_match_result(
-                match.match_id,
-            )
+            self.APILL.register_match_result(match.match_id, match.team_a_name, "True")
             print(f"{match.winner_team_name} has been set as the winner of this match")
             choice: str = self.menu_manager.prompt_choice(["b", "q"])
             print("b to back or q to quit")
