@@ -112,7 +112,13 @@ def validate_player_handle(player_handle):
         return Errors.HANDLE_CONTAINS_SPACE
     return Errors.OK
 
-
+def validate_social_media(social_media):
+    socials = social_media.strip()
+    if socials == "":
+        return Errors.EMPTY
+    if socials == " ":
+        return Errors.HANDLE_CONTAINS_SPACE
+    return Errors.OK
 # -----------TEAM CAPTAIN VALIDATION-------------
 
 

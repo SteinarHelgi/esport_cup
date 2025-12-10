@@ -1,7 +1,8 @@
 from datetime import date
+from pickle import EMPTY_TUPLE
 from wsgiref import validate
 from LL.api_ll import APILL
-from LL.validators_ll import validate_address, validate_date_of_birth, validate_phone_number, validate_player_email, validate_player_handle, validate_player_name, Errors
+from LL.validators_ll import validate_address, validate_date_of_birth, validate_phone_number, validate_player_email, validate_player_handle, validate_player_name, Errors, validate_social_media, validate_team_logo, validate_team_name
 from Models.player import Player
 from Models.team import Team
 from Models.team_captain import TeamCaptain
@@ -86,7 +87,13 @@ class TeamCaptainUI:
             return "MY_TEAM"
         if social_media.lower() == "q":
             return "QUIT"
-        
+        while validate_social_media(social_media) != Errors.OK:
+            error = validate_social_media(social_media)
+            if error == Errors.EMPTY:
+                print("Social media handle cannot be empty.")
+            if error == Errors.HANDLE_CONTAINS_SPACE:
+                print("Social media handle cannot contain empty spaces.")
+                social_media = input("Enter social media handle: ").strip()
         handle = input("Enter player handle: ").strip()
         if handle.lower() == "b":
             return "MY_TEAM"
@@ -437,20 +444,36 @@ class TeamCaptainUI:
             return "TEAM_CAPTAIN_MENU"
         if team_name.lower == "q":
             return "QUIT"
-        # try except for validation here
-        # captain handle stuff
+        while validate_team_name(team_name) != Errors.OK:
+            error = validate_team_name(team_name)
+            if error == Errors.EMPTY:
+                print("Team name cannot be empty.")
+            if error == Errors.TEAM_NAME_TOO_LONG:
+                print("Team name is too many characters.")
+                team_name = input("Team name: ")
+        #New team captain
         social_media = input("Social media: ")
         if social_media.lower() == "b":
             return "TEAM_CAPTAIN_MENU"
         if social_media.lower() == "q":
             return "QUIT"
-        # Try except for validation here
+        while validate_social_media(social_media) != Errors.OK:
+            error = validate_social_media(social_media)
+            if error == Errors.EMPTY:
+                print("Social media handle cannot be empty.")
+            if error == Errors.EMPTY:
+                print("Social media handle cannot contain empty spaces.")
+            social_media = input("Social media: ")
         team_logo = input("Input team logo in ASCII lettering: ")
         if team_logo.lower() == "q":
             return "QUIT"
         if team_logo.lower() == "b":
             return "TEAM_CAPTAIN_MENU"
-        # try except for validation here
+        while validate_team_logo(team_logo) != Errors.OK:
+            error = validate_team_logo(team_logo)
+            if error == Errors.LOGO_EMPTY:
+                print("Logo cannot be empty.")
+                team_logo = input("Input team logo in ASCII lettering: ")
         team = self.menu_manager.team_name
         #new_team = Team(
            # team_name,
