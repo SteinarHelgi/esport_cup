@@ -104,7 +104,7 @@ class OrganiserUI:
             return "QUIT"
         while validate_tournament_venue(venue) != Errors.OK:
             error = validate_tournament_venue(venue)
-            if error == Errors.VENUE_ONLY_NUMBERS:
+            if error == Errors.VENUE_INCLUDE_NUMBERS:
                 print("Invalid input, cannot be all numnbers.")
             venue = input("Venue: ").strip()
 
@@ -146,7 +146,7 @@ class OrganiserUI:
             error = validate_player_name(new_contact_person_name)
             if error == Errors.EMPTY:
                 print("Name cannot be empty")
-            if error == Errors.NAME_ONLY_NUMBERS:
+            if error == Errors.NAME_INCLUDE_NUMBERS:
                 print("Name cannot include numbers")
             new_contact_person_name = input("Name: ").strip()
 
