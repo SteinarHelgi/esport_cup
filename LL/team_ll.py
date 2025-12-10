@@ -3,10 +3,12 @@ from Models.models import Team, Tournament, Player, TeamRegistry
 
 class TeamLL:
     def __init__(self, api_data: APIDATA, main_ll):
+        """Intializes the TeamLL logic layer."""
         self.APIDATA = api_data
         self.MAINLL = main_ll
 
     def get_all_teams(self) -> list[Team]:
+        """Returns all teams with their players attached."""
         teams = self.APIDATA.get_all_team_data()
         players = self.APIDATA.get_all_player_data()
         for team in teams:
@@ -16,10 +18,12 @@ class TeamLL:
         return teams
 
     def get_all_players(self) -> list:
+        """Returns all players in system."""
         players = self.APIDATA.get_all_player_data()
         return players
 
     def get_my_tournaments(self, team: Team) -> list[Tournament]:
+        """Returns all tournaments that the given team is registered for."""
         team_tournament_registry = self.APIDATA.get_all_team_registry_data()
         tournaments_ids = []
         for team_tournament in team_tournament_registry:
@@ -32,12 +36,8 @@ class TeamLL:
         return tournaments
 
     def create_player(self, player: Player) -> Player:
-        """Creates new player and saves him in the csv file"""
-
-        # Fetch all player data
+        """Creates a new player, assigns a unique ID and saves them to the CSV file."""
         current_players = self.APIDATA.get_all_player_data()
-
-        # Find next player id
         nums = [        
             int(p.id[1:])
             for p in current_players
@@ -49,15 +49,16 @@ class TeamLL:
 
         player.set_id(new_id)
 
-        # Vista leikmann í gegnum IO-layer
         self.APIDATA.store_player_data(player)
 
         return player
 
     def modify_player(self, player: Player):
+        """Updates an existing player in the data storage."""
         self.APIDATA.modify_player_data(player)
 
     def delete_player(self, player_id: str):
+        """Deletes a player from the data storage."""
         self.APIDATA.delete_player_data(player_id)
 
     def create_new_team(self, team: Team) -> Team:
@@ -70,12 +71,10 @@ class TeamLL:
 
         current_teams = self.APIDATA.get_all_team_data()
 
-        # checking if team name is available
         for t in current_teams:
             if t.name == team.name:
                 raise ValueError
 
-        # Find next team id
         if current_teams:
             next_id: int = max(int(team.id) for team in current_teams) + 1
         else:
@@ -91,9 +90,11 @@ class TeamLL:
         return new_team
 
     def modify_team_data(self, team: Team) -> Team | None:
+        """Updates an existing team in the data storage."""
         return self.APIDATA.modify_team_data(team)
 
     def register_team_to_tournament(self, team: Team, tournament: Tournament) -> None:
+        """Register a team to a tournament and stores the relation in the data storage."""
         team_id: str = team.id
         tournament_id: str = tournament.id
         team_name: str = team.name
@@ -102,12 +103,14 @@ class TeamLL:
         new_team_registry = self.APIDATA.store_team_registry_data(team_registry)
 
     def get_team_by_id(self, id) -> Team | None:
+        """Looks up a team by its ID."""
         teams = self.get_all_teams()
         for team in teams:
             if team.id == id:
                 return team
 
     def get_team_by_captain_handle(self, captain_handle) -> Team | None:
+        """Returns the team where the given handle is the captain's handle."""
         teams = self.APIDATA.get_all_team_data()
 
         for team in teams:
@@ -117,12 +120,7 @@ class TeamLL:
         return None
 
     def get_players_in_team(self, team_name: str) -> list[Player]:
-        # TEAM
-        # id name captain_id social_media logo
-
-        # PLAYERS
-        # id name dateofbirth address phone email social handle team_name
-
+        """Returns all players that belong to a given team."""
         players_in_team = []
 
         players = self.APIDATA.get_all_player_data()
@@ -133,6 +131,7 @@ class TeamLL:
         return players_in_team
 
     def get_team_by_name(self, name: str) -> Team | None:
+        """Looks up a team by its name and attaches its players."""
         teams = self.APIDATA.get_all_team_data()
         players = self.get_players_in_team(name)
         for team in teams:
@@ -142,6 +141,7 @@ class TeamLL:
                 return team
 
     def get_player_by_name(self, name: str) -> Player | None:
+        """Looks up a player by their name"""
         players = self.APIDATA.get_all_player_data()
         for player in players:
             if player.name == name:
