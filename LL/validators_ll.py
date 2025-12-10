@@ -1,4 +1,3 @@
-import re
 from Models.models import Player, TeamCaptain, Team
 from datetime import datetime, date
 from IO.api_data import APIDATA
@@ -7,7 +6,7 @@ from enum import Enum, auto
 
 class Errors(Enum):
     EMPTY = auto()
-    NAME_ONLY_NUMBERS = auto()
+    NAME_INCLUDE_NUMBERS = auto()
     HANDLE_EXIST = auto()
     TEAM_NAME_TOO_LONG = auto()
     LOGO_EMPTY = auto()
@@ -27,11 +26,11 @@ class Errors(Enum):
     SERVER_LESS_THAN_0 = auto()
     SERVER_NOT_NUMBER = auto()
     NOT_Y_OR_N = auto()
-    VENUE_ONLY_NUMBERS = auto()
+    VENUE_INCLUDE_NUMBERS = auto()
     GAME_NOT_VALID = auto()
     ROUND_NOT_VALID = auto()
     TOO_MANY_GAMES_IN_ROUND = auto()
-    CLUB_ONLY_NUMBERS = auto()
+    CLUB_INCLUDE_NUMBERS = auto()
     HOMETOWN_CONTAINS_NUMBER = auto()
     INVALID_COLOR = auto()
     COLOR_HAS_NUMBER = auto()
@@ -39,7 +38,9 @@ class Errors(Enum):
     TOO_MANY_PLAYERS = auto()
     SAME_HANDLE = auto()
     TEAM_CAPTAIN_NOT_EXISTS = auto()
-    NOT_CORRECT_FORMAT = auto()
+    PLAYERS_NOT_ENOUGH = auto()
+    PLAYERS_TOO_MANY = auto()
+
     OK = auto()
 
 
@@ -52,7 +53,7 @@ def validate_player_name(player_name: str) -> Errors:
     if valid_name == "":
         return Errors.EMPTY
     if any(char.isdigit() for char in valid_name):
-        return Errors.NAME_ONLY_NUMBERS
+        return Errors.NAME_INCLUDE_NUMBERS
     return Errors.OK
 
 
@@ -61,13 +62,13 @@ def validate_date_of_birth(date_of_birth):
 
     if valid_dob == "":
         return Errors.EMPTY
-    iso_format_regex = r'^\d{4}-\d{2}-\d{2}$'
-    if not re.match(iso_format_regex, valid_dob):
-        return Errors.NOT_CORRECT_FORMAT
-    dob = datetime.strptime(valid_dob, "%Y-%m-%d")
-    if dob.year < 1900:
-        return Errors.DATE_TOO_OLD
-    return Errors.OK
+    try:
+        dob = datetime.strptime(valid_dob, "%Y-%m-%d")
+        if dob.year < 1900:
+            return Errors.DATE_TOO_OLD
+        return Errors.OK
+    except ValueError:
+        return Errors.DATE_NOT_VALID
 
 
 def validate_address(address):
@@ -103,7 +104,7 @@ def validate_player_email(player_email):
 
     if email.count("@") != 1:
         return Errors.EMAIL_NOT_CONTAINING_AT
-    return Errors.OK
+    return player_email
 
 
 def validate_player_handle(player_handle, api_data:APIDATA):
@@ -128,7 +129,7 @@ def validate_social_media(social_media):
     socials = social_media.strip()
     if socials == "":
         return Errors.EMPTY
-    if " " in socials:
+    if socials == " ":
         return Errors.HANDLE_CONTAINS_SPACE
     return Errors.OK
 
@@ -209,10 +210,10 @@ def validate_team_points(points: str) -> Errors:
 # -------------TOURNAMENT VALIDATION--------------
 
 
-def validate_tournament_name(name:str) -> Errors:
+def validate_tournament_name(name) -> Errors:
     if len(name.strip()) < 2:
         return Errors.TOURNAMENT_NAME_LENGTH
-    if len(name.strip()) >= 40:
+    if len(name) >= 40:
         return Errors.TOURNAMENT_NAME_LENGTH_TOO_LONG
     return Errors.OK
 
@@ -237,10 +238,21 @@ def validate_tournament_end_date(start_date, end_date) -> Errors:
     except ValueError:
         return Errors.DATE_FORMAT_NOT_VALID
 
-    if end_date_iso <= date.fromisoformat(start_date):
+    if end_date_iso < date.fromisoformat(start_date):
         return Errors.END_DATE_BEFORE_START
     return Errors.OK
 
+
+def validate_players_in_teams(players_in_team, api_data:APIDATA) -> Errors:
+    MIN_PLAYERS_PER_TEAM = 3
+    MAX_PLAYERS_PER_TEAM = 5
+
+    num_players = len(players_in_team)
+    if num_players < MIN_PLAYERS_PER_TEAM:
+        return Errors.PLAYERS_NOT_ENOUGH
+    elif num_players > MAX_PLAYERS_PER_TEAM:
+       return Errors.PLAYERS_TOO_MANY
+    return Errors.OK
 
 def validate_tournament_servers(servers) -> Errors:
     if not servers.isdigit():
@@ -252,7 +264,7 @@ def validate_tournament_servers(servers) -> Errors:
 
 def validate_tournament_venue(venue) -> Errors:
     if venue.isdigit():
-        return Errors.VENUE_ONLY_NUMBERS
+        return Errors.VENUE_INCLUDE_NUMBERS
     return Errors.OK
 
 
@@ -315,7 +327,7 @@ def validate_club_name(name: str) -> Errors:
     if not name or name.strip() == "":
         return Errors.OK
     if any(char.isdigit() for char in name):
-        return Errors.CLUB_ONLY_NUMBERS
+        return Errors.CLUB_INCLUDE_NUMBERS
 
     return Errors.OK
 
