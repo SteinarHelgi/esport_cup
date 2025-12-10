@@ -292,9 +292,9 @@ class OrganiserUI:
                 valid_choices.append(str(counter + 1))
                 print(f"{counter}. {match}")
             print(" ")
-            print("c. Create new match\nb. Back\nq. Quit")
+            print("c. Create new match \nd. Delete tournament \nb. Back \nq. Quit")
             choice: str = self.menu_manager.prompt_choice(
-                valid_choices + ["c", "b", "q"]
+                valid_choices + ["c","d", "b", "q"]
             )
             if choice in valid_choices:
                 return self.show_register_results(tournament.matches[int(choice) - 1])
@@ -312,6 +312,9 @@ class OrganiserUI:
                         return "MY_TOURNAMENTS_ORG"
                     if choice == "q":
                         return "QUIT"
+            if choice == "d":
+                return self.show_delete_tournament(tournament)
+
 
             if choice == "b":
                 return "MY_TOURNAMENTS_ORG"
@@ -422,9 +425,18 @@ class OrganiserUI:
         if winner == "q":
             return "QUIT"
 
-    def show_delete_tournament(self):
-        # TODO
-        pass
+    def show_delete_tournament(self,tournament):
+        print(f"Are you sure you wish to delete {tournament.name}")
+        confirm = input("Confirm(Y/N): ")
+        if confirm.lower() == "y":
+            self.APILL.delete_tournament(tournament.id)
+            print(f"{tournament.name} has been deleted")
+            enter_to_leave = input("Enter to exit or q to Quit.")
+            if enter_to_leave == "q":
+                return "QUIT"
+            else:
+                return "MY_TOURNAMENTS_ORG"
+
 
     def show_give_points(self):
         # TODO
