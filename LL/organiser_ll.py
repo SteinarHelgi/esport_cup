@@ -178,6 +178,7 @@ class OrganiserLL:
         self.api_data.register_match_results(
             match_id, home_score, away_score, completed
         )
+        
 
     def give_player_points(self, handle: str, points: int):
         self.api_data.give_player_points(handle, points)
