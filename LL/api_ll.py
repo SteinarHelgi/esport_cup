@@ -129,6 +129,7 @@ class APILL:
         )
 
     def register_match_result(self, match_id: str, winner_name: str, completed: str):
+        """Registering match results"""
         return self.main_ll.tournament_ll.register_match_result(
             match_id, winner_name, completed
         )

@@ -421,12 +421,12 @@ class OrganiserUI:
         # Update local object
         match.set_winner(winner_name, "TRUE")
         
-        # Update Database via API (No scores involved)
+        
         self.APILL.register_match_result(match.match_id, winner_name, "TRUE")
         
         print(f"{winner_name} has been set as the winner of this match.")
 
-        # Navigation
+        
         choice = self.menu_manager.prompt_choice(["b", "q"])
         if choice == "b":
             return "MY_TOURNAMENTS_ORG"

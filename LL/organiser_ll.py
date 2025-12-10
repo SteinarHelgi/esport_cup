@@ -176,6 +176,7 @@ class OrganiserLL:
         return all_teams_in_tournament
 
     def register_match_result(self, match_id: str, winner_name: str, completed: str):
+        """Registering match results"""
         self.api_data.register_match_results(match_id, winner_name, completed)
 
         

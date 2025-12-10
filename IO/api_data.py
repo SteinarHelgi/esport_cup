@@ -85,6 +85,7 @@ class APIDATA:
         return self.tournament_data.delete_tournament_data(tournament_id)
 
     def register_match_results(self, match_id: str, winner_name: str, completed_match: str):
+        """Registering match results"""
         return self.match_data.register_match_results(
             match_id, winner_name, completed_match
         )

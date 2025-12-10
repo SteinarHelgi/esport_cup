@@ -83,20 +83,19 @@ class MatchData:
             with open(filepath, "r", newline="", encoding="utf-8") as file:
                 reader = csv.reader(file)
                 
-                # Handle Header
+                
                 header = next(reader, None)
                 if header:
                     temp_data.append(header)
 
-                # Iterate through rows
+                
                 for line in reader:
                     if not line:
                         continue
                     
                     # Check if this is the target match
                     if line[0] == match_id:
-                        # Update Winner (Index 11) and Completed (Index 12)
-                        # We leave Score A (Index 9) and Score B (Index 10) alone
+                        #update winner
                         line[11] = winner_name
                         line[12] = completed_match
                         found = True
