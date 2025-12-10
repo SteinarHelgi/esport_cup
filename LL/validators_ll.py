@@ -138,6 +138,7 @@ def validate_team_captain(handle: str, api_data: APIDATA) -> Errors:
 
 # -------------TEAM VALIDATION---------------
 
+MAX_PLAYERS = 5
 
 def validate_team_name(name: str, api_data:APIDATA) -> Errors:
     # Name
@@ -151,7 +152,7 @@ def validate_team_name(name: str, api_data:APIDATA) -> Errors:
     current_players = api_data.get_all_player_data()
 
     players_in_team = [ p for p in current_players if p.team_name == name]
-    if len(players_in_team) >= 5:
+    if len(players_in_team) >= MAX_PLAYERS:
         Errors.TOO_MANY_PLAYERS
 
     return Errors.OK
