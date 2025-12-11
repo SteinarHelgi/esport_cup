@@ -93,7 +93,9 @@ class MenuManager:
         """Username logging in as a team captain"""
 
         while True:  # Loop until a valid username is entered or the user quits
-            username = input("Your handle or b to back and q to quit: ")
+            username = input(
+                "Log in with Team Captain handle:\n \nb. Back\nq. Quit\n\n> "
+            )
             teams = self.api_ll.get_all_teams()
             if username == "b":
                 return "LOGIN_MENU"
@@ -157,7 +159,7 @@ class MenuManager:
         """Menu of options for team captain"""
         print("__TEAM_CAPTAIN_MENU__")
         print(
-            "1. Teams \n2. Tournaments \n3. My Team \n4. My Tournaments \nb. back \nq. Quit"
+            "1. Teams \n2. Tournaments \n3. My Team \n4. My Tournaments \nb. Back \nq. Quit"
         )
 
         choice: str = self.prompt_choice(["1", "2", "3", "4", "b", "q"])
