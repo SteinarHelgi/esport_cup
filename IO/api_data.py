@@ -6,14 +6,16 @@ from IO.game_data import GameData
 from IO.club_data import ClubData
 from IO.match_data import MatchData
 from IO.team_registry_data import TeamRegistryData
-from Models.models import ContactPerson
-from Models.team import Team
-from Models.tournament import Tournament
-from Models.game import Game
-from Models.player import Player
-from Models.club import Club
-from Models.match import Match
-from Models.team_registry import TeamRegistry
+from Models.models import (
+    ContactPerson,
+    Team,
+    Tournament,
+    Game,
+    Player,
+    Club,
+    Match,
+    TeamRegistry
+)
 
 
 class APIDATA:
