@@ -515,4 +515,3 @@ class OrganiserUI:
                _/_______\_
               /___________\ """)
         set_system_color_red()
-

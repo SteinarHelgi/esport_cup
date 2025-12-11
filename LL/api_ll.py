@@ -91,9 +91,9 @@ class APILL:
         """Creates a new team through the logic layer and returns the stored team."""
         return self.main_ll.team_ll.create_new_team(team)
 
-    def add_team_to_club(self, team: Team, club_id: Club):
+    def add_team_to_club(self, team: Team, club: Club):
         """Adds a team to a club with the given club ID."""
-        return self.main_ll.club_ll.add_team_to_club(team, club_id)
+        return self.main_ll.club_ll.add_team_to_club(team, club)
 
     def get_all_club_data(self) -> list[Club]:
         """Returns a list of all clubs in the system."""
@@ -135,7 +135,9 @@ class APILL:
         """Returns a tournament by its ID, or None if not found."""
         return self.main_ll.tournament_ll.get_tournament_by_id(tournament_id)
 
-    def get_all_matches_by_type(self, tournament: Tournament, type_of_round: str) -> list[Match]:
+    def get_all_matches_by_type(
+        self, tournament: Tournament, type_of_round: str
+    ) -> list[Match]:
         """Returns all matches in a specific round type for a given tournament."""
         return self.main_ll.tournament_ll.get_all_matches_by_type(
             tournament, type_of_round
@@ -178,17 +180,23 @@ class APILL:
         """Creates a new match through the logic layer and returns the stored match."""
         return self.main_ll.tournament_ll.create_match(match)
 
-    def create_contact_person(self, contact_person: ContactPerson) -> ContactPerson | None:
+    def create_contact_person(
+        self, contact_person: ContactPerson
+    ) -> ContactPerson | None:
         """Creates a new contact person and stores it through the logic layer."""
         return self.main_ll.tournament_ll.create_contact_person(contact_person)
 
     def get_all_teams_on_tournament(self, target_tournament_id: str) -> list[Team]:
         """Returns all teams registered for a tournament with the given ID."""
-        return self.main_ll.tournament_ll.get_all_teams_on_tournament(target_tournament_id)
+        return self.main_ll.tournament_ll.get_all_teams_on_tournament(
+            target_tournament_id
+        )
 
     def register_match_result(self, match_id: str, winner_name: str, completed: str):
         """Registers the result of a match (winner and completion status)."""
-        return self.main_ll.tournament_ll.register_match_result( match_id, winner_name, completed)
+        return self.main_ll.tournament_ll.register_match_result(
+            match_id, winner_name, completed
+        )
 
     def get_tournament_by_name(self, tournament_name) -> Tournament | None:
         """Returns a tournament by its name, or None if not found."""
@@ -210,7 +218,7 @@ class APILL:
         """Returns a list of all games available in the system."""
         return self.main_ll.game_ll.get_all_games()
 
-       # ---------- PLAYER VALIDATION ----------
+    # ---------- PLAYER VALIDATION ----------
     def validate_player_name(self, name: str) -> Errors:
         return validate_player_name(name)
 
@@ -232,12 +240,12 @@ class APILL:
     def validate_social_media(self, social_media: str) -> Errors:
         return validate_social_media(social_media)
 
-# ---------- TEAM CAPTAIN VALIDATION ----------
+    # ---------- TEAM CAPTAIN VALIDATION ----------
 
     def validate_team_captain(self, handle: str) -> Errors:
         return validate_team_captain(handle, self.APIDATA)
 
-# ---------- TEAM VALIDATION ----------
+    # ---------- TEAM VALIDATION ----------
 
     def validate_team_name(self, name: str) -> Errors:
         return validate_team_name(name, self.APIDATA)
@@ -251,7 +259,7 @@ class APILL:
     def validate_team_points(self, points: str) -> Errors:
         return validate_team_points(points)
 
-# ---------- TOURNAMENT VALIDATION ----------
+    # ---------- TOURNAMENT VALIDATION ----------
 
     def validate_tournament_name(self, name: str) -> Errors:
         return validate_tournament_name(name)
@@ -262,7 +270,7 @@ class APILL:
     def validate_tournament_end_date(self, start_date: str, end_date: str) -> Errors:
         return validate_tournament_end_date(start_date, end_date)
 
-    def validate_players_in_teams(self, players_in_team: str) -> Errors:
+    def validate_players_in_teams(self, players_in_team: list[Player]) -> Errors:
         return validate_players_in_teams(players_in_team)
 
     def validate_tournament_servers(self, servers: str) -> Errors:
@@ -314,4 +322,3 @@ class APILL:
 
     def validate_club_country(self, country: str) -> Errors:
         return validate_club_country(country)
-
