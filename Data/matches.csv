@@ -29,3 +29,4 @@ match_id,tournament_id,round,match_number,team_a_name,team_b_name,match_date,mat
 28,28,R16,16,Segmentation Foul,IndentationError Invaders,2026-01-07,10:00,,0,0,,False
 29,28,R16,17,Datalab Dominators,Bomblab Bombers,2026-01-07,10:00,,0,0,,False
 30,28,R16,18,StackOverflow Stackers,CacheHit Crusaders,2026-01-08,10:00,,0,0,,False
+31,28,QF,7,SegFault Spartans,NullPointer Ninjas,2026-01-06,10:00,,0,0,,False

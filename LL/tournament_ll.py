@@ -235,79 +235,6 @@ class TournamentLL:
         next_match_number = max_match_number + 1
         match.set_match_number(next_match_number)
 
-        # # This tracks the 4 criteria needed to validate a match
-        # teams_valid: list[str] = []
-        #
-        # # Critera #1
-        # if match.team_a_name != match.team_b_name:
-        #     teams_valid.append("criteria #1")
-        #
-        # # Criteria #2 and 3. Check to see if the teams won in the previous round
-        # round = match.round
-        # if round != "R16":
-        #     index = match.rounds.index(round)
-        #     prev_round = match.rounds[index - 1]
-        #
-        #     for matchcsv in matches:
-        #         if matchcsv.round == prev_round:
-        #             if match.team_a_name == matchcsv.winner_team_name:
-        #                 teams_valid.append("Criteria #2")
-        #             if match.team_b_name == matchcsv.winner_team_name:
-        #                 teams_valid.append("Criteria #3")
-        # else:
-        #     # If this is the first round, we don't need to check anything
-        #     teams_valid.append("Criteria #2")
-        #     teams_valid.append("Criteria #3")
-        #
-        # # Criteria #4. Check to see if the teams have already been registered to this round
-        # criteria = True
-        # for matchcsv in matches:
-        #     if round == matchcsv.round:
-        #         if (
-        #             match.team_a_name == matchcsv.team_a_name
-        #             or match.team_a_name == matchcsv.team_b_name
-        #         ):
-        #             criteria = False
-        #         if (
-        #             match.team_b_name == matchcsv.team_b_name
-        #             or match.team_b_name == matchcsv.team_b_name
-        #         ):
-        #             criteria = False
-        # if criteria:
-        #     teams_valid.append("Criteria #4")
-        #
-        # # Critera #5 - Checking to see if a server is free
-        # server_names = [
-        #     "SRV-PEPSI",
-        #     "SRV-CHUCK",
-        #     "SRV-DATALAB",
-        #     "SRV-BOMBLAB",
-        #     "SRV-DUSTY",
-        # ]
-        #
-        # # Check to see if a valid server has been selected
-        # # COMMENTA AF ÞVI VEIT EKKI HVORT ÞETTA MEIKI SENSE
-        # # if match.server_id not in server_names:
-        # #     raise ValueError
-        #
-        # # Check to see if the selected server is busy
-        # for matchcsv in matches:
-        #     if (
-        #         matchcsv.match_date == match.match_date
-        #         and matchcsv.match_time == match.match_time
-        #         and matchcsv.server_id == match.server_id
-        #     ):
-        #         raise ValueError
-        #
-        # # 4 values means all criteria was met and we can add the match to matches.csv
-        # if len(teams_valid) == 4:
-        #     stored = self.APIDATA.store_match_data(match)
-        #     print("Len == 4")
-        # else:
-        #     stored = None
-        #     print("Len != 4")
-        #     raise ValueError
-
         return self.APIDATA.store_match_data(match)
 
     def get_all_teams_on_tournament(self, target_tournament_id: str) -> list[Team]:
@@ -359,7 +286,7 @@ class TournamentLL:
 
     def register_match_result(self, match_id: str, winner_name: str, completed: str):
         self.APIDATA.register_match_results(match_id, winner_name, completed)
-
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     def give_player_points(self, handle: str, points: int) -> None:
         """Adds points to the player with the given handle."""
         self.APIDATA.give_player_points(handle, points)

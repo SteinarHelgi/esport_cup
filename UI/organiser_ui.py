@@ -9,6 +9,7 @@ from UI.functions import format_player_list, format_team_list, format_tournament
 from UI.ui_functions import refresh_logo
 from LL.validators_ll import (
     Errors,
+    validate_match_creation,
     validate_match_date,
     validate_match_time,
     validate_phone_number,
@@ -315,86 +316,109 @@ class OrganiserUI:
     def show_create_match(self, tournament: Tournament):
         """Function for creating matches as an organiser"""
 
-        if len(tournament.matches) < 8:
-            round = "R16"
-        elif len(tournament.matches) < 12:
-            round = "QF"
-        elif len(tournament.matches) < 14:
-            round = "SF"
-        else:
-            round = "Final"
-        teams_not_in_round = self.APILL.get_teams_not_in_round(tournament)
-        print("Which teams are competing in this match?")
-        print("")
-        valid_choices = []
-        if len(teams_not_in_round) > 1:
-            teams_not_in_round[0]._print_header()
-            teams_not_in_round[0]._print_divider_line()
-            for counter, team in enumerate(teams_not_in_round):
-                team.format_row(counter)
-                valid_choices.append(str(counter))
-                team._print_divider_line()
-        else:
-            print("No teams have registered for this tournament")
-            print("b. Back\nq. Quit")
-            choice: str = self.menu_manager.prompt_choice(["b", "q"])
-            if choice == "b":
-                return "MY_TOURNAMENTS_ORG"
-            if choice == "q":
-                return "QUIT"
+        while True:
+            if len(tournament.matches) < 8:
+                round = "R16"
+            elif len(tournament.matches) < 12:
+                round = "QF"
+            elif len(tournament.matches) < 14:
+                round = "SF"
+            else:
+                round = "Final"
+            teams_not_in_round = self.APILL.get_teams_not_in_round(tournament)
+            print("Which teams are competing in this match?")
+            print("")
+            valid_choices = []
+            if len(teams_not_in_round) > 1:
+                teams_not_in_round[0]._print_header()
+                teams_not_in_round[0]._print_divider_line()
+                for counter, team in enumerate(teams_not_in_round):
+                    team.format_row(counter)
+                    valid_choices.append(str(counter))
+                    team._print_divider_line()
+            else:
+                print("No teams have registered for this tournament")
+                print("b. Back\nq. Quit")
+                choice: str = self.menu_manager.prompt_choice(["b", "q"])
+                if choice == "b":
+                    return "MY_TOURNAMENTS_ORG"
+                if choice == "q":
+                    return "QUIT"
 
-        print("")
-        print("Round type ", round)
-        print("Select team 1:", end="")
+            print("")
+            print("Round type ", round)
+            print("Select team 1:", end="")
 
-        choice: str = self.menu_manager.prompt_choice(valid_choices)
-        team1 = teams_not_in_round[int(choice)]
-        if choice in valid_choices:
-            print(team1.name, "as Team 1")
+            choice: str = self.menu_manager.prompt_choice(valid_choices)
+            team1 = teams_not_in_round[int(choice)]
+            if choice in valid_choices:
+                print(team1.name, "as Team 1")
 
-        print("Select team 2:", end="")
-        choice: str = self.menu_manager.prompt_choice(valid_choices)
-        team2 = teams_not_in_round[int(choice)]
-        if choice in valid_choices:
-            print(team2.name, "as Team 2")
+            print("Select team 2:", end="")
+            choice: str = self.menu_manager.prompt_choice(valid_choices)
+            team2 = teams_not_in_round[int(choice)]
+            if choice in valid_choices:
+                print(team2.name, "as Team 2")
 
-        date = input("Date (YYYY-MM-DD): ")
-        while (
-            validate_match_date(date, tournament.start_date, tournament.end_date)
-            != Errors.OK
-        ):
-            print("Date not in tournament")
             date = input("Date (YYYY-MM-DD): ")
+            while (
+                validate_match_date(date, tournament.start_date, tournament.end_date)
+                != Errors.OK
+            ):
+                print("Date not in tournament")
+                date = input("Date (YYYY-MM-DD): ")
 
-        time = input("Time (HH:MM): ")
-        error = validate_match_time(time)
-        timeslots = [
-            "08:00",
-            "10:00",
-            "12:00",
-            "14:00",
-            "16:00",
-            "18:00",
-            "20:00",
-        ]
-
-        while error != Errors.OK:
-            if error == Errors.TIME_NOT_IN_TIMESLOT:
-                print("Choose a time in time slot:")
-                print("Timeslots : ", *timeslots)
             time = input("Time (HH:MM): ")
             error = validate_match_time(time)
+            timeslots = [
+                "08:00",
+                "10:00",
+                "12:00",
+                "14:00",
+                "16:00",
+                "18:00",
+                "20:00",
+            ]
 
-        match = Match(tournament.id, round, team1.name, team2.name, date, time)
+            while error != Errors.OK:
+                if error == Errors.TIME_NOT_IN_TIMESLOT:
+                    print("Choose a time in time slot:")
+                    print("Timeslots : ", *timeslots)
+                time = input("Time (HH:MM): ")
+                error = validate_match_time(time)
 
-        print("Confirm ? (Y/N)")
-        choice: str = self.menu_manager.prompt_choice(["y", "n"])
-        if choice == "y":
-            match = self.APILL.create_match(match)
-        if choice == "n":
-            pass
+            match = Match(tournament.id, round, team1.name, team2.name, date, time)
 
-        return self.show_tournament_view(tournament)
+            print("Confirm ? (Y/N)")
+            choice: str = self.menu_manager.prompt_choice(["y", "n"])
+            if choice == "y":
+                error = validate_match_creation(match, tournament, self.APILL.APIDATA)
+                if error == Errors.OK:
+                    match = self.APILL.create_match(match)
+                    return self.show_tournament_view(tournament)
+                if error == Errors.INVALID_SERVER_COUNT:
+                    print("Server amount cannot be less than 1")
+                if error == Errors.TEAM_A_ALREADY_IN_SLOT:
+                    print(f"Team: {match.team_a_name} is already playing at this time")
+                if error == Errors.TEAM_B_ALREADY_IN_SLOT:
+                    print(f"Team: {match.team_b_name} is already playing at this time")
+                if error == Errors.TEAM_A_ALREADY_IN_ROUND:
+                    print(f"Team: {match.team_a_name}")
+                if error == Errors.TEAM_B_ALREADY_IN_ROUND:
+                    print(f"Team: {match.team_b_name}")
+                if error == Errors.TIMESLOT_FULL:
+                    print("Select another time, this time slot is full")
+                if error == Errors.TEAM_A_LOST_LAST_ROUND:
+                    print(
+                        f"Team: {match.team_a_name} lost a round and is not in the tournament"
+                    )
+                if error == Errors.TEAM_B_LOST_LAST_ROUND:
+                    print(
+                        f"Team: {match.team_b_name} lost a round and is not in the tournament"
+                    )
+
+            if choice == "n":
+                pass
 
     def show_register_results(self, match: Match):
         """Registering results of a match, chooses a winner and marks match as completed"""
