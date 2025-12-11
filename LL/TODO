@@ -4,13 +4,6 @@ ef ekki 16 lið á móti þá deletast mót
 ##LOGIC - Þröstur
 
 
-
-
-***EF VIÐ HÖFUM TÍMA GETUM VIÐ BÆTT ÞESSU VIÐ***
-1. Bætt við modify_tournament, sambærilegt við modify player. Muna að setja á requirement list í skýrsluna
-2
-
-
 ## UI
 
 * req 18: create a match sem organiser eilla buið
@@ -21,8 +14,8 @@ ef ekki 16 lið á móti þá deletast mót
 * register results á bara vera hægt ef leikur er búinn
 
 * sign up for multiple events virkar en vantar að validatea schedule, choose another time, team1 is playing at this time
-* check á server id og svoleiðis, all servers busy at this time, choose different server
-* see all teams belonging to a club?
+# check á server id og svoleiðis, all servers busy at this time, choose different server
+# see all teams belonging to a club?
 * vantar að logga sig inn sem nýr team captain og búa til lið...C krafa
 * password og svona fyrir organiser?
 * laga import, gera (from Models.models import Team, Tournament.....)
