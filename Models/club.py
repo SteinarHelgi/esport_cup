@@ -32,12 +32,16 @@ class Club:
         return ret
 
     def __str__(self) -> str:
-        teams = self.teams.split(";")
-        teams_string = ""
-        for team in teams:
-            teams_string += team + ", "
+        teams_raw = self.teams.split(";")
 
-        return f"| {self.name:<{Club.w_club}} |  Teams: {teams_string}"
+        cleaned_teams = []
+        for team in teams_raw:
+            team = team.strip()
+            if team != "":
+                cleaned_teams.append(team)
+
+        name = f"{self.name:>14}:  "
+        return name + ", ".join(cleaned_teams)
 
     def set_id(self, id: str):
         self.id = id

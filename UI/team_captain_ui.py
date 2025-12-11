@@ -25,95 +25,108 @@ class TeamCaptainUI:
     def show_create_player(self):
         """Creating a player with the required information"""
         name = input("Player's name: ").strip()
-        if name.lower() == "b":
-            return "SHOW_MY_PLAYERS"
-        if name.lower() == "q":
-            return "QUIT"
-        while self.APILL.validate_player_name(name) != Errors.OK:
-            error = self.APILL.validate_player_name(name)
+        error = self.APILL.validate_player_name(name)
+        while error != Errors.OK:
             if error == Errors.EMPTY:
                 print("Name cannot be empty")
             if error == Errors.NAME_INCLUDE_NUMBERS:
                 print("Name cannot include a number")
+            if name.lower() == "b":
+                return "SHOW_MY_PLAYERS"
+            if name.lower() == "q":
+                return "QUIT"
             name = input("Player's name: ").strip()
+            error = self.APILL.validate_player_name(name)
 
         date_of_birth = input("Player's birthday (YYYY-MM-DD): ").strip()
-        if date_of_birth.lower() == "b":
-            return "MY_TEAM"
-        if date_of_birth.lower() == "q":
-            return "QUIT"
-        while self.APILL.validate_date_of_birth(date_of_birth) != Errors.OK:
-            error = self.APILL.validate_date_of_birth(date_of_birth)
+        error = self.APILL.validate_date_of_birth(date_of_birth)
+        while error != Errors.OK:
             if error == Errors.DATE_NOT_VALID:
                 print("Use format YYYY-MM-DD")
             if error == Errors.DATE_TOO_OLD:
                 print("Invalid date, choose a date after 1900")
             date_of_birth = input("Player's birthday (YYYY-MM-DD): ").strip()
+            if date_of_birth.lower() == "b":
+                return "MY_TEAM"
+            if date_of_birth.lower() == "q":
+                return "QUIT"
+            error = self.APILL.validate_date_of_birth(date_of_birth)
+            date_of_birth = input("Player's birthday (YYYY-MM-DD): ").strip()
 
         address = input("Enter address: ").strip()
-        if address.lower() == "b":
-            return "MY_TEAM"
-        if address.lower() == "q":
-            return "QUIT"
-        while self.APILL.validate_address(address) != Errors.OK:
-            error = self.APILL.validate_address(address)
+        error = self.APILL.validate_address(address)
+        while error != Errors.OK:
             if error == Errors.EMPTY:
                 print("Address cannot be empty.")
             if error == Errors.ADDRESS_ONLY_NUMBERS:
                 print("Address cannot only be digits.")
                 address = input("Enter address: ").strip()
+            if address.lower() == "b":
+                return "MY_TEAM"
+            if address.lower() == "q":
+                return "QUIT"
+            address = input("Enter address: ").strip()
+            error = self.APILL.validate_address(address)
 
         phone_number = input("Enter phone number: ").strip()
-        if phone_number.lower() == "b":
-            return "MY_TEAM"
-        if phone_number.lower() == "q":
-            return "QUIT"
-        while self.APILL.validate_phone_number(phone_number) != Errors.OK:
-            error = self.APILL.validate_phone_number(phone_number)
+        error = self.APILL.validate_phone_number(phone_number)
+        while error == Errors.OK:
             if error == Errors.EMPTY:
                 print("Phone number cannot be empty.")
             if error == Errors.NUMBER_HAS_CHARACTERS:
                 print("Phone number cannot include characters.")
             if error == Errors.NUMBER_NOT_CORRECT_LENGTH:
                 print("Phone number has to be exactly 7 digits.")
+            if phone_number.lower() == "b":
+                return "MY_TEAM"
+            if phone_number.lower() == "q":
+                return "QUIT"
             phone_number = input("Enter phone number: ").strip()
+            error = self.APILL.validate_phone_number(phone_number)
+
         email = input("Enter email: ").strip()
-        if email.lower() == "b":
-            return "MY_TEAM"
-        if email.lower() == "q":
-            return "QUIT"
-        while self.APILL.validate_player_email(email) != Errors.OK:
-            error = self.APILL.validate_player_email(email)
+        error = self.APILL.validate_player_email(email)
+        while error == Errors.OK:
             if error == Errors.EMPTY:
                 print("Email address cannot be empty.")
             if error == Errors.EMAIL_NOT_CONTAINING_AT:
                 print("Email has to include '@', example@example.com.")
+            if email.lower() == "b":
+                return "MY_TEAM"
+            if email.lower() == "q":
+                return "QUIT"
             email = input("Enter email: ").strip()
+            error = self.APILL.validate_player_email(email)
 
         social_media = input("Enter social media handle: ").strip()
-        if social_media.lower() == "b":
-            return "MY_TEAM"
-        if social_media.lower() == "q":
-            return "QUIT"
-        while self.APILL.validate_social_media(social_media) != Errors.OK:
-            error = self.APILL.validate_social_media(social_media)
+        error = self.APILL.validate_social_media(social_media)
+        while error == Errors.OK:
             if error == Errors.EMPTY:
                 print("Social media handle cannot be empty.")
             if error == Errors.HANDLE_CONTAINS_SPACE:
                 print("Social media handle cannot contain empty spaces.")
                 social_media = input("Enter social media handle: ").strip()
+            if social_media.lower() == "b":
+                return "MY_TEAM"
+            if social_media.lower() == "q":
+                return "QUIT"
+            social_media = input("Enter social media handle: ").strip()
+            error = self.APILL.validate_social_media(social_media)
+
         handle = input("Enter player handle: ").strip()
-        if handle.lower() == "b":
-            return "MY_TEAM"
-        if handle.lower() == "q":
-            return "QUIT"
-        while self.APILL.validate_player_handle(handle) != Errors.OK:
-            error = self.APILL.validate_player_handle(handle)
+        error = self.APILL.validate_player_handle(handle)
+        while error != Errors.OK:
             if error == Errors.EMPTY:
                 print("Player handle cannot be empty.")
             if error == Errors.HANDLE_CONTAINS_SPACE:
                 print("Handle cannot contain empty spaces.")
+            if handle.lower() == "b":
+                return "MY_TEAM"
+            if handle.lower() == "q":
+                return "QUIT"
             handle = input("Enter player handle: ").strip()
+            error = self.APILL.validate_player_handle(handle)
+
         team = self.menu_manager.team_name
         new_player = Player(
             name,
