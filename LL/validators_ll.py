@@ -183,7 +183,7 @@ def validate_team_name(name: str, api_data: APIDATA) -> Errors:
 
     players_in_team = [p for p in current_players if p.team_name == name]
     if len(players_in_team) >= MAX_PLAYERS:
-        Errors.TOO_MANY_PLAYERS
+       return Errors.TOO_MANY_PLAYERS
 
     current_teams = api_data.get_all_team_data()
 
@@ -420,7 +420,7 @@ def validate_game_name(game_name: str, api_data: APIDATA) -> Errors:
     game_names = [g.name for g in available_games]
 
     if valid_game not in game_names:
-        Errors.GAME_NOT_VALID
+       return Errors.GAME_NOT_VALID
     return Errors.OK
 
 
