@@ -97,13 +97,13 @@ class UserUI:
                 valid_options.append(str(index + 1))
 
         print("")
-        print("1. Tournaments for team \nb. Back \nq. Quit")
-        choice: str = self.menu_manager.prompt_choice(valid_options + ["1", "b", "q"])
+        print("t. Tournaments for team \nb. Back \nq. Quit")
+        choice: str = self.menu_manager.prompt_choice(valid_options + ["t", "b", "q"])
         for element in valid_options:
             if element == choice and self.menu_manager.user == "ORGANISER":
                 player = self.show_player_view(players[int(element) - 1])
                 return player
-        if choice == "1":
+        if choice == "t":
             if team:
                 tournaments = self.APILL.get_all_tournaments_for_team(team)
                 print("All tournaments for this team.")
