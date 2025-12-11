@@ -85,14 +85,14 @@ class TournamentLL:
                 matches.append(match)
         return matches
 
-    def get_all_tournaments_for_captain(self, captain: TeamCaptain) -> list[Tournament]:
+    def get_all_tournaments_for_team(self, team: Team) -> list[Tournament]:
         """Returns all tournaments that the captain's team is registered for."""
-        tournaments_for_captain = []
+        tournaments_for_team = []
 
         # Find the team captain is registered for
-        team = self.MAINLL.team_ll.get_team_by_captain_handle(captain.handle)
+        
         if team is None:
-            return tournaments_for_captain
+            return tournaments_for_team
 
         # Get all team registrations and all tournaments
         team_registry = self.APIDATA.get_all_team_registry_data()
@@ -103,10 +103,10 @@ class TournamentLL:
             if registry.team_id == team.id:
                 for tournament in tournaments:
                     if tournament.id == registry.tournament_id:
-                        if tournament not in tournaments_for_captain:
-                            tournaments_for_captain.append(tournament)
+                        if tournament not in tournaments_for_team:
+                            tournaments_for_team.append(tournament)
 
-        return tournaments_for_captain
+        return tournaments_for_team
 
     def get_teams_not_in_round(self, tournament):
         teams_in_tournament = self.get_teams_in_tournament(tournament)

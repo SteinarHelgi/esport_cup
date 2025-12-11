@@ -98,8 +98,8 @@ class APILL:
     # def get_all_club_stat(self) -> list[ClubStat]:
     #     return self.userLL.get_all_club_stat()
 
-    def get_all_tournaments_for_captain(self, captain: TeamCaptain) -> list[Tournament]:
-        return self.main_ll.tournament_ll.get_all_tournaments_for_captain(captain)
+    def get_all_tournaments_for_team(self, team: Team) -> list[Tournament]:
+        return self.main_ll.tournament_ll.get_all_tournaments_for_team(team)
 
     def get_teams_in_tournament(self, tournament: Tournament) -> list[Team]:
         return self.main_ll.tournament_ll.get_teams_in_tournament(tournament)
