@@ -7,8 +7,7 @@ from Models.contact_person import ContactPerson
 from Models.models import Match, Player, Team, Tournament
 from UI.functions import format_player_list, format_team_list, format_tournament_table
 from UI.ui_functions import refresh_logo
-from LL.validators_ll import (
-    Errors,
+from LL.validators_ll import (Errors,
     validate_match_creation,
     validate_match_date,
     validate_match_time,
