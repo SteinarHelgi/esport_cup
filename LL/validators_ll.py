@@ -135,8 +135,8 @@ def validate_player_handle(player_handle: str, api_data: APIDATA) -> Errors:
 
     for p in current_players:
         if p.handle == handle:
-            Errors.SAME_HANDLE
-
+           return Errors.SAME_HANDLE
+        
     return Errors.OK
 
 
