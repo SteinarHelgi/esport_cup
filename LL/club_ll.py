@@ -1,6 +1,5 @@
-from Models.team import Team
 from IO.api_data import APIDATA
-from Models.club import Club
+from Models.models import Team, Club
 
 
 class ClubLL:

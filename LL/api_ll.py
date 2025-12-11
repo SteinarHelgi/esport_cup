@@ -1,5 +1,6 @@
 from datetime import datetime
 from IO.api_data import APIDATA
+from LL.main_ll import MainLL
 from Models.models import (
     Game,
     Tournament,
@@ -8,9 +9,8 @@ from Models.models import (
     Match,
     ContactPerson,
     TeamCaptain,
+    Club
 )
-from Models.club import Club
-from LL.main_ll import MainLL
 
 from LL.validators_ll import (
     Errors,
@@ -43,7 +43,6 @@ from LL.validators_ll import (
     validate_club_color,
     validate_club_country,
 )
-
 
 class APILL:
     def __init__(self) -> None:
