@@ -15,7 +15,6 @@ from LL.validators_ll import (
     validate_phone_number,
     validate_player_email,
     validate_player_name,
-
     validate_tournament_end_date,
     validate_tournament_game,
     validate_tournament_name,
@@ -58,7 +57,7 @@ class OrganiserUI:
         while validate_tournament_start_date(start_date_of_tournament) != Errors.OK:
             error = validate_tournament_start_date(start_date_of_tournament)
             if error == Errors.DATE_FORMAT_NOT_VALID:
-                print("Invalid format. Format is 0000-00-00.")
+                print("Invalid format. Format is YYYY-MM-DD.")
             if error == Errors.START_DATE_BEFORE_TODAY:
                 print(
                     "The start date you entered has already passed, please input a different date."
@@ -80,7 +79,7 @@ class OrganiserUI:
                 start_date_of_tournament, end_date_of_tournamnet
             )
             if error == Errors.DATE_FORMAT_NOT_VALID:
-                print("Invalid format. Format is 0000-00-00.")
+                print("Invalid format. Format is YYYY-MM-DD.")
             if error == Errors.END_DATE_BEFORE_START:
                 print(
                     "The date you have input is before or on the start date you input. Please input a date that is after the start date."
@@ -109,9 +108,9 @@ class OrganiserUI:
             error = validate_tournament_venue(venue)
             if error == Errors.VENUE_INCLUDE_NUMBERS:
                 print("Invalid input, cannot be all numnbers.")
+            if error == Errors.EMPTY:
+                print("Venue cannot be empty")
             venue = input("Venue: ").strip()
-
-
 
         games = self.APILL.get_all_games()
         print("Valid games are:", *[f"{game}," for game in games[:-1]], games[-1])
@@ -126,7 +125,9 @@ class OrganiserUI:
                 print(
                     "You have input an invalid game, select a game from the list provided"
                 )
-                print("Valid games are:", *games)
+                print(
+                    "Valid games are:", *[f"{game}," for game in games[:-1]], games[-1]
+                )
                 game_for_tournament = input("Game: ").strip()
 
         print("Fill in contact person info or 'b' to Back and 'q' to Quit")

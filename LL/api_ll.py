@@ -92,7 +92,7 @@ class APILL:
     def get_teams_not_in_round(self, tournament: Tournament):
         return self.main_ll.tournament_ll.get_teams_not_in_round(tournament)
 
-    def get_team_by_captain_id(self, handle) -> Team | None:
+    def get_team_by_captain_handle(self, handle) -> Team | None:
         return self.main_ll.team_ll.get_team_by_captain_handle(handle)
 
     # def get_all_club_stat(self) -> list[ClubStat]:
@@ -133,8 +133,6 @@ class APILL:
         return self.main_ll.tournament_ll.register_match_result(
             match_id, winner_name, completed
         )
-
-
 
     def get_tournament_by_name(self, tournament_name) -> Tournament | None:
         return self.main_ll.tournament_ll.get_tournament_by_name(tournament_name)

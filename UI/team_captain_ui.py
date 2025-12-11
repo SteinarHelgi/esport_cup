@@ -112,8 +112,8 @@ class TeamCaptainUI:
             return "MY_TEAM"
         if handle.lower() == "q":
             return "QUIT"
-        while validate_player_handle(handle,self.APILL.APIDATA) != Errors.OK:
-            error = validate_player_handle(handle,self.APILL.APIDATA)
+        while validate_player_handle(handle, self.APILL.APIDATA) != Errors.OK:
+            error = validate_player_handle(handle, self.APILL.APIDATA)
             if error == Errors.EMPTY:
                 print("Player handle cannot be empty.")
             if error == Errors.HANDLE_CONTAINS_SPACE:
@@ -167,7 +167,9 @@ class TeamCaptainUI:
                     if error == Errors.PLAYERS_NOT_ENOUGH:
                         print("Not enough players on team to register.")
                     if error == Errors.PLAYERS_TOO_MANY:
-                        print("Too many players on this team to register for a tournament.")
+                        print(
+                            "Too many players on this team to register for a tournament."
+                        )
                     enter_to_leave = input("Enter to exit")
                     return "MY_TOURNAMENTS_CAP"
 
@@ -188,9 +190,15 @@ class TeamCaptainUI:
                     self.APILL.register_team_to_tournament(
                         team, tournaments[int(choice) - 1]
                     )
-                    print(f"{team} has been registered for {choice}")
+                    print(
+                        f"{team} has been registered for {tournaments[int(choice) - 1].name}"
+                    )
                     while True:
-                        back_or_quit = input("b to go back to tournament menu or q to quit: ").strip().lower()
+                        back_or_quit = (
+                            input("b to go back to tournament menu or q to quit: ")
+                            .strip()
+                            .lower()
+                        )
 
                         if back_or_quit == "b":
                             return "MY_TOURNAMENTS_CAP"  # Go back to tournament menu
@@ -198,9 +206,9 @@ class TeamCaptainUI:
                             return "QUIT"  # Quit command
                         else:
                             print("Invalid choice, valid choices are B and Q.")
-                if choice == 'b':
+                if choice == "b":
                     return "MY_TOURNAMENTS_CAP"
-                if choice == 'q':
+                if choice == "q":
                     return "QUIT"
 
             if choice == "b":
@@ -386,7 +394,7 @@ class TeamCaptainUI:
                 # Modify player menuið
                 return self.show_modify_player_menu(player)
             if choice == "2":
-                return(self.remove_selected_player(player))
+                return self.remove_selected_player(player)
             if choice == "b" and self.menu_manager.user == "TEAM_CAPTAIN":
                 return "SHOW_MY_PLAYERS"
             if choice == "b" and self.menu_manager.user == "ORGANISER":
@@ -486,8 +494,8 @@ class TeamCaptainUI:
             return "TEAM_CAPTAIN_MENU"
         if team_name.lower == "q":
             return "QUIT"
-        while validate_team_name(team_name,self.APILL.APIDATA) != Errors.OK:
-            error = validate_team_name(team_name,self.APILL.APIDATA)
+        while validate_team_name(team_name, self.APILL.APIDATA) != Errors.OK:
+            error = validate_team_name(team_name, self.APILL.APIDATA)
             if error == Errors.EMPTY:
                 print("Team name cannot be empty.")
             if error == Errors.TEAM_NAME_TOO_LONG:
@@ -525,8 +533,7 @@ class TeamCaptainUI:
         # )
         pass
 
-
-    def remove_selected_player(self, player:Player):
+    def remove_selected_player(self, player: Player):
         """Removes the selected player from the team"""
         print(f"Are you sure you want to remove {player.name}?")
         confirmation = input("Confirm(Y/N)")
