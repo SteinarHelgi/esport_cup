@@ -67,7 +67,7 @@ def validate_player_name(player_name: str) -> Errors:
     return Errors.OK
 
 
-def validate_date_of_birth(date_of_birth):
+def validate_date_of_birth(date_of_birth) -> Errors:
     valid_dob = date_of_birth.strip()
 
     if valid_dob == "":
@@ -81,7 +81,7 @@ def validate_date_of_birth(date_of_birth):
         return Errors.DATE_NOT_VALID
 
 
-def validate_address(address):
+def validate_address(address) -> Errors:
     valid_address = address.strip()
 
     if valid_address == "":
@@ -139,7 +139,7 @@ def validate_social_media(social_media):
     socials = social_media.strip()
     if socials == "":
         return Errors.EMPTY
-    if " " in socials:
+    if socials == " ":
         return Errors.HANDLE_CONTAINS_SPACE
     return Errors.OK
 
