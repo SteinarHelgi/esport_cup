@@ -478,6 +478,15 @@ class TeamCaptainUI:
         if team:
             print("Currrent social media: ", team.social_media)
             new_social_media = input("New social media: ")
+            error = validate_social_media(new_social_media)
+
+            while error != Errors.OK:
+                if error == Errors.EMPTY:
+                    print("Social Media cannot be empty")
+                if error == Errors.HANDLE_CONTAINS_SPACE:
+                    print("Social Media cannot contain spaces")
+                new_social_media = input("New social media: ")
+                error = validate_social_media(new_social_media)
             team.social_media = new_social_media
 
             new_team = self.APILL.modify_team_data(team)
