@@ -1,9 +1,12 @@
 from datetime import datetime, date
 from enum import Enum, auto
-from operator import contains
 from IO.api_data import APIDATA
-
-from Models.models import Match, Tournament, Player,Game
+from Models.models import (
+    Match, 
+    Tournament, 
+    Player,
+    Game
+)
 
 
 
@@ -484,3 +487,4 @@ def validate_unwanted_characters(input) -> Errors:
     for char in unwanted_characters:
         if char in input:
             return Errors.CONTAINS_UNWANTED_CHAR
+    return Errors.OK
