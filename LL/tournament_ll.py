@@ -286,68 +286,8 @@ class TournamentLL:
 
     def register_match_result(self, match_id: str, winner_name: str, completed: str):
         self.APIDATA.register_match_results(match_id, winner_name, completed)
-#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    def give_player_points(self, handle: str, points: int) -> None:
-        """Adds points to the player with the given handle."""
-        self.APIDATA.give_player_points(handle, points)
 
     def give_team_points(self, team_name: str, points: int) -> None:
         """Adds points to the team with the given name."""
         self.APIDATA.give_team_points(team_name, points)
 
-    def give_club_points(self, club_name: str, points: int) -> None:
-        """Adds points to the club with the given name."""
-        self.APIDATA.give_club_points(club_name, points)
-
-    def setup_R16_qualifying_matches(self, tournament_id: str) -> None:
-        """Creates R16 qualifying matches for the given tournament."""
-        team_registry = self.APIDATA.get_all_team_registry_data()
-        all_tournaments = self.APIDATA.get_all_tournament_data()
-        playing_times: list[str] = ["10:00", "12:00", "14:00", "16:00"]
-
-        start_date: datetime = datetime(year=2000, month=1, day=1)
-        for t in all_tournaments:
-            if t.id == tournament_id:
-                start_date = t.start_date
-                break
-        # If tournament id was not found - raise valueerror
-        if start_date.year == 2000:
-            raise ValueError
-        next_day = start_date.day + 1
-        next_date: datetime = datetime(
-            year=start_date.year, month=start_date.month, day=next_day
-        )
-
-        dates: list[datetime] = [start_date, next_date]
-
-        teams_playing: list[str] = []
-        for registry in team_registry:
-            if registry.tournament_id == tournament_id:
-                teams_playing.append(registry.team_name)
-
-        # R16 is 8 matches Four matches per day for 2 days
-        match_id = 1
-        for j in range(2):
-            date_of_game = dates[j]
-            for i in range(4):
-                new_tournament_id: str = tournament_id
-                round: str = "R16"
-                team_a_name: str = random.choice(teams_playing)
-                teams_playing.remove(team_a_name)
-                team_b_name: str = random.choice(teams_playing)
-                teams_playing.remove(team_b_name)
-                time_of_match = playing_times[i]
-                new_match = Match(
-                    new_tournament_id,
-                    round,
-                    team_a_name,
-                    team_b_name,
-                    str(date_of_game),
-                    time_of_match,
-                )
-                new_match.match_id = str(match_id)
-                new_match.match_number = str(match_id)
-                server_id = "SRV-PEPSI"
-                new_match.server_id = server_id
-                self.APIDATA.store_match_data(new_match)
-                match_id += 1
