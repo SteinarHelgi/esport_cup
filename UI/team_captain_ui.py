@@ -1,12 +1,7 @@
 from LL.api_ll import APILL
 import UI.functions as f
 from UI.ui_functions import refresh_logo
-from Models.models import (
-    Team,
-    Tournament, 
-    Player, 
-    TeamCaptain
-)
+from Models.models import Team, Tournament, Player, TeamCaptain
 from LL.validators_ll import (
     validate_address,
     validate_date_of_birth,
@@ -20,6 +15,7 @@ from LL.validators_ll import (
     validate_team_logo,
     validate_team_name,
 )
+
 
 class TeamCaptainUI:
     def __init__(self, APILL: APILL, menu_manager) -> None:
@@ -361,6 +357,7 @@ class TeamCaptainUI:
                     new_name = input("Enter new name: ").strip()
                     error = self.APILL.validate_player_name(new_name)
                 print("Name updated locally.")
+                player.name = new_name
 
             elif selection == "2":
                 new_email = input("Enter new email: ").strip()

@@ -1,11 +1,7 @@
 from datetime import datetime
 from LL.api_ll import APILL
 from Models.contact_person import ContactPerson
-from Models.models import (
-    Match, 
-    Team, 
-    Tournament
-)
+from Models.models import Match, Team, Tournament
 from UI.functions import format_tournament_table
 from UI.ui_functions import (
     refresh_logo,
@@ -610,3 +606,4 @@ class OrganiserUI:
                _/_______\_
               /___________\ """)
         set_system_color_red()
+
