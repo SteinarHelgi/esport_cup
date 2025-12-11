@@ -1,6 +1,8 @@
-from Models.player import Player
-from Models.team import Team
-from Models.tournament import Tournament
+from Models.models import (
+    Player,
+    Team,
+    Tournament
+)
 
 
 def format_tournament_table(tournaments: list[Tournament]):

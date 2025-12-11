@@ -503,7 +503,7 @@ class OrganiserUI:
                 print("Are you sure you want to delete this match?")
                 confirmation = input("Confirm(Y/N): ")
                 if confirmation.lower() == "y":
-                    self.APILL.delete_match(match)
+                    self.APILL.delete_match(match.id)
             if winner == "b":
                 return "MY_TOURNAMENTS_ORG"
             if winner == "q":
