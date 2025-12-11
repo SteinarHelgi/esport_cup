@@ -9,13 +9,19 @@ class ClubLL:
         self.APIDATA = api_data
         self.MAINLL = main_ll
 
-    def add_team_to_club(self, team: Team, club_id: str):
+    def add_team_to_club(self, team: Team, club: Club):
         """Adds a team to the club with the given ID"""
-        self.APIDATA.add_team_to_club(team, club_id)
+        self.APIDATA.add_team_to_club(team, club)
 
     def get_all_club_data(self) -> list[Club]:
         """Returns all clubs in the system."""
         return self.APIDATA.get_all_club_data()
+
+    def get_club_by_name(self, club_name: str) -> Club | None:
+        all_clubs = self.get_all_club_data()
+        for club in all_clubs:
+            if club.name == club_name:
+                return club
 
     def get_all_teams_in_a_club(self, club_id) -> list[Team]:
         """Returns all teams that belong to the club with the given ID"""

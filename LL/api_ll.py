@@ -80,8 +80,8 @@ class APILL:
     def create_new_team(self, team: Team) -> Team | None:
         return self.main_ll.team_ll.create_new_team(team)
 
-    def add_team_to_club(self, team: Team, club_id: str):
-        return self.main_ll.club_ll.add_team_to_club(team, club_id)
+    def add_team_to_club(self, team: Team, club: Club):
+        return self.main_ll.club_ll.add_team_to_club(team, club)
 
     def get_all_club_data(self) -> list[Club]:
         return self.main_ll.club_ll.get_all_club_data()

@@ -51,7 +51,7 @@ class MenuManager:
             "CREATE_MATCH": self.organiser_Ui.show_create_match,
             "REGISTER_RESULTS": self.organiser_Ui.show_register_results,
             "DELETE_TOURNAMENT": self.organiser_Ui.show_delete_tournament,
-            #"GIVE_POINTS": self.organiser_Ui.show_give_points,
+            # "GIVE_POINTS": self.organiser_Ui.show_give_points,
         }
 
     def prompt_choice(self, valid_choices: list[str]) -> str:
@@ -105,6 +105,7 @@ class MenuManager:
                     choice: str = self.prompt_choice(["y", "n"])
                     found_name = True
                     self.team_name = team.name
+                    self.team_to_view = team
                     self.captain_handle = team.captain_handle
                     if choice.lower() == "y":
                         return "TEAM_CAPTAIN_MENU"

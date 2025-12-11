@@ -92,8 +92,8 @@ class APIDATA:
     def modify_team_data(self, team: Team) -> Team | None:
         return self.team_data.modify_team_data(team)
 
-    def add_team_to_club(self, team: Team, club_id: str):
-        return self.club_data.add_team_to_club(team, club_id)
+    def add_team_to_club(self, team: Team, club: Club):
+        return self.club_data.add_team_to_club(team, club)
 
     def give_player_points(self, handle: str, points: int):
         return self.player_data.give_player_points(handle, points)

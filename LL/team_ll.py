@@ -13,12 +13,16 @@ class TeamLL:
         teams = self.APIDATA.get_all_team_data()
         players = self.APIDATA.get_all_player_data()
         clubs = self.APIDATA.get_all_club_data()
-        for club in clubs:
-            print(club.teams)
+
         for team in teams:
             for player in players:
                 if player.team_name == team.name:
                     team.add_player(player.handle)
+            for club in clubs:
+                teams_in_club_names = club.teams.split(";")
+                for team_in_club_name in teams_in_club_names:
+                    if team_in_club_name == team.name:
+                        team.set_club(club.name)
 
         return teams
 
@@ -113,7 +117,6 @@ class TeamLL:
 
         for team in teams:
             if team.captain_handle == captain_handle:
-                print(team.captain_handle, captain_handle)
                 return team
         return None
 
@@ -130,7 +133,7 @@ class TeamLL:
 
     def get_team_by_name(self, name: str) -> Team | None:
         """Returns the team with the given name and attaches its players, or None if not found."""
-        teams = self.APIDATA.get_all_team_data()
+        teams = self.get_all_teams()
         players = self.get_players_in_team(name)
         for team in teams:
             if team.name == name:

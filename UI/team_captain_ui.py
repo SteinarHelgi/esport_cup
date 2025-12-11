@@ -389,20 +389,7 @@ class TeamCaptainUI:
         team = self.APILL.get_team_by_name(team_name)
 
         if team:
-            print("YOUR TEAM: ", team.name)
-            club = "CLUB"
-
-            w_name = 20
-            w_social = 15
-            w_logo = 15
-            w_captain = 15
-
-            team_data_string = f"| CLUB | {team.name:^{w_name}} | {team.social_media:^{w_social}} |  {team.logo:^{w_logo}} |  {team.captain_handle:^{w_captain}} |"
-
-            print("-" * len(team_data_string))
-            print(team_data_string)
-            print("-" * len(team_data_string))
-            print("")
+            print(team.my_team_header())
             print(
                 "1. Add team to club \n2. Roster \n3. Edit team info \nb. Back \nq. Quit"
             )
@@ -583,8 +570,40 @@ class TeamCaptainUI:
         pass
 
     def show_add_team_to_club(self):
-        # TODO
-        pass
+        clubs = self.APILL.get_all_club_data()
+        valid_choices = []
+        team = self.menu_manager.team_to_view
+
+        for index, club in enumerate(clubs):
+            correct_index = index + 1
+            print(correct_index, ". ", club, sep="")
+            valid_choices.append(str(correct_index))
+
+        print("b. Back\nq. Quit")
+        choice: str = self.menu_manager.prompt_choice(valid_choices + ["b", "q"])
+        if choice in valid_choices:
+            if team.club == "No club":
+                self.APILL.add_team_to_club(team, clubs[int(choice) - 1])
+                print(
+                    team.name,
+                    "Added to club",
+                    clubs[int(choice) - 1],
+                )
+                team.set_club(clubs[int(choice) - 1].name)
+            else:
+                print("Team already belongs to a club")
+            print("b. Back\nq. Quit")
+            choice = self.menu_manager.prompt_choice(["b", "q"])
+
+            if choice == "b":
+                return "MY_TEAM"
+            if choice == "q":
+                return "QUIT"
+
+        if choice == "b":
+            return "MY_TEAM"
+        if choice == "q":
+            return "QUIT"
 
     def show_create_team(self):  # TODO Klára þetta
         """If you are a new team captain you get this option to create a team"""

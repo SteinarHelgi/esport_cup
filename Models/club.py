@@ -2,6 +2,8 @@ from Models.models import Team
 
 
 class Club:
+    w_club = 8
+
     def __init__(
         self,
         name: str,
@@ -33,8 +35,13 @@ class Club:
         return ret
 
     def __str__(self) -> str:
-        return f"name: {self.name} {self.teams}"
-    
+        teams = self.teams.split(";")
+        teams_string = ""
+        for team in teams:
+            teams_string += team + ", "
+
+        return f"| {self.name:<{Club.w_club}} |  Teams: {teams_string}"
+
     def set_id(self, id: str):
         self.id = id
 

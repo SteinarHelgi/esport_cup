@@ -31,7 +31,7 @@ class ClubData:
         return clubs
 
     def store_club_data(self, club: Club) -> Club | None:
-        with open(self.club_file_path, "a" , newline="" , encoding="utf-8") as file:
+        with open(self.club_file_path, "a", newline="", encoding="utf-8") as file:
             csv_writer = csv.writer(file)
             try:
                 csv_writer.writerow(club.toCSVList())
@@ -39,10 +39,10 @@ class ClubData:
                 return None
         return club
 
-    def add_team_to_club(self, team: Team, club_id: str):
+    def add_team_to_club(self, team: Team, club: Club):
         team_name_to_add = team.name
         temp_data: list[list[str]] = []
-        target_id: str = club_id
+        target_id: str = club.id
 
         try:
             with open(self.club_file_path, "r", newline="", encoding="utf-8") as file:
@@ -140,4 +140,3 @@ class ClubData:
                     writer.writerow(line)
         except (OSError, csv.Error):
             return None
-
