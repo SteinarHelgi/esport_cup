@@ -15,6 +15,10 @@ def clear_terminal():
 GREEN_COLOR = "\033[92m"
 RED_COLOR = "\033[91m"
 RESET_CODE = "\033[0m"
+GOLD_COLOR = "\033[93m"
+
+def set_system_color_gold():
+    sys.stdout.write(GOLD_COLOR)
 
 
 def set_system_color_red():

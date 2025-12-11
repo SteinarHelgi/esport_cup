@@ -7,7 +7,7 @@ from Models import game
 from Models.contact_person import ContactPerson
 from Models.models import Match, Player, Team, Tournament
 from UI.functions import format_player_list, format_team_list, format_tournament_table
-from UI.ui_functions import refresh_logo
+from UI.ui_functions import refresh_logo, reset_system_color, set_system_color_gold, set_system_color_red
 from LL.validators_ll import (Errors,
     validate_match_creation,
     validate_match_date,
@@ -330,6 +330,7 @@ class OrganiserUI:
             else:
                 round = "NONE"
                 print("Tournament is over!")
+                print(self.print_trophy())
                 print("b. Back\nq. Quit")
                 choice: str = self.menu_manager.prompt_choice(["b", "q"])
                 if choice == "b":
@@ -470,8 +471,11 @@ class OrganiserUI:
 
         self.APILL.register_match_result(match.match_id, winner_name, "TRUE")
         self.APILL.give_team_points(winner_name,+2)
-        print(f"{winner_name} has been set as the winner of this match.")
-
+        if match.round == "Final":
+            print(f"{winner_name} have won the tournament!")
+            self.print_trophy()
+        else:
+            print(f"{winner_name} has been set as the winner of this match.")
         choice = self.menu_manager.prompt_choice(["b", "q"])
         if choice == "b":
             return "MY_TOURNAMENTS_ORG"
@@ -491,3 +495,17 @@ class OrganiserUI:
                 return "MY_TOURNAMENTS_ORG"
         if confirm.lower == "n":
             return "MY_TOURNAMENTS_ORG"
+
+    def print_trophy(self):
+        set_system_color_gold()
+        print(r"""              
+              .-=========-.
+              \'-=======-'/
+              _|   .=.   |_
+             ((|  {{1}}  |))
+              \|   /|\   |/
+               \__ '`' __/
+                 _`) (`_
+               _/_______\_
+              /___________\ """)
+        set_system_color_red()
