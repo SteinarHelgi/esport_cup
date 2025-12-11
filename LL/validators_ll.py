@@ -391,7 +391,9 @@ def validate_match_date(
         date_input_iso = datetime.fromisoformat(date_input)
     except ValueError:
         return Errors.DATE_FORMAT_NOT_VALID
-    if tournament_start_date > date_input_iso > tournament_end_date:
+    if tournament_start_date <= date_input_iso:
+        return Errors.DATE_NOT_IN_TOURNAMENT_DATE
+    if tournament_end_date >= date_input_iso:
         return Errors.DATE_NOT_IN_TOURNAMENT_DATE
     return Errors.OK
 
