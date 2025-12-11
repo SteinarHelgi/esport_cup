@@ -44,6 +44,7 @@ from LL.validators_ll import (
     validate_club_color,
     validate_club_country,
     validate_unwanted_characters,
+    validate_number_of_players
 )
 
 
@@ -246,6 +247,9 @@ class APILL:
 
     def validate_social_media(self, social_media: str) -> Errors:
         return validate_social_media(social_media)
+    
+    def validate_number_of_players(self, name) -> Errors:
+        return validate_number_of_players(name, self.APIDATA)
 
     # ---------- TEAM CAPTAIN VALIDATION ----------
 
@@ -332,3 +336,4 @@ class APILL:
 
     def validate_unwanted_characters(self, input: str) -> Errors:
         return validate_unwanted_characters(input)
+

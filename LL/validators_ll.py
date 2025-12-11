@@ -8,9 +8,6 @@ from Models.models import (
     Game
 )
 
-
-
-
 class Errors(Enum):
     EMPTY = auto()
     NAME_INCLUDE_NUMBERS = auto()
