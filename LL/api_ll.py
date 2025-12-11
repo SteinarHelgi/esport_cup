@@ -51,7 +51,7 @@ class APILL:
         self.main_ll = MainLL(self.APIDATA)
 
     def get_all_teams(self) -> list[Team]:
-        """Returns a lists of all teams in the system."""
+        """Returns a list of all teams in the system."""
         return self.main_ll.team_ll.get_all_teams()
 
     def get_all_tournaments(self) -> list[Tournament]:
@@ -90,7 +90,7 @@ class APILL:
         """Creates a new team through the logic layer and returns the stored team."""
         return self.main_ll.team_ll.create_new_team(team)
 
-    def add_team_to_club(self, team: Team, club_id: str):
+    def add_team_to_club(self, team: Team, club_id: Club):
         """Adds a team to a club with the given club ID."""
         return self.main_ll.club_ll.add_team_to_club(team, club_id)
 
