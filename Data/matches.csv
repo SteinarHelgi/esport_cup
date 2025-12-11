@@ -21,3 +21,14 @@ match_id,tournament_id,round,match_number,team_a_name,team_b_name,match_date,mat
 20,23,Final,2,WhileTrue Tryhards,Chuck Norris Fan Club,2025-12-11,14:00,,0,0,,False
 21,24,QF,6,WhileTrue Tryhards,NullPointer Ninjas,2025-12-15,14:00,,0,0,,False
 22,23,R16,11,Chuck Norris Fan Club,WhileTrue Tryhards,2025-12-22,10:05,,0,0,WhileTrue Tryhards,TRUE
+23,28,R16,12,SegFault Spartans,NullPointer Ninjas,2025-12-08,08:00,,0,0,SegFault Spartans,TRUE
+24,28,R16,13,OffByOne Offense,Pepsi Max Punishers,2025-12-08,08:00,,0,0,Pepsi Max Punishers,TRUE
+25,28,R16,14,Chuck Norris Fan Club,IndentationError Invaders,2025-12-08,10:00,,0,0,Chuck Norris Fan Club,TRUE
+26,28,R16,15,Assembly Avengers,Datalab Dominators,2025-12-08,10:00,,0,0,Assembly Avengers,TRUE
+27,28,R16,16,Bomblab Bombers,StackOverflow Stackers,2025-12-08,12:00,,0,0,Bomblab Bombers,TRUE
+28,28,R16,17,CacheHit Crusaders,Segmentation Foul,2025-12-08,12:00,,0,0,CacheHit Crusaders,TRUE
+29,28,R16,18,RaceCondition Racers,Undefined Behavior United,2025-12-08,14:00,,0,0,RaceCondition Racers,TRUE
+30,28,R16,19,Pepsi Max Overflow,WhileTrue Tryhards,2025-12-08,14:00,,0,0,WhileTrue Tryhards,TRUE
+31,28,QF,7,SegFault Spartans,Pepsi Max Punishers,2025-12-08,16:00,,0,0,,False
+32,28,QF,8,Chuck Norris Fan Club,Assembly Avengers,2025-12-08,16:00,,0,0,,False
+33,28,QF,9,Bomblab Bombers,CacheHit Crusaders,2025-12-08,18:00,,0,0,,False
