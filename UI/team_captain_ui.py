@@ -19,7 +19,7 @@ from LL.validators_ll import (
     validate_social_media,
     validate_team_logo,
     validate_team_name,
-
+)
 
 class TeamCaptainUI:
     def __init__(self, APILL: APILL, menu_manager) -> None:
