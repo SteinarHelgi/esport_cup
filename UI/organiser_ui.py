@@ -48,6 +48,8 @@ class OrganiserUI:
                 print("Tournament name needs to be atleast two letters")
             if error == Errors.TOURNAMENT_NAME_LENGTH_TOO_LONG:
                 print("Tournament's name is too long")
+            if error == Errors.CONTAINS_UNWANTED_CHAR:
+                print("Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy.")
             name_of_tournament = input("Tournament name: ").strip()
 
         start_date_of_tournament = input("Start date(Year-Month-Day): ").strip()
@@ -66,6 +68,8 @@ class OrganiserUI:
                 print(
                     "The start date you entered has already passed, please input a different date."
                 )
+            if error == Errors.CONTAINS_UNWANTED_CHAR:
+                print("Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy.")
             start_date_of_tournament = input("Start date(Year-Month-Day): ").strip()
 
         end_date_of_tournamnet = input("End date(Year-Month-Day): ").strip()
@@ -88,6 +92,9 @@ class OrganiserUI:
                 print(
                     "The date you have input is before or on the start date you input. Please input a date that is after the start date."
                 )
+            if error == Errors.CONTAINS_UNWANTED_CHAR:
+                print("Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy.")
+            
             end_date_of_tournamnet = input("End date(Year-Month-Day): ").strip()
 
         amount_of_servers = input("Number of servers: ").strip()
@@ -101,7 +108,10 @@ class OrganiserUI:
                 print("Server amount has to be a number.")
             if error == Errors.SERVER_LESS_THAN_0:
                 print("Server amount cannot be less than 0.")
+            if error == Errors.CONTAINS_UNWANTED_CHAR:
+                print("Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy.")
             amount_of_servers = input("Number of servers: ").strip()
+
 
         venue = input("Venue: ").strip()
         if venue.lower() == "b":
@@ -114,6 +124,8 @@ class OrganiserUI:
                 print("Invalid input, cannot be all numnbers.")
             if error == Errors.EMPTY:
                 print("Venue cannot be empty")
+            if error == Errors.CONTAINS_UNWANTED_CHAR:
+                print("Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy.")
             venue = input("Venue: ").strip()
 
         games = self.APILL.get_all_games()
@@ -134,6 +146,8 @@ class OrganiserUI:
                 print(
                     "Valid games are:", *[f"{game}," for game in games[:-1]], games[-1]
                 )
+            if error == Errors.CONTAINS_UNWANTED_CHAR:
+                print("Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy.")
                 game_for_tournament = input("Game: ").strip()
 
         print("Fill in contact person info or 'b' to Back and 'q' to Quit")
@@ -149,6 +163,8 @@ class OrganiserUI:
                 print("Name cannot be empty")
             if error == Errors.NAME_INCLUDE_NUMBERS:
                 print("Name cannot include numbers")
+            if error == Errors.CONTAINS_UNWANTED_CHAR:
+                print("Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy.")
             new_contact_person_name = input("Name: ").strip()
 
         new_contact_person_email = input("Email: ").strip()
@@ -162,6 +178,8 @@ class OrganiserUI:
                 print("Contact person email address cannot be empty.")
             if error == Errors.EMAIL_NOT_CONTAINING_AT:
                 print("Email has to include an '@': example@example.com")
+            if error == Errors.CONTAINS_UNWANTED_CHAR:
+                print("Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy.")
             new_contact_person_email = input("Email: ").strip()
 
         new_contact_person_phone_nmbr = input("Phone number: ").strip()
@@ -179,8 +197,10 @@ class OrganiserUI:
                 print("Phone number cannot have characters, only digits.")
             if error == Errors.NUMBER_NOT_CORRECT_LENGTH:
                 print("Phone number has to be 7 digits long.")
+            if error == Errors.CONTAINS_UNWANTED_CHAR:
+                print("Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy.")
             new_contact_person_phone_nmbr = input("Phone number: ").strip()
-        # Try and except for contact person phone number validation
+       
         confirmation = input("Confirm(Y): ").strip()
         if confirmation.lower() != "y":
             return "ORGANISER_MENU"
@@ -412,6 +432,8 @@ class OrganiserUI:
                 if error == Errors.TIME_NOT_IN_TIMESLOT:
                     print("Choose a time in time slot:")
                     print("Timeslots : ", *timeslots)
+                if error == Errors.CONTAINS_UNWANTED_CHAR:
+                    print("Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy.")
                 time = input("Time (HH:MM): ")
                 error = validate_match_time(time)
 
@@ -444,6 +466,8 @@ class OrganiserUI:
                     print(
                         f"Team: {match.team_b_name} lost a round and is not in the tournament"
                     )
+                if error == Errors.CONTAINS_UNWANTED_CHAR:
+                    print("Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy.")
 
             if choice == "n":
                 pass
