@@ -314,9 +314,9 @@ class OrganiserUI:
                 print(f"{counter + 1}. {match}")
             print(" ")
             print("Select a match by ID to register results.")
-            print("c. Create new match \nd. Delete tournament \nb. Back \nq. Quit")
+            print("c. Create new match \nr. Remove match \nd. Delete tournament \nb. Back \nq. Quit")
             choice: str = self.menu_manager.prompt_choice(
-                valid_choices + ["c", "d", "b", "q"]
+                valid_choices + ["c","r", "d", "b", "q"]
             )
             if choice in valid_choices:
                 return self.show_register_results(tournament.matches[int(choice) - 1])
@@ -336,6 +336,30 @@ class OrganiserUI:
                         return "QUIT"
             if choice == "d":
                 return self.show_delete_tournament(tournament)
+            if choice == "r":
+                select_match_number = input("Enter match id: ")
+                if select_match_number.lower() == "b":
+                    return "MY_TOURNAMENTS_ORG"
+                if select_match_number.lower() == "q":
+                    return "QUIT"
+                if select_match_number in valid_choices:
+                    #change to index
+                    index = int(select_match_number) - 1
+                    match_to_delete = tournament.matches[index] 
+                    real_id = match_to_delete.match_id
+                    print(f"Selected match: {match_to_delete.team_a_name} vs {match_to_delete.team_b_name}")
+                    confirm = input("Are you sure (Y/N)? ")
+                    if confirm.lower() == "y":
+                        self.APILL.delete_match(real_id)
+                        print("Match has been deleted.")
+                        input("Press Enter to continue")
+                        return "MY_TOURNAMENTS_ORG"
+                    else:
+                        return "MY_TOURNAMENTS_ORG"
+
+                
+                    
+
 
             if choice == "b":
                 return "MY_TOURNAMENTS_ORG"
@@ -499,11 +523,7 @@ class OrganiserUI:
             print(f"2. {match.team_b_name}")
 
             winner = input("1 or 2,d to delete match, b to back and q to quit: ")
-            if winner == "d":
-                print("Are you sure you want to delete this match?")
-                confirmation = input("Confirm(Y/N): ")
-                if confirmation.lower() == "y":
-                    self.APILL.delete_match(match)
+            
             if winner == "b":
                 return "MY_TOURNAMENTS_ORG"
             if winner == "q":

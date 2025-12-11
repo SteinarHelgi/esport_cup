@@ -63,12 +63,15 @@ class Errors(Enum):
 
 
 def validate_player_name(player_name: str) -> Errors:
-    valid_name = player_name.strip()
-    if valid_name == "":
-        return Errors.EMPTY
-    if any(char.isdigit() for char in valid_name):
-        return Errors.NAME_INCLUDE_NUMBERS
-
+    no_unwanted_char = validate_unwanted_characters(player_name)
+    if no_unwanted_char == Errors.OK:
+        valid_name = player_name.strip()
+        if valid_name == "":
+            return Errors.EMPTY
+        if any(char.isdigit() for char in valid_name):
+            return Errors.NAME_INCLUDE_NUMBERS
+    else:
+        return no_unwanted_char
     return Errors.OK
 
 
@@ -437,6 +440,7 @@ def validate_club_name(name: str) -> Errors:
 
 
 def validate_club_hometown(hometown: str) -> Errors:
+    validate_unwanted_characters(hometown)
     if not hometown or hometown.strip() == "":
         return Errors.EMPTY
     if any(char.isdigit() for char in hometown):
@@ -446,6 +450,7 @@ def validate_club_hometown(hometown: str) -> Errors:
 
 
 def validate_club_color(color: str) -> Errors:
+    validate_unwanted_characters(color)
     if not color or color.strip() == "":
         return Errors.OK
     if any(char.isdigit() for char in color):
@@ -475,6 +480,7 @@ def validate_club_color(color: str) -> Errors:
 
 
 def validate_club_country(country: str) -> Errors:
+    validate_unwanted_characters(country)
     if not country or country.strip() == "":
         return Errors.EMPTY
     if any(char.isdigit() for char in country):

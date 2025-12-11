@@ -90,7 +90,7 @@ class TeamCaptainUI:
         if phone_number == "b":
             return "MY_TEAM"
         error = self.APILL.validate_phone_number(phone_number)
-        while error == Errors.OK:
+        while error != Errors.OK:
             if error == Errors.EMPTY:
                 print("Phone number cannot be empty.")
             if error == Errors.NUMBER_HAS_CHARACTERS:
@@ -112,7 +112,7 @@ class TeamCaptainUI:
         if email == "b":
             return "MY_TEAM"
         error = self.APILL.validate_player_email(email)
-        while error == Errors.OK:
+        while error != Errors.OK:
             if error == Errors.EMPTY:
                 print("Email address cannot be empty.")
             if error == Errors.EMAIL_NOT_CONTAINING_AT:
@@ -158,7 +158,9 @@ class TeamCaptainUI:
             if error == Errors.HANDLE_CONTAINS_SPACE:
                 print("Handle cannot contain empty spaces.")
             if error == Errors.CONTAINS_UNWANTED_CHAR:
-                        print("Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy.")
+                print("Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy.")
+            if error == Errors.SAME_HANDLE:
+                print("Cannot have the same handle as another player.")
             if handle.lower() == "b":
                 return "MY_TEAM"
             if handle.lower() == "q":
@@ -312,26 +314,21 @@ class TeamCaptainUI:
             return "MY_TOURNAMENTS_CAP"
 
     def show_modify_player_menu(self, player: Player):
-        """
-        Displays a menu of player attributes.
-        The user selects one to change.
-        """
+        """displays a menu of player attributes to change"""
         refresh_logo()
         while True:
-            print(f"\n--- Editing Player: {player.name} ---")
-            # Display current values so the user sees what they are changing
-            # (Assuming your Player class has name, email, password, etc.)
+            print(f"\n      Editing Player: {player.name}      ")
+            #sýnir current og svo changed, confirm og cancel
             print(f"1. Change Name      (Current: {player.name})")
             print(f"2. Change Email     (Current: {player.email})")
             print(f"3. Change Address   (Current: {player.address})")
             print(f"4. Change Number    (Current: {player.phone_number})")
             print(f"5. Change Socials   (Current: {player.social_media})")
             print(f"6. Change Handle    [Current: {player.handle}]")
-            print("S. Finish and Save")
-            print("C. Cancel (Exit without saving)")
+            print("s. Finish and Save")
+            print("c. Cancel")
 
             selection = input("Select the data you want to change (1-6): ")
-
             if selection == "1":
                 new_name = input("Enter new name: ").strip()
                 error = self.APILL.validate_player_name(new_name)
@@ -350,7 +347,6 @@ class TeamCaptainUI:
                 new_email = input("Enter new email: ").strip()
                 error = self.APILL.validate_player_email(new_email)
                 while error != Errors.OK:
-                    # Optional: Add email validation logic here
                     if error == Errors.EMPTY:
                         print("Email cannot be empty")
                     if error == Errors.EMAIL_NOT_CONTAINING_AT:
@@ -426,17 +422,17 @@ class TeamCaptainUI:
                 print("Game handle updated locally.")
 
             elif selection.lower() == "s":
-                # Saves the information
+                #saves info
                 try:
                     self.APILL.modify_player(player)
-                    print("Success! Player data saved to database.")
-                    return "SHOW_MY_PLAYERS"  # Exit the loop
+                    print("Success, player data saved to database.")
+                    return "SHOW_MY_PLAYERS"
                 except Exception as e:
                     print(f"Error saving data: {e}")
 
             elif selection.lower() == "c":
-                print("Modification cancelled.")
-                return "SHOW_MY_PLAYERS"  # Exit without calling modify_player
+                print("Change cancelled.")
+                return "SHOW_MY_PLAYERS"
 
             else:
                 print("Invalid selection. Please try again.")
@@ -459,7 +455,7 @@ class TeamCaptainUI:
             if choice == "2":
                 return "SHOW_MY_PLAYERS"
             if choice == "3":
-                return "EDIT_TEAM_INFO"
+                return self.show_modify_team_menu()
 
             if choice.lower() == "b":
                 return "TEAM_CAPTAIN_MENU"
@@ -564,74 +560,78 @@ class TeamCaptainUI:
         if choice == "q":
             return "QUIT"
 
-    def show_edit_social_media(self):
-        """Edits the social media for a team"""
+    def show_modify_team_menu(self):
+        """same as for modifying player but for team"""
+        refresh_logo()
         team = self.APILL.get_team_by_name(self.menu_manager.team_name)
-        if team:
-            print("Currrent social media: ", team.social_media)
-            new_social_media = input("New social media: ")
-            error = self.APILL.validate_social_media(new_social_media)
+        if not team:
+            print("Error: team not found.")
+            input("Press enter to return")
+            return "MY_TOURNAMENTS_ORG"
 
-            while error != Errors.OK:
-                if error == Errors.EMPTY:
-                    print("Social Media cannot be empty")
-                if error == Errors.HANDLE_CONTAINS_SPACE:
-                    print("Social Media cannot contain spaces")
-                if error == Errors.CONTAINS_UNWANTED_CHAR:
+        while True:
+            print(f"\n      {team.name}   ")
+            print(f"1. Change Logo          (Current: {team.logo})")
+            print(f"2. Change Social Media  (Current: {team.social_media})")
+            print("s. Finish and Save")
+            print("c. Cancel")
+            #pick what to change
+            selection = input("Select the data you want to change: ")
+            #logo editing
+            if selection == "1":
+                new_logo = input("Enter new Logo: ").strip()
+                error = validate_team_logo(new_logo) 
+                while error != Errors.OK:
+                    if error == Errors.EMPTY:
+                        print("Logo cannot be empty")
+                    if error == Errors.CONTAINS_UNWANTED_CHAR:
                         print("Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy.")
-                new_social_media = input("New social media: ")
+                    new_logo = input("Enter new Logo: ").strip()
+                    error = validate_team_logo(new_logo)
+                #update without saving
+                team.logo = new_logo
+                print("Logo updated locally.")
+
+            #edit socials
+            elif selection == "2":
+                new_social_media = input("Enter new Social Media: ").strip()
                 error = self.APILL.validate_social_media(new_social_media)
-            team.social_media = new_social_media
+                while error != Errors.OK:
+                    if error == Errors.EMPTY:
+                        print("Social Media cannot be empty")
+                    if error == Errors.HANDLE_CONTAINS_SPACE:
+                        print("Social Media cannot contain spaces")
+                    if error == Errors.CONTAINS_UNWANTED_CHAR:
+                        print("Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy.")
+                    new_social_media = input("Enter new Social Media: ").strip()
+                    error = self.APILL.validate_social_media(new_social_media)
+                
+                team.social_media = new_social_media
+                print("Social Media updated locally.")
 
-            new_team = self.APILL.modify_team_data(team)
-            if new_team:
-                print("Updated team info:")
-                print("Name: ", new_team.name)
-                print("Players:\n  ", *new_team.players, sep=" | ")
-                print("Captain: ", new_team.captain_handle)
-                print("Social Media: ", new_team.social_media)
-                print("Logo: ", new_team.logo)
+            #Save the info
+            elif selection.lower() == "s":
+                try:
+                    updated_team = self.APILL.modify_team_data(team)
+                    if updated_team:
+                        print("Success, team data changed")
+                        print("-" * 30)
+                        print(f"New Logo: {updated_team.logo}")
+                        print(f"New Socials: {updated_team.social_media}")
+                        print("-" * 30)
+                        input("Enter to go return")
+                        return "MY_TEAM" #back to team
+                    else:
+                        print("Data update failed.")      
+                except Exception as e:
+                    print(f"Error saving data: {e}")
+            #canceling
+            elif selection.lower() == "c":
+                print("Changes cancelled")
+                return "MY_TEAM" #return without saving
             else:
-                print("Could not update team")
-            print("")
-            print("b. Back\nq. Quit")
-            choice: str = self.menu_manager.prompt_choice(["b", "q"])
-            if choice == "b":
-                return "EDIT_TEAM_INFO"
-            if choice == "b":
-                return "QUIT"
-
-    def show_edit_logo(self):
-        """Edits the logo for a team"""
-        print("EDIT_LOGO")
-        team = self.APILL.get_team_by_name(self.menu_manager.team_name)
-        if team:
-            print("Currrent Logo: ", team.logo)
-            logo = input("New Logo: ")
-            error = validate_team_logo(logo)
-            if error == Errors.CONTAINS_UNWANTED_CHAR:
-                print("Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy.")
-
-            team.logo = logo
-
-            new_team = self.APILL.modify_team_data(team)
-            if new_team:
-                print("Updated team info:")
-                print("Name: ", new_team.name)
-                print("Players:\n  ", *new_team.players, sep=" | ")
-                print("Captain: ", new_team.captain_handle)
-                print("Social Media: ", new_team.social_media)
-                print("Logo: ", new_team.logo)
-            else:
-                print("Could not update team")
-            print("")
-            print("b. Back\nq. Quit")
-            choice: str = self.menu_manager.prompt_choice(["b", "q"])
-            if choice == "b":
-                return "EDIT_TEAM_INFO"
-            if choice == "b":
-                return "QUIT"
-        pass
+                print("Invalid selection. Please try again.")
+    
 
     def show_add_team_to_club(self):
         clubs = self.APILL.get_all_club_data()
