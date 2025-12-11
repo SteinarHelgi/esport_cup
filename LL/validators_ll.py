@@ -1,6 +1,5 @@
-from LL.api_ll import APILL
-from Models.club import Club
-from Models.models import Player, TeamCaptain, Team, Match, Tournament
+from Models.game import Game
+from Models.models import Match, Tournament
 from datetime import datetime, date
 from IO.api_data import APIDATA
 from enum import Enum, auto
@@ -282,7 +281,7 @@ def validate_tournament_venue(venue: str) -> Errors:
     return Errors.OK
 
 
-def validate_tournament_game(user_input_game: str, games: str) -> Errors:
+def validate_tournament_game(user_input_game: str, games: list[Game]) -> Errors:
     for game in games:
         if game.name == user_input_game:
             return Errors.OK
@@ -311,7 +310,9 @@ def validate_match_round(round_name: str, matches_in_round: list) -> Errors:
     return Errors.OK
 
 
-def validate_match_creation(match: Match, tournament: Tournament, api_data: APIDATA) -> Errors:
+def validate_match_creation(
+    match: Match, tournament: Tournament, api_data: APIDATA
+) -> Errors:
     team_a = match.team_a_name
     team_b = match.team_b_name
     date_str = match.match_date
