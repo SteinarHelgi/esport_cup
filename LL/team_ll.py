@@ -1,5 +1,10 @@
 from IO.api_data import APIDATA
-from Models.models import Team, Tournament, Player, TeamRegistry
+from Models.models import (
+    Team, 
+    Tournament, 
+    Player, 
+    TeamRegistry
+)
 
 
 class TeamLL:

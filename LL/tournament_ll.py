@@ -5,7 +5,7 @@ from Models.models import (
     ContactPerson,
     Team,
     TeamCaptain,
-    Match,
+    Match
 )
 
 VALID_TEAM_COUNT = 16

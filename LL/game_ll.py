@@ -1,5 +1,5 @@
 from IO.api_data import APIDATA
-from Models.game import Game
+from Models.models import Game
 
 
 class GameLL:
