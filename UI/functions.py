@@ -1,4 +1,3 @@
-from IO import game_data
 from Models.player import Player
 from Models.team import Team
 from Models.tournament import Tournament

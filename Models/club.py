@@ -1,6 +1,3 @@
-from Models.models import Team
-
-
 class Club:
     w_club = 8
 

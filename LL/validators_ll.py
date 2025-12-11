@@ -433,7 +433,6 @@ def validate_club_name(name: str) -> Errors:
 def validate_club_hometown(hometown: str) -> Errors:
     if not hometown or hometown.strip() == "":
         raise ValueError("You must enter a club hometown")
-        return Errors.Hom
     if any(char.isdigit() for char in hometown):
         return Errors.HOMETOWN_CONTAINS_NUMBER
 

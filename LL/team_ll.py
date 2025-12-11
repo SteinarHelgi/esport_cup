@@ -102,7 +102,7 @@ class TeamLL:
         team_name: str = team.name
         tournament_name: str = tournament.name
         team_registry = TeamRegistry(team_id, tournament_id, team_name, tournament_name)
-        new_team_registry = self.APIDATA.store_team_registry_data(team_registry)
+        self.APIDATA.store_team_registry_data(team_registry)
 
     def get_team_by_id(self, id) -> Team | None:
         """Returns the team with the given ID, or None if no such team exists."""
@@ -147,4 +147,3 @@ class TeamLL:
         for player in players:
             if player.name == name:
                 return player
-

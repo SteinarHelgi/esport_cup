@@ -7,7 +7,6 @@ from Models.models import (
     Team,
     Match,
     ContactPerson,
-    TeamRegistry,
     TeamCaptain,
 )
 from Models.club import Club
