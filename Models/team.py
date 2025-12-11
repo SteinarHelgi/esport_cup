@@ -37,7 +37,7 @@ class Team:
     def _print_header(self) -> None:
         # print header
         print(
-            f"{'Id':<{Team.w_counter}}{'TEAM NAME':<{Team.w_name}}{'TEAM CAPTAIN':>{Team.w_captain}}\n"
+            f"{'Id':<{Team.w_counter}}{'TEAM NAME':<{Team.w_name}}{'TEAM CAPTAIN':>{Team.w_captain}}{'CLUB':>{Team.w_club}}\n"
         )
 
     def format_row(self, index: int):
@@ -45,10 +45,11 @@ class Team:
             f"{str(index) + '.':<{Team.w_counter}}"
             f"{self.name:<{Team.w_name}}"
             f"{self.captain_handle:>{Team.w_captain}}"
+            f"{self.club :>{Team.w_club}}"
         )
 
     def _print_divider_line(self):
-        print("-" * (Team.w_name + Team.w_captain + Team.w_counter))
+        print("-" * (Team.w_name + Team.w_captain + Team.w_counter + Team.w_club))
 
     def toCSVList(self):
         ret = []

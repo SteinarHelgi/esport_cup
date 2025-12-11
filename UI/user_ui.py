@@ -92,9 +92,12 @@ class UserUI:
         players = self.APILL.get_players_in_team(team.name)
         valid_options = []
         for index, player in enumerate(players):
-            player.format_row(index + 1)
-            if self.menu_manager.user == "ORGANISER":
-                valid_options.append(str(index + 1))
+            if self.menu_manager.user == "USER":
+                print(player)
+            else:        
+                player.format_row(index + 1)
+                if self.menu_manager.user == "ORGANISER":
+                    valid_options.append(str(index + 1))
 
         print("")
         print("t. Tournaments for team \nb. Back \nq. Quit")

@@ -94,9 +94,12 @@ class MenuManager:
         """Username logging in as a team captain"""
 
         while True:  # Loop until a valid username is entered or the user quits
-            username = input("Your handle: ")
+            username = input("Your handle or b to back and q to quit: ")
             teams = self.api_ll.get_all_teams()
-
+            if username == "b":
+                return "LOGIN_MENU"
+            if username == "q":
+                return "QUIT"
             print(f"Handle: {username}\nConfirm(Y/N)? ")
             found_name = False
 
@@ -114,13 +117,15 @@ class MenuManager:
 
             # If the username is not found
             if not found_name:
-                print("Invalid username, press enter to try again or q to quit: ")
-                choice: str = self.prompt_choice(["", "q"])
+                print("Invalid username, press enter to try again or b to back and q to quit: ")
+                choice: str = self.prompt_choice(["","b", "q"])
                 if choice == "":
                     refresh_logo()
                     continue  # Loop again to prompt for the username
                 if choice == "q":
                     return "QUIT"
+                if choice == "b":
+                    return "LOGIN_MENU"
 
     def login_credentials_menu_org(self):
         """Logging in as an organiser, not yet implemented"""
