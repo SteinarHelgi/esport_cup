@@ -1,9 +1,12 @@
 from datetime import datetime, date
 from enum import Enum, auto
-from operator import contains
 from IO.api_data import APIDATA
-
-from Models.models import Match, Tournament, Player,Game
+from Models.models import (
+    Match, 
+    Tournament, 
+    Player,
+    Game
+)
 
 
 
@@ -435,8 +438,7 @@ def validate_club_name(name: str) -> Errors:
 
 def validate_club_hometown(hometown: str) -> Errors:
     if not hometown or hometown.strip() == "":
-        raise ValueError("You must enter a club hometown")
-        return Errors.Hom
+        return Errors.EMPTY
     if any(char.isdigit() for char in hometown):
         return Errors.HOMETOWN_CONTAINS_NUMBER
 
@@ -484,3 +486,4 @@ def validate_unwanted_characters(input) -> Errors:
     for char in unwanted_characters:
         if char in input:
             return Errors.CONTAINS_UNWANTED_CHAR
+    return Errors.OK

@@ -5,7 +5,7 @@ from Models.models import (
     ContactPerson,
     Team,
     TeamCaptain,
-    Match,
+    Match
 )
 
 VALID_TEAM_COUNT = 16
@@ -235,6 +235,9 @@ class TournamentLL:
         match.set_match_number(next_match_number)
 
         return self.APIDATA.store_match_data(match)
+
+    def delete_match(self, match_id:str) -> None:
+        self.APIDATA.delete_match_data(match_id)
 
     def get_all_teams_on_tournament(self, target_tournament_id: str) -> list[Team]:
         """Returns all teams that are registered to the given tournament ID."""

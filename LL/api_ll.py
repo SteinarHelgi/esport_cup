@@ -23,6 +23,7 @@ from LL.validators_ll import (
     validate_social_media,
     validate_team_captain,
     validate_team_name,
+    validate_unwanted_characters,
     validation_team_handle,
     validate_team_logo,
     validate_team_points,
@@ -42,6 +43,7 @@ from LL.validators_ll import (
     validate_club_hometown,
     validate_club_color,
     validate_club_country,
+    validate_unwanted_characters,
 )
 
 class APILL:
@@ -215,6 +217,9 @@ class APILL:
     def get_all_games(self) -> list[Game]:
         """Returns a list of all games available in the system."""
         return self.main_ll.game_ll.get_all_games()
+    
+    def delete_match(self, match_id:str) -> None:
+        return self.main_ll.tournament_ll.delete_match(match_id)
 
     # ---------- PLAYER VALIDATION ----------
     def validate_player_name(self, name: str) -> Errors:
@@ -321,4 +326,6 @@ class APILL:
     def validate_club_country(self, country: str) -> Errors:
         return validate_club_country(country)
     
-    #def validate_unwanted_characters
+    def validate_unwanted_characters(self,input:str) -> Errors:
+        return validate_unwanted_characters(input)
+
