@@ -466,7 +466,7 @@ class OrganiserUI:
     def show_register_results(self, match: Match):
         """Registering results of a match, chooses a winner and marks match as completed"""
 
-        if self.check_game_over(match):
+        if not self.check_game_over(match):
             print(
                 f"Registering result for match: {match.team_a_name} vs {match.team_b_name}"
             )
@@ -502,6 +502,7 @@ class OrganiserUI:
                 print(f"{winner_name} has been set as the winner of this match.")
         else:
             print("Match not over")
+            print("b. Back\nq. Quit")
         choice = self.menu_manager.prompt_choice(["b", "q"])
         if choice == "b":
             return "MY_TOURNAMENTS_ORG"
