@@ -53,7 +53,9 @@ class OrganiserUI:
             if error == Errors.TOURNAMENT_NAME_LENGTH_TOO_LONG:
                 print("Tournament's name is too long")
             if error == Errors.CONTAINS_UNWANTED_CHAR:
-                print("Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy.")
+                print(
+                    "Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy."
+                )
             name_of_tournament = input("Tournament name: ").strip()
 
         start_date_of_tournament = input("Start date(Year-Month-Day): ").strip()
@@ -73,7 +75,9 @@ class OrganiserUI:
                     "The start date you entered has already passed, please input a different date."
                 )
             if error == Errors.CONTAINS_UNWANTED_CHAR:
-                print("Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy.")
+                print(
+                    "Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy."
+                )
             start_date_of_tournament = input("Start date(Year-Month-Day): ").strip()
 
         end_date_of_tournamnet = input("End date(Year-Month-Day): ").strip()
@@ -97,8 +101,10 @@ class OrganiserUI:
                     "The date you have input is before or on the start date you input. Please input a date that is after the start date."
                 )
             if error == Errors.CONTAINS_UNWANTED_CHAR:
-                print("Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy.")
-            
+                print(
+                    "Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy."
+                )
+
             end_date_of_tournamnet = input("End date(Year-Month-Day): ").strip()
 
         amount_of_servers = input("Number of servers: ").strip()
@@ -113,9 +119,10 @@ class OrganiserUI:
             if error == Errors.SERVER_LESS_THAN_0:
                 print("Server amount cannot be less than 0.")
             if error == Errors.CONTAINS_UNWANTED_CHAR:
-                print("Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy.")
+                print(
+                    "Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy."
+                )
             amount_of_servers = input("Number of servers: ").strip()
-
 
         venue = input("Venue: ").strip()
         if venue.lower() == "b":
@@ -129,7 +136,9 @@ class OrganiserUI:
             if error == Errors.EMPTY:
                 print("Venue cannot be empty")
             if error == Errors.CONTAINS_UNWANTED_CHAR:
-                print("Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy.")
+                print(
+                    "Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy."
+                )
             venue = input("Venue: ").strip()
 
         games = self.APILL.get_all_games()
@@ -151,7 +160,9 @@ class OrganiserUI:
                     "Valid games are:", *[f"{game}," for game in games[:-1]], games[-1]
                 )
             if error == Errors.CONTAINS_UNWANTED_CHAR:
-                print("Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy.")
+                print(
+                    "Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy."
+                )
                 game_for_tournament = input("Game: ").strip()
 
         print("Fill in contact person info or 'b' to Back and 'q' to Quit")
@@ -168,7 +179,9 @@ class OrganiserUI:
             if error == Errors.NAME_INCLUDE_NUMBERS:
                 print("Name cannot include numbers")
             if error == Errors.CONTAINS_UNWANTED_CHAR:
-                print("Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy.")
+                print(
+                    "Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy."
+                )
             new_contact_person_name = input("Name: ").strip()
 
         new_contact_person_email = input("Email: ").strip()
@@ -183,7 +196,9 @@ class OrganiserUI:
             if error == Errors.EMAIL_NOT_CONTAINING_AT:
                 print("Email has to include an '@': example@example.com")
             if error == Errors.CONTAINS_UNWANTED_CHAR:
-                print("Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy.")
+                print(
+                    "Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy."
+                )
             new_contact_person_email = input("Email: ").strip()
 
         new_contact_person_phone_nmbr = input("Phone number: ").strip()
@@ -202,9 +217,11 @@ class OrganiserUI:
             if error == Errors.NUMBER_NOT_CORRECT_LENGTH:
                 print("Phone number has to be 7 digits long.")
             if error == Errors.CONTAINS_UNWANTED_CHAR:
-                print("Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy.")
+                print(
+                    "Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy."
+                )
             new_contact_person_phone_nmbr = input("Phone number: ").strip()
-       
+
         confirmation = input("Confirm(Y): ").strip()
         if confirmation.lower() != "y":
             return "ORGANISER_MENU"
@@ -318,9 +335,9 @@ class OrganiserUI:
                 print(f"{counter + 1}. {match}")
             print(" ")
             print("Select a match by ID to register results.")
-            print("c. Create new match \nd. Delete tournament \nb. Back \nq. Quit")
+            print("c. Create new match \nr. Remove match \nd. Delete tournament \nb. Back \nq. Quit")
             choice: str = self.menu_manager.prompt_choice(
-                valid_choices + ["c", "d", "b", "q"]
+                valid_choices + ["c","r", "d", "b", "q"]
             )
             if choice in valid_choices:
                 return self.show_register_results(tournament.matches[int(choice) - 1])
@@ -340,6 +357,30 @@ class OrganiserUI:
                         return "QUIT"
             if choice == "d":
                 return self.show_delete_tournament(tournament)
+            if choice == "r":
+                select_match_number = input("Enter match id: ")
+                if select_match_number.lower() == "b":
+                    return "MY_TOURNAMENTS_ORG"
+                if select_match_number.lower() == "q":
+                    return "QUIT"
+                if select_match_number in valid_choices:
+                    #change to index
+                    index = int(select_match_number) - 1
+                    match_to_delete = tournament.matches[index] 
+                    real_id = match_to_delete.match_id
+                    print(f"Selected match: {match_to_delete.team_a_name} vs {match_to_delete.team_b_name}")
+                    confirm = input("Are you sure (Y/N)? ")
+                    if confirm.lower() == "y":
+                        self.APILL.delete_match(real_id)
+                        print("Match has been deleted.")
+                        input("Press Enter to continue")
+                        return "MY_TOURNAMENTS_ORG"
+                    else:
+                        return "MY_TOURNAMENTS_ORG"
+
+                
+                    
+
 
             if choice == "b":
                 return "MY_TOURNAMENTS_ORG"
@@ -369,17 +410,19 @@ class OrganiserUI:
                 if choice == "q":
                     return "QUIT"
 
-            teams_not_in_round = self.APILL.get_teams_not_in_round(tournament)
+            valid_choices = []
+            available_teams = self.APILL.get_available_teams_for_next_round(
+                tournament, round
+            )
             print("Which teams are competing in this match?")
             print("")
-            valid_choices = []
-            if len(teams_not_in_round) > 1:
-                teams_not_in_round[0]._print_header()
-                teams_not_in_round[0]._print_divider_line()
-                for counter, team in enumerate(teams_not_in_round):
-                    team.format_row(counter + 1)
-                    valid_choices.append(str(counter + 1))
+            if len(tournament.matches) > 1:
+                available_teams[0]._print_header()
+                for index, team in enumerate(available_teams):
+                    correct_index = index + 1
+                    team.format_row(correct_index)
                     team._print_divider_line()
+                    valid_choices.append(str(correct_index))
             else:
                 print("No teams have registered for this tournament")
                 print("b. Back\nq. Quit")
@@ -391,12 +434,11 @@ class OrganiserUI:
 
             print("")
             print("Round type ", round)
-            print("Select team 1:", end="")
-            print("b. Back\nq. Quit")
+            print("Select team 1:", "b. Back q. Quit", end="")
 
             choice: str = self.menu_manager.prompt_choice(valid_choices + ["b", "q"])
-            team1 = teams_not_in_round[int(choice) - 1]
             if choice in valid_choices:
+                team1 = available_teams[int(choice) - 1]
                 print(team1.name, "as Team 1")
             if choice == "b":
                 return "MY_TOURNAMENTS_ORG"
@@ -405,8 +447,8 @@ class OrganiserUI:
 
             print("Select team 2:", end="")
             choice: str = self.menu_manager.prompt_choice(valid_choices + ["b", "q"])
-            team2 = teams_not_in_round[int(choice) - 1]
             if choice in valid_choices:
+                team2 = available_teams[int(choice) - 1]
                 print(team2.name, "as Team 2")
             if choice == "b":
                 return "MY_TOURNAMENTS_ORG"
@@ -437,7 +479,9 @@ class OrganiserUI:
                     print("Choose a time in time slot:")
                     print("Timeslots : ", *timeslots)
                 if error == Errors.CONTAINS_UNWANTED_CHAR:
-                    print("Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy.")
+                    print(
+                        "Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy."
+                    )
                 time = input("Time (HH:MM): ")
                 error = validate_match_time(time)
 
@@ -471,7 +515,9 @@ class OrganiserUI:
                         f"Team: {match.team_b_name} lost a round and is not in the tournament"
                     )
                 if error == Errors.CONTAINS_UNWANTED_CHAR:
-                    print("Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy.")
+                    print(
+                        "Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy."
+                    )
 
             if choice == "n":
                 pass
@@ -503,11 +549,7 @@ class OrganiserUI:
             print(f"2. {match.team_b_name}")
 
             winner = input("1 or 2,d to delete match, b to back and q to quit: ")
-            if winner == "d":
-                print("Are you sure you want to delete this match?")
-                confirmation = input("Confirm(Y/N): ")
-                if confirmation.lower() == "y":
-                    self.APILL.delete_match(match.id)
+            
             if winner == "b":
                 return "MY_TOURNAMENTS_ORG"
             if winner == "q":
