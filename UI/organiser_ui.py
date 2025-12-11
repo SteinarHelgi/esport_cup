@@ -1,15 +1,10 @@
 from datetime import datetime
-from importlib.machinery import WindowsRegistryFinder
-from os import name
-from tracemalloc import start
 from LL.api_ll import APILL
-from Models import game
 from Models.contact_person import ContactPerson
-from Models.models import Match, Player, Team, Tournament
-from UI.functions import format_player_list, format_team_list, format_tournament_table
+from Models.models import Match, Team, Tournament
+from UI.functions import format_tournament_table
 from UI.ui_functions import (
     refresh_logo,
-    reset_system_color,
     set_system_color_gold,
     set_system_color_red,
 )
@@ -204,7 +199,7 @@ class OrganiserUI:
                 tournament.id,
             )
 
-            contact_person = self.APILL.create_contact_person(new_contact_person)
+            self.APILL.create_contact_person(new_contact_person)
 
             print(self.tournament_created((new_tournament)))
             enter_for_ok = input("Press enter for OK or q to quit")
@@ -232,7 +227,7 @@ class OrganiserUI:
         tournaments = self.APILL.get_upcoming_tournaments()
         valid_choices = []
 
-        for i, tournament in enumerate(tournaments):
+        for i in range(len(tournaments)):
             string_i = str(i + 1)
             valid_choices.append(string_i)
 
@@ -262,7 +257,6 @@ class OrganiserUI:
         w_round = 8
         w_vs = 4
         w_completed = 10
-        line_length = w_team + w_team + w_date + w_time + w_round + w_vs + w_completed
         updated_tournament = self.APILL.get_tournament_by_id(tournament.id)
 
         if updated_tournament:
