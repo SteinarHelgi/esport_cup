@@ -191,16 +191,16 @@ class APILL:
     def validate_address(self,address: str) -> Errors:
         return validate_address(address)
     
-    def validate_phone_number(self,phone_number) -> Errors:
+    def validate_phone_number(self,phone_number: str) -> Errors:
         return validate_phone_number(phone_number)
     
-    def validate_player_email(self,player_email) -> Errors:
+    def validate_player_email(self,player_email: str) -> Errors:
         return validate_player_email(player_email)
 
-    def validate_player_handle(self, player_handle) -> Errors:
+    def validate_player_handle(self, player_handle: str) -> Errors:
         return validate_player_handle(player_handle, self.APIDATA)
 
-    def validate_social_media(self, social_media) -> Errors:
+    def validate_social_media(self, social_media: str) -> Errors:
         return validate_social_media(social_media)   
 
 # -----------TEAM CAPTAIN VALIDATION-------------
@@ -224,25 +224,25 @@ class APILL:
 
 # -------------TOURNAMENT VALIDATION--------------
 
-    def validate_tournament_name(self, name) -> Errors:
+    def validate_tournament_name(self, name: str) -> Errors:
         return validate_tournament_name(name)
 
-    def validate_tournament_start_date(self, start_date) -> Errors:
+    def validate_tournament_start_date(self, start_date: str) -> Errors:
         return validate_tournament_start_date(start_date)
 
-    def validate_tournament_end_date(self, start_date, end_date) -> Errors:
+    def validate_tournament_end_date(self, start_date: str, end_date: str) -> Errors:
         return validate_tournament_end_date(start_date, end_date)
 
-    def validate_players_in_teams(self, players_in_team) -> Errors:
+    def validate_players_in_teams(self, players_in_team: str) -> Errors:
         return validate_players_in_teams(players_in_team)
 
-    def validate_tournament_servers(self, servers) -> Errors:
+    def validate_tournament_servers(self, servers: str) -> Errors:
         return validate_tournament_servers(servers)
 
-    def validate_tournament_venue(self, venue) -> Errors:
+    def validate_tournament_venue(self, venue: str) -> Errors:
         return validate_tournament_venue(venue)
 
-    def validate_tournament_game(self, user_input_game, games) -> Errors:
+    def validate_tournament_game(self, user_input_game: str, games: str) -> Errors:
         return validate_tournament_game(user_input_game, games)
 
 # ----------------MATCH VALIDATION--------------------
