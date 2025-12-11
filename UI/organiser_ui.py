@@ -14,7 +14,7 @@ from LL.validators_ll import (
     validate_phone_number,
     validate_player_email,
     validate_player_name,
-    validate_tournament_double_elimination,
+
     validate_tournament_end_date,
     validate_tournament_game,
     validate_tournament_name,
@@ -110,16 +110,7 @@ class OrganiserUI:
                 print("Invalid input, cannot be all numnbers.")
             venue = input("Venue: ").strip()
 
-        double_elimination = input("Double elimination(Y/N): ").strip()
-        if double_elimination.lower() == "b":
-            return "ORGANISER_MENU"
-        if double_elimination.lower() == "q":
-            return "QUIT"
-        while validate_tournament_double_elimination(double_elimination) != Errors.OK:
-            error = validate_tournament_double_elimination(double_elimination)
-            if error == Errors.NOT_Y_OR_N:
-                print("Invalid input, confirm with Y or N")
-            double_elimination = input("Double elimination(Y/N): ").strip()
+
 
         games = self.APILL.get_all_games()
         print("Valid games are:", *[f"{game}," for game in games[:-1]], games[-1])

@@ -277,11 +277,7 @@ def validate_tournament_venue(venue) -> Errors:
     return Errors.OK
 
 
-def validate_tournament_double_elimination(double_elimination) -> Errors:
-    if double_elimination.lower() == "y" or double_elimination.lower() == "n":
-        return Errors.OK
-    else:
-        return Errors.NOT_Y_OR_N
+
 
 
 def validate_tournament_game(user_input_game, games) -> Errors:
