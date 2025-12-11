@@ -1,3 +1,8 @@
+
+# Forritið fer í óendalega loop ef þú ert að skrá tournament en slærð inn leik inn sem er ekki á listanum.
+
+
+
 ## LOGIC- TODO 
 delete matches
 ef ekki 16 lið á móti þá deletast mót
