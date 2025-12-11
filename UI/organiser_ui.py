@@ -351,13 +351,13 @@ class OrganiserUI:
             print("Select team 1:", end="")
 
             choice: str = self.menu_manager.prompt_choice(valid_choices)
-            team1 = teams_not_in_round[int(choice)]
+            team1 = teams_not_in_round[int(choice) - 1]
             if choice in valid_choices:
                 print(team1.name, "as Team 1")
 
             print("Select team 2:", end="")
             choice: str = self.menu_manager.prompt_choice(valid_choices)
-            team2 = teams_not_in_round[int(choice)]
+            team2 = teams_not_in_round[int(choice) - 1]
             if choice in valid_choices:
                 print(team2.name, "as Team 2")
 
