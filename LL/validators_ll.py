@@ -1,10 +1,10 @@
-from Models.game import Game
-from Models.models import Match, Tournament
 from datetime import datetime, date
-from IO.api_data import APIDATA
 from enum import Enum, auto
+from IO.api_data import APIDATA
 
-from Models.player import Player
+from Models.models import Match, Tournament, Player,Game
+
+
 
 
 class Errors(Enum):
