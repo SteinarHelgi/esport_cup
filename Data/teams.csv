@@ -3,7 +3,7 @@ team_id,team_name,captain_handle,website,logo, points
 2,NullPointer Ninjas,NullPointerNina,https://example.com/nullpointer_ninjas,ASCII_NINJA_SHADOW,0
 3,OffByOne Offense,OffByOneOlaf,https://example.com/offbyone_offense,ASCII_FENCEPOST_BUG,0
 4,Pepsi Max Punishers,PepsiMaxPalli,https://example.com/pepsimax_punishers,ASCII_PEPSI_CAN,0
-5,Chuck Norris Fan Club,RoundhouseRik,https://example.com/chuck_fan_club,ASCII_ROUNDHOUSE_KICK,8
+5,Chuck Norris Fan Club,RoundhouseRik,https://example.com/chuck_fan_club,ASCII_ROUNDHOUSE_KICK,10
 6,IndentationError Invaders,IndentationErrorIna,https://example.com/indent_invaders,ASCII_INDENT_ICON,0
 7,Assembly Avengers,MovAxMaria,https://example.com/assembly_avengers,ASCII_OPCODES,0
 8,Datalab Dominators,BitTwiddlerBjarni,https://example.com/datalab_dominators,ASCII_BITMASK,0
