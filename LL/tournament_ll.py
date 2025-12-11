@@ -1,12 +1,6 @@
 from IO.api_data import APIDATA
 from datetime import datetime
-from Models.models import (
-    Tournament,
-    ContactPerson,
-    Team,
-    TeamCaptain,
-    Match
-)
+from Models.models import Tournament, ContactPerson, Team, TeamCaptain, Match
 
 VALID_TEAM_COUNT = 16
 
@@ -107,29 +101,44 @@ class TournamentLL:
 
         return tournaments_for_team
 
-    def get_teams_not_in_round(self, tournament):
-        teams_in_tournament = self.get_teams_in_tournament(tournament)
-        if len(tournament.matches) < 8:
-            round = "R16"
-        elif len(tournament.matches) < 12:
-            round = "QF"
-        elif len(tournament.matches) < 14:
-            round = "SF"
-        else:
-            round = "Final"
-        matches = self.get_all_matches_by_type(tournament, round)
-        teams_not_in_round = []
+    def get_available_teams_for_next_round(
+        self, tournament: Tournament, current_round: str
+    ) -> list[Team]:
+        """
+        Returns teams that:
+        - have never lost any completed match in the tournament
+        - are not already in a match in the current round
+        """
 
-        for team in teams_in_tournament:
-            in_match = False  # assume not in a match
-            for match in matches:
-                if match.team_a_name == team.name or match.team_b_name == team.name:
-                    in_match = True
-                    break  # no need to check more matches
+        all_team_names: set[str] = set()
+        lost_team_names: set[str] = set()
+        teams_in_current_round_names: set[str] = set()
 
-            if not in_match:
-                teams_not_in_round.append(team)
-        return teams_not_in_round
+        for match in tournament.matches:
+            all_team_names.update([match.team_a_name, match.team_b_name])
+
+            if match.round == current_round:
+                teams_in_current_round_names.update(
+                    [match.team_a_name, match.team_b_name]
+                )
+
+            if match.winner_team_name:
+                if match.winner_team_name == match.team_a_name:
+                    loser = match.team_b_name
+                else:
+                    loser = match.team_a_name
+
+                lost_team_names.add(loser)
+
+        undefeated_team_names = all_team_names - lost_team_names
+
+        eligible_team_names = undefeated_team_names - teams_in_current_round_names
+
+        eligible_teams = []
+        for name in eligible_team_names:
+            team = self.MAINLL.team_ll.get_team_by_name(name)
+            eligible_teams.append(team)
+        return eligible_teams
 
     def get_teams_in_tournament(self, tournament: Tournament) -> list[Team]:
         """Returns all teams that are registered to the given tournament."""
@@ -236,7 +245,7 @@ class TournamentLL:
 
         return self.APIDATA.store_match_data(match)
 
-    def delete_match(self, match_id:str) -> None:
+    def delete_match(self, match_id: str) -> None:
         self.APIDATA.delete_match_data(match_id)
 
     def get_all_teams_on_tournament(self, target_tournament_id: str) -> list[Team]:

@@ -1,10 +1,12 @@
 """This is the page where everything related to the users UI is shown"""
 
 from LL.api_ll import APILL
-from Models.player import Player
-from Models.tournament import Tournament
 from UI.functions import format_tournament_table
 from UI.ui_functions import refresh_logo
+from Models.models import (
+    Player,
+    Tournament
+)
 
 
 class UserUI:

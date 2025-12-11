@@ -1,4 +1,12 @@
 from LL.api_ll import APILL
+import UI.functions as f
+from UI.ui_functions import refresh_logo
+from Models.models import (
+    Team,
+    Tournament, 
+    Player, 
+    TeamCaptain
+)
 from LL.validators_ll import (
     validate_address,
     validate_date_of_birth,
@@ -12,10 +20,6 @@ from LL.validators_ll import (
     validate_team_logo,
     validate_team_name,
 )
-import UI.functions as f
-from UI.ui_functions import refresh_logo
-from Models.models import Tournament, Player, TeamCaptain
-
 
 class TeamCaptainUI:
     def __init__(self, APILL: APILL, menu_manager) -> None:
@@ -36,7 +40,9 @@ class TeamCaptainUI:
             if error == Errors.NAME_INCLUDE_NUMBERS:
                 print("Name cannot include a number")
             if error == Errors.CONTAINS_UNWANTED_CHAR:
-                print("Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy.")
+                print(
+                    "Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy."
+                )
             if name.lower() == "b":
                 return "SHOW_MY_PLAYERS"
             if name.lower() == "q":
@@ -56,7 +62,9 @@ class TeamCaptainUI:
             if error == Errors.DATE_TOO_OLD:
                 print("Invalid date, choose a date after 1900")
             if error == Errors.CONTAINS_UNWANTED_CHAR:
-                print("Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy.")
+                print(
+                    "Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy."
+                )
             if date_of_birth.lower() == "b":
                 return "MY_TEAM"
             if date_of_birth.lower() == "q":
@@ -76,7 +84,9 @@ class TeamCaptainUI:
             if error == Errors.ADDRESS_ONLY_NUMBERS:
                 print("Address cannot only be digits.")
             if error == Errors.CONTAINS_UNWANTED_CHAR:
-                print("Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy.")
+                print(
+                    "Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy."
+                )
             if address.lower() == "b":
                 return "MY_TEAM"
             if address.lower() == "q":
@@ -98,7 +108,9 @@ class TeamCaptainUI:
             if error == Errors.NUMBER_NOT_CORRECT_LENGTH:
                 print("Phone number has to be exactly 7 digits.")
             if error == Errors.CONTAINS_UNWANTED_CHAR:
-                print("Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy.")
+                print(
+                    "Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy."
+                )
             if phone_number.lower() == "b":
                 return "MY_TEAM"
             if phone_number.lower() == "q":
@@ -118,7 +130,9 @@ class TeamCaptainUI:
             if error == Errors.EMAIL_NOT_CONTAINING_AT:
                 print("Email has to include '@', example@example.com.")
             if error == Errors.CONTAINS_UNWANTED_CHAR:
-                print("Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy.")
+                print(
+                    "Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy."
+                )
             if email.lower() == "b":
                 return "MY_TEAM"
             if email.lower() == "q":
@@ -138,7 +152,9 @@ class TeamCaptainUI:
             if error == Errors.HANDLE_CONTAINS_SPACE:
                 print("Social media handle cannot contain empty spaces.")
             if error == Errors.CONTAINS_UNWANTED_CHAR:
-                print("Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy.")
+                print(
+                    "Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy."
+                )
             if social_media.lower() == "b":
                 return "MY_TEAM"
             if social_media.lower() == "q":
@@ -338,7 +354,9 @@ class TeamCaptainUI:
                     if error == Errors.NAME_INCLUDE_NUMBERS:
                         print("Name cannot include numbers")
                     if error == Errors.CONTAINS_UNWANTED_CHAR:
-                        print("Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy.")
+                        print(
+                            "Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy."
+                        )
                     new_name = input("Enter new name: ").strip()
                     error = self.APILL.validate_player_name(new_name)
                 print("Name updated locally.")
@@ -352,7 +370,9 @@ class TeamCaptainUI:
                     if error == Errors.EMAIL_NOT_CONTAINING_AT:
                         print("Email must contain @, example@example.com")
                     if error == Errors.CONTAINS_UNWANTED_CHAR:
-                        print("Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy.")
+                        print(
+                            "Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy."
+                        )
                     new_email = input("Enter new email: ").strip()
                     error = self.APILL.validate_player_email(new_email)
                 player.email = new_email
@@ -367,7 +387,9 @@ class TeamCaptainUI:
                     if error == Errors.ADDRESS_ONLY_NUMBERS:
                         print("Address cannot be only numbers")
                     if error == Errors.CONTAINS_UNWANTED_CHAR:
-                        print("Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy.")
+                        print(
+                            "Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy."
+                        )
                     new_address = input("Enter new address: ").strip()
                     error = self.APILL.validate_address(new_address)
                 player.address = new_address
@@ -382,7 +404,9 @@ class TeamCaptainUI:
                     if error == Errors.NUMBER_HAS_CHARACTERS:
                         print("Phone number cannot contain characters")
                     if error == Errors.CONTAINS_UNWANTED_CHAR:
-                        print("Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy.")
+                        print(
+                            "Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy."
+                        )
                     new_number = input("Enter new phone number: ").strip()
                     error = self.APILL.validate_phone_number(new_number)
                 player.phone_number = new_number
@@ -398,7 +422,9 @@ class TeamCaptainUI:
                     if error == Errors.HANDLE_CONTAINS_SPACE:
                         print("Social Media cannot contain spaces")
                     if error == Errors.CONTAINS_UNWANTED_CHAR:
-                        print("Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy.")
+                        print(
+                            "Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy."
+                        )
                     new_socials = input("Enter new social media handle: ").strip()
                     error = self.APILL.validate_social_media(new_socials)
 
@@ -415,10 +441,17 @@ class TeamCaptainUI:
                     if error == Errors.HANDLE_CONTAINS_SPACE:
                         print("Handle cannot contain spaces")
                     if error == Errors.CONTAINS_UNWANTED_CHAR:
-                        print("Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy.")
+                        print(
+                            "Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy."
+                        )
                     new_handle = input("Enter new game handle: ").strip()
                     error = self.APILL.validate_player_handle(new_handle)
+                team: Team = self.menu_manager.team_to_view
+                if player.handle == team.captain_handle:
+                    self.menu_manager.team_to_view.captain_handle = new_handle
+                    self.APILL.modify_team_data(team)
                 player.handle = new_handle
+
                 print("Game handle updated locally.")
 
             elif selection.lower() == "s":
@@ -686,7 +719,9 @@ class TeamCaptainUI:
             if error == Errors.TEAM_NAME_TOO_LONG:
                 print("Team name is too many characters.")
             if error == Errors.CONTAINS_UNWANTED_CHAR:
-                        print("Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy.")
+                print(
+                    "Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy."
+                )
             team_name = input("Team name: ")
         # New team captain
         social_media = input("Social media: ")
@@ -701,7 +736,9 @@ class TeamCaptainUI:
             if error == Errors.EMPTY:
                 print("Social media handle cannot contain empty spaces.")
             if error == Errors.CONTAINS_UNWANTED_CHAR:
-                        print("Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy.")
+                print(
+                    "Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy."
+                )
             social_media = input("Social media: ")
         team_logo = input("Input team logo in ASCII lettering: ")
         if team_logo.lower() == "q":
@@ -713,7 +750,9 @@ class TeamCaptainUI:
             if error == Errors.LOGO_EMPTY:
                 print("Logo cannot be empty.")
             if error == Errors.CONTAINS_UNWANTED_CHAR:
-                        print("Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy.")
+                print(
+                    "Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy."
+                )
             team_logo = input("Input team logo in ASCII lettering: ")
 
     def remove_selected_player(self, player: Player):

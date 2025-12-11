@@ -1,3 +1,8 @@
+
+# Forritið fer í óendalega loop ef þú ert að skrá tournament en slærð inn leik inn sem er ekki á listanum.
+
+
+
 ## LOGIC- TODO 
 delete matches
 ef ekki 16 lið á móti þá deletast mót
@@ -26,7 +31,7 @@ Ef nýtt lið þá gerir organiser það, gerir nytt handle og þa siðan loggar
 Ef tournament start date komið og ekki nægilega mörg lið þá kemur error og organiser getur deletað
 Hreinsa gögn sem við höfum prufað 
 Taka út það sem lítur út fyrir aðvera option en er ekki option
-Laga þegar þú breytir handle hjá team captain, þá ætti að breytast lika hja team captain handle
+# Laga þegar þú breytir handle hjá team captain, þá ætti að breytast lika hja team captain handle
 Laga email validation - steinar
 Low priority(hafa edit team og edit player eins)
 
