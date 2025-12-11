@@ -7,8 +7,14 @@ from Models import game
 from Models.contact_person import ContactPerson
 from Models.models import Match, Player, Team, Tournament
 from UI.functions import format_player_list, format_team_list, format_tournament_table
-from UI.ui_functions import refresh_logo, reset_system_color, set_system_color_gold, set_system_color_red
-from LL.validators_ll import (Errors,
+from UI.ui_functions import (
+    refresh_logo,
+    reset_system_color,
+    set_system_color_gold,
+    set_system_color_red,
+)
+from LL.validators_ll import (
+    Errors,
     validate_match_creation,
     validate_match_date,
     validate_match_time,
@@ -41,7 +47,7 @@ class OrganiserUI:
             return "ORGANISER_MENU"
         if name_of_tournament.lower() == "q":
             return "QUIT"
-        while validate_tournament_name(name_of_tournament) != Errors.OK:
+        while self.APILL.validate_tournament_name(name_of_tournament) != Errors.OK:
             error = validate_tournament_name(name_of_tournament)
             if error == Errors.TOURNAMENT_NAME_LENGTH:
                 print("Tournament name needs to be atleast two letters")
@@ -470,7 +476,7 @@ class OrganiserUI:
         match.set_winner(winner_name, "TRUE")
 
         self.APILL.register_match_result(match.match_id, winner_name, "TRUE")
-        self.APILL.give_team_points(winner_name,+2)
+        self.APILL.give_team_points(winner_name, +2)
         if match.round == "Final":
             print(f"{winner_name} have won the tournament!")
             self.print_trophy()
@@ -509,3 +515,4 @@ class OrganiserUI:
                _/_______\_
               /___________\ """)
         set_system_color_red()
+
