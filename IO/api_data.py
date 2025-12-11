@@ -105,3 +105,6 @@ class APIDATA:
 
     def give_club_points(self, club_name: str, points: int):
         return self.club_data.give_club_points(club_name, points)
+    
+    def delete_match_data(self, match_id: str):
+        return self.match_data.delete_match_data(match_id)
