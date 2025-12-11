@@ -20,6 +20,7 @@ from Models.team import Team
 from Models.team_captain import TeamCaptain
 import UI.functions as f
 from UI.ui_functions import refresh_logo
+from Models.models import Tournament
 
 
 class TeamCaptainUI:
@@ -159,8 +160,13 @@ class TeamCaptainUI:
         if team:
             tournaments = self.APILL.get_my_tournaments(team)
             print(f.format_tournament_table(tournaments))
+            valid_choices_of_tournaments = []
+            for index,tournament in enumerate(tournaments):
+                valid_choices_of_tournaments.append(str(index + 1))
             print("r. Register for new tournament\nb. Back\nq. Quit")
-            choice: str = self.menu_manager.prompt_choice(["r", "b", "q"])
+            choice: str = self.menu_manager.prompt_choice(valid_choices_of_tournaments + ["r", "b", "q"])
+            if choice in valid_choices_of_tournaments:
+                return self.show_tournament_view_cap(tournaments[int(choice) - 1])
             if choice == "r":
                 while validate_players_in_teams(players) != Errors.OK:
                     error = validate_players_in_teams(players)
@@ -215,6 +221,47 @@ class TeamCaptainUI:
                 return "TEAM_CAPTAIN_MENU"
             if choice == "q":
                 return "QUIT"
+
+    def show_tournament_view_cap(self, tournament: Tournament):
+        """takes in a tournament name and shows the menu for the tournament"""
+
+        refresh_logo()
+        w_team = 26
+        w_date = 12
+        w_time = 12
+        w_round = 8
+        w_vs = 4
+        w_completed = 10
+        if tournament:
+            print(
+                f"{tournament.name.upper()}  |  {tournament.start_date} -- {tournament.end_date} "
+            )
+            print("--------------------")
+            print(" ")
+            print("Matches: ")
+            header = (
+                f"{'Team 1':<{w_team}}"
+                f"{'vs':^{w_vs}}"
+                f"{'Team 2':>{w_team}} "
+                f"{'Date':^{w_date}}"
+                f"{'Time':^{w_time}}"
+                f"{'Round':>{w_round}}"
+                f"{'Completed':>{w_completed}}"
+                f"{'Winner':<{w_team}}"
+            )
+            print(header)
+            print("-" * len(header))
+            for match in tournament.matches:
+                print(f"{match}")
+
+            print("")
+
+            print("b. Back")
+            print("q. Quit")
+
+        choice: str = self.menu_manager.prompt_choice(["b", "q"])
+        if choice == "b":
+            return "MY_TOURNAMENTS_CAP"
 
     def show_modify_player_menu(self, player: Player):
         """

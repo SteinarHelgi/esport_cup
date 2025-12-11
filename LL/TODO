@@ -48,11 +48,11 @@ Taka út það sem lítur út fyrir aðvera option en er ekki option
 Laga þegar þú breytir handle hjá team captain, þá ætti að breytast lika hja team captain handle
 Laga email validation
 Low priority(hafa edit team og edit player eins)
-Taka út counter á my_tournaments fyrir my captain
-Setja inn að geta skoða uppl um tournamnets inni my tournaments sem team captain
+
+#Setja inn að geta skoða uppl um tournamnets inni my tournaments sem team captain
 ADD TEAM TO CLUB
-Geta bakkað og quitað þegar þú ert í create match
+#Geta bakkað og quitað þegar þú ert í create match
 #Bæta við “Select match to register results”
-Laga back í set results
+(Laga back í set results) ef steinar hefur tíma
 Create match í quarter finals ætti að sækja öll lið sem eru búin að vinna.
 Bæta við bikar þegar final klárast
