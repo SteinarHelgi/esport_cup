@@ -7,11 +7,11 @@ team_id,team_name,captain_handle,website,logo, points
 6,IndentationError Invaders,IndentationErrorIna,https://example.com/indent_invaders,ASCII_INDENT_ICON,0
 7,Assembly Avengers,MovAxMaria,https://example.com/assembly_avengers,ASCII_OPCODES,0
 8,Datalab Dominators,BitTwiddlerBjarni,https://example.com/datalab_dominators,ASCII_BITMASK,0
-9,Bomblab Bombers,BombDefusalDori,https://example.com/bomblab_bombers,ASCII_BOMB_WIRE,0
+9,Bomblab Bombers,BombDefusalDori,https://example.com/bomblab_bombers,ASCII_BOMB_WIRE,2
 10,StackOverflow Stackers,CopyPasteKalli,https://example.com/stackoverflow_stackers,ASCII_STACK_FRAME,0
 11,CacheHit Crusaders,L1CacheLara,https://example.com/cachehit_crusaders,ASCII_CACHE_LINES,0
 13,Segmentation Foul,SegmentationFoulStebbi,https://example.com/segmentation_foul,ASCII_RED_CARD,0
 14,RaceCondition Racers,RaceConditionRagnhildur,https://example.com/racecondition_racers,ASCII_CHECKERED_FLAG,2
 15,Undefined Behavior United,UBUnitedUlfar,https://example.com/ub_united,ASCII_GLITCHED_LOGO,0
 16,Pepsi Max Overflow,PepsiMaxOverflowPetra,https://example.com/pepsimax_overflow,ASCII_OVERFLOWING_CAN,0
-12,WhileTrue Tryhards,WhileTrueWendi,Sophie,ASCII_NOLOOP_ICON,0
+12,WhileTrue Tryhards,WhileTrueWendi,Sophie,ASCII_NOLOOP_ICON,4

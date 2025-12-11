@@ -31,8 +31,7 @@ match_id,tournament_id,round,match_number,team_a_name,team_b_name,match_date,mat
 30,28,R16,19,Pepsi Max Overflow,WhileTrue Tryhards,2025-12-08,14:00,,0,0,WhileTrue Tryhards,TRUE
 31,28,QF,7,SegFault Spartans,Pepsi Max Punishers,2025-12-08,16:00,,0,0,SegFault Spartans,TRUE
 32,28,QF,8,Chuck Norris Fan Club,Assembly Avengers,2025-12-08,16:00,,0,0,Chuck Norris Fan Club,TRUE
-33,28,QF,9,Bomblab Bombers,CacheHit Crusaders,2025-12-08,18:00,,0,0,Bomblab Bombers,TRUE
-34,28,QF,10,RaceCondition Racers,WhileTrue Tryhards,2025-12-08,18:00,,0,0,RaceCondition Racers,TRUE
-35,28,SF,4,SegFault Spartans,RaceCondition Racers,2025-12-08,20:00,,0,0,RaceCondition Racers,TRUE
-36,28,SF,5,Chuck Norris Fan Club,Bomblab Bombers,2025-12-08,20:00,,0,0,Chuck Norris Fan Club,TRUE
-37,28,Final,3,Chuck Norris Fan Club,RaceCondition Racers,2026-01-14,20:00,,0,0,Chuck Norris Fan Club,TRUE
+33,28,QF,9,WhileTrue Tryhards,CacheHit Crusaders,2025-12-09,08:00,,0,0,WhileTrue Tryhards,TRUE
+34,28,QF,10,RaceCondition Racers,Bomblab Bombers,2025-12-09,08:00,,0,0,Bomblab Bombers,TRUE
+35,28,SF,4,WhileTrue Tryhards,SegFault Spartans,2025-12-09,10:00,,0,0,WhileTrue Tryhards,TRUE
+36,28,SF,5,Chuck Norris Fan Club,Bomblab Bombers,2025-12-09,10:00,,0,0,,False

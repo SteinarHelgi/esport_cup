@@ -9,7 +9,7 @@ from Models.models import (
     Match,
     ContactPerson,
     TeamCaptain,
-    Club
+    Club,
 )
 
 from LL.validators_ll import (
@@ -45,6 +45,7 @@ from LL.validators_ll import (
     validate_club_country,
     validate_unwanted_characters,
 )
+
 
 class APILL:
     def __init__(self) -> None:
@@ -90,6 +91,13 @@ class APILL:
     def create_new_team(self, team: Team) -> Team | None:
         """Creates a new team through the logic layer and returns the stored team."""
         return self.main_ll.team_ll.create_new_team(team)
+
+    def get_available_teams_for_next_round(
+        self, tournament: Tournament, current_round: str
+    ):
+        return self.main_ll.tournament_ll.get_available_teams_for_next_round(
+            tournament, current_round
+        )
 
     def add_team_to_club(self, team: Team, club: Club):
         """Adds a team to a club with the given club ID."""
@@ -142,10 +150,6 @@ class APILL:
         return self.main_ll.tournament_ll.get_all_matches_by_type(
             tournament, type_of_round
         )
-
-    def get_teams_not_in_round(self, tournament: Tournament):
-        """Returns teams in a tournament that are not yet assigned to the given round."""
-        return self.main_ll.tournament_ll.get_teams_not_in_round(tournament)
 
     def get_team_by_captain_handle(self, handle) -> Team | None:
         """Returns the team whose captain has the given handle, or None if not found."""
@@ -217,8 +221,8 @@ class APILL:
     def get_all_games(self) -> list[Game]:
         """Returns a list of all games available in the system."""
         return self.main_ll.game_ll.get_all_games()
-    
-    def delete_match(self, match_id:str) -> None:
+
+    def delete_match(self, match_id: str) -> None:
         return self.main_ll.tournament_ll.delete_match(match_id)
 
     # ---------- PLAYER VALIDATION ----------
@@ -325,7 +329,6 @@ class APILL:
 
     def validate_club_country(self, country: str) -> Errors:
         return validate_club_country(country)
-    
-    def validate_unwanted_characters(self,input:str) -> Errors:
-        return validate_unwanted_characters(input)
 
+    def validate_unwanted_characters(self, input: str) -> Errors:
+        return validate_unwanted_characters(input)
