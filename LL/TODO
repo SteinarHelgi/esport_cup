@@ -4,7 +4,7 @@
 
 
 ## LOGIC- TODO 
-delete matches
+#delete matches
 ef ekki 16 lið á móti þá deletast mót
 ##LOGIC - Þröstur
 
@@ -33,9 +33,9 @@ Hreinsa gögn sem við höfum prufað
 Taka út það sem lítur út fyrir aðvera option en er ekki option
 # Laga þegar þú breytir handle hjá team captain, þá ætti að breytast lika hja team captain handle
 Laga email validation - steinar
-Low priority(hafa edit team og edit player eins)
+#Low priority(hafa edit team og edit player eins)
 
-(Laga back í set results) ef steinar hefur tíma
-Create match í quarter finals ætti að sækja öll lið sem eru búin að vinna. - STEINAR PRIORITY !!!!!
+#(Laga back í set results) ef steinar hefur tíma
+#Create match í quarter finals ætti að sækja öll lið sem eru búin að vinna. - STEINAR PRIORITY !!!!!
 
 Ef nafn inniheldur íslenska stafi þá virkar ekki að edita það í player modification skjánum
