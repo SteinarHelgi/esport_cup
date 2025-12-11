@@ -8,9 +8,6 @@ from Models.models import (
     Game
 )
 
-
-
-
 class Errors(Enum):
     EMPTY = auto()
     NAME_INCLUDE_NUMBERS = auto()
@@ -197,6 +194,14 @@ def validate_team_captain(handle: str, api_data: APIDATA) -> Errors:
 
 MAX_PLAYERS = 5
 
+def validate_number_of_players(name, api_data: APIDATA) -> Errors:
+    # Max 5 players in a team
+    current_players = api_data.get_all_player_data()
+    players_in_team = [p for p in current_players if p.team_name == name]
+    if len(players_in_team) >= MAX_PLAYERS:
+        return Errors.TOO_MANY_PLAYERS
+    return Errors.OK
+  
 
 def validate_team_name(name: str, api_data: APIDATA) -> Errors:
     # Name
@@ -215,6 +220,10 @@ def validate_team_name(name: str, api_data: APIDATA) -> Errors:
         if len(players_in_team) >= MAX_PLAYERS:
             return Errors.TOO_MANY_PLAYERS
 
+        current_teams = api_data.get_all_team_data()
+        if len(name) > 40:
+            return Errors.TEAM_NAME_TOO_LONG
+    
         current_teams = api_data.get_all_team_data()
 
         for t in current_teams:
