@@ -54,10 +54,6 @@ class Errors(Enum):
     OK = auto()
 
 
-class ValidationError(Exception):
-    pass
-
-
 def validate_player_name(player_name: str) -> Errors:
     valid_name = player_name.strip()
     if valid_name == "":
@@ -67,7 +63,7 @@ def validate_player_name(player_name: str) -> Errors:
     return Errors.OK
 
 
-def validate_date_of_birth(date_of_birth):
+def validate_date_of_birth(date_of_birth: str) -> Errors:
     valid_dob = date_of_birth.strip()
 
     if valid_dob == "":
@@ -81,7 +77,7 @@ def validate_date_of_birth(date_of_birth):
         return Errors.DATE_NOT_VALID
 
 
-def validate_address(address):
+def validate_address(address: str) -> Errors:
     valid_address = address.strip()
 
     if valid_address == "":
@@ -92,7 +88,7 @@ def validate_address(address):
     return Errors.OK
 
 
-def validate_phone_number(phone_number):
+def validate_phone_number(phone_number: str) -> Errors:
     number = phone_number.strip()
 
     if number == "":
@@ -106,7 +102,7 @@ def validate_phone_number(phone_number):
     return Errors.OK
 
 
-def validate_player_email(player_email):
+def validate_player_email(player_email: str) -> Errors:
     email = player_email.strip()
 
     if email == "":
@@ -117,7 +113,7 @@ def validate_player_email(player_email):
     return Errors.OK
 
 
-def validate_player_handle(player_handle, api_data: APIDATA):
+def validate_player_handle(player_handle: str, api_data: APIDATA) -> Errors:
     handle = player_handle.strip()
 
     if handle == "":
@@ -135,11 +131,11 @@ def validate_player_handle(player_handle, api_data: APIDATA):
     return Errors.OK
 
 
-def validate_social_media(social_media):
+def validate_social_media(social_media: str) -> Errors:
     socials = social_media.strip()
     if socials == "":
         return Errors.EMPTY
-    if " " in socials:
+    if socials == " ":
         return Errors.HANDLE_CONTAINS_SPACE
     return Errors.OK
 
@@ -223,7 +219,7 @@ def validate_team_points(points: str) -> Errors:
 # -------------TOURNAMENT VALIDATION--------------
 
 
-def validate_tournament_name(name) -> Errors:
+def validate_tournament_name(name: str) -> Errors:
     if len(name) == 0:
         return Errors.EMPTY
     if len(name.strip()) < 2:
@@ -233,7 +229,7 @@ def validate_tournament_name(name) -> Errors:
     return Errors.OK
 
 
-def validate_tournament_start_date(start_date) -> Errors:
+def validate_tournament_start_date(start_date: str) -> Errors:
     # Verður að vera rétt format
     # Start date verður að vera eftir daginn í dag
     try:
@@ -245,7 +241,7 @@ def validate_tournament_start_date(start_date) -> Errors:
     return Errors.OK
 
 
-def validate_tournament_end_date(start_date, end_date) -> Errors:
+def validate_tournament_end_date(start_date: str, end_date: str) -> Errors:
     # Verður að vera rétt format.
     # Verður að byrja eftir start date
     try:
@@ -258,7 +254,7 @@ def validate_tournament_end_date(start_date, end_date) -> Errors:
     return Errors.OK
 
 
-def validate_players_in_teams(players_in_team) -> Errors:
+def validate_players_in_teams(players_in_team: str) -> Errors:
     MIN_PLAYERS_PER_TEAM = 3
     MAX_PLAYERS_PER_TEAM = 5
 
@@ -270,7 +266,7 @@ def validate_players_in_teams(players_in_team) -> Errors:
     return Errors.OK
 
 
-def validate_tournament_servers(servers) -> Errors:
+def validate_tournament_servers(servers: str) -> Errors:
     if not servers.isdigit():
         return Errors.SERVER_NOT_NUMBER
     if int(servers) < 1:
@@ -278,13 +274,13 @@ def validate_tournament_servers(servers) -> Errors:
     return Errors.OK
 
 
-def validate_tournament_venue(venue) -> Errors:
+def validate_tournament_venue(venue: str) -> Errors:
     if venue.isdigit():
         return Errors.VENUE_INCLUDE_NUMBERS
     return Errors.OK
 
 
-def validate_tournament_game(user_input_game, games) -> Errors:
+def validate_tournament_game(user_input_game: str, games: str) -> Errors:
     for game in games:
         if game.name == user_input_game:
             return Errors.OK
@@ -313,9 +309,7 @@ def validate_match_round(round_name: str, matches_in_round: list) -> Errors:
     return Errors.OK
 
 
-def validate_match_creation(
-    match: Match, tournament: Tournament, api_data: APIDATA
-) -> Errors:
+def validate_match_creation(match: Match, tournament: Tournament, api_data: APIDATA) -> Errors:
     team_a = match.team_a_name
     team_b = match.team_b_name
     date_str = match.match_date
@@ -336,7 +330,7 @@ def validate_match_creation(
     ]
 
     # Same team already playing (date+time)
-    for m in matches_in_tournament:
+    for m in all_matches:
         if m.match_date == date_str and m.match_time == time_str:
             teams_in_match = (m.team_a_name, m.team_b_name)
             if team_a in teams_in_match:
@@ -396,7 +390,7 @@ def validate_match_date(
     return Errors.DATE_NOT_IN_TOURNAMENT_DATE
 
 
-def validate_match_time(time_input: str):
+def validate_match_time(time_input: str) -> Errors:
     time_slots = ["08:00", "10:00", "12:00", "14:00", "16:00", "18:00", "20:00"]
     if time_input not in time_slots:
         return Errors.TIME_NOT_IN_TIMESLOT

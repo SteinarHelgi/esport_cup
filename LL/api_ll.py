@@ -13,6 +13,37 @@ from Models.models import (
 from Models.club import Club
 from LL.main_ll import MainLL
 
+from LL.validators_ll import (
+    Errors,
+    validate_player_name,
+    validate_date_of_birth,
+    validate_address,
+    validate_phone_number,
+    validate_player_email,
+    validate_player_handle,
+    validate_social_media,
+    validate_team_captain,
+    validate_team_name,
+    validation_team_handle,
+    validate_team_logo,
+    validate_team_points,
+    validate_tournament_name,
+    validate_tournament_start_date,
+    validate_tournament_end_date,
+    validate_tournament_servers,
+    validate_tournament_venue,
+    validate_tournament_game,
+    validate_players_in_teams,
+    validate_match_round,
+    validate_match_creation,
+    validate_match_date,
+    validate_match_time,
+    validate_game_name,
+    validate_club_name,
+    validate_club_hometown,
+    validate_club_color,
+    validate_club_country
+)
 
 class APILL:
     def __init__(self) -> None:
@@ -148,3 +179,100 @@ class APILL:
 
     def get_all_games(self) -> list[Game]:
         return self.main_ll.game_ll.get_all_games()
+
+       #-------------------VALIDATION--------------------------
+    
+    def validate_player_name(self, name: str) -> Errors:
+        return validate_player_name(name)
+
+    def validate_date_of_birth(self,date_of_birth: str) -> Errors:
+        return validate_date_of_birth(date_of_birth)
+
+    def validate_address(self,address: str) -> Errors:
+        return validate_address(address)
+    
+    def validate_phone_number(self,phone_number: str) -> Errors:
+        return validate_phone_number(phone_number)
+    
+    def validate_player_email(self,player_email: str) -> Errors:
+        return validate_player_email(player_email)
+
+    def validate_player_handle(self, player_handle: str) -> Errors:
+        return validate_player_handle(player_handle, self.APIDATA)
+
+    def validate_social_media(self, social_media: str) -> Errors:
+        return validate_social_media(social_media)   
+
+# -----------TEAM CAPTAIN VALIDATION-------------
+
+    def validate_team_captain(self, handle: str) -> Errors:
+        return validate_team_captain(handle, self.APIDATA)
+
+# -------------TEAM VALIDATION---------------
+
+    def validate_team_name(self,name: str) -> Errors:
+        return validate_team_name(name, self.APIDATA)
+
+    def validation_team_handle(self,handle: str) -> Errors:
+        return validation_team_handle(handle, self.APIDATA)
+
+    def validate_team_logo(self,logo: str) -> Errors:
+        return validate_team_logo(logo)
+
+    def validate_team_points(self,points: str) -> Errors:
+        return validate_team_points(points)
+
+# -------------TOURNAMENT VALIDATION--------------
+
+    def validate_tournament_name(self, name: str) -> Errors:
+        return validate_tournament_name(name)
+
+    def validate_tournament_start_date(self, start_date: str) -> Errors:
+        return validate_tournament_start_date(start_date)
+
+    def validate_tournament_end_date(self, start_date: str, end_date: str) -> Errors:
+        return validate_tournament_end_date(start_date, end_date)
+
+    def validate_players_in_teams(self, players_in_team: str) -> Errors:
+        return validate_players_in_teams(players_in_team)
+
+    def validate_tournament_servers(self, servers: str) -> Errors:
+        return validate_tournament_servers(servers)
+
+    def validate_tournament_venue(self, venue: str) -> Errors:
+        return validate_tournament_venue(venue)
+
+    def validate_tournament_game(self, user_input_game: str, games: str) -> Errors:
+        return validate_tournament_game(user_input_game, games)
+
+# ----------------MATCH VALIDATION--------------------
+
+    def validate_match_round(self, round_name: str, matches_in_round: list) -> Errors:
+        return validate_match_round(round_name, matches_in_round)
+
+    def validate_match_creation(self, match: Match, tournament: Tournament) -> Errors:
+        return validate_match_creation(match, tournament, self.APIDATA )
+
+    def validate_match_date(self, date_input: str, tournament_start_date: datetime, tournament_end_date: datetime) -> Errors:
+        return validate_match_date(date_input, tournament_start_date, tournament_end_date)
+
+    def validate_match_time(self, time_input: str) -> Errors:
+        return validate_match_time(time_input)
+
+# -----------------GAME VALIDATION--------------------
+    def validate_game_name(self, game_name: str) -> Errors:
+        return validate_game_name(game_name, self.APIDATA)
+
+# -----------------CLUB VALIDATION--------------------
+
+    def validate_club_name(self, name: str) -> Errors:
+        return validate_club_name(name)
+
+    def validate_club_hometown(self, hometown: str) -> Errors:
+        return validate_club_hometown(hometown)
+
+    def validate_club_color(self, color: str) -> Errors:
+        return validate_club_color(color)
+
+    def validate_club_country(self, country: str) -> Errors:
+        return validate_club_country(country)

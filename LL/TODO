@@ -25,6 +25,7 @@ ef ekki 16 lið á móti þá deletast mót
 * see all teams belonging to a club?
 * vantar að logga sig inn sem nýr team captain og búa til lið...C krafa
 * password og svona fyrir organiser?
+* laga import, gera (from Models.models import Team, Tournament.....)
 
 UI: HILMIR
 
