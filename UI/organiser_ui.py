@@ -324,8 +324,18 @@ class OrganiserUI:
                 round = "QF"
             elif len(tournament.matches) < 14:
                 round = "SF"
-            else:
+            elif len(tournament.matches) == 15:
                 round = "Final"
+            else:
+                round = "NONE"
+                print("Tournament is over!")
+                print("b. Back\nq. Quit")
+                choice: str = self.menu_manager.prompt_choice(["b", "q"])
+                if choice == "b":
+                    return "MY_TOURNAMENTS_ORG"
+                if choice == "q":
+                    return "QUIT"
+
             teams_not_in_round = self.APILL.get_teams_not_in_round(tournament)
             print("Which teams are competing in this match?")
             print("")
