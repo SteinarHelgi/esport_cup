@@ -284,7 +284,7 @@ class OrganiserUI:
 
             for counter, match in enumerate(tournament.matches):
                 valid_choices.append(str(counter + 1))
-                print(f"{counter}. {match}")
+                print(f"{counter + 1}. {match}")
             print(" ")
             print("c. Create new match \nd. Delete tournament \nb. Back \nq. Quit")
             choice: str = self.menu_manager.prompt_choice(
@@ -334,8 +334,8 @@ class OrganiserUI:
                 teams_not_in_round[0]._print_header()
                 teams_not_in_round[0]._print_divider_line()
                 for counter, team in enumerate(teams_not_in_round):
-                    team.format_row(counter)
-                    valid_choices.append(str(counter))
+                    team.format_row(counter + 1)
+                    valid_choices.append(str(counter + 1))
                     team._print_divider_line()
             else:
                 print("No teams have registered for this tournament")
