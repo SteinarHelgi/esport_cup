@@ -140,3 +140,19 @@ class ClubStat:
             self.lost: int = 0
             self.winning_ratio: float = 0
             self.points: int = 0"""
+
+
+    # def show_player_stats_bar_chart(self):
+    #    return self.userLL.show_player_stats_bar_chart()
+
+    # def get_elimination_stats(self, tournament_id):
+    #    return self.userLL.get_elimination_stats(tournament_id)
+
+    # def get_all_player_stat(self, tournament_id) -> list[PlayerStat]:
+    #    return self.userLL.get_all_player_stat(tournament_id)
+
+    # def get_player_stat(self, player_handle, tournament_id) -> PlayerStat | None:
+    #    return self.userLL.get_player_stat(player_handle, tournament_id)
+
+        # def get_all_club_stat(self) -> list[ClubStat]:
+    #     return self.userLL.get_all_club_stat()

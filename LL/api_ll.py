@@ -95,9 +95,6 @@ class APILL:
     def get_team_by_captain_id(self, handle) -> Team | None:
         return self.main_ll.team_ll.get_team_by_captain_handle(handle)
 
-    # def get_all_club_stat(self) -> list[ClubStat]:
-    #     return self.userLL.get_all_club_stat()
-
     def get_all_tournaments_for_captain(self, captain: TeamCaptain) -> list[Tournament]:
         return self.main_ll.tournament_ll.get_all_tournaments_for_captain(captain)
 
@@ -156,15 +153,3 @@ class APILL:
 
     def get_all_games(self) -> list[Game]:
         return self.main_ll.game_ll.get_all_games()
-
-    # def show_player_stats_bar_chart(self):
-    #    return self.userLL.show_player_stats_bar_chart()
-
-    # def get_elimination_stats(self, tournament_id):
-    #    return self.userLL.get_elimination_stats(tournament_id)
-
-    # def get_all_player_stat(self, tournament_id) -> list[PlayerStat]:
-    #    return self.userLL.get_all_player_stat(tournament_id)
-
-    # def get_player_stat(self, player_handle, tournament_id) -> PlayerStat | None:
-    #    return self.userLL.get_player_stat(player_handle, tournament_id)
