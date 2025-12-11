@@ -1,3 +1,11 @@
 id,name,hometown,logo,club_colors,country,points,teams
-1,Fjölnir,Reykjavík,Lógo 1,Yellow,Ísland,7,NullPointer Ninjas;OffByOne Offense;;RaceCondition Racers;Segmentation Foul
-2,KR,Reykjavík,Lógo 2,White;Black,Ísland,5,Bomblab Bombers;Undefined Behavior United;WhileTrue Tryhards;RaceCondition Racers;CacheHit Crusaders
+1,Fjölnir,Grafarvogur,Lógo 1,Yellow,Ísland,7,NullPointer Ninjas;OffByOne Offense;;RaceCondition Racers;Segmentation Foul
+2,KR,Reykjavík,Lógo 2,Black;White,Ísland,5,Bomblab Bombers;Undefined Behavior United;WhileTrue Tryhards;RaceCondition Racers;CacheHit Crusaders
+3,Valur,Reykjavík,Lógo 3,Red;White,Ísland,0,
+4,UMF Selfoss,Selfoss,Lógo 4,Burgundy;White,Ísland,0,
+5,Þór AK,Akureyri,Lógo 5,Red;White,Ísland,0,
+6,FH, Hafnarfjörður,Lógo 6,Black;White,Ísland,0,
+7,Breiðablik,Kópavogur,Lógo 7,Green;White,Ísland,0,
+8,Stjarnan,Garðabær,Lógo 8,Blue;White,Ísland,0,
+9,Vestri,Ísafjörður,Lógo 9,Blue;Red,Ísland,0,
+10,ÍBV,Vestmannaeyjar,Lógo 10,White;Black,Ísland,0,
