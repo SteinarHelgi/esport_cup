@@ -4,6 +4,7 @@ from UI.ui_functions import refresh_logo
 from UI.user_ui import UserUI
 from UI.team_captain_ui import TeamCaptainUI
 from UI.organiser_ui import OrganiserUI
+from UI.shrek import shrek
 
 
 class MenuManager:
@@ -14,6 +15,7 @@ class MenuManager:
         self.user_ui = UserUI(self.api_ll, self)
         self.team_captain_ui = TeamCaptainUI(self.api_ll, self)
         self.organiser_Ui = OrganiserUI(self.api_ll, self)
+        self.shrek = shrek
         self.user = ""
         self.team_name = ""
         self.team_to_view: Team
@@ -22,6 +24,7 @@ class MenuManager:
             "LOGIN_MENU": self.print_login_menu,
             "LOGIN_CREDENTIALS": self.login_credentials_menu,
             "LOGIN_CREDENTIALS_ORG": self.login_credentials_menu_org,
+            "SHREK": shrek,
             # USER MENUS
             "USER_MENU": self.print_user_menu,
             "TEAMS": self.user_ui.show_teams,
@@ -74,8 +77,8 @@ class MenuManager:
     def print_login_menu(self):
         """Menu for logging in depending on who the user is at the time"""
         print("___ LOGIN ___")
-        print("1. continue as user \n2. Login as Team Captain \n3. Login as Organiser")
-        choice: str = self.prompt_choice(["1", "2", "3", "q"])
+        print("1. continue as user \n2. Login as Team Captain \n3. Login as Organiser\n69. Shrek")
+        choice: str = self.prompt_choice(["1", "2", "3", "69", "q"])
         if choice == "1":
             self.user = "USER"
             return "USER_MENU"
@@ -87,6 +90,8 @@ class MenuManager:
             self.user = "ORGANISER"
             # return "LOGIN_CREDENTIALS_ORG"
             return "ORGANISER_MENU"
+        if choice == "69":
+            return "SHREK"
         return "QUIT"
 
     def login_credentials_menu(self):
