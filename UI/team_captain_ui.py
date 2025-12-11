@@ -520,6 +520,7 @@ class TeamCaptainUI:
                 player = self.show_player_view(players[int(element) - 1])
                 return player
         if choice == "6":
+            #TODO Hindra frá því að creata player ef komnir 5 i lið
             return "CREATE_PLAYER"
 
         if choice.lower() == "q":

@@ -76,80 +76,102 @@ def validate_player_name(player_name: str) -> Errors:
 
 
 def validate_date_of_birth(date_of_birth: str) -> Errors:
-    valid_dob = date_of_birth.strip()
+    no_unwanted_char = validate_unwanted_characters(date_of_birth)
+    if no_unwanted_char == Errors.OK:
+        valid_dob = date_of_birth.strip()
 
-    if valid_dob == "":
-        return Errors.EMPTY
-    try:
-        dob = datetime.strptime(valid_dob, "%Y-%m-%d")
-        if dob.year < 1900:
-            return Errors.DATE_TOO_OLD
-        return Errors.OK
-    except ValueError:
-        return Errors.DATE_NOT_VALID
+
+        if valid_dob == "":
+            return Errors.EMPTY
+        try:
+            dob = datetime.strptime(valid_dob, "%Y-%m-%d")
+            if dob.year < 1900:
+                return Errors.DATE_TOO_OLD
+            return Errors.OK
+        except ValueError:
+            return Errors.DATE_NOT_VALID
+    else:
+        return no_unwanted_char
 
 
 def validate_address(address: str) -> Errors:
-    valid_address = address.strip()
+    no_unwanted_char = validate_unwanted_characters(address)
+    if no_unwanted_char == Errors.OK:
+        valid_address = address.strip()
+        if valid_address == "":
+            return Errors.EMPTY
 
-    if valid_address == "":
-        return Errors.EMPTY
-
-    if valid_address.replace(" ", "").isdigit():
-        return Errors.ADDRESS_ONLY_NUMBERS
-    return Errors.OK
+        if valid_address.replace(" ", "").isdigit():
+            return Errors.ADDRESS_ONLY_NUMBERS
+        return Errors.OK
+    else:
+        return no_unwanted_char
 
 
 def validate_phone_number(phone_number: str) -> Errors:
-    number = phone_number.strip()
+    no_unwanted_char = validate_unwanted_characters(phone_number)
+    if no_unwanted_char == Errors.OK:
+        number = phone_number.strip()
+        if number == "":
+            return Errors.EMPTY
 
-    if number == "":
-        return Errors.EMPTY
+        if not number.isdigit():
+            return Errors.NUMBER_HAS_CHARACTERS
 
-    if not number.isdigit():
-        return Errors.NUMBER_HAS_CHARACTERS
-
-    if len(number) != 7:
-        return Errors.NUMBER_NOT_CORRECT_LENGTH
-    return Errors.OK
+        if len(number) != 7:
+            return Errors.NUMBER_NOT_CORRECT_LENGTH
+        return Errors.OK
+    else:
+        return no_unwanted_char
 
 
 def validate_player_email(player_email: str) -> Errors:
-    email = player_email.strip()
+    no_unwanted_char = validate_unwanted_characters(player_email)
+    if no_unwanted_char == Errors.OK:
+        email = player_email.strip()
+        if email == "":
+            return Errors.EMPTY
 
-    if email == "":
-        return Errors.EMPTY
-
-    if email.count("@") != 1:
-        return Errors.EMAIL_NOT_CONTAINING_AT
-    return Errors.OK
+        if email.count("@") != 1:
+            return Errors.EMAIL_NOT_CONTAINING_AT
+        return Errors.OK
+    else:
+        return no_unwanted_char
 
 
 def validate_player_handle(player_handle: str, api_data: APIDATA) -> Errors:
-    handle = player_handle.strip()
+    no_unwanted_char = validate_unwanted_characters(player_handle)
+    if no_unwanted_char == Errors.OK:
+        handle = player_handle.strip()
+        if handle == "":
+            return Errors.EMPTY
 
-    if handle == "":
-        return Errors.EMPTY
+        if " " in handle:
+            return Errors.HANDLE_CONTAINS_SPACE
 
-    if " " in handle:
-        return Errors.HANDLE_CONTAINS_SPACE
 
-    current_players = api_data.get_all_player_data()
+        current_players = api_data.get_all_player_data()
 
-    for p in current_players:
-        if p.handle == handle:
-           return Errors.SAME_HANDLE
-        
-    return Errors.OK
+        for p in current_players:
+            if p.handle == handle:
+                return Errors.SAME_HANDLE
+            
+        return Errors.OK
+    else:
+        return no_unwanted_char
 
 
 def validate_social_media(social_media: str) -> Errors:
-    socials = social_media.strip()
-    if socials == "":
-        return Errors.EMPTY
-    if socials == " ":
-        return Errors.HANDLE_CONTAINS_SPACE
-    return Errors.OK
+    no_unwanted_char = validate_unwanted_characters(social_media)
+    if no_unwanted_char == Errors.OK:
+        socials = social_media.strip()
+        if socials == "":
+            return Errors.EMPTY
+        if socials == " ":
+            return Errors.HANDLE_CONTAINS_SPACE
+        return Errors.OK
+    else:
+        return no_unwanted_char
 
 
 # -----------TEAM CAPTAIN VALIDATION-------------
@@ -157,16 +179,19 @@ def validate_social_media(social_media: str) -> Errors:
 
 def validate_team_captain(handle: str, api_data: APIDATA) -> Errors:
     # Handle
-    if not handle or not handle.strip():
-        return Errors.EMPTY
+    no_unwanted_char = validate_unwanted_characters(handle)
+    if no_unwanted_char == Errors.OK:
+        if not handle or not handle.strip():
+            return Errors.EMPTY
 
-    current_players = api_data.get_all_player_data()
+        current_players = api_data.get_all_player_data()
 
-    if any(p.handle == handle for p in current_players):
-        return Errors.HANDLE_EXIST
+        if any(p.handle == handle for p in current_players):
+            return Errors.HANDLE_EXIST
 
-    return Errors.OK
-
+        return Errors.OK
+    else:
+        return no_unwanted_char
 
 # -------------TEAM VALIDATION---------------
 
@@ -175,96 +200,116 @@ MAX_PLAYERS = 5
 
 def validate_team_name(name: str, api_data: APIDATA) -> Errors:
     # Name
-    if not name or name.strip() == "":
-        return Errors.EMPTY
+    no_unwanted_char = validate_unwanted_characters(name)
+    if no_unwanted_char == Errors.OK:
+        if not name or name.strip() == "":
+            return Errors.EMPTY
 
-    if len(name) > 40:
-        return Errors.TEAM_NAME_TOO_LONG
+        if len(name) > 40:
+            return Errors.TEAM_NAME_TOO_LONG
 
-    # Max 5 players in a team
-    current_players = api_data.get_all_player_data()
+        # Max 5 players in a team
+        current_players = api_data.get_all_player_data()
 
-    players_in_team = [p for p in current_players if p.team_name == name]
-    if len(players_in_team) >= MAX_PLAYERS:
-       return Errors.TOO_MANY_PLAYERS
+        players_in_team = [p for p in current_players if p.team_name == name]
+        if len(players_in_team) >= MAX_PLAYERS:
+            return Errors.TOO_MANY_PLAYERS
 
-    current_teams = api_data.get_all_team_data()
+        current_teams = api_data.get_all_team_data()
 
-    for t in current_teams:
-        if t.name == name:
-            return Errors.TEAM_NAME_TAKEN
+        for t in current_teams:
+            if t.name == name:
+                return Errors.TEAM_NAME_TAKEN
 
-    return Errors.OK
+        return Errors.OK
+    else:
+        return no_unwanted_char
 
 
 def validation_team_handle(handle: str, api_data: APIDATA) -> Errors:
     # Captain handle
+    no_unwanted_char = validate_unwanted_characters(handle)
+    if no_unwanted_char == Errors.OK:
+        if not handle or handle.strip() == "":
+            return Errors.EMPTY
 
-    if not handle or handle.strip() == "":
-        return Errors.EMPTY
+        current_players = api_data.get_all_player_data()
 
-    current_players = api_data.get_all_player_data()
+        if not any(p.handle == handle for p in current_players):
+            return Errors.TEAM_CAPTAIN_NOT_EXISTS
 
-    if not any(p.handle == handle for p in current_players):
-        return Errors.TEAM_CAPTAIN_NOT_EXISTS
-
-    return Errors.OK
-
+        return Errors.OK
+    else:
+        return no_unwanted_char
 
 def validate_team_logo(logo: str) -> Errors:
     # Logo
-    if not logo or logo.strip() == "":
-        return Errors.EMPTY
-    return Errors.OK
-
+    no_unwanted_char = validate_unwanted_characters(logo)
+    if no_unwanted_char == Errors.OK:
+        if not logo or logo.strip() == "":
+            return Errors.EMPTY
+        return Errors.OK
+    else:
+        return no_unwanted_char
 
 def validate_team_points(points: str) -> Errors:
     # Points
-    if points == "":
-        return Errors.EMPTY
-    elif int(points) < 0:
-        return Errors.POINTS_NEGATIVE
+    no_unwanted_char = validate_unwanted_characters(points)
+    if no_unwanted_char == Errors.OK:
+        if points == "":
+            return Errors.EMPTY
+        elif int(points) < 0:
+            return Errors.POINTS_NEGATIVE
 
-    return Errors.OK
-
+        return Errors.OK
+    else:
+        return no_unwanted_char
 
 # -------------TOURNAMENT VALIDATION--------------
 
 
 def validate_tournament_name(name: str) -> Errors:
-    if len(name) == 0:
-        return Errors.EMPTY
-    if len(name.strip()) < 2:
-        return Errors.TOURNAMENT_NAME_LENGTH
-    if len(name) >= 40:
-        return Errors.TOURNAMENT_NAME_LENGTH_TOO_LONG
-    return Errors.OK
-
+    no_unwanted_char = validate_unwanted_characters(name)
+    if no_unwanted_char == Errors.OK:
+        if len(name) == 0:
+            return Errors.EMPTY
+        if len(name.strip()) < 2:
+            return Errors.TOURNAMENT_NAME_LENGTH
+        if len(name) >= 40:
+            return Errors.TOURNAMENT_NAME_LENGTH_TOO_LONG
+        return Errors.OK
+    else:
+        return no_unwanted_char
 
 def validate_tournament_start_date(start_date: str) -> Errors:
     # Verður að vera rétt format
     # Start date verður að vera eftir daginn í dag
-    try:
-        start_date_iso = date.fromisoformat(start_date)
-    except ValueError:
-        return Errors.DATE_FORMAT_NOT_VALID
-    if start_date_iso <= date.today():
-        return Errors.START_DATE_BEFORE_TODAY
-    return Errors.OK
-
+    no_unwanted_char = validate_unwanted_characters(start_date)
+    if no_unwanted_char == Errors.OK:
+        try:
+            start_date_iso = date.fromisoformat(start_date)
+        except ValueError:
+            return Errors.DATE_FORMAT_NOT_VALID
+        if start_date_iso <= date.today():
+            return Errors.START_DATE_BEFORE_TODAY
+        return Errors.OK
+    return no_unwanted_char
 
 def validate_tournament_end_date(start_date: str, end_date: str) -> Errors:
     # Verður að vera rétt format.
     # Verður að byrja eftir start date
-    try:
-        end_date_iso = date.fromisoformat(end_date)
-    except ValueError:
-        return Errors.DATE_FORMAT_NOT_VALID
+    no_unwanted_char = validate_unwanted_characters(end_date)
+    if no_unwanted_char == Errors.OK:
+        try:
+            end_date_iso = date.fromisoformat(end_date)
+        except ValueError:
+            return Errors.DATE_FORMAT_NOT_VALID
 
-    if end_date_iso <= date.fromisoformat(start_date):
-        return Errors.END_DATE_BEFORE_START
-    return Errors.OK
-
+        if end_date_iso <= date.fromisoformat(start_date):
+            return Errors.END_DATE_BEFORE_START
+        return Errors.OK
+    else:
+        return no_unwanted_char
 
 def validate_players_in_teams(players_in_team: list[Player]) -> Errors:
     MIN_PLAYERS_PER_TEAM = 3
@@ -279,25 +324,35 @@ def validate_players_in_teams(players_in_team: list[Player]) -> Errors:
 
 
 def validate_tournament_servers(servers: str) -> Errors:
-    if not servers.isdigit():
-        return Errors.SERVER_NOT_NUMBER
-    if int(servers) < 1:
-        return Errors.SERVER_LESS_THAN_0
-    return Errors.OK
-
+    no_unwanted_char = validate_unwanted_characters(servers)
+    if no_unwanted_char == Errors.OK:
+        if not servers.isdigit():
+            return Errors.SERVER_NOT_NUMBER
+        if int(servers) < 1:
+            return Errors.SERVER_LESS_THAN_0
+        return Errors.OK
+    else:
+        return no_unwanted_char
 
 def validate_tournament_venue(venue: str) -> Errors:
-    if venue.isdigit():
-        return Errors.VENUE_INCLUDE_NUMBERS
-    return Errors.OK
-
+    no_unwanted_char = validate_unwanted_characters(venue)
+    if no_unwanted_char == Errors.OK:
+        if venue.isdigit():
+            return Errors.VENUE_INCLUDE_NUMBERS
+        return Errors.OK
+    else:
+        return no_unwanted_char
 
 def validate_tournament_game(user_input_game: str, games: list[Game]) -> Errors:
-    for game in games:
-        if game.name == user_input_game:
-            return Errors.OK
-    return Errors.GAME_NOT_VALID
-
+    no_unwanted_char = validate_unwanted_characters(user_input_game)
+    if no_unwanted_char == Errors.OK:
+        for game in games:
+            if game.name == user_input_game:
+                return Errors.OK
+        return Errors.GAME_NOT_VALID
+    else:
+        return no_unwanted_char
+    
 
 # ----------------MATCH VALIDATION--------------------
 
@@ -413,19 +468,22 @@ def validate_match_time(time_input: str) -> Errors:
 
 # -----------------GAME VALIDATION--------------------
 def validate_game_name(game_name: str, api_data: APIDATA) -> Errors:
-    valid_game = game_name.strip()
+    no_unwanted_char = validate_unwanted_characters(game_name)
+    if no_unwanted_char == Errors.OK:
+        valid_game = game_name.strip()
 
-    if valid_game == "":
-        return Errors.EMPTY
+        if valid_game == "":
+            return Errors.EMPTY
 
-    available_games = api_data.get_all_game_data()
+        available_games = api_data.get_all_game_data()
 
-    game_names = [g.name for g in available_games]
+        game_names = [g.name for g in available_games]
 
-    if valid_game not in game_names:
-       return Errors.GAME_NOT_VALID
-    return Errors.OK
-
+        if valid_game not in game_names:
+            return Errors.GAME_NOT_VALID
+        return Errors.OK
+    else:
+        return no_unwanted_char
 
 # -----------------CLUB VALIDATION--------------------
 
