@@ -13,7 +13,7 @@ menu_manager = MenuManager(api_ll)
 
 tournament1 = menu_manager.api_ll.get_tournament_by_name("RU Open")
 tournament = Tournament("12",datetime.fromisoformat("2025-12-12"),datetime.fromisoformat("2025-12-24"),"Paris","Valorant","8","Hilmir")
-match = Match("28", "R16", "SegFault Spartans", "NullPointer Ninjas","2026-01-06","20:00")
+match = Match("23", "R16", "SegFault Spartans", "NullPointer Ninjas","2025-12-08","08:00")
 
 valid_match = validate_match_creation(match,tournament,api_data)
 

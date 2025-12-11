@@ -27,6 +27,9 @@ class TournamentLL:
             for match in matches:
                 if match.tournament_id == tournament.id:
                     tournament.add_match(match)
+        
+        tournaments.sort(key=lambda t: t. start_date)
+        
         return tournaments
 
     def get_ongoing_tournament(self) -> list[Tournament]:
