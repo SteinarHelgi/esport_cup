@@ -101,3 +101,42 @@ tournament.setup_R16_qualifying_matches("1")
 #teamcaptain.add_team_to_club(team, "1")
 #organiser.create_match(match_to_add)
 #teamcaptain.modify_team_data(team_to_modify)
+
+"""class PlayerStat:
+    def __init__(
+            self,
+            player_handle: str
+    ) -> None:
+            self.player_handle = player_handle
+            self.points: int = 0
+            self.games_played: int = 0
+            self.won: int = 0
+            self.lost: int = 0
+            self.winning_ratio: float = 0
+
+class EliminationStat:
+    def __init__(
+            self,
+            team_name: str
+    ) -> None:
+            self.team_name = team_name
+            self.games_played: int = 0
+            self.won: int = 0
+            self.lost: int = 0
+            self.score_for: int = 0
+            self.score_against: int = 0
+            self.difference: int = 0
+            self.winning_ratio: float = 0
+            self.points: int = 0
+
+class ClubStat:
+    def __init__(
+            self,
+            club_name: str
+    ) -> None:
+            self.club_name = club_name
+            self.games_played: int = 0
+            self.won: int = 0
+            self.lost: int = 0
+            self.winning_ratio: float = 0
+            self.points: int = 0"""
