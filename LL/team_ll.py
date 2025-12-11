@@ -1,6 +1,7 @@
 from IO.api_data import APIDATA
 from Models.models import Team, Tournament, Player, TeamRegistry
 
+
 class TeamLL:
     def __init__(self, api_data: APIDATA, main_ll):
         """Intializes the TeamLL logic layer."""
@@ -11,10 +12,14 @@ class TeamLL:
         """Returns all teams with their players attached."""
         teams = self.APIDATA.get_all_team_data()
         players = self.APIDATA.get_all_player_data()
+        clubs = self.APIDATA.get_all_club_data()
+        for club in clubs:
+            print(club.teams)
         for team in teams:
             for player in players:
                 if player.team_name == team.name:
                     team.add_player(player.handle)
+
         return teams
 
     def get_all_players(self) -> list:
@@ -38,7 +43,7 @@ class TeamLL:
     def create_player(self, player: Player) -> Player:
         """Creates a new player, assigns a unique ID and saves them to the data storage."""
         current_players = self.APIDATA.get_all_player_data()
-        nums = [        
+        nums = [
             int(p.id[1:])
             for p in current_players
             if p.id.startswith(("p", "P")) and p.id[1:].isdigit
@@ -139,3 +144,4 @@ class TeamLL:
         for player in players:
             if player.name == name:
                 return player
+
