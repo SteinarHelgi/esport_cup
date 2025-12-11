@@ -174,14 +174,8 @@ class APILL:
     def get_contact_person(self, tournament_id: str) -> ContactPerson | None:
         return self.main_ll.tournament_ll.get_contact_person(tournament_id)
 
-    def give_player_points(self, handle: str, points: int):
-        return self.main_ll.tournament_ll.give_player_points(handle, points)
-
     def give_team_points(self, team_name: str, points: int):
         return self.main_ll.tournament_ll.give_team_points(team_name, points)
-
-    def give_club_points(self, club_name: str, points: int):
-        return self.main_ll.tournament_ll.give_club_points(club_name, points)
 
     def get_all_games(self) -> list[Game]:
         return self.main_ll.game_ll.get_all_games()
