@@ -180,8 +180,6 @@ class APILL:
     def get_all_games(self) -> list[Game]:
         return self.main_ll.game_ll.get_all_games()
 
-
-
        #-------------------VALIDATION--------------------------
     
     def validate_player_name(self, name: str) -> Errors:

@@ -92,7 +92,7 @@ def validate_address(address) -> Errors:
     return Errors.OK
 
 
-def validate_phone_number(phone_number):
+def validate_phone_number(phone_number) -> Errors:
     number = phone_number.strip()
 
     if number == "":
@@ -106,7 +106,7 @@ def validate_phone_number(phone_number):
     return Errors.OK
 
 
-def validate_player_email(player_email):
+def validate_player_email(player_email) -> Errors:
     email = player_email.strip()
 
     if email == "":
@@ -117,7 +117,7 @@ def validate_player_email(player_email):
     return Errors.OK
 
 
-def validate_player_handle(player_handle, api_data: APIDATA):
+def validate_player_handle(player_handle, api_data: APIDATA) -> Errors:
     handle = player_handle.strip()
 
     if handle == "":
@@ -135,7 +135,7 @@ def validate_player_handle(player_handle, api_data: APIDATA):
     return Errors.OK
 
 
-def validate_social_media(social_media):
+def validate_social_media(social_media) -> Errors:
     socials = social_media.strip()
     if socials == "":
         return Errors.EMPTY
@@ -313,9 +313,7 @@ def validate_match_round(round_name: str, matches_in_round: list) -> Errors:
     return Errors.OK
 
 
-def validate_match_creation(
-    match: Match, tournament: Tournament, api_data: APIDATA
-) -> Errors:
+def validate_match_creation(match: Match, tournament: Tournament, api_data: APIDATA) -> Errors:
     team_a = match.team_a_name
     team_b = match.team_b_name
     date_str = match.match_date
@@ -396,7 +394,7 @@ def validate_match_date(
     return Errors.DATE_NOT_IN_TOURNAMENT_DATE
 
 
-def validate_match_time(time_input: str):
+def validate_match_time(time_input: str) -> Errors:
     time_slots = ["08:00", "10:00", "12:00", "14:00", "16:00", "18:00", "20:00"]
     if time_input not in time_slots:
         return Errors.TIME_NOT_IN_TIMESLOT
