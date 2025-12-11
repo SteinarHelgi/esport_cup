@@ -498,8 +498,12 @@ class OrganiserUI:
             print(f"1. {match.team_a_name}")
             print(f"2. {match.team_b_name}")
 
-            winner = input("1 or 2, b to back and q to quit: ")
-
+            winner = input("1 or 2,d to delete match, b to back and q to quit: ")
+            if winner == "d":
+                print("Are you sure you want to delete this match?")
+                confirmation = input("Confirm(Y/N): ")
+                if confirmation.lower() == "y":
+                    self.APILL.delete_match(match)
             if winner == "b":
                 return "MY_TOURNAMENTS_ORG"
             if winner == "q":

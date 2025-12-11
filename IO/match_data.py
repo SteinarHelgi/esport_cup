@@ -115,3 +115,40 @@ class MatchData:
                 writer.writerows(temp_data)
         except (OSError, csv.Error):
             return None
+
+    def delete_match_data(self, match_id: str) -> None:
+        target_id = match_id
+
+        # Creates a temporary data file
+        temp_data = []
+
+        try:
+            with open(self.match_file_path, "r", newline="", encoding="utf-8") as file:
+                reader = csv.reader(file)
+
+                # Read the header row first
+                header = next(reader)
+                temp_data.append(header)  # Add header to the data we are keeping
+
+                # Read the rest of the rows
+                for line in reader:
+                    # Check the value in the first column (index 0)
+                    if line[0] != target_id:
+                        temp_data.append(line)
+
+        except FileNotFoundError:
+            exit()
+
+        # Overwrites temporary datafile to csv file
+        try:
+            with open(
+                self.match_file_path, "w", newline="", encoding="utf-8"
+            ) as csvfile:
+                # Create a writer object
+                writer = csv.writer(csvfile)
+
+                # Iterate through the list of strings
+                for line in temp_data:
+                    writer.writerow(line)
+        except (OSError, csv.Error):
+            return None

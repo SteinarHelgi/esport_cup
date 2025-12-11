@@ -55,7 +55,7 @@ class PlayerData:
 
         # Creates a temporary data file without the modified player
         try:
-            with open(self._filepath, "r", newline="") as file:
+            with open(self._filepath, "r", newline="", encoding="utf-8") as file:
                 reader = csv.reader(file)
 
                 # Read the header row first
@@ -94,7 +94,7 @@ class PlayerData:
         temp_data = []
 
         try:
-            with open(self._filepath, "r", newline="") as file:
+            with open(self._filepath, "r", newline="", encoding="utf-8") as file:
                 reader = csv.reader(file)
 
                 # Read the header row first

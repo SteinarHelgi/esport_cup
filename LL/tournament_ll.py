@@ -236,6 +236,9 @@ class TournamentLL:
 
         return self.APIDATA.store_match_data(match)
 
+    def delete_match(self, match_id:str) -> None:
+        self.APIDATA.delete_match_data(match_id)
+
     def get_all_teams_on_tournament(self, target_tournament_id: str) -> list[Team]:
         """Returns all teams that are registered to the given tournament ID."""
         team_registry = self.APIDATA.get_all_team_registry_data()

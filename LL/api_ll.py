@@ -217,6 +217,9 @@ class APILL:
     def get_all_games(self) -> list[Game]:
         """Returns a list of all games available in the system."""
         return self.main_ll.game_ll.get_all_games()
+    
+    def delete_match(self, match_id:str) -> None:
+        return self.main_ll.tournament_ll.delete_match(match_id)
 
     # ---------- PLAYER VALIDATION ----------
     def validate_player_name(self, name: str) -> Errors:
