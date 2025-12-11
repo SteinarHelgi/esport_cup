@@ -10,7 +10,6 @@ ef ekki 16 lið á móti þá deletast mót
 # Allt club shit vantar inn
 
 
-* register results á bara vera hægt ef leikur er búinn
 
 # sign up for multiple events virkar en vantar að validatea schedule, choose another time, team1 is playing at this time
 # check á server id og svoleiðis, all servers busy at this time, choose different server
@@ -37,15 +36,15 @@ rgba(45, 116, 124, 1) TEAM TO CLUB
 Fínpússa - fara yfir öll layer, deletea oþarfa shiti og passa print i data og ll
 Create team
 Fara aftur yfir skjái
-Laga register results fyrir leiki sem eru ekki búnir
+#Laga register results fyrir leiki sem eru ekki búnir
 Ef nýtt lið þá gerir organiser það, gerir nytt handle og þa siðan loggar nyr tc sig inn og klárar liðið
 Ef tournament start date komið og ekki nægilega mörg lið þá kemur error og organiser getur deletað
 Hreinsa gögn sem við höfum prufað 
 Taka út það sem lítur út fyrir aðvera option en er ekki option
 Laga þegar þú breytir handle hjá team captain, þá ætti að breytast lika hja team captain handle
-Laga email validation
+Laga email validation - steinar
 Low priority(hafa edit team og edit player eins)
 
 (Laga back í set results) ef steinar hefur tíma
-Create match í quarter finals ætti að sækja öll lið sem eru búin að vinna.
+Create match í quarter finals ætti að sækja öll lið sem eru búin að vinna. - STEINAR PRIORITY !!!!!
 NOTANDI MÁ EKKI SETJA INN KOMMU

@@ -77,3 +77,5 @@ def refresh_logo():
     set_system_color_green()
     print(print_logo())
     set_system_color_red()
+
+

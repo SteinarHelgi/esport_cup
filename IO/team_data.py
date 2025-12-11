@@ -38,7 +38,7 @@ class TeamData:
 
         # Creates a temporary data file without the modified team
         try:
-            with open(self.team_file_path, "r", newline="") as file:
+            with open(self.team_file_path, "r", newline="", encoding="utf-8") as file:
                 reader = csv.reader(file)
 
                 # Read the header row first and append it to temporary data
@@ -77,7 +77,7 @@ class TeamData:
 
         # Creates a temporary data file without the modified player
         try:
-            with open(self.team_file_path, "r", newline="") as file:
+            with open(self.team_file_path, "r", newline="", encoding="utf-8") as file:
                 reader = csv.reader(file)
 
                 # Read the header row first

@@ -58,7 +58,7 @@ class TournamentData:
         temp_data = []
 
         try:
-            with open(self.tournament_file_path, "r", newline="") as file:
+            with open(self.tournament_file_path, "r", newline="", encoding="utf-8") as file:
                 reader = csv.reader(file)
 
                 # Read the header row first

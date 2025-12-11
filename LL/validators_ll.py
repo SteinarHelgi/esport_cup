@@ -1,5 +1,6 @@
 from datetime import datetime, date
 from enum import Enum, auto
+from operator import contains
 from IO.api_data import APIDATA
 
 from Models.models import Match, Tournament, Player,Game
@@ -54,6 +55,7 @@ class Errors(Enum):
     TEAM_A_LOST_LAST_ROUND = auto()
     TEAM_B_LOST_LAST_ROUND = auto()
     TEAM_NAME_TAKEN = auto()
+    CONTAINS_UNWANTED_CHAR = auto()
     OK = auto()
 
 
@@ -63,6 +65,7 @@ def validate_player_name(player_name: str) -> Errors:
         return Errors.EMPTY
     if any(char.isdigit() for char in valid_name):
         return Errors.NAME_INCLUDE_NUMBERS
+
     return Errors.OK
 
 
@@ -475,3 +478,9 @@ def validate_club_country(country: str) -> Errors:
     if any(char.isdigit() for char in country):
         return Errors.CLUB_COUNTRY_HAS_NUMBER
     return Errors.OK
+
+def validate_unwanted_characters(input) -> Errors:
+    unwanted_characters = ",;'"
+    for char in unwanted_characters:
+        if char in input:
+            return Errors.CONTAINS_UNWANTED_CHAR

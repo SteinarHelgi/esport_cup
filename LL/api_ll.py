@@ -321,3 +321,5 @@ class APILL:
 
     def validate_club_country(self, country: str) -> Errors:
         return validate_club_country(country)
+    
+    #def validate_unwanted_characters
