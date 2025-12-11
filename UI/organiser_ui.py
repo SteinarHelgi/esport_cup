@@ -323,7 +323,7 @@ class OrganiserUI:
                 round = "QF"
             elif len(tournament.matches) < 14:
                 round = "SF"
-            elif len(tournament.matches) == 15:
+            elif len(tournament.matches) < 15:
                 round = "Final"
             else:
                 round = "NONE"
