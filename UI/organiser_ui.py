@@ -55,7 +55,10 @@ class OrganiserUI:
             return "ORGANISER_MENU"
         if start_date_of_tournament.lower() == "q":
             return "QUIT"
-        while self.APILL.validate_tournament_start_date(start_date_of_tournament) != Errors.OK:
+        while (
+            self.APILL.validate_tournament_start_date(start_date_of_tournament)
+            != Errors.OK
+        ):
             error = self.APILL.validate_tournament_start_date(start_date_of_tournament)
             if error == Errors.DATE_FORMAT_NOT_VALID:
                 print("Invalid format. Format is YYYY-MM-DD.")
@@ -120,7 +123,9 @@ class OrganiserUI:
             return "ORGANISER_MENU"
         if game_for_tournament.lower() == "q":
             return "QUIT"
-        while self.APILL.validate_tournament_game(game_for_tournament, games) != Errors.OK:
+        while (
+            self.APILL.validate_tournament_game(game_for_tournament, games) != Errors.OK
+        ):
             error = self.APILL.validate_tournament_game(game_for_tournament, games)
             if error == Errors.GAME_NOT_VALID:
                 print(
@@ -164,7 +169,9 @@ class OrganiserUI:
             return "ORGANISER_MENU"
         if new_contact_person_phone_nmbr == "q":
             return "QUIT"
-        while self.APILL.validate_phone_number(new_contact_person_phone_nmbr) != Errors.OK:
+        while (
+            self.APILL.validate_phone_number(new_contact_person_phone_nmbr) != Errors.OK
+        ):
             error = self.APILL.validate_phone_number(new_contact_person_phone_nmbr)
             if error == Errors.EMPTY:
                 print("Phone number cannot be empty.")
@@ -441,41 +448,60 @@ class OrganiserUI:
             if choice == "n":
                 pass
 
+    def check_game_over(self, match: Match) -> bool:
+        date_str = match.match_date
+        time_str = match.match_time
+
+        date_obj = datetime.strptime(date_str, "%Y-%m-%d")
+        time_obj = datetime.strptime(time_str, "%H:%M").time()
+
+        match_datetime = datetime.combine(date_obj, time_obj)
+
+        today = datetime.today()
+
+        if match_datetime > today:
+            return True
+        return False
+
     def show_register_results(self, match: Match):
         """Registering results of a match, chooses a winner and marks match as completed"""
-        print(
-            f"Registering result for match: {match.team_a_name} vs {match.team_b_name}"
-        )
-        print("Which team won the match?")
-        print(f"1. {match.team_a_name}")
-        print(f"2. {match.team_b_name}")
 
-        winner = input("1 or 2, b to back and q to quit: ")
+        if self.check_game_over(match):
+            print(
+                f"Registering result for match: {match.team_a_name} vs {match.team_b_name}"
+            )
+            print("Which team won the match?")
+            print(f"1. {match.team_a_name}")
+            print(f"2. {match.team_b_name}")
 
-        if winner == "b":
-            return "MY_TOURNAMENTS_ORG"
-        if winner == "q":
-            return "QUIT"
+            winner = input("1 or 2, b to back and q to quit: ")
 
-        # select winner
-        if winner == "1":
-            winner_name = match.team_a_name
-        elif winner == "2":
-            winner_name = match.team_b_name
+            if winner == "b":
+                return "MY_TOURNAMENTS_ORG"
+            if winner == "q":
+                return "QUIT"
+
+            # select winner
+            if winner == "1":
+                winner_name = match.team_a_name
+            elif winner == "2":
+                winner_name = match.team_b_name
+            else:
+                print("Invalid input.")
+                return
+
+            # set winner
+            match.set_winner(winner_name, "TRUE")
+
+            self.APILL.register_match_result(match.match_id, winner_name, "TRUE")
+            self.APILL.give_team_points(winner_name, +2)
+            if match.round == "Final":
+                print(f"{winner_name} have won the tournament!")
+                self.print_trophy()
+            else:
+                print(f"{winner_name} has been set as the winner of this match.")
         else:
-            print("Invalid input.")
-            return
-
-        # set winner
-        match.set_winner(winner_name, "TRUE")
-
-        self.APILL.register_match_result(match.match_id, winner_name, "TRUE")
-        self.APILL.give_team_points(winner_name, +2)
-        if match.round == "Final":
-            print(f"{winner_name} have won the tournament!")
-            self.print_trophy()
-        else:
-            print(f"{winner_name} has been set as the winner of this match.")
+            print("Match not over")
         choice = self.menu_manager.prompt_choice(["b", "q"])
         if choice == "b":
             return "MY_TOURNAMENTS_ORG"
