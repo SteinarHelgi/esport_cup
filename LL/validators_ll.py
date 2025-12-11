@@ -4,6 +4,8 @@ from datetime import datetime, date
 from IO.api_data import APIDATA
 from enum import Enum, auto
 
+from Models.player import Player
+
 
 class Errors(Enum):
     EMPTY = auto()
@@ -255,7 +257,7 @@ def validate_tournament_end_date(start_date: str, end_date: str) -> Errors:
     return Errors.OK
 
 
-def validate_players_in_teams(players_in_team: str) -> Errors:
+def validate_players_in_teams(players_in_team: list[Player]) -> Errors:
     MIN_PLAYERS_PER_TEAM = 3
     MAX_PLAYERS_PER_TEAM = 5
 
