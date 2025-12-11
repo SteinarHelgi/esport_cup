@@ -31,7 +31,6 @@ P030,Tanja Tabs,2005-11-11,Overflowhagi 3 Reykjavik,+3546110030,tanja.tabs@examp
 P031,Lara L1,2003-06-06,Cachegata 1 Reykjavik,+3546110031,lara.l1@example.com,https://twitch.tv/L1CacheLara,L1CacheLara,CacheHit Crusaders,0
 P032,Toti TLB,2004-02-20,Cachegata 2 Reykjavik,+3546110032,toti.tlb@example.com,https://github.com/TLBmissToti,TLBmissToti,CacheHit Crusaders,0
 P033,Palli Prefetch,2005-05-25,Cachegata 3 Reykjavik,+3546110033,palli.prefetch@example.com,https://twitter.com/PrefetchPalli,PrefetchPalli,CacheHit Crusaders,0
-P036,Ida IndexError,2005-07-27,Lykkjugata 3 Reykjavik,+3546110036,ida.index@example.com,https://twitter.com/IndexErrorIda,IndexErrorIda,WhileTrue Tryhards,0
 P037,Stebbi Segfoul,2003-09-15,Signalbraut 1 Reykjavik,+3546110037,stebbi.segfoul@example.com,https://twitch.tv/SegmentationFoulStebbi,SegmentationFoulStebbi,Segmentation Foul,0
 P038,Oli OutOfBounds,2004-12-21,Signalbraut 2 Reykjavik,+3546110038,oli.outofbounds@example.com,https://github.com/OutOfBoundsOli,OutOfBoundsOli,Segmentation Foul,0
 P039,Brynja Bus,2005-10-05,Signalbraut 3 Reykjavik,+3546110039,brynja.bus@example.com,https://twitter.com/BusErrorBrynja,BusErrorBrynja,Segmentation Foul,0
@@ -47,3 +46,4 @@ P042,Sif Canary,2005-03-29,Fizzgata 3 Reykjavik,+3546110048,sif.canary@example.c
 P035,Bensi Break,2004-03-13,Lykkjugata 2 Reykjavik,+3546110035,bensi.break@example.com,https://github.com/BreakConditionBensi,BreakConditionBensi,WhileTrue Tryhards,0
 P034,Wendy While,2003-01-01,Lykkjugata 1 Reykjavik,+3546110034,wendy.while@example.com,https://twitch.tv/WhileTrueWendy,WhileTrueWendy,WhileTrue Tryhards,0
 P048,Sigrún Viðarsdóttir,1990-03-21,Leyndó,5812345,sigga@sigga.is,sigrunvidars90,RunaVidd,WhileTrue Tryhards,0
+P036,Ida IndexError,2005-07-27,Lykkjugata 3 Reykjavik,+3546110036,ida.index@example.com,https://twitter.com/IndexErrorIda,IndexErrorIda,WhileTrue Tryhards,0
