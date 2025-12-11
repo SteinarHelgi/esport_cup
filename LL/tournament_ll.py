@@ -1,4 +1,3 @@
-import random
 from IO.api_data import APIDATA
 from datetime import datetime
 from Models.models import (
@@ -27,9 +26,9 @@ class TournamentLL:
             for match in matches:
                 if match.tournament_id == tournament.id:
                     tournament.add_match(match)
-        
-        tournaments.sort(key=lambda t: t. start_date)
-        
+
+        tournaments.sort(key=lambda t: t.start_date)
+
         return tournaments
 
     def get_ongoing_tournament(self) -> list[Tournament]:
@@ -93,9 +92,6 @@ class TournamentLL:
         tournaments_for_team = []
 
         # Find the team captain is registered for
-        
-        if team is None:
-            return tournaments_for_team
 
         # Get all team registrations and all tournaments
         team_registry = self.APIDATA.get_all_team_registry_data()
@@ -293,4 +289,3 @@ class TournamentLL:
     def give_team_points(self, team_name: str, points: int) -> None:
         """Adds points to the team with the given name."""
         self.APIDATA.give_team_points(team_name, points)
-

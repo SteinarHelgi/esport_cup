@@ -2,7 +2,6 @@ import csv
 from Models.models import Tournament
 from datetime import datetime
 from IO.contact_person_data import ContactPersonData
-from Models.models import ContactPerson
 from IO.match_data import MatchData
 
 
@@ -88,4 +87,3 @@ class TournamentData:
                     writer.writerow(line)
         except (OSError, csv.Error):
             return None
-

@@ -94,7 +94,7 @@ class UserUI:
         for index, player in enumerate(players):
             if self.menu_manager.user == "USER":
                 print(player)
-            else:        
+            else:
                 player.format_row(index + 1)
                 if self.menu_manager.user == "ORGANISER":
                     valid_options.append(str(index + 1))
@@ -125,7 +125,6 @@ class UserUI:
 
     def show_tournaments(self):
         """Prints tournaments according to user choice and time of choosing"""
-        tournaments = self.APILL.get_all_tournaments()
         valid_options = ["1", "2", "3", "b", "q"]
         print(
             "1. Ongoing tournaments \n2. Upcoming tournaments \n3. Past Tournaments \nb. Back \nq. Quit"
@@ -179,14 +178,8 @@ class UserUI:
             else:
                 print("There are no ongoing tournaments")
                 print("b.Back \nq.Quit")
-        valid_choices = []
-        for counter, tournament in enumerate(tournaments):
-            valid_choices.append(str(counter + 1))
 
-        choice: str = self.menu_manager.prompt_choice(valid_choices + ["b", "q"])
-        if choice in valid_choices:
-            return self.show_tournament_view(tournaments[int(choice) - 1], time)
-
+        choice: str = self.menu_manager.prompt_choice(["b", "q"])
         if choice.lower() == "b":
             return "TOURNAMENTS"
         else:

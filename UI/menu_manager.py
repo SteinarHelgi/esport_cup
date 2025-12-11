@@ -1,4 +1,3 @@
-import os
 from LL.api_ll import APILL
 from Models.team import Team
 from UI.ui_functions import refresh_logo
@@ -117,8 +116,10 @@ class MenuManager:
 
             # If the username is not found
             if not found_name:
-                print("Invalid username, press enter to try again or b to back and q to quit: ")
-                choice: str = self.prompt_choice(["","b", "q"])
+                print(
+                    "Invalid username, press enter to try again or b to back and q to quit: "
+                )
+                choice: str = self.prompt_choice(["", "b", "q"])
                 if choice == "":
                     refresh_logo()
                     continue  # Loop again to prompt for the username

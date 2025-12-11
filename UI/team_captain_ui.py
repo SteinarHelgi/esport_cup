@@ -1,6 +1,3 @@
-from datetime import date
-from pickle import EMPTY_TUPLE
-from wsgiref import validate
 from LL.api_ll import APILL
 from LL.validators_ll import (
     validate_address,
@@ -15,12 +12,9 @@ from LL.validators_ll import (
     validate_team_logo,
     validate_team_name,
 )
-from Models.player import Player
-from Models.team import Team
-from Models.team_captain import TeamCaptain
 import UI.functions as f
 from UI.ui_functions import refresh_logo
-from Models.models import Tournament
+from Models.models import Tournament, Player, TeamCaptain
 
 
 class TeamCaptainUI:
@@ -161,10 +155,12 @@ class TeamCaptainUI:
             tournaments = self.APILL.get_my_tournaments(team)
             print(f.format_tournament_table(tournaments))
             valid_choices_of_tournaments = []
-            for index,tournament in enumerate(tournaments):
+            for index in range(len(tournaments)):
                 valid_choices_of_tournaments.append(str(index + 1))
             print("r. Register for new tournament\nb. Back\nq. Quit")
-            choice: str = self.menu_manager.prompt_choice(valid_choices_of_tournaments + ["r", "b", "q"])
+            choice: str = self.menu_manager.prompt_choice(
+                valid_choices_of_tournaments + ["r", "b", "q"]
+            )
             if choice in valid_choices_of_tournaments:
                 return self.show_tournament_view_cap(tournaments[int(choice) - 1])
             if choice == "r":
@@ -176,7 +172,7 @@ class TeamCaptainUI:
                         print(
                             "Too many players on this team to register for a tournament."
                         )
-                    enter_to_leave = input("Enter to exit")
+                    input("Enter to exit")
                     return "MY_TOURNAMENTS_CAP"
 
                 valid_choices: list[str] = []
@@ -487,7 +483,7 @@ class TeamCaptainUI:
         """Registration for tournament"""
         self.team = team
         self.tournament = tournament
-        registration = self.APILL.register_team_to_tournament(team, tournament)
+        self.APILL.register_team_to_tournament(team, tournament)
 
     def show_update_team_data(self):
         """Updates the data of a team, social media or logo"""
@@ -645,14 +641,6 @@ class TeamCaptainUI:
             if error == Errors.LOGO_EMPTY:
                 print("Logo cannot be empty.")
                 team_logo = input("Input team logo in ASCII lettering: ")
-        team = self.menu_manager.team_name
-        # new_team = Team(
-        # team_name,
-        # captain_handle,
-        # social_media,
-        # team_logo,
-        # )
-        pass
 
     def remove_selected_player(self, player: Player):
         """Removes the selected player from the team"""
