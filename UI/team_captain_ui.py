@@ -28,10 +28,11 @@ class TeamCaptainUI:
 
     def show_create_player(self):
         """Creating a player with the required information"""
+        print("Fill in the required information or b to Back and q to Quit")
         name = input("Player's name: ").strip()
-        if name == "q":
+        if name.lower() == "q":
             return "QUIT"
-        if name == "b":
+        if name.lower() == "b":
             return "MY_TEAM"
         error = self.APILL.validate_player_name(name)
         while error != Errors.OK:
@@ -51,9 +52,9 @@ class TeamCaptainUI:
             error = self.APILL.validate_player_name(name)
 
         date_of_birth = input("Player's birthday (YYYY-MM-DD): ").strip()
-        if date_of_birth == "q":
+        if date_of_birth.lower() == "q":
             return "QUIT"
-        if date_of_birth == "b":
+        if date_of_birth.lower() == "b":
             return "MY_TEAM"
         error = self.APILL.validate_date_of_birth(date_of_birth)
         while error != Errors.OK:
@@ -73,9 +74,9 @@ class TeamCaptainUI:
             date_of_birth = input("Player's birthday (YYYY-MM-DD): ").strip()
 
         address = input("Enter address: ").strip()
-        if address == "q":
+        if address.lower() == "q":
             return "QUIT"
-        if address == "b":
+        if address.lower() == "b":
             return "MY_TEAM"
         error = self.APILL.validate_address(address)
         while error != Errors.OK:
@@ -95,9 +96,9 @@ class TeamCaptainUI:
             error = self.APILL.validate_address(address)
 
         phone_number = input("Enter phone number: ").strip()
-        if phone_number == "q":
+        if phone_number.lower() == "q":
             return "QUIT"
-        if phone_number == "b":
+        if phone_number.lower() == "b":
             return "MY_TEAM"
         error = self.APILL.validate_phone_number(phone_number)
         while error != Errors.OK:
@@ -119,9 +120,9 @@ class TeamCaptainUI:
             error = self.APILL.validate_phone_number(phone_number)
 
         email = input("Enter email: ").strip()
-        if email == "q":
+        if email.lower() == "q":
             return "QUIT"
-        if email == "b":
+        if email.lower() == "b":
             return "MY_TEAM"
         error = self.APILL.validate_player_email(email)
         while error != Errors.OK:
@@ -141,9 +142,9 @@ class TeamCaptainUI:
             error = self.APILL.validate_player_email(email)
 
         social_media = input("Enter social media handle: ").strip()
-        if social_media == "q":
+        if social_media.lower() == "q":
             return "QUIT"
-        if social_media == "b":
+        if social_media.lower() == "b":
             return "MY_TEAM"
         error = self.APILL.validate_social_media(social_media)
         while error != Errors.OK:
@@ -163,9 +164,9 @@ class TeamCaptainUI:
             error = self.APILL.validate_social_media(social_media)
 
         handle = input("Enter player handle: ").strip()
-        if handle == "q":
+        if handle.lower() == "q":
             return "QUIT"
-        if handle == "b":
+        if handle.lower() == "b":
             return "MY_TEAM"
         error = self.APILL.validate_player_handle(handle)
         while error != Errors.OK:
@@ -520,7 +521,13 @@ class TeamCaptainUI:
                 player = self.show_player_view(players[int(element) - 1])
                 return player
         if choice == "6":
-            #TODO Hindra frá því að creata player ef komnir 5 i lið
+            amount_of_players = self.APILL.validate_number_of_players(self.menu_manager.team_name)
+            while amount_of_players != Errors.OK:
+                if amount_of_players == Errors.TOO_MANY_PLAYERS:
+                    print("Already 5 players on this team, remove a player to add a new one.")
+                    input("Enter to exit")
+                    return "SHOW_MY_PLAYERS"
+            
             return "CREATE_PLAYER"
 
         if choice.lower() == "q":
