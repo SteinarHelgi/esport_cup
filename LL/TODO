@@ -9,7 +9,6 @@ ef ekki 16 lið á móti þá deletast mót
 * req 18: create a match sem organiser eilla buið
 * Allt club shit vantar inn
 
-* add team to club fyrir captain
 
 * register results á bara vera hægt ef leikur er búinn
 
@@ -17,7 +16,6 @@ ef ekki 16 lið á móti þá deletast mót
 # check á server id og svoleiðis, all servers busy at this time, choose different server
 # see all teams belonging to a club?
 * vantar að logga sig inn sem nýr team captain og búa til lið...C krafa
-* password og svona fyrir organiser?
 * laga import, gera (from Models.models import Team, Tournament.....)
 
 UI: HILMIR
@@ -31,7 +29,7 @@ UI: Steinar
 #Sorta öll mót og leiki eftir dagsetningum
 #Laga index fyrir options
 #Setja inn að geta skoða uppl um tournamnets inni my tournaments sem team captain
-#ADD TEAM TO CLUB
+rgba(45, 116, 124, 1) TEAM TO CLUB
 #Geta bakkað og quitað þegar þú ert í create match
 #Bæta við “Select match to register results”
 #Bæta við bikar þegar final klárast
