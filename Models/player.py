@@ -32,7 +32,11 @@ class Player:
         self.points = 0
 
     # print header
-
+    def __str__(self):
+        return(
+            f"{self.name:<{Player.w_player_name}}"
+            f"{self.handle:<{Player.w_player_handle}}"
+        )
     def print_header(self):
         print(
             f"{'ID':<{Player.w_counter}} {'PLAYER NAME':<{Player.w_player_name}} {'PLAYER HANDLE':<{Player.w_player_handle}}"
@@ -67,4 +71,3 @@ class Player:
 
     def set_points(self, points: int):
         self.points = points
-
