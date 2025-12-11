@@ -336,7 +336,7 @@ def validate_match_creation(
     ]
 
     # Same team already playing (date+time)
-    for m in matches_in_tournament:
+    for m in all_matches:
         if m.match_date == date_str and m.match_time == time_str:
             teams_in_match = (m.team_a_name, m.team_b_name)
             if team_a in teams_in_match:
