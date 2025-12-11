@@ -35,8 +35,8 @@ class TeamCaptainUI:
             return "SHOW_MY_PLAYERS"
         if name.lower() == "q":
             return "QUIT"
-        while validate_player_name(name) != Errors.OK:
-            error = validate_player_name(name)
+        while self.APILL.validate_player_name(name) != Errors.OK:
+            error = self.APILL.validate_player_name(name)
             if error == Errors.EMPTY:
                 print("Name cannot be empty")
             if error == Errors.NAME_INCLUDE_NUMBERS:
@@ -48,8 +48,8 @@ class TeamCaptainUI:
             return "MY_TEAM"
         if date_of_birth.lower() == "q":
             return "QUIT"
-        while validate_date_of_birth(date_of_birth) != Errors.OK:
-            error = validate_date_of_birth(date_of_birth)
+        while self.APILL.validate_date_of_birth(date_of_birth) != Errors.OK:
+            error = self.APILL.validate_date_of_birth(date_of_birth)
             if error == Errors.DATE_NOT_VALID:
                 print("Use format YYYY-MM-DD")
             if error == Errors.DATE_TOO_OLD:
@@ -61,8 +61,8 @@ class TeamCaptainUI:
             return "MY_TEAM"
         if address.lower() == "q":
             return "QUIT"
-        while validate_address(address) != Errors.OK:
-            error = validate_address(address)
+        while self.APILL.validate_address(address) != Errors.OK:
+            error = self.APILL.validate_address(address)
             if error == Errors.EMPTY:
                 print("Address cannot be empty.")
             if error == Errors.ADDRESS_ONLY_NUMBERS:
@@ -74,8 +74,8 @@ class TeamCaptainUI:
             return "MY_TEAM"
         if phone_number.lower() == "q":
             return "QUIT"
-        while validate_phone_number(phone_number) != Errors.OK:
-            error = validate_phone_number(phone_number)
+        while self.APILL.validate_phone_number(phone_number) != Errors.OK:
+            error = self.APILL.validate_phone_number(phone_number)
             if error == Errors.EMPTY:
                 print("Phone number cannot be empty.")
             if error == Errors.NUMBER_HAS_CHARACTERS:
@@ -88,8 +88,8 @@ class TeamCaptainUI:
             return "MY_TEAM"
         if email.lower() == "q":
             return "QUIT"
-        while validate_player_email(email) != Errors.OK:
-            error = validate_player_email(email)
+        while self.APILL.validate_player_email(email) != Errors.OK:
+            error = self.APILL.validate_player_email(email)
             if error == Errors.EMPTY:
                 print("Email address cannot be empty.")
             if error == Errors.EMAIL_NOT_CONTAINING_AT:
@@ -101,8 +101,8 @@ class TeamCaptainUI:
             return "MY_TEAM"
         if social_media.lower() == "q":
             return "QUIT"
-        while validate_social_media(social_media) != Errors.OK:
-            error = validate_social_media(social_media)
+        while self.APILL.validate_social_media(social_media) != Errors.OK:
+            error = self.APILL.validate_social_media(social_media)
             if error == Errors.EMPTY:
                 print("Social media handle cannot be empty.")
             if error == Errors.HANDLE_CONTAINS_SPACE:
@@ -113,8 +113,8 @@ class TeamCaptainUI:
             return "MY_TEAM"
         if handle.lower() == "q":
             return "QUIT"
-        while validate_player_handle(handle, self.APILL.APIDATA) != Errors.OK:
-            error = validate_player_handle(handle, self.APILL.APIDATA)
+        while self.APILL.validate_player_handle(handle) != Errors.OK:
+            error = self.APILL.validate_player_handle(handle)
             if error == Errors.EMPTY:
                 print("Player handle cannot be empty.")
             if error == Errors.HANDLE_CONTAINS_SPACE:
@@ -168,8 +168,8 @@ class TeamCaptainUI:
             if choice in valid_choices_of_tournaments:
                 return self.show_tournament_view_cap(tournaments[int(choice) - 1])
             if choice == "r":
-                while validate_players_in_teams(players) != Errors.OK:
-                    error = validate_players_in_teams(players)
+                while self.APILL.validate_players_in_teams(players) != Errors.OK:
+                    error = self.APILL.validate_players_in_teams(players)
                     if error == Errors.PLAYERS_NOT_ENOUGH:
                         print("Not enough players on team to register.")
                     if error == Errors.PLAYERS_TOO_MANY:
@@ -286,19 +286,19 @@ class TeamCaptainUI:
 
             if selection == "1":
                 new_name = input("Enter new name: ").strip()
-                error = validate_player_name(new_name)
+                error = self.APILL.validate_player_name(new_name)
                 while error != Errors.OK:
                     if error == Errors.EMPTY:
                         print("Name cannot be empty")
                     if error == Errors.NAME_INCLUDE_NUMBERS:
                         print("Name cannot include numbers")
                     new_name = input("Enter new name: ").strip()
-                    error = validate_player_name(new_name)
+                    error = self.APILL.validate_player_name(new_name)
                 print("Name updated locally.")
 
             elif selection == "2":
                 new_email = input("Enter new email: ").strip()
-                error = validate_player_email(new_email)
+                error = self.APILL.validate_player_email(new_email)
                 while error != Errors.OK:
                     # Optional: Add email validation logic here
                     if error == Errors.EMPTY:
@@ -307,39 +307,39 @@ class TeamCaptainUI:
                         print("Email must contain @, example@example.com")
 
                     new_email = input("Enter new email: ").strip()
-                    error = validate_player_email(new_email)
+                    error = self.APILL.validate_player_email(new_email)
                 player.email = new_email
                 print("Email updated locally.")
 
             elif selection == "3":
                 new_address = input("Enter new address: ").strip()
-                error = validate_address(new_address)
+                error = self.APILL.validate_address(new_address)
                 while error != Errors.OK:
                     if error == Errors.EMPTY:
                         print("Address cannot be empty")
                     if error == Errors.ADDRESS_ONLY_NUMBERS:
                         print("Address cannot be only numbers")
                     new_address = input("Enter new address: ").strip()
-                    error = validate_address(new_address)
+                    error = self.APILL.validate_address(new_address)
                 player.address = new_address
                 print("Address updated locally.")
 
             elif selection == "4":
                 new_number = input("Enter new phone number: ").strip()
-                error = validate_phone_number(new_number)
+                error = self.APILL.validate_phone_number(new_number)
                 while error != Errors.OK:
                     if error == Errors.NUMBER_NOT_CORRECT_LENGTH:
                         print("Phone number must be 7 digits")
                     if error == Errors.NUMBER_HAS_CHARACTERS:
                         print("Phone number cannot contain characters")
                     new_number = input("Enter new phone number: ").strip()
-                    error = validate_phone_number(new_number)
+                    error = self.APILL.validate_phone_number(new_number)
                 player.phone_number = new_number
                 print("Address updated locally.")
 
             elif selection == "5":
                 new_socials = input("Enter new social media handle: ").strip()
-                error = validate_social_media(new_socials)
+                error = self.APILL.validate_social_media(new_socials)
 
                 while error != Errors.OK:
                     if error == Errors.EMPTY:
@@ -348,14 +348,14 @@ class TeamCaptainUI:
                         print("Social Media cannot contain spaces")
 
                     new_socials = input("Enter new social media handle: ").strip()
-                    error = validate_social_media(new_socials)
+                    error = self.APILL.validate_social_media(new_socials)
 
                 player.social_media = new_socials
                 print("Socials updated locally.")
 
             elif selection == "6":
                 new_handle = input("Enter new game handle: ").strip()
-                error = validate_player_handle(new_handle, self.APILL.APIDATA)
+                error = self.APILL.validate_player_handle(new_handle)
 
                 while error != Errors.OK:
                     if error == Errors.EMPTY:
@@ -363,7 +363,7 @@ class TeamCaptainUI:
                     if error == Errors.HANDLE_CONTAINS_SPACE:
                         print("Handle cannot contain spaces")
                     new_handle = input("Enter new game handle: ").strip()
-                    error = validate_player_handle(new_handle, self.APILL.APIDATA)
+                    error = self.APILL.validate_player_handle(new_handle)
                 player.handle = new_handle
                 print("Game handle updated locally.")
 
@@ -512,7 +512,7 @@ class TeamCaptainUI:
         if team:
             print("Currrent social media: ", team.social_media)
             new_social_media = input("New social media: ")
-            error = validate_social_media(new_social_media)
+            error = self.APILL.validate_social_media(new_social_media)
 
             while error != Errors.OK:
                 if error == Errors.EMPTY:
@@ -520,7 +520,7 @@ class TeamCaptainUI:
                 if error == Errors.HANDLE_CONTAINS_SPACE:
                     print("Social Media cannot contain spaces")
                 new_social_media = input("New social media: ")
-                error = validate_social_media(new_social_media)
+                error = self.APILL.validate_social_media(new_social_media)
             team.social_media = new_social_media
 
             new_team = self.APILL.modify_team_data(team)
@@ -615,8 +615,8 @@ class TeamCaptainUI:
             return "TEAM_CAPTAIN_MENU"
         if team_name.lower == "q":
             return "QUIT"
-        while validate_team_name(team_name, self.APILL.APIDATA) != Errors.OK:
-            error = validate_team_name(team_name, self.APILL.APIDATA)
+        while self.APILL.validate_team_name(team_name) != Errors.OK:
+            error = self.APILL.validate_team_name(team_name)
             if error == Errors.EMPTY:
                 print("Team name cannot be empty.")
             if error == Errors.TEAM_NAME_TOO_LONG:
@@ -628,8 +628,8 @@ class TeamCaptainUI:
             return "TEAM_CAPTAIN_MENU"
         if social_media.lower() == "q":
             return "QUIT"
-        while validate_social_media(social_media) != Errors.OK:
-            error = validate_social_media(social_media)
+        while self.APILL.validate_social_media(social_media) != Errors.OK:
+            error = self.APILL.validate_social_media(social_media)
             if error == Errors.EMPTY:
                 print("Social media handle cannot be empty.")
             if error == Errors.EMPTY:
@@ -640,8 +640,8 @@ class TeamCaptainUI:
             return "QUIT"
         if team_logo.lower() == "b":
             return "TEAM_CAPTAIN_MENU"
-        while validate_team_logo(team_logo) != Errors.OK:
-            error = validate_team_logo(team_logo)
+        while self.APILL.validate_team_logo(team_logo) != Errors.OK:
+            error = self.APILL.validate_team_logo(team_logo)
             if error == Errors.LOGO_EMPTY:
                 print("Logo cannot be empty.")
                 team_logo = input("Input team logo in ASCII lettering: ")

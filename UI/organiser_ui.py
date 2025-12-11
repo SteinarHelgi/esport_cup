@@ -41,8 +41,8 @@ class OrganiserUI:
             return "ORGANISER_MENU"
         if name_of_tournament.lower() == "q":
             return "QUIT"
-        while validate_tournament_name(name_of_tournament) != Errors.OK:
-            error = validate_tournament_name(name_of_tournament)
+        while self.APILL.validate_tournament_name(name_of_tournament) != Errors.OK:
+            error = self.APILL.validate_tournament_name(name_of_tournament)
             if error == Errors.TOURNAMENT_NAME_LENGTH:
                 print("Tournament name needs to be atleast two letters")
             if error == Errors.TOURNAMENT_NAME_LENGTH_TOO_LONG:
@@ -54,8 +54,8 @@ class OrganiserUI:
             return "ORGANISER_MENU"
         if start_date_of_tournament.lower() == "q":
             return "QUIT"
-        while validate_tournament_start_date(start_date_of_tournament) != Errors.OK:
-            error = validate_tournament_start_date(start_date_of_tournament)
+        while self.APILL.validate_tournament_start_date(start_date_of_tournament) != Errors.OK:
+            error = self.APILL.validate_tournament_start_date(start_date_of_tournament)
             if error == Errors.DATE_FORMAT_NOT_VALID:
                 print("Invalid format. Format is YYYY-MM-DD.")
             if error == Errors.START_DATE_BEFORE_TODAY:
@@ -70,12 +70,12 @@ class OrganiserUI:
         if end_date_of_tournamnet.lower() == "q":
             return "QUIT"
         while (
-            validate_tournament_end_date(
+            self.APILL.validate_tournament_end_date(
                 start_date_of_tournament, end_date_of_tournamnet
             )
             != Errors.OK
         ):
-            error = validate_tournament_end_date(
+            error = self.APILL.validate_tournament_end_date(
                 start_date_of_tournament, end_date_of_tournamnet
             )
             if error == Errors.DATE_FORMAT_NOT_VALID:
@@ -91,8 +91,8 @@ class OrganiserUI:
             return "ORGANISER_MENU"
         if amount_of_servers.lower() == "q":
             return "QUIT"
-        while validate_tournament_servers(amount_of_servers) != Errors.OK:
-            error = validate_tournament_servers(amount_of_servers)
+        while self.APILL.validate_tournament_servers(amount_of_servers) != Errors.OK:
+            error = self.APILL.validate_tournament_servers(amount_of_servers)
             if error == Errors.SERVER_NOT_NUMBER:
                 print("Server amount has to be a number.")
             if error == Errors.SERVER_LESS_THAN_0:
@@ -104,8 +104,8 @@ class OrganiserUI:
             return "ORGANISER_MENU"
         if venue.lower() == "q":
             return "QUIT"
-        while validate_tournament_venue(venue) != Errors.OK:
-            error = validate_tournament_venue(venue)
+        while self.APILL.validate_tournament_venue(venue) != Errors.OK:
+            error = self.APILL.validate_tournament_venue(venue)
             if error == Errors.VENUE_INCLUDE_NUMBERS:
                 print("Invalid input, cannot be all numnbers.")
             if error == Errors.EMPTY:
@@ -119,8 +119,8 @@ class OrganiserUI:
             return "ORGANISER_MENU"
         if game_for_tournament.lower() == "q":
             return "QUIT"
-        while validate_tournament_game(game_for_tournament, games) != Errors.OK:
-            error = validate_tournament_game(game_for_tournament, games)
+        while self.APILL.validate_tournament_game(game_for_tournament, games) != Errors.OK:
+            error = self.APILL.validate_tournament_game(game_for_tournament, games)
             if error == Errors.GAME_NOT_VALID:
                 print(
                     "You have input an invalid game, select a game from the list provided"
@@ -137,8 +137,8 @@ class OrganiserUI:
             return "ORGANISER_MENU"
         if new_contact_person_name == "q":
             return "QUIT"
-        while validate_player_name(new_contact_person_name) != Errors.OK:
-            error = validate_player_name(new_contact_person_name)
+        while self.APILL.validate_player_name(new_contact_person_name) != Errors.OK:
+            error = self.APILL.validate_player_name(new_contact_person_name)
             if error == Errors.EMPTY:
                 print("Name cannot be empty")
             if error == Errors.NAME_INCLUDE_NUMBERS:
@@ -150,8 +150,8 @@ class OrganiserUI:
             return "ORGANISER_MENU"
         if new_contact_person_email == "q":
             return "QUIT"
-        while validate_player_email(new_contact_person_email) != Errors.OK:
-            error = validate_player_email(new_contact_person_email)
+        while self.APILL.validate_player_email(new_contact_person_email) != Errors.OK:
+            error = self.APILL.validate_player_email(new_contact_person_email)
             if error == Errors.EMPTY:
                 print("Contact person email address cannot be empty.")
             if error == Errors.EMAIL_NOT_CONTAINING_AT:
@@ -163,8 +163,8 @@ class OrganiserUI:
             return "ORGANISER_MENU"
         if new_contact_person_phone_nmbr == "q":
             return "QUIT"
-        while validate_phone_number(new_contact_person_phone_nmbr) != Errors.OK:
-            error = validate_phone_number(new_contact_person_phone_nmbr)
+        while self.APILL.validate_phone_number(new_contact_person_phone_nmbr) != Errors.OK:
+            error = self.APILL.validate_phone_number(new_contact_person_phone_nmbr)
             if error == Errors.EMPTY:
                 print("Phone number cannot be empty.")
             if error == Errors.NUMBER_HAS_CHARACTERS:
