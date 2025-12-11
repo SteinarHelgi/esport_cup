@@ -239,40 +239,86 @@ class TeamCaptainUI:
 
             if selection == "1":
                 new_name = input("Enter new name: ").strip()
-                if new_name:
-                    player.name = new_name
-                    print("Name updated locally.")
+                error = validate_player_name(new_name)
+                while error != Errors.OK:
+                    if error == Errors.EMPTY:
+                        print("Name cannot be empty")
+                    if error == Errors.NAME_INCLUDE_NUMBERS:
+                        print("Name cannot include numbers")
+                    new_name = input("Enter new name: ").strip()
+                    error = validate_player_name(new_name)
+                print("Name updated locally.")
 
             elif selection == "2":
                 new_email = input("Enter new email: ").strip()
-                if new_email:
+                error = validate_player_email(new_email)
+                while error != Errors.OK:
                     # Optional: Add email validation logic here
-                    player.email = new_email
-                    print("Email updated locally.")
+                    if error == Errors.EMPTY:
+                        print("Email cannot be empty")
+                    if error == Errors.EMAIL_NOT_CONTAINING_AT:
+                        print("Email must contain @, example@example.com")
+
+                    new_email = input("Enter new email: ").strip()
+                    error = validate_player_email(new_email)
+                player.email = new_email
+                print("Email updated locally.")
 
             elif selection == "3":
                 new_address = input("Enter new address: ").strip()
-                if new_address:
-                    player.address = new_address
-                    print("Address updated locally.")
+                error = validate_address(new_address)
+                while error != Errors.OK:
+                    if error == Errors.EMPTY:
+                        print("Address cannot be empty")
+                    if error == Errors.ADDRESS_ONLY_NUMBERS:
+                        print("Address cannot be only numbers")
+                    new_address = input("Enter new address: ").strip()
+                    error = validate_address(new_address)
+                player.address = new_address
+                print("Address updated locally.")
 
             elif selection == "4":
                 new_number = input("Enter new phone number: ").strip()
-                if new_number:
-                    player.phone_number = new_number
-                    print("Address updated locally.")
+                error = validate_phone_number(new_number)
+                while error != Errors.OK:
+                    if error == Errors.NUMBER_NOT_CORRECT_LENGTH:
+                        print("Phone number must be 7 digits")
+                    if error == Errors.NUMBER_HAS_CHARACTERS:
+                        print("Phone number cannot contain characters")
+                    new_number = input("Enter new phone number: ").strip()
+                    error = validate_phone_number(new_number)
+                player.phone_number = new_number
+                print("Address updated locally.")
 
             elif selection == "5":
                 new_socials = input("Enter new social media handle: ").strip()
-                if new_socials:
-                    player.social_media = new_socials
-                    print("Socials updated locally.")
+                error = validate_social_media(new_socials)
+
+                while error != Errors.OK:
+                    if error == Errors.EMPTY:
+                        print("Social Media cannot be empty")
+                    if error == Errors.HANDLE_CONTAINS_SPACE:
+                        print("Social Media cannot contain spaces")
+
+                    new_socials = input("Enter new social media handle: ").strip()
+                    error = validate_social_media(new_socials)
+
+                player.social_media = new_socials
+                print("Socials updated locally.")
 
             elif selection == "6":
                 new_handle = input("Enter new game handle: ").strip()
-                if new_handle:
-                    player.handle = new_handle
-                    print("Game handle updated locally.")
+                error = validate_player_handle(new_handle, self.APILL.APIDATA)
+
+                while error != Errors.OK:
+                    if error == Errors.EMPTY:
+                        print("Handle cannot be empty")
+                    if error == Errors.HANDLE_CONTAINS_SPACE:
+                        print("Handle cannot contain spaces")
+                    new_handle = input("Enter new game handle: ").strip()
+                    error = validate_player_handle(new_handle, self.APILL.APIDATA)
+                player.handle = new_handle
+                print("Game handle updated locally.")
 
             elif selection.lower() == "s":
                 # Saves the information
@@ -432,6 +478,15 @@ class TeamCaptainUI:
         if team:
             print("Currrent social media: ", team.social_media)
             new_social_media = input("New social media: ")
+            error = validate_social_media(new_social_media)
+
+            while error != Errors.OK:
+                if error == Errors.EMPTY:
+                    print("Social Media cannot be empty")
+                if error == Errors.HANDLE_CONTAINS_SPACE:
+                    print("Social Media cannot contain spaces")
+                new_social_media = input("New social media: ")
+                error = validate_social_media(new_social_media)
             team.social_media = new_social_media
 
             new_team = self.APILL.modify_team_data(team)
