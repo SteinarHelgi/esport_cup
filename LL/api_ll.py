@@ -42,6 +42,7 @@ from LL.validators_ll import (
     validate_club_hometown,
     validate_club_color,
     validate_club_country,
+    validate_unwanted_characters
 )
 
 class APILL:
@@ -321,4 +322,6 @@ class APILL:
     def validate_club_country(self, country: str) -> Errors:
         return validate_club_country(country)
     
-    #def validate_unwanted_characters
+    def validate_unwanted_characters(self,input: str) -> Errors:
+        return validate_unwanted_characters(self)
+
