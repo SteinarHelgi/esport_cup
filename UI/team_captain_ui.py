@@ -1,4 +1,12 @@
 from LL.api_ll import APILL
+import UI.functions as f
+from UI.ui_functions import refresh_logo
+from Models.models import (
+    Team,
+    Tournament, 
+    Player, 
+    TeamCaptain
+)
 from LL.validators_ll import (
     validate_address,
     validate_date_of_birth,
@@ -11,11 +19,6 @@ from LL.validators_ll import (
     validate_social_media,
     validate_team_logo,
     validate_team_name,
-)
-from Models.team import Team
-import UI.functions as f
-from UI.ui_functions import refresh_logo
-from Models.models import Tournament, Player, TeamCaptain
 
 
 class TeamCaptainUI:
