@@ -1,4 +1,5 @@
 from datetime import datetime
+from importlib.machinery import WindowsRegistryFinder
 from os import name
 from tracemalloc import start
 from LL.api_ll import APILL
@@ -285,6 +286,7 @@ class OrganiserUI:
                 valid_choices.append(str(counter + 1))
                 print(f"{counter + 1}. {match}")
             print(" ")
+            print("Select a match by ID to register results.")
             print("c. Create new match \nd. Delete tournament \nb. Back \nq. Quit")
             choice: str = self.menu_manager.prompt_choice(
                 valid_choices + ["c", "d", "b", "q"]
@@ -358,18 +360,26 @@ class OrganiserUI:
             print("")
             print("Round type ", round)
             print("Select team 1:", end="")
+            print("b. Back\nq. Quit")
 
-            choice: str = self.menu_manager.prompt_choice(valid_choices)
+            choice: str = self.menu_manager.prompt_choice(valid_choices + ["b", "q"])
             team1 = teams_not_in_round[int(choice) - 1]
             if choice in valid_choices:
                 print(team1.name, "as Team 1")
+            if choice == "b":
+                return "MY_TOURNAMENTS_ORG"
+            if choice == "q":
+                return "QUIT"
 
             print("Select team 2:", end="")
-            choice: str = self.menu_manager.prompt_choice(valid_choices)
+            choice: str = self.menu_manager.prompt_choice(valid_choices + ["b", "q"])
             team2 = teams_not_in_round[int(choice) - 1]
             if choice in valid_choices:
                 print(team2.name, "as Team 2")
-
+            if choice == "b":
+                return "MY_TOURNAMENTS_ORG"
+            if choice == "q":
+                return "QUIT"
             date = input("Date (YYYY-MM-DD): ")
             while (
                 validate_match_date(date, tournament.start_date, tournament.end_date)
@@ -459,7 +469,7 @@ class OrganiserUI:
         match.set_winner(winner_name, "TRUE")
 
         self.APILL.register_match_result(match.match_id, winner_name, "TRUE")
-
+        self.APILL.give_team_points(winner_name,+2)
         print(f"{winner_name} has been set as the winner of this match.")
 
         choice = self.menu_manager.prompt_choice(["b", "q"])

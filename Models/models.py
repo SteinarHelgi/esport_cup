@@ -7,6 +7,5 @@ from Models.game import Game
 from Models.match import Match
 from Models.organiser import Organiser
 from Models.player import Player
-from Models.schedule import Schedule
 from Models.team_registry import TeamRegistry
 

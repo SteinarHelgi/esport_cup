@@ -1,10 +1,9 @@
 ## LOGIC- TODO 
-modify matches
+delete matches
 ef ekki 16 lið á móti þá deletast mót
 ##LOGIC - Þröstur
-Create matches fyrir 16 liða úrslit. Leikur tekur 2 klst: Mánudagur
-Klára get club stats - Þriðjudagur
-create match þarf að ákveða server id og athuga hvort serverid se upptekið. ###Búið
+
+
 
 
 ***EF VIÐ HÖFUM TÍMA GETUM VIÐ BÆTT ÞESSU VIÐ***
@@ -16,15 +15,14 @@ create match þarf að ákveða server id og athuga hvort serverid se upptekið.
 
 * req 18: create a match sem organiser eilla buið
 * Allt club shit vantar inn
-* delete tournament fyrir organiser
+
 * add team to club fyrir captain
-* remove player sem team captain, komið í LL vantar UI
+
 * register results á bara vera hægt ef leikur er búinn
-* Give points to team
-* losers bracket
+
 * sign up for multiple events virkar en vantar að validatea schedule, choose another time, team1 is playing at this time
 * check á server id og svoleiðis, all servers busy at this time, choose different server
-* see all teams belonging to a club
+* see all teams belonging to a club?
 * vantar að logga sig inn sem nýr team captain og búa til lið...C krafa
 * password og svona fyrir organiser?
 
@@ -54,7 +52,7 @@ Taka út counter á my_tournaments fyrir my captain
 Setja inn að geta skoða uppl um tournamnets inni my tournaments sem team captain
 ADD TEAM TO CLUB
 Geta bakkað og quitað þegar þú ert í create match
-Bæta við “Select match to register results”
+#Bæta við “Select match to register results”
 Laga back í set results
 Create match í quarter finals ætti að sækja öll lið sem eru búin að vinna.
 Bæta við bikar þegar final klárast
