@@ -267,9 +267,6 @@ class APILL:
 
     # ---------- TOURNAMENT VALIDATION ----------
 
-    def validate_enough_teams(self, tournament: Tournament) -> Errors:
-        return validate_enough_teams(tournament, self.APIDATA)
-
     def validate_tournament_name(self, name: str) -> Errors:
         return validate_tournament_name(name)
 
