@@ -23,7 +23,6 @@ class MenuManager:
         self.pages = {
             "LOGIN_MENU": self.print_login_menu,
             "LOGIN_CREDENTIALS": self.login_credentials_menu,
-            "LOGIN_CREDENTIALS_ORG": self.login_credentials_menu_org,
             "SHREK": shrek,
             # USER MENUS
             "USER_MENU": self.print_user_menu,
