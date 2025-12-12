@@ -303,19 +303,22 @@ class OrganiserUI:
                 f"{tournament.name.upper()}  |  {tournament.start_date} -- {tournament.end_date} "
             )
             print("Matches: ")
-            print(" ")
             if tournament.matches:
                 header = tournament.matches[0].header()
                 print("-" * len(header))
                 print(header)
                 print("-" * len(header))
+            else:
+                print("     No matches created for this tournament")
             valid_choices = []
 
             for counter, match in enumerate(tournament.matches):
                 valid_choices.append(str(counter + 1))
                 match.format_row(counter + 1)
+            if tournament.matches:
+                print(" ")
+                print("Select a match by ID to register results.")
             print(" ")
-            print("Select a match by ID to register results.")
             print(
                 "c. Create new match \nr. Remove match \nd. Delete tournament \nb. Back \nq. Quit"
             )
@@ -369,6 +372,7 @@ class OrganiserUI:
             tournament
         ):
             print("Tournament did not have enough teams registered to start")
+            print("")
             print("d. Delete tournament")
             print("b. Back\nq. Quit")
             choice: str = self.menu_manager.prompt_choice(["b", "q", "d"])
@@ -381,6 +385,7 @@ class OrganiserUI:
 
         elif len(tournament.teams) < 16:
             print("Not enough teams have registered")
+            print("")
             print("b. Back\nq. Quit")
             choice: str = self.menu_manager.prompt_choice(["b", "q"])
             if choice == "b":
