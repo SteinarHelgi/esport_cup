@@ -3,6 +3,7 @@ from LL.api_ll import APILL
 from Models.models import Match, Team, Tournament, ContactPerson
 from UI.functions import format_tournament_table
 from UI.ui_functions import (
+    clear_terminal,
     refresh_logo,
     set_system_color_gold,
     set_system_color_red,
@@ -294,12 +295,6 @@ class OrganiserUI:
         """takes in a tournament name and shows the menu for the tournament"""
 
         refresh_logo()
-        w_team = 26
-        w_date = 12
-        w_time = 12
-        w_round = 8
-        w_vs = 4
-        w_completed = 10
         updated_tournament = self.APILL.get_tournament_by_id(tournament.id)
 
         if updated_tournament:
@@ -309,17 +304,7 @@ class OrganiserUI:
             )
             print("Matches: ")
             print(" ")
-            header = (
-                "   "
-                f"{'Team 1':<{w_team}}"
-                f"{'vs':^{w_vs}}"
-                f"{'Team 2':>{w_team}} "
-                f"{'Date':^{w_date}}"
-                f"{'Time':^{w_time}}"
-                f"{'Round':^{w_round}}"
-                f"{'Completed':^{w_completed}}"
-                f"{'Winner':>{w_team}}"
-            )
+            header = tournament.matches[0].header()
             print("-" * len(header))
             print(header)
             print("-" * len(header))
@@ -327,12 +312,14 @@ class OrganiserUI:
 
             for counter, match in enumerate(tournament.matches):
                 valid_choices.append(str(counter + 1))
-                print(f"{counter + 1}. {match}")
+                match.format_row(counter + 1)
             print(" ")
             print("Select a match by ID to register results.")
-            print("c. Create new match \nr. Remove match \nd. Delete tournament \nb. Back \nq. Quit")
+            print(
+                "c. Create new match \nr. Remove match \nd. Delete tournament \nb. Back \nq. Quit"
+            )
             choice: str = self.menu_manager.prompt_choice(
-                valid_choices + ["c","r", "d", "b", "q"]
+                valid_choices + ["c", "r", "d", "b", "q"]
             )
             if choice in valid_choices:
                 return self.show_register_results(tournament.matches[int(choice) - 1])
@@ -359,11 +346,13 @@ class OrganiserUI:
                 if select_match_number.lower() == "q":
                     return "QUIT"
                 if select_match_number in valid_choices:
-                    #change to index
+                    # change to index
                     index = int(select_match_number) - 1
-                    match_to_delete = tournament.matches[index] 
+                    match_to_delete = tournament.matches[index]
                     real_id = match_to_delete.match_id
-                    print(f"Selected match: {match_to_delete.team_a_name} vs {match_to_delete.team_b_name}")
+                    print(
+                        f"Selected match: {match_to_delete.team_a_name} vs {match_to_delete.team_b_name}"
+                    )
                     confirm = input("Are you sure (Y/N)? ")
                     if confirm.lower() == "y":
                         self.APILL.delete_match(real_id)
@@ -373,10 +362,6 @@ class OrganiserUI:
                     else:
                         return "MY_TOURNAMENTS_ORG"
 
-                
-                    
-
-
             if choice == "b":
                 return "MY_TOURNAMENTS_ORG"
             if choice == "q":
@@ -384,6 +369,7 @@ class OrganiserUI:
 
     def show_create_match(self, tournament: Tournament):
         """Function for creating matches as an organiser"""
+        refresh_logo()
 
         while True:
             if len(tournament.matches) < 8:
@@ -429,26 +415,28 @@ class OrganiserUI:
 
             print("")
             print("Round type ", round)
-            print("Select team 1:", "b. Back q. Quit", end="")
+            print("b. Back\nq. Quit")
+            print("Select team 1:", end="")
 
-            choice: str = self.menu_manager.prompt_choice(valid_choices + ["b", "q"])
-            if choice in valid_choices:
-                team1 = available_teams[int(choice) - 1]
-                print(team1.name, "as Team 1")
+            choice = self.menu_manager.prompt_choice(valid_choices + ["b", "q"])
             if choice == "b":
                 return "MY_TOURNAMENTS_ORG"
             if choice == "q":
                 return "QUIT"
+            team1 = available_teams[int(choice) - 1]
+            print(team1.name, "as Team 1")
 
             print("Select team 2:", end="")
-            choice: str = self.menu_manager.prompt_choice(valid_choices + ["b", "q"])
-            if choice in valid_choices:
-                team2 = available_teams[int(choice) - 1]
-                print(team2.name, "as Team 2")
+            choice = self.menu_manager.prompt_choice(valid_choices + ["b", "q"])
+
             if choice == "b":
                 return "MY_TOURNAMENTS_ORG"
             if choice == "q":
                 return "QUIT"
+
+            team2 = available_teams[int(choice) - 1]
+            print(team2.name, "as Team 2")
+
             date = input("Date (YYYY-MM-DD): ")
             while (
                 validate_match_date(date, tournament.start_date, tournament.end_date)
@@ -544,7 +532,7 @@ class OrganiserUI:
             print(f"2. {match.team_b_name}")
 
             winner = input("1 or 2,d to delete match, b to back and q to quit: ")
-            
+
             if winner == "b":
                 return "MY_TOURNAMENTS_ORG"
             if winner == "q":
@@ -605,4 +593,3 @@ class OrganiserUI:
                _/_______\_
               /___________\ """)
         set_system_color_red()
-
