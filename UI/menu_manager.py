@@ -30,7 +30,6 @@ class MenuManager:
             "TEAMS": self.user_ui.show_teams,
             "TOURNAMENTS": self.user_ui.show_tournaments,
             "PLAYERS": self.user_ui.show_players,
-            "STATISTICS": self.user_ui.show_statistics,
             "CLUBS": self.user_ui.show_clubs,
             # TEAM CAPTAIN MENUS
             "TEAM_CAPTAIN_MENU": self.print_team_captain_menu,
@@ -213,4 +212,3 @@ class MenuManager:
             return "LOGIN_MENU"
 
         return "QUIT"
-
