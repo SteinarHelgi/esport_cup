@@ -304,10 +304,11 @@ class OrganiserUI:
             )
             print("Matches: ")
             print(" ")
-            header = tournament.matches[0].header()
-            print("-" * len(header))
-            print(header)
-            print("-" * len(header))
+            if tournament.matches:
+                header = tournament.matches[0].header()
+                print("-" * len(header))
+                print(header)
+                print("-" * len(header))
             valid_choices = []
 
             for counter, match in enumerate(tournament.matches):
