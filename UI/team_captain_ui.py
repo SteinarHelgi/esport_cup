@@ -126,6 +126,16 @@ class TeamCaptainUI:
                 print("Email address cannot be empty.")
             if error == Errors.EMAIL_NOT_CONTAINING_AT:
                 print("Email has to include '@', example@example.com.")
+            if error == Errors.HANDLE_CONTAINS_SPACE:
+                print("Email cannot contain spaces.")
+            if error == Errors.CONSECUTIVE_PERIODS:
+                print("Email cannot contain consecutive periods")
+            if error == Errors.EMAIL_NOT_VALID:
+                print("Invalid Email.")
+            if error == Errors.NEEDS_PERIOD:
+                print("Email has to end with period followed by top domain")
+            if error == Errors.STARTS_OR_ENDS_WITH_PERIOD:
+                print("Email cannot start or end with a period.")
             if error == Errors.CONTAINS_UNWANTED_CHAR:
                 print(
                     "Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy."
@@ -364,9 +374,19 @@ class TeamCaptainUI:
                 error = self.APILL.validate_player_email(new_email)
                 while error != Errors.OK:
                     if error == Errors.EMPTY:
-                        print("Email cannot be empty")
+                        print("Email cannot be empty.")
                     if error == Errors.EMAIL_NOT_CONTAINING_AT:
                         print("Email must contain @, example@example.com")
+                    if error == Errors.HANDLE_CONTAINS_SPACE:
+                        print("Email cannot contain spaces.")
+                    if error == Errors.CONSECUTIVE_PERIODS:
+                        print("Email cannot contain consecutive periods.")
+                    if error == Errors.EMAIL_NOT_VALID:
+                        print("Invalid Email")
+                    if error == Errors.NEEDS_PERIOD:
+                        print("Email has to end with period followed by top domain.")
+                    if error == Errors.STARTS_OR_ENDS_WITH_PERIOD:
+                        print("Email cannot start or end with a period.")
                     if error == Errors.CONTAINS_UNWANTED_CHAR:
                         print(
                             "Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy."
