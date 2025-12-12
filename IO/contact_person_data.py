@@ -12,7 +12,7 @@ class ContactPersonData:
         contact_persons: list[ContactPerson] = []
 
         # open the file in read mode
-        with open(self._filepath, "+r", encoding="utf-8") as file:
+        with open(self._filepath, "r+", encoding="utf-8") as file:
             csvReader = csv.reader(file)
 
             # Skip header row if present
