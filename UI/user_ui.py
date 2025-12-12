@@ -151,9 +151,8 @@ class UserUI:
         else:
             return "QUIT"
 
-    def show_tournaments_calling_function(
-        self, time: str
-    ):  # Shows the tournaments that are going on at the time of checking
+    def show_tournaments_calling_function(self, time: str):  
+        """Shows the tournaments that are going on at the time of checking"""
         refresh_logo()
         tournaments = []
         if time == "PAST":
@@ -236,7 +235,3 @@ class UserUI:
         choice: str = self.menu_manager.prompt_choice(["b", "q"])
         if choice == "b":
             return self.show_tournaments_calling_function(time)
-
-    def show_statistics(self):
-        # TODO
-        pass

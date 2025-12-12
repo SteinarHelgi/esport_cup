@@ -18,6 +18,7 @@ from LL.validators_ll import (
 
 
 class TeamCaptainUI:
+    """Class for team captain ui functions"""
     def __init__(self, APILL: APILL, menu_manager) -> None:
         self.APILL = APILL
         self.menu_manager = menu_manager
@@ -692,6 +693,7 @@ class TeamCaptainUI:
     
 
     def show_add_team_to_club(self):
+        """Adds the captains team to a club"""
         clubs = self.APILL.get_all_club_data()
         valid_choices = []
         team = self.menu_manager.team_to_view

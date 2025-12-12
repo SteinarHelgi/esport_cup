@@ -17,12 +17,7 @@ ef ekki 16 lið á móti þá deletast mót
 UI: HILMIR
 
 
-#Low priority(hafa edit team og edit player eins)
 
-# (Laga back í set results) ef steinar hefur tíma
-# Create match í quarter finals ætti að sækja öll lið sem eru búin að vinna. - STEINAR PRIORITY !!!!!
-# Laga þegar þú breytir handle hjá team captain, þá ætti að breytast lika hja team captain handle
-# Taka út það sem lítur út fyrir aðvera option en er ekki option
 (Held að þetta sé komið)Ef nafn inniheldur íslenska stafi þá virkar ekki að edita það í player modification skjánum
 UI: Steinar
 
@@ -35,9 +30,9 @@ Fara yfir öll functions og eyða þeim sem eru ekki í notkun
 
 Gera listann things to look at
 Ef nýtt lið þá gerir organiser það, gerir nytt handle og þa siðan loggar nyr tc sig inn og klárar liðið (Steinar)
-Ef tournament start date komið og ekki nægilega mörg lið þá kemur error og organiser getur deletað(Steinar)
+
 Hreinsa gögn sem við höfum prufað 
-Laga email validation - steinar
+Laga email validation - steinar#Komið nema timi gefst til að bæta meir við
 Fínpússa - fara yfir öll layer, deletea oþarfa shiti og passa print i data og ll
 Create team
 Fara aftur yfir skjái

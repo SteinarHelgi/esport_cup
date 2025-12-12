@@ -34,7 +34,8 @@ class OrganiserUI:
         self.team_to_view: Team
 
     def show_create_tournament(self):
-        """Creates tournaments with options to quit or back anywhere in the process and shows the confirmation of creation"""
+        """Creates tournaments with options to quit or back anywhere in the process
+          and shows the confirmation of creation"""
         print("Fill in the required info or b.Back or q.Quit")
 
         name_of_tournament = input("Tournament name: ")
@@ -525,6 +526,7 @@ class OrganiserUI:
                 pass
 
     def check_game_over(self, match: Match) -> bool:
+        """Checks if a game has finished or not"""
         date_str = match.match_date
         time_str = match.match_time
 
@@ -586,6 +588,7 @@ class OrganiserUI:
             return "QUIT"
 
     def show_delete_tournament(self, tournament):
+        """Deletes the tournament chosen"""
         print(f"Are you sure you wish to delete {tournament.name}")
         confirm = input("Confirm(Y/N): ")
         if confirm.lower() == "y":
@@ -600,6 +603,7 @@ class OrganiserUI:
             return "MY_TOURNAMENTS_ORG"
 
     def print_trophy(self):
+        """Prints a magnificent championship trophy"""
         set_system_color_gold()
         print(r"""              
               .-=========-.

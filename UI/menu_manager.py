@@ -30,7 +30,6 @@ class MenuManager:
             "TEAMS": self.user_ui.show_teams,
             "TOURNAMENTS": self.user_ui.show_tournaments,
             "PLAYERS": self.user_ui.show_players,
-            "STATISTICS": self.user_ui.show_statistics,
             # TEAM CAPTAIN MENUS
             "TEAM_CAPTAIN_MENU": self.print_team_captain_menu,
             "CREATE_PLAYER": self.team_captain_ui.show_create_player,
