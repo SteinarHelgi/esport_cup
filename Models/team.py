@@ -31,27 +31,31 @@ class Team:
         return f"{self.club:<{Team.w_club}} | {self.name:^{Team.w_name}} | {self.social_media:^{Team.w_social_media}} |  {self.logo:^{Team.w_logo}} |  {self.captain_handle:^{Team.w_captain}} |\n"
 
     def my_team_header(self):
-        mainstr = f"{self.club:^{Team.w_club}} | {self.name:^{Team.w_name_header}} | {self.social_media:^{Team.w_social_header}} |  {self.logo:^{Team.w_logo_header}} |  {self.captain_handle:^{Team.w_captain_header}} |\n"
+        """Header for team being viewed"""
+        mainstr = f"{self.club:^{Team.w_club}} | {self.name:^{Team.w_name_header}} | {self.social_media:^{Team.w_social_header}} |  {self.logo:^{Team.w_logo_header}} |  {self.captain_handle + '(C)':^{Team.w_captain_header}} | {self.points:^{10}}\n"
         return f"{'-' * len(mainstr)}\n{mainstr}{'-' * len(mainstr)}"
 
     def _print_header(self) -> None:
         # print header
         print(
-            f"{'Id':<{Team.w_counter}}{'TEAM NAME':<{Team.w_name}}{'TEAM CAPTAIN':>{Team.w_captain}}{'CLUB':>{Team.w_club}}\n"
+            f"{'Id':<{Team.w_counter}}{'TEAM NAME':<{Team.w_name}}{'TEAM CAPTAIN':>{Team.w_captain}}{'CLUB':>{Team.w_club}}{'POINTS':>{8}}\n"
         )
 
     def format_row(self, index: int):
+        """Formating rows"""
         print(
             f"{str(index) + '.':<{Team.w_counter}}"
             f"{self.name:<{Team.w_name}}"
-            f"{self.captain_handle:>{Team.w_captain}}"
+            f"{self.captain_handle + '(C)':>{Team.w_captain}}"
             f"{self.club:>{Team.w_club}}"
+            f"{self.points:>{8}}"
         )
 
     def _print_divider_line(self):
-        print("-" * (Team.w_name + Team.w_captain + Team.w_counter + Team.w_club))
+        print("-" * (Team.w_name + Team.w_captain + Team.w_counter + Team.w_club + 10))
 
     def toCSVList(self):
+        """Send to csv a list"""
         ret = []
         ret.append(self.id)
         ret.append(self.name)
@@ -62,13 +66,17 @@ class Team:
         return ret
 
     def add_player(self, player_handle: str):
+        """Adding a player"""
         self.players.append(player_handle)
 
     def set_id(self, id: str):
+        """Setting id"""
         self.id = id
 
     def set_points(self, points: int):
+        """Setting points"""
         self.points = points
 
     def set_club(self, club: str):
+        """Setting club"""
         self.club = club

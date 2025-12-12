@@ -18,8 +18,10 @@ class TeamData:
                     captain_id: str = line[2]
                     social_media: str = line[3]
                     logo: str = line[4]
+                    points: int = int(line[5])
                     team = Team(name, captain_id, social_media, logo)
                     team.set_id(id)
+                    team.set_points(points)
                     teams.append(team)
             return teams
 
