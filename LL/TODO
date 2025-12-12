@@ -5,14 +5,14 @@
 
 ## LOGIC- TODO 
 #delete matches
-ef ekki 16 lið á móti þá deletast mót
+#ef ekki 16 lið á móti þá deletast mót
 ##LOGIC - Þröstur
 
 
 ## UI
 
 * vantar að logga sig inn sem nýr team captain og búa til lið...C krafa
-* laga import, gera (from Models.models import Team, Tournament.....)
+#* laga import, gera (from Models.models import Team, Tournament.....)
 
 UI: HILMIR
 
@@ -36,4 +36,5 @@ Laga email validation - steinar#Komið nema timi gefst til að bæta meir við
 Fínpússa - fara yfir öll layer, deletea oþarfa shiti og passa print i data og ll
 Create team
 Fara aftur yfir skjái
+#gera clubs skja 
 
