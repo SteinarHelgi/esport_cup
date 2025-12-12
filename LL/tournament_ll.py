@@ -1,12 +1,8 @@
 from IO.api_data import APIDATA
 from datetime import datetime
-from Models.models import (
-    Tournament,
-    ContactPerson,
-    Team,
-    TeamCaptain,
-    Match
-)
+from Models import team
+from Models.models import Tournament, ContactPerson, Team, TeamCaptain, Match
+
 VALID_TEAM_COUNT = 16
 
 
@@ -20,15 +16,27 @@ class TournamentLL:
         """Returns all tournaments with their matches attached."""
         tournaments = self.APIDATA.get_all_tournament_data()
         matches = self.APIDATA.get_all_match_data()
+        team_registry = self.APIDATA.get_all_team_registry_data()
 
         for tournament in tournaments:
             for match in matches:
                 if match.tournament_id == tournament.id:
                     tournament.add_match(match)
-
+            for teamname_in_tournament in team_registry:
+                if teamname_in_tournament.tournament_id == tournament.id:
+                    team = self.MAINLL.team_ll.get_team_by_name(
+                        teamname_in_tournament.team_name
+                    )
+                    tournament.add_team(team)
         tournaments.sort(key=lambda t: t.start_date)
 
         return tournaments
+
+    def check_tournament_started(self, tournament: Tournament):
+        start_date = tournament.start_date
+        if datetime.today() > start_date:
+            return True
+        return False
 
     def get_ongoing_tournament(self) -> list[Tournament]:
         """Returns all tournaments that are ongoing."""
@@ -222,13 +230,7 @@ class TournamentLL:
         """Deletes the tournament with the given ID from the data storage."""
         self.APIDATA.delete_tournament_data(tournament_id)
 
-    def cancel_tournament_if_not_enough_teams(self, tournament: Tournament) -> None:
-        """Cancels the tournament if the number of registered teams is below VALID_TEAM_COUNT"""
-        teams_in_tournament = self.get_all_teams_on_tournament(tournament.id)
-        num_teams = len(teams_in_tournament)
-
-        if num_teams < VALID_TEAM_COUNT:
-            self.delete_tournament(tournament.id)
+    
 
     def create_match(self, match: Match) -> Match | None:
         """Creates a new match, assigns ID and match number, and stores it."""

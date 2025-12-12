@@ -26,11 +26,10 @@ class TeamRegistryData:
     def store_team_registry_data(
         self, team_registry: TeamRegistry
     ) -> TeamRegistry | None:
-        with open(self._filepath, "a" , newline="" , encoding="utf-8") as file:
+        with open(self._filepath, "a", newline="", encoding="utf-8") as file:
             csvWriter = csv.writer(file)
             try:
                 csvWriter.writerow(team_registry.toCSVList())
             except (OSError, csv.Error):
                 return None
         return team_registry
-

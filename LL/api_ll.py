@@ -44,7 +44,8 @@ from LL.validators_ll import (
     validate_club_color,
     validate_club_country,
     validate_unwanted_characters,
-    validate_number_of_players
+    validate_number_of_players,
+    validate_enough_teams
 )
 
 
@@ -178,6 +179,9 @@ class APILL:
         """Deletes a tournament with the given ID."""
         return self.main_ll.tournament_ll.delete_tournament(tournament_id)
 
+    def check_tournament_started(self, tournament: Tournament):
+        return self.main_ll.tournament_ll.check_tournament_started(tournament)
+
     def create_match(self, match: Match) -> Match | None:
         """Creates a new match through the logic layer and returns the stored match."""
         return self.main_ll.tournament_ll.create_match(match)
@@ -244,7 +248,7 @@ class APILL:
 
     def validate_social_media(self, social_media: str) -> Errors:
         return validate_social_media(social_media)
-    
+
     def validate_number_of_players(self, name) -> Errors:
         return validate_number_of_players(name, self.APIDATA)
 
@@ -268,6 +272,9 @@ class APILL:
         return validate_team_points(points)
 
     # ---------- TOURNAMENT VALIDATION ----------
+    
+    def validate_enough_teams(self, tournament: Tournament) -> Errors:
+        return validate_enough_teams(tournament, self.APIDATA)
 
     def validate_tournament_name(self, name: str) -> Errors:
         return validate_tournament_name(name)
@@ -333,4 +340,3 @@ class APILL:
 
     def validate_unwanted_characters(self, input: str) -> Errors:
         return validate_unwanted_characters(input)
-
