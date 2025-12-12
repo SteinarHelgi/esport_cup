@@ -327,17 +327,7 @@ class OrganiserUI:
 
             teams_in_tournament = self.APILL.get_teams_in_tournament(tournament)
             if choice == "c":
-                if teams_in_tournament:
-                    return self.show_create_match(tournament)
-                else:
-                    print("No teams have registered for this tournament")
-                    print("")
-                    print("b. Back\nq. Quit")
-                    choice: str = self.menu_manager.prompt_choice(["b", "q"])
-                    if choice == "b":
-                        return "MY_TOURNAMENTS_ORG"
-                    if choice == "q":
-                        return "QUIT"
+                return self.show_create_match(tournament)
             if choice == "d":
                 return self.show_delete_tournament(tournament)
             if choice == "r":
@@ -371,6 +361,34 @@ class OrganiserUI:
     def show_create_match(self, tournament: Tournament):
         """Function for creating matches as an organiser"""
         refresh_logo()
+        print(
+            f"{tournament.name.upper()}  |  {tournament.start_date} -- {tournament.end_date} "
+        )
+
+        if len(tournament.teams) < 16 and self.APILL.check_tournament_started(
+            tournament
+        ):
+            print("Tournament did not have enough teams registered to start")
+            print("d. Delete tournament")
+            print("b. Back\nq. Quit")
+            choice: str = self.menu_manager.prompt_choice(["b", "q", "d"])
+
+            if choice == "b":
+                return "MY_TOURNAMENTS_ORG"
+            if choice == "d":
+                return self.show_delete_tournament(tournament)
+            return "QUIT"
+
+        elif len(tournament.teams) < 16:
+            print("Not enough teams have registered")
+            print("b. Back\nq. Quit")
+            choice: str = self.menu_manager.prompt_choice(["b", "q"])
+            if choice == "b":
+                return "MY_TOURNAMENTS_ORG"
+            if choice == "d":
+                return self.show_delete_tournament(tournament)
+            return "QUIT"
+        print("DEBUG: ", *tournament.teams)
 
         while True:
             if len(tournament.matches) < 8:
