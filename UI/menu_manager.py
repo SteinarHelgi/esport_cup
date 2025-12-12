@@ -108,11 +108,12 @@ class MenuManager:
                 return "LOGIN_MENU"
             if username == "q":
                 return "QUIT"
-            print(f"Handle: {username}\nConfirm(Y/N)? ")
+            print(f"Handle: {username}")
             found_name = False
 
             for team in teams:
                 if team.captain_handle == username:
+                    print("Confirm Y/N)?")
                     choice: str = self.prompt_choice(["y", "n"])
                     found_name = True
                     self.team_name = team.name
