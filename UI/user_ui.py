@@ -239,7 +239,7 @@ class UserUI:
                 f"{'Time':^{w_time}}"
                 f"{'Round':>{w_round}}"
                 f"{'Completed':>{w_completed}}"
-                f"{'Winner':<{w_team}}"
+                f"{'Winner':>{w_team}}"
             )
             print(header)
             print("-" * len(header))
