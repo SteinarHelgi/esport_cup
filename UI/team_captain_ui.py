@@ -63,12 +63,13 @@ class TeamCaptainUI:
                 print(
                     "Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy."
                 )
+
+            error = self.APILL.validate_date_of_birth(date_of_birth)
+            date_of_birth = input("Player's birthday (YYYY-MM-DD): ").strip()
             if date_of_birth.lower() == "b":
                 return "MY_TEAM"
             if date_of_birth.lower() == "q":
                 return "QUIT"
-            error = self.APILL.validate_date_of_birth(date_of_birth)
-            date_of_birth = input("Player's birthday (YYYY-MM-DD): ").strip()
 
         address = input("Enter address: ").strip()
         if address.lower() == "q":
