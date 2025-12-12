@@ -1,10 +1,5 @@
 from IO.api_data import APIDATA
-from Models.models import (
-    Team, 
-    Tournament, 
-    Player, 
-    TeamRegistry
-)
+from Models.models import Team, Tournament, Player, TeamRegistry
 
 
 class TeamLL:
@@ -30,11 +25,6 @@ class TeamLL:
                         team.set_club(club.name)
 
         return teams
-
-    def get_all_players(self) -> list:
-        """Returns all players in system."""
-        players = self.APIDATA.get_all_player_data()
-        return players
 
     def get_my_tournaments(self, team: Team) -> list[Tournament]:
         """Returns all tournaments that the given team is registered for."""

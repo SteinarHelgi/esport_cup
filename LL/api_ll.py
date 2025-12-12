@@ -45,7 +45,7 @@ from LL.validators_ll import (
     validate_club_country,
     validate_unwanted_characters,
     validate_number_of_players,
-    validate_enough_teams
+    validate_enough_teams,
 )
 
 
@@ -61,10 +61,6 @@ class APILL:
     def get_all_tournaments(self) -> list[Tournament]:
         """Returns a list of all tournaments in the system."""
         return self.main_ll.tournament_ll.get_all_tournaments()
-
-    def get_all_players(self) -> list:
-        """Returns a list of all players in the system."""
-        return self.main_ll.team_ll.get_all_players()
 
     def get_ongoing_tournaments(self) -> list[Tournament]:
         """Returns tournaments that are currently in progress."""
@@ -272,7 +268,7 @@ class APILL:
         return validate_team_points(points)
 
     # ---------- TOURNAMENT VALIDATION ----------
-    
+
     def validate_enough_teams(self, tournament: Tournament) -> Errors:
         return validate_enough_teams(tournament, self.APIDATA)
 
