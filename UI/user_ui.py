@@ -96,7 +96,7 @@ class UserUI:
         for index, player in enumerate(players):
             if self.menu_manager.user == "USER":
                 print(player)
-            if self.menu_manager.user == "TEAM_CAPTAIN":
+            elif self.menu_manager.user == "TEAM_CAPTAIN":
                 print(player)
             else:
                 player.format_row(index + 1)

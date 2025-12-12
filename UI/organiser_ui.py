@@ -156,6 +156,8 @@ class OrganiserUI:
                 print(
                     "Valid games are:", *[f"{game}," for game in games[:-1]], games[-1]
                 )
+            if error == Errors.EMPTY:
+                print("Game cannot be empty.")
             if error == Errors.CONTAINS_UNWANTED_CHAR:
                 print(
                     "Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy."

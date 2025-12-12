@@ -44,7 +44,7 @@ class Team:
         print(
             f"{str(index) + '.':<{Team.w_counter}}"
             f"{self.name:<{Team.w_name}}"
-            f"{self.captain_handle + '(C)':>{Team.w_captain}}"
+            f"{self.captain_handle:>{Team.w_captain}}"
             f"{self.club:>{Team.w_club}}"
         )
 
