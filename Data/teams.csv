@@ -2,7 +2,6 @@ team_id,team_name,captain_handle,website,logo, points
 1,SegFault Spartans,SegFaultSam,https://example.com/segfault_spartans,ASCII_SPARTAN_HELMET,0
 2,NullPointer Ninjas,NullPointerNina,https://example.com/nullpointer_ninjas,ASCII_NINJA_SHADOW,0
 3,OffByOne Offense,OffByOneOlaf,https://example.com/offbyone_offense,ASCII_FENCEPOST_BUG,0
-4,Pepsi Max Punishers,PepsiMaxPalli,https://example.com/pepsimax_punishers,ASCII_PEPSI_CAN,0
 5,Chuck Norris Fan Club,RoundhouseRik,https://example.com/chuck_fan_club,ASCII_ROUNDHOUSE_KICK,10
 6,IndentationError Invaders,IndentationErrorIna,https://example.com/indent_invaders,ASCII_INDENT_ICON,0
 7,Assembly Avengers,MovAxMaria,https://example.com/assembly_avengers,ASCII_OPCODES,0
@@ -15,3 +14,4 @@ team_id,team_name,captain_handle,website,logo, points
 16,Pepsi Max Overflow,PepsiMaxOverflowPetra,https://example.com/pepsimax_overflow,ASCII_OVERFLOWING_CAN,0
 12,WhileTrue Tryhards,WhileTrueWendi,Sophie,ASCII_NOLOOP_ICON,0
 10,StackOverflow Stackers,CopyPasteKalli,https://example.com/hallo,jldas,0
+4,Pepsi Max Punishers,PepsiMaxPalli,https://example.com/pepsimax_punishers,ASCII_PEPSI_CAN,0

@@ -590,7 +590,7 @@ def validate_club_country(country: str) -> Errors:
 
 
 def validate_unwanted_characters(input) -> Errors:
-    unwanted_characters = ['"',"'",",",";",":"]
+    unwanted_characters = ['"',"'",",",";"]
     for char in unwanted_characters:
         if char in input:
             return Errors.CONTAINS_UNWANTED_CHAR
