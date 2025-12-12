@@ -52,7 +52,10 @@ class Errors(Enum):
     TEAM_B_LOST_LAST_ROUND = auto()
     TEAM_NAME_TAKEN = auto()
     CONTAINS_UNWANTED_CHAR = auto()
-    NOT_ENOUGH_TEAMS = auto()
+    NEEDS_PERIOD = auto()
+    EMAIL_NOT_VALID = auto()
+    STARTS_OR_ENDS_WITH_PERIOD = auto()
+    CONSECUTIVE_PERIODS = auto()
     OK = auto()
 
 
@@ -128,9 +131,23 @@ def validate_player_email(player_email: str) -> Errors:
         email = player_email.strip()
         if email == "":
             return Errors.EMPTY
-
+        if " " in email:
+            return Errors.HANDLE_CONTAINS_SPACE
         if email.count("@") != 1:
             return Errors.EMAIL_NOT_CONTAINING_AT
+        has_at = email.split("@")
+        if len(has_at) != 2:
+            return Errors.EMAIL_NOT_VALID
+        username = has_at[0]
+        domain = has_at[1]
+        if len(username) == 0 or len(domain) == 0:
+            return Errors.EMAIL_NOT_VALID
+        if "." not in domain:
+            return Errors.NEEDS_PERIOD
+        if ".." in email:
+            return Errors.CONSECUTIVE_PERIODS
+        if username.startswith(".") or domain.endswith(".") or domain.startswith("."):
+            return Errors.STARTS_OR_ENDS_WITH_PERIOD
         return Errors.OK
     else:
         return no_unwanted_char

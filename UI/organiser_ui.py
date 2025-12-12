@@ -34,7 +34,8 @@ class OrganiserUI:
         self.team_to_view: Team
 
     def show_create_tournament(self):
-        """Creates tournaments with options to quit or back anywhere in the process and shows the confirmation of creation"""
+        """Creates tournaments with options to quit or back anywhere in the process
+          and shows the confirmation of creation"""
         print("Fill in the required info or b.Back or q.Quit")
 
         name_of_tournament = input("Tournament name: ")
@@ -303,19 +304,22 @@ class OrganiserUI:
                 f"{tournament.name.upper()}  |  {tournament.start_date} -- {tournament.end_date} "
             )
             print("Matches: ")
-            print(" ")
             if tournament.matches:
                 header = tournament.matches[0].header()
                 print("-" * len(header))
                 print(header)
                 print("-" * len(header))
+            else:
+                print("     No matches created for this tournament")
             valid_choices = []
 
             for counter, match in enumerate(tournament.matches):
                 valid_choices.append(str(counter + 1))
                 match.format_row(counter + 1)
+            if tournament.matches:
+                print(" ")
+                print("Select a match by ID to register results.")
             print(" ")
-            print("Select a match by ID to register results.")
             print(
                 "c. Create new match \nr. Remove match \nd. Delete tournament \nb. Back \nq. Quit"
             )
@@ -327,17 +331,7 @@ class OrganiserUI:
 
             teams_in_tournament = self.APILL.get_teams_in_tournament(tournament)
             if choice == "c":
-                if teams_in_tournament:
-                    return self.show_create_match(tournament)
-                else:
-                    print("No teams have registered for this tournament")
-                    print("")
-                    print("b. Back\nq. Quit")
-                    choice: str = self.menu_manager.prompt_choice(["b", "q"])
-                    if choice == "b":
-                        return "MY_TOURNAMENTS_ORG"
-                    if choice == "q":
-                        return "QUIT"
+                return self.show_create_match(tournament)
             if choice == "d":
                 return self.show_delete_tournament(tournament)
             if choice == "r":
@@ -371,6 +365,36 @@ class OrganiserUI:
     def show_create_match(self, tournament: Tournament):
         """Function for creating matches as an organiser"""
         refresh_logo()
+        print(
+            f"{tournament.name.upper()}  |  {tournament.start_date} -- {tournament.end_date} "
+        )
+
+        if len(tournament.teams) < 16 and self.APILL.check_tournament_started(
+            tournament
+        ):
+            print("Tournament did not have enough teams registered to start")
+            print("")
+            print("d. Delete tournament")
+            print("b. Back\nq. Quit")
+            choice: str = self.menu_manager.prompt_choice(["b", "q", "d"])
+
+            if choice == "b":
+                return "MY_TOURNAMENTS_ORG"
+            if choice == "d":
+                return self.show_delete_tournament(tournament)
+            return "QUIT"
+
+        elif len(tournament.teams) < 16:
+            print("Not enough teams have registered")
+            print("")
+            print("b. Back\nq. Quit")
+            choice: str = self.menu_manager.prompt_choice(["b", "q"])
+            if choice == "b":
+                return "MY_TOURNAMENTS_ORG"
+            if choice == "d":
+                return self.show_delete_tournament(tournament)
+            return "QUIT"
+        print("DEBUG: ", *tournament.teams)
 
         while True:
             if len(tournament.matches) < 8:
@@ -507,6 +531,7 @@ class OrganiserUI:
                 pass
 
     def check_game_over(self, match: Match) -> bool:
+        """Checks if a game has finished or not"""
         date_str = match.match_date
         time_str = match.match_time
 
@@ -568,6 +593,7 @@ class OrganiserUI:
             return "QUIT"
 
     def show_delete_tournament(self, tournament):
+        """Deletes the tournament chosen"""
         print(f"Are you sure you wish to delete {tournament.name}")
         confirm = input("Confirm(Y/N): ")
         if confirm.lower() == "y":
@@ -582,6 +608,7 @@ class OrganiserUI:
             return "MY_TOURNAMENTS_ORG"
 
     def print_trophy(self):
+        """Prints a magnificent championship trophy"""
         set_system_color_gold()
         print(r"""              
               .-=========-.

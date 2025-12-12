@@ -179,6 +179,9 @@ class APILL:
         """Deletes a tournament with the given ID."""
         return self.main_ll.tournament_ll.delete_tournament(tournament_id)
 
+    def check_tournament_started(self, tournament: Tournament):
+        return self.main_ll.tournament_ll.check_tournament_started(tournament)
+
     def create_match(self, match: Match) -> Match | None:
         """Creates a new match through the logic layer and returns the stored match."""
         return self.main_ll.tournament_ll.create_match(match)
@@ -245,7 +248,7 @@ class APILL:
 
     def validate_social_media(self, social_media: str) -> Errors:
         return validate_social_media(social_media)
-    
+
     def validate_number_of_players(self, name) -> Errors:
         return validate_number_of_players(name, self.APIDATA)
 
@@ -337,4 +340,3 @@ class APILL:
 
     def validate_unwanted_characters(self, input: str) -> Errors:
         return validate_unwanted_characters(input)
-

@@ -1,4 +1,4 @@
-team_id,tournament_id, team_name, tournament_name
+team_id,tournament_id,team_name,tournament_name
 1,1,SegFault Spartans,esport estravaganza
 2,1,NullPointer Ninjas,esport estravaganza
 3,1,OffByOne Offense,esport estravaganza

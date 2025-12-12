@@ -18,6 +18,7 @@ from LL.validators_ll import (
 
 
 class TeamCaptainUI:
+    """Class for team captain ui functions"""
     def __init__(self, APILL: APILL, menu_manager) -> None:
         self.APILL = APILL
         self.menu_manager = menu_manager
@@ -126,6 +127,16 @@ class TeamCaptainUI:
                 print("Email address cannot be empty.")
             if error == Errors.EMAIL_NOT_CONTAINING_AT:
                 print("Email has to include '@', example@example.com.")
+            if error == Errors.HANDLE_CONTAINS_SPACE:
+                print("Email cannot contain spaces.")
+            if error == Errors.CONSECUTIVE_PERIODS:
+                print("Email cannot contain consecutive periods")
+            if error == Errors.EMAIL_NOT_VALID:
+                print("Invalid Email.")
+            if error == Errors.NEEDS_PERIOD:
+                print("Email has to end with period followed by top domain")
+            if error == Errors.STARTS_OR_ENDS_WITH_PERIOD:
+                print("Email cannot start or end with a period.")
             if error == Errors.CONTAINS_UNWANTED_CHAR:
                 print(
                     "Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy."
@@ -364,9 +375,19 @@ class TeamCaptainUI:
                 error = self.APILL.validate_player_email(new_email)
                 while error != Errors.OK:
                     if error == Errors.EMPTY:
-                        print("Email cannot be empty")
+                        print("Email cannot be empty.")
                     if error == Errors.EMAIL_NOT_CONTAINING_AT:
                         print("Email must contain @, example@example.com")
+                    if error == Errors.HANDLE_CONTAINS_SPACE:
+                        print("Email cannot contain spaces.")
+                    if error == Errors.CONSECUTIVE_PERIODS:
+                        print("Email cannot contain consecutive periods.")
+                    if error == Errors.EMAIL_NOT_VALID:
+                        print("Invalid Email")
+                    if error == Errors.NEEDS_PERIOD:
+                        print("Email has to end with period followed by top domain.")
+                    if error == Errors.STARTS_OR_ENDS_WITH_PERIOD:
+                        print("Email cannot start or end with a period.")
                     if error == Errors.CONTAINS_UNWANTED_CHAR:
                         print(
                             "Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy."
@@ -672,6 +693,7 @@ class TeamCaptainUI:
     
 
     def show_add_team_to_club(self):
+        """Adds the captains team to a club"""
         clubs = self.APILL.get_all_club_data()
         valid_choices = []
         team = self.menu_manager.team_to_view
