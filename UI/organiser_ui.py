@@ -31,7 +31,7 @@ class OrganiserUI:
         while self.APILL.validate_tournament_name(name_of_tournament) != Errors.OK:
             error = self.APILL.validate_tournament_name(name_of_tournament)
             if error == Errors.TOURNAMENT_NAME_LENGTH:
-                print("Tournament name needs to be atleast two letters")
+                print("Tournament name needs to be at least two letters")
             if error == Errors.TOURNAMENT_NAME_LENGTH_TOO_LONG:
                 print("Tournament's name is too long")
             if error == Errors.CONTAINS_UNWANTED_CHAR:
