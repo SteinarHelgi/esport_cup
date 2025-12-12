@@ -466,65 +466,6 @@ def validate_game_name(game_name: str, api_data: APIDATA) -> Errors:
         return no_unwanted_char
 
 
-# -----------------CLUB VALIDATION--------------------
-
-
-def validate_club_name(name: str) -> Errors:
-    if not name or name.strip() == "":
-        return Errors.OK
-    if any(char.isdigit() for char in name):
-        return Errors.CLUB_INCLUDE_NUMBERS
-
-    return Errors.OK
-
-
-def validate_club_hometown(hometown: str) -> Errors:
-    validate_unwanted_characters(hometown)
-    if not hometown or hometown.strip() == "":
-        return Errors.EMPTY
-    if any(char.isdigit() for char in hometown):
-        return Errors.HOMETOWN_CONTAINS_NUMBER
-
-    return Errors.OK
-
-
-def validate_club_color(color: str) -> Errors:
-    validate_unwanted_characters(color)
-    if not color or color.strip() == "":
-        return Errors.OK
-    if any(char.isdigit() for char in color):
-        return Errors.COLOR_HAS_NUMBER
-
-    allowed_colors = [
-        "Red",
-        "Blue",
-        "Green",
-        "Yellow",
-        "Black",
-        "White",
-        "Purple",
-        "Orange",
-        "Pink",
-        "Gray",
-        "Brown",
-        "Burgundy",
-    ]
-
-    club_color = color.strip().lower()
-
-    if club_color not in allowed_colors:
-        return Errors.INVALID_COLOR
-
-    return Errors.OK
-
-
-def validate_club_country(country: str) -> Errors:
-    validate_unwanted_characters(country)
-    if not country or country.strip() == "":
-        return Errors.EMPTY
-    if any(char.isdigit() for char in country):
-        return Errors.CLUB_COUNTRY_HAS_NUMBER
-    return Errors.OK
 
 
 def validate_unwanted_characters(input) -> Errors:
