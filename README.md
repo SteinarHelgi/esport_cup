@@ -14,7 +14,7 @@ This README file is for an educational assignment in "Verklegt námskeið 1", a 
 - Þröstur Hrafnkelsson - [throstur25@ru.is]
 
 ## Instructions
-To run this system, you need to have Python installed. Then, run the `main.py` file inside the zip folder. 
+To run this system, you need to have Python installed. Then, run the `main.py` file inside the zip folder from the root folder.
 
 Using the system requires no login. However, if you want to edit a team, you need to type in the team captain's handle (e.g., to view the team "WhileTrue Tryhards," use the handle "WhileTrueWendy").
 
