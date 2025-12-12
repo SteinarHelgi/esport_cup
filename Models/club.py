@@ -40,8 +40,11 @@ class Club:
             if team != "":
                 cleaned_teams.append(team)
 
-        name = f"{self.name:>14}:  "
+        name = f"{self.name:>14} |  "
         return name + ", ".join(cleaned_teams)
+
+    def _divider_line(self) -> str:
+        return 120 * "-"
 
     def set_id(self, id: str):
         self.id = id

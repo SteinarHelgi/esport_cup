@@ -3,10 +3,7 @@
 from LL.api_ll import APILL
 from UI.functions import format_tournament_table
 from UI.ui_functions import refresh_logo
-from Models.models import (
-    Player,
-    Tournament
-)
+from Models.models import Player, Tournament
 
 
 class UserUI:
@@ -151,8 +148,30 @@ class UserUI:
         else:
             return "QUIT"
 
-    def show_tournaments_calling_function(self, time: str):  
-        """Shows the tournaments that are going on at the time of checking"""
+    def show_clubs(self):
+        """Shows all clubs and their teams"""
+
+        clubs = self.APILL.get_all_club_data()
+        print("Clubs: ")
+        for club in clubs:
+            print(club)
+            print(club._divider_line())
+
+        print("b. Back\nq. Quit")
+        choice: str = self.menu_manager.prompt_choice(["b", "q"])
+        if choice == "b":
+            if self.menu_manager.user == "USER":
+                return "USER_MENU"
+            if self.menu_manager.user == "ORGANISER":
+                return "ORGANISER_MENU"
+            if self.menu_manager.user == "TEAM_CAPTAIN":
+                return "TEAM_CAPTAIN_MENU"
+        if choice == "q":
+            return "QUIT"
+
+    def show_tournaments_calling_function(
+        self, time: str
+    ):  # Shows the tournaments that are going on at the time of checking
         refresh_logo()
         tournaments = []
         if time == "PAST":
