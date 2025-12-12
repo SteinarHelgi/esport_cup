@@ -92,7 +92,7 @@ class MenuManager:
 
         while True:  # Loop until a valid username is entered or the user quits
             username = input(
-                "Log in with Team Captain handle:\n \nb. Back\nq. Quit\n\n> "
+                "Continue with Team Captain handle:\n \nb. Back\nq. Quit\n\n> "
             )
             teams = self.api_ll.get_all_teams()
             if username == "b":
@@ -129,15 +129,6 @@ class MenuManager:
                 if choice == "b":
                     return "LOGIN_MENU"
 
-    def login_credentials_menu_org(self):
-        """Logging in as an organiser, not yet implemented"""
-        username = input("Username: ")
-        print(f"Username: {username}\nConfirm(Y/N)? ")
-        choice: str = self.prompt_choice(["y", "n"])
-        if choice.lower() == "y":
-            return "ORGANISER_MENU"
-        else:
-            return "LOGIN_MENU"
 
     def print_user_menu(self):
         """Menu of options for an organiser"""
