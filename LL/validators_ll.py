@@ -76,14 +76,17 @@ def validate_date_of_birth(date_of_birth: str) -> Errors:
     no_unwanted_char = validate_unwanted_characters(date_of_birth)
     if no_unwanted_char == Errors.OK:
         valid_dob = date_of_birth.strip()
-
-
         if valid_dob == "":
             return Errors.EMPTY
+        if len(valid_dob) != 10:
+            return Errors.DATE_NOT_VALID
         try:
             dob = datetime.strptime(valid_dob, "%Y-%m-%d")
+            today = datetime.today()
             if dob.year < 1900:
                 return Errors.DATE_TOO_OLD
+            if dob >= today:
+                return Errors.DATE_NOT_VALID
             return Errors.OK
         except ValueError:
             return Errors.DATE_NOT_VALID
@@ -555,7 +558,7 @@ def validate_club_country(country: str) -> Errors:
     return Errors.OK
 
 def validate_unwanted_characters(input) -> Errors:
-    unwanted_characters = ",;'"
+    unwanted_characters = ['"',"'",",",";",":"]
     for char in unwanted_characters:
         if char in input:
             return Errors.CONTAINS_UNWANTED_CHAR
