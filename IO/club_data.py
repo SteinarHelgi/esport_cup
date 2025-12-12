@@ -51,13 +51,13 @@ class ClubData:
             with open(self.club_file_path, "r", newline="", encoding="utf-8") as file:
                 reader = csv.reader(file)
 
-                # Read the header row first
+                #read header first
                 header = next(reader)
-                temp_data.append(header)  # Add header to the data we are keeping
+                temp_data.append(header)#keep header
 
-                # Read the rest of the rows
+                #read the rest
                 for line in reader:
-                    # Check the value in the first column (index 0)
+                    #check value at first index
                     if line:
                         if line[0] != target_id:
                             temp_data.append(line)

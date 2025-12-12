@@ -169,9 +169,8 @@ class UserUI:
         if choice == "q":
             return "QUIT"
 
-    def show_tournaments_calling_function(
-        self, time: str
-    ):  # Shows the tournaments that are going on at the time of checking
+    def show_tournaments_calling_function(self, time: str):  
+        """Shows the tournaments that are going on at the time of checking"""
         refresh_logo()
         tournaments = []
         if time == "PAST":

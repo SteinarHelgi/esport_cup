@@ -22,11 +22,8 @@ from LL.validators_ll import (
     validate_player_handle,
     validate_social_media,
     validate_team_captain,
-    validate_team_name,
     validate_unwanted_characters,
-    validation_team_handle,
     validate_team_logo,
-    validate_team_points,
     validate_tournament_name,
     validate_tournament_start_date,
     validate_tournament_end_date,
@@ -95,9 +92,9 @@ class APILL:
             tournament, current_round
         )
 
-    def add_team_to_club(self, team: Team, club: Club):
+    def add_a_team_to_a_club(self, team: Team, club: Club):
         """Adds a team to a club with the given club ID."""
-        return self.main_ll.club_ll.add_team_to_club(team, club)
+        return self.main_ll.club_ll.add_a_team_to_club(team, club)
 
     def get_all_club_data(self) -> list[Club]:
         """Returns a list of all clubs in the system."""
@@ -237,17 +234,9 @@ class APILL:
 
     # ---------- TEAM VALIDATION ----------
 
-    def validate_team_name(self, name: str) -> Errors:
-        return validate_team_name(name, self.APIDATA)
-
-    def validation_team_handle(self, handle: str) -> Errors:
-        return validation_team_handle(handle, self.APIDATA)
 
     def validate_team_logo(self, logo: str) -> Errors:
         return validate_team_logo(logo)
-
-    def validate_team_points(self, points: str) -> Errors:
-        return validate_team_points(points)
 
     # ---------- TOURNAMENT VALIDATION ----------
 
