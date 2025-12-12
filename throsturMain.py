@@ -228,3 +228,5 @@ class Schedule:
         self.matches = matches
         self.tournament_id = tournament_id """
 
+    # def get_all_club_stat(self) -> list[ClubStat]:
+    #     return self.userLL.get_all_club_stat()
