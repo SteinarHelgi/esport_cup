@@ -2,14 +2,14 @@ team_id,team_name,captain_handle,website,logo, points
 1,SegFault Spartans,SegFaultSam,https://example.com/segfault_spartans,ASCII_SPARTAN_HELMET,0
 2,NullPointer Ninjas,NullPointerNina,https://example.com/nullpointer_ninjas,ASCII_NINJA_SHADOW,0
 3,OffByOne Offense,OffByOneOlaf,https://example.com/offbyone_offense,ASCII_FENCEPOST_BUG,0
-5,Chuck Norris Fan Club,RoundhouseRik,https://example.com/chuck_fan_club,ASCII_ROUNDHOUSE_KICK,10
+5,Chuck Norris Fan Club,RoundhouseRik,https://example.com/chuck_fan_club,ASCII_ROUNDHOUSE_KICK,14
 6,IndentationError Invaders,IndentationErrorIna,https://example.com/indent_invaders,ASCII_INDENT_ICON,0
 7,Assembly Avengers,MovAxMaria,https://example.com/assembly_avengers,ASCII_OPCODES,0
 8,Datalab Dominators,BitTwiddlerBjarni,https://example.com/datalab_dominators,ASCII_BITMASK,0
 9,Bomblab Bombers,BombDefusalDori,https://example.com/bomblab_bombers,ASCII_BOMB_WIRE,0
 11,CacheHit Crusaders,L1CacheLara,https://example.com/cachehit_crusaders,ASCII_CACHE_LINES,0
 13,Segmentation Foul,SegmentationFoulStebbi,https://example.com/segmentation_foul,ASCII_RED_CARD,0
-14,RaceCondition Racers,RaceConditionRagnhildur,https://example.com/racecondition_racers,ASCII_CHECKERED_FLAG,2
+14,RaceCondition Racers,RaceConditionRagnhildur,https://example.com/racecondition_racers,ASCII_CHECKERED_FLAG,8
 15,Undefined Behavior United,UBUnitedUlfar,https://example.com/ub_united,ASCII_GLITCHED_LOGO,0
 16,Pepsi Max Overflow,PepsiMaxOverflowPetra,https://example.com/pepsimax_overflow,ASCII_OVERFLOWING_CAN,0
 12,WhileTrue Tryhards,WhileTrueWendi,Sophie,ASCII_NOLOOP_ICON,0

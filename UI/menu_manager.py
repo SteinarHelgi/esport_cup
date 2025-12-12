@@ -195,7 +195,7 @@ class MenuManager:
         print("=== ORGANISER_MENU ===")
         print("")
         print(
-            "1. Teams \n2. Tournaments\n3. Clubs \n4. Create Tournaments \n5. My Tournaments\n\nb. Back \nq. Quit"
+            "1. Teams \n2. Tournaments\n3. Clubs \n4. Create Tournament \n5. My Tournaments\n\nb. Back \nq. Quit"
         )
         choice: str = self.prompt_choice(["1", "2", "3", "4", "5", "b", "q"])
         if choice == "1":

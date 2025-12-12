@@ -82,24 +82,22 @@ class MatchData:
         try:
             with open(filepath, "r", newline="", encoding="utf-8") as file:
                 reader = csv.reader(file)
-                
-                
+
                 header = next(reader, None)
                 if header:
                     temp_data.append(header)
 
-                
                 for line in reader:
                     if not line:
                         continue
-                    
+
                     # Check if this is the target match
                     if line[0] == match_id:
-                        #update winner
+                        # update winner
                         line[11] = winner_name
                         line[12] = completed_match
                         found = True
-                    
+
                     temp_data.append(line)
 
         except FileNotFoundError:
@@ -116,8 +114,8 @@ class MatchData:
         except (OSError, csv.Error):
             return None
 
-    def delete_match_data(self, match_id: str) -> None:
-        target_id = match_id
+    def delete_match_data(self, match: Match) -> None:
+        target_id = match.match_id
 
         # Creates a temporary data file
         temp_data = []
