@@ -243,12 +243,8 @@ class TournamentLL:
 
         return self.APIDATA.store_match_data(match)
 
-    def delete_match(self, match: Match) -> bool:
-        if match.completed == "False":
-            self.APIDATA.delete_match_data(match)
-            return True
-        else:
-            return False
+    def delete_match(self, match: Match):
+        return self.APIDATA.delete_match_data(match)
 
     def get_all_teams_on_tournament(self, target_tournament_id: str) -> list[Team]:
         """Returns all teams that are registered to the given tournament ID."""

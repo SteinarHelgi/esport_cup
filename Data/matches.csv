@@ -35,4 +35,4 @@ match_id,tournament_id,round,match_number,team_a_name,team_b_name,match_date,mat
 34,28,QF,10,RaceCondition Racers,WhileTrue Tryhards,2025-12-08,18:00,,0,0,RaceCondition Racers,TRUE
 35,28,SF,4,SegFault Spartans,RaceCondition Racers,2025-12-08,20:00,,0,0,RaceCondition Racers,TRUE
 36,28,SF,5,Chuck Norris Fan Club,Bomblab Bombers,2025-12-08,20:00,,0,0,Chuck Norris Fan Club,TRUE
-37,28,Final,3,RaceCondition Racers,Chuck Norris Fan Club,2025-12-11,20:00,,0,0,,False
+37,28,Final,3,Chuck Norris Fan Club,RaceCondition Racers,2025-12-11,20:00,,0,0,,False

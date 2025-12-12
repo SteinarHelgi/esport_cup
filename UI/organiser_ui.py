@@ -356,7 +356,8 @@ class OrganiserUI:
                         )
                         confirm = input("Are you sure (Y/N)? ")
                         if confirm.lower() == "y":
-                            if self.APILL.delete_match(match_to_delete):
+                            if match_to_delete.completed == "False":
+                                self.APILL.delete_match(match_to_delete)
                                 print("Match has been deleted.")
                                 input("Press Enter to continue")
                             else:

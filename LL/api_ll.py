@@ -202,7 +202,7 @@ class APILL:
         """Returns a list of all games available in the system."""
         return self.main_ll.game_ll.get_all_games()
 
-    def delete_match(self, match: Match) -> bool:
+    def delete_match(self, match: Match):
         return self.main_ll.tournament_ll.delete_match(match)
 
     # ---------- PLAYER VALIDATION ----------
