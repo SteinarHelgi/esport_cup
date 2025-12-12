@@ -113,7 +113,7 @@ class MenuManager:
 
             for team in teams:
                 if team.captain_handle == username:
-                    print("Confirm Y/N)?")
+                    print("Confirm (Y/N)?")
                     choice: str = self.prompt_choice(["y", "n"])
                     found_name = True
                     self.team_name = team.name
