@@ -32,7 +32,7 @@ rgba(45, 116, 124, 1) TEAM TO CLUB
 12.12.2025
 
 Fara yfir öll functions og eyða þeim sem eru ekki í notkun
-Laga input validation hvort að það sé " eða '
+
 Gera listann things to look at
 Ef nýtt lið þá gerir organiser það, gerir nytt handle og þa siðan loggar nyr tc sig inn og klárar liðið (Steinar)
 Ef tournament start date komið og ekki nægilega mörg lið þá kemur error og organiser getur deletað(Steinar)
