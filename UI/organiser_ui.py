@@ -268,8 +268,7 @@ class OrganiserUI:
 
     def show_my_tournaments(self):
         """Finds all upcoming tournaments and prompts for choice"""
-        tournaments = self.APILL.get_upcoming_tournaments()
-        tournaments += self.APILL.get_ongoing_tournaments()
+        tournaments = self.APILL.get_all_tournaments()
         valid_choices = []
 
         for i in range(len(tournaments)):
