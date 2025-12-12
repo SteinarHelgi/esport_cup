@@ -56,6 +56,7 @@ class Errors(Enum):
     TEAM_B_LOST_LAST_ROUND = auto()
     TEAM_NAME_TAKEN = auto()
     CONTAINS_UNWANTED_CHAR = auto()
+    NOT_ENOUGH_TEAMS = auto()
     OK = auto()
 
 
@@ -276,6 +277,13 @@ def validate_team_points(points: str) -> Errors:
 
 # -------------TOURNAMENT VALIDATION--------------
 
+def validate_enough_teams(tournament: Tournament, api_data: APIDATA) -> Errors:
+    VALID_TEAM_COUNT = 16
+    registries = api_data.get_all_team_registry_data()
+    teams_in_tournament = [r for r in registries if str(r.tournament_id) == str(tournament.id)]
+    if len(teams_in_tournament) < VALID_TEAM_COUNT:
+        return Errors.NOT_ENOUGH_TEAMS
+    return Errors.OK
 
 def validate_tournament_name(name: str) -> Errors:
     no_unwanted_char = validate_unwanted_characters(name)
