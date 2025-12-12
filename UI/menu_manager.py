@@ -71,7 +71,7 @@ class MenuManager:
         print("=== LOGIN ===")
         print("")
         print(
-            "1. Continue as user \n2. Login as Team Captain \n3. Login as Organiser\n69. Shrek"
+            "1. Continue as user \n2. Continue as Team Captain \n3. Continue as Organiser\n69. Shrek"
         )
         choice: str = self.prompt_choice(["1", "2", "3", "69", "q"])
         if choice == "1":
