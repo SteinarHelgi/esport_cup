@@ -56,7 +56,7 @@ class Errors(Enum):
     EMAIL_NOT_VALID = auto()
     STARTS_OR_ENDS_WITH_PERIOD = auto()
     CONSECUTIVE_PERIODS = auto()
-    NAME_INCLUDES_PERIOD = auto
+    NAME_INCLUDES_PERIOD = auto()
     OK = auto()
 
 
