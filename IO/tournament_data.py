@@ -51,8 +51,8 @@ class TournamentData:
                 return None
         return tournament
 
-    def delete_tournament_data(self, tournament_id: str) -> None:
-        target_id = tournament_id
+    def delete_tournament_data(self, tournament:Tournament) -> None:
+        target_id = tournament.id
 
         # Creates a temporary data file
         temp_data = []

@@ -625,7 +625,7 @@ class OrganiserUI:
         print(f"Are you sure you wish to delete {tournament.name}")
         confirm = input("Confirm(Y/N): ")
         if confirm.lower() == "y":
-            self.APILL.delete_tournament(tournament.id)
+            self.APILL.delete_tournament(tournament)
             print(f"{tournament.name} has been deleted")
             enter_to_leave = input("Enter to exit or q to Quit.")
             if enter_to_leave.lower() == "q":

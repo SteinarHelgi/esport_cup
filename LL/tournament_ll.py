@@ -215,9 +215,13 @@ class TournamentLL:
 
                 return tournament
 
-    def delete_tournament(self, tournament_id: str) -> None:
+    def delete_tournament(self, tournament:Tournament) -> None:
         """Deletes the tournament with the given ID from the data storage."""
-        self.APIDATA.delete_tournament_data(tournament_id)
+        matches = tournament.matches
+        for match in matches:
+            self.delete_match(match)
+        self.APIDATA.delete_tournament_data(tournament)
+    
 
     def create_match(self, match: Match) -> Match | None:
         """Creates a new match, assigns ID and match number, and stores it."""
@@ -240,7 +244,7 @@ class TournamentLL:
         return self.APIDATA.store_match_data(match)
 
     def delete_match(self, match: Match) -> bool:
-        if match.completed == "True":
+        if match.completed == "False":
             self.APIDATA.delete_match_data(match)
             return True
         else:

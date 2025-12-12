@@ -83,8 +83,8 @@ class APIDATA:
     def delete_player_data(self, player_id: str):
         return self.player_data.delete_player_data(player_id)
 
-    def delete_tournament_data(self, tournament_id: str):
-        return self.tournament_data.delete_tournament_data(tournament_id)
+    def delete_tournament_data(self, tournament:Tournament):
+        return self.tournament_data.delete_tournament_data(tournament)
 
     def register_match_results(self, match_id: str, winner_name, completed_match: str):
         return self.match_data.register_match_results(

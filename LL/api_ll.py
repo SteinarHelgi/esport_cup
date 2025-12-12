@@ -153,9 +153,9 @@ class APILL:
         """Creates a new tournament through the logic layer and returns the stored tournament."""
         return self.main_ll.tournament_ll.create_tournament(tournament)
 
-    def delete_tournament(self, tournament_id: str):
+    def delete_tournament(self, tournament:Tournament):
         """Deletes a tournament with the given ID."""
-        return self.main_ll.tournament_ll.delete_tournament(tournament_id)
+        return self.main_ll.tournament_ll.delete_tournament(tournament)
 
     def check_tournament_started(self, tournament: Tournament):
         return self.main_ll.tournament_ll.check_tournament_started(tournament)
