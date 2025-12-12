@@ -20,11 +20,10 @@ id,name,start_date,end_date,venue,game,number_of_servers,contact_person
 19,Glacier Masters,2025-11-08,2025-11-09,Reykjavik Ice Hall,Valorant,10,Freyja Olafsdottir
 20,Sunset Showdown,2025-12-14,2025-12-16,Sydney Event Hub,League of Legends,12,Rebecca Moore
 21,pqwoieur,2025-09-09 00:00:00,2025-09-10 00:00:00,ven,valorant,9,C
-22,steinar,2025-09-09 00:00:00,2025-09-10 00:00:00,steinrsss,valorant,8,steinarcontact
 23,Steinar,2025-12-10 00:00:00,2025-12-11 00:00:00,STEINARSHOME,Valorant,1,O
-26,ru,2025-12-15 00:00:00,2026-01-08 00:00:00,paris,CS:GO,8,steinar
-27,ru,2025-12-15 00:00:00,2026-01-08 00:00:00,paris,CS:GO,8,steinar
-28,RU Open,2025-12-08 00:00:00,2026-01-14 00:00:00,SÃ³lin,CS:GO,2,Hilmir Ã†gir Ã“marsson
+28,RU Open,2025-12-08 00:00:00,2026-01-14 00:00:00,SÃ³lin,CS:GO,2,Hilmir Ægir Ómarsson
 29,Hilmir's bumhole,2026-01-01 00:00:00,2026-01-04 00:00:00,Paris,Valorant,2,Hilmir
-30,Purusteik Open,2025-12-15 00:00:00,2026-01-10 00:00:00,HlÃ­Ã°arendi,Valorant,2,KristÃ³fer Acox
+30,Purusteik Open,2025-12-15 00:00:00,2026-01-10 00:00:00,HlÃ­Ã°arendi,Valorant,2,Krisófer Acox
 31,Hallo25,2026-02-20 00:00:00,2026-02-24 00:00:00,H2,Apex Legends,2,Jón Jónsson
+32,testing,2026-12-14 00:00:00,2026-02-24 00:00:00,H2,Apex Legends,2,Jón Jónsson
+33,testing2,2026-12-14 00:00:00,2026-02-24 00:00:00,H2,Apex Legends,2,Jón Jónsson

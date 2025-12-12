@@ -68,7 +68,7 @@ class TournamentLL:
         today = datetime.today()
 
         for t in tournament:
-            if t.end_date > today:  # kíkja á
+            if t.start_date > today:  # kíkja á
                 upcoming.append(t)
 
         return upcoming
@@ -176,11 +176,12 @@ class TournamentLL:
 
         # Get all team registrations and all tournaments
         team_registry = self.APIDATA.get_all_team_registry_data()
-        tournaments = self.APIDATA.get_all_tournament_data()
+        tournaments = self.get_all_tournaments()
 
         now = datetime.now()
 
         # For each tournament, check if the team can register
+        is_full = False
         for tournament in tournaments:
             # Only look at tournaments that have not started yet
             if tournament.start_date <= now:
@@ -195,8 +196,10 @@ class TournamentLL:
                     is_registered = True
                     break
 
+            if len(tournament.teams) >= 16:
+                is_full = True
             # If not registered, add to open tournaments list
-            if not is_registered:
+            if not is_registered and not is_full:
                 open_tournaments.append(tournament)
 
         return open_tournaments
@@ -229,8 +232,6 @@ class TournamentLL:
     def delete_tournament(self, tournament_id: str) -> None:
         """Deletes the tournament with the given ID from the data storage."""
         self.APIDATA.delete_tournament_data(tournament_id)
-
-    
 
     def create_match(self, match: Match) -> Match | None:
         """Creates a new match, assigns ID and match number, and stores it."""

@@ -37,7 +37,6 @@ class MenuManager:
             "PLAYER_ADDED_SCREEN": self.team_captain_ui.player_added_screen,
             "MY_TEAM": self.team_captain_ui.show_my_team,
             "MY_TOURNAMENTS_CAP": self.team_captain_ui.show_my_tournaments,
-            "REGISTER_TEAM_TO_TOURNAMENT": self.team_captain_ui.show_register_team_to_tournament,
             "UPDATE_TEAM_DATA": self.team_captain_ui.show_update_team_data,
             "ADD_TEAM_TO_CLUB": self.team_captain_ui.show_add_team_to_club,
             "CREATE_TEAM": self.team_captain_ui.show_create_team,
