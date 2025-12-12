@@ -162,6 +162,8 @@ class OrganiserUI:
                 print("Name cannot be empty")
             if error == Errors.NAME_INCLUDE_NUMBERS:
                 print("Name cannot include numbers")
+            if error == Errors.NAME_INCLUDES_PERIOD:
+                print("Name cannot contain periods.")
             if error == Errors.CONTAINS_UNWANTED_CHAR:
                 print(
                     "Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy."
@@ -177,6 +179,16 @@ class OrganiserUI:
             error = self.APILL.validate_player_email(new_contact_person_email)
             if error == Errors.EMPTY:
                 print("Contact person email address cannot be empty.")
+            if error == Errors.EMAIL_NOT_VALID:
+                print("Invalid Email.")
+            if error == Errors.HANDLE_CONTAINS_SPACE:
+                print("Email cannot include spaces.")
+            if error == Errors.NEEDS_PERIOD:
+                print("Email has to include periods.")
+            if error == Errors.CONSECUTIVE_PERIODS:
+                print("Email cannot contain consecutive periods.")
+            if error == Errors.STARTS_OR_ENDS_WITH_PERIOD:
+                print("Email cannot contain consecutive periods.")
             if error == Errors.EMAIL_NOT_CONTAINING_AT:
                 print("Email has to include an '@': example@example.com")
             if error == Errors.CONTAINS_UNWANTED_CHAR:
