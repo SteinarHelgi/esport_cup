@@ -56,6 +56,7 @@ class Errors(Enum):
     EMAIL_NOT_VALID = auto()
     STARTS_OR_ENDS_WITH_PERIOD = auto()
     CONSECUTIVE_PERIODS = auto()
+    NAME_INCLUDES_PERIOD = auto
     OK = auto()
 
 
@@ -67,6 +68,8 @@ def validate_player_name(player_name: str) -> Errors:
             return Errors.EMPTY
         if any(char.isdigit() for char in valid_name):
             return Errors.NAME_INCLUDE_NUMBERS
+        if "." in valid_name:
+            return Errors.NAME_INCLUDES_PERIOD
     else:
         return no_unwanted_char
     return Errors.OK

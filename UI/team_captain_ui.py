@@ -36,6 +36,8 @@ class TeamCaptainUI:
         while error != Errors.OK:
             if error == Errors.EMPTY:
                 print("Name cannot be empty")
+            if error == Errors.NAME_INCLUDES_PERIOD:
+                print("Name cannot include periods.")
             if error == Errors.NAME_INCLUDE_NUMBERS:
                 print("Name cannot include a number")
             if error == Errors.CONTAINS_UNWANTED_CHAR:
@@ -364,6 +366,8 @@ class TeamCaptainUI:
                 while error != Errors.OK:
                     if error == Errors.EMPTY:
                         print("Name cannot be empty")
+                    if error == Errors.NAME_INCLUDES_PERIOD:
+                        print("Name cannot include periods")
                     if error == Errors.NAME_INCLUDE_NUMBERS:
                         print("Name cannot include numbers")
                     if error == Errors.CONTAINS_UNWANTED_CHAR:
@@ -464,6 +468,8 @@ class TeamCaptainUI:
                         print("Handle cannot be empty")
                     if error == Errors.HANDLE_CONTAINS_SPACE:
                         print("Handle cannot contain spaces")
+                    if error == Errors.SAME_HANDLE:
+                        print("Player handle has to be unique.")
                     if error == Errors.CONTAINS_UNWANTED_CHAR:
                         print(
                             "Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy."
