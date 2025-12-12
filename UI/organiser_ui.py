@@ -162,7 +162,7 @@ class OrganiserUI:
                 print(
                     "Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy."
                 )
-                game_for_tournament = input("Game: ").strip()
+            game_for_tournament = input("Game: ").strip()
 
         print("Fill in contact person info or 'b' to Back and 'q' to Quit")
 
