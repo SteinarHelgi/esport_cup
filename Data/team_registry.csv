@@ -44,3 +44,17 @@ team_id,tournament_id,team_name,tournament_name
 2,29,NullPointer Ninjas,Hilmir's bumhole
 2,30,NullPointer Ninjas,Purusteik Open
 2,26,NullPointer Ninjas,ru
+1,32,SegFault Spartans,testing
+2,32,NullPointer Ninjas,testing
+3,32,OffByOne Offense,testing
+4,32,Pepsi Max Punishers,testing
+5,32,Chuck Norris Fan Club,testing
+6,32,IndentationError Invaders,testing
+7,32,Assembly Avengers,testing
+8,32,Datalab Dominators,testing
+9,32,Bomblab Bombers,testing
+10,32,StackOverflow Stackers,testing
+11,32,CacheHit Crusaders,testing
+13,32,Segmentation Foul,testing
+14,32,RaceCondition Racers,testing
+15,32,Undefined Behavior United,testing

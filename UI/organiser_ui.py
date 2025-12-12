@@ -337,27 +337,31 @@ class OrganiserUI:
             if choice == "d":
                 return self.show_delete_tournament(tournament)
             if choice == "r":
-                select_match_number = input("Enter match id: ")
-                if select_match_number.lower() == "b":
+                if tournament.matches != []:
+                    select_match_number = input("Enter match id: ")
+                    if select_match_number.lower() == "b":
+                        return "MY_TOURNAMENTS_ORG"
+                    if select_match_number.lower() == "q":
+                        return "QUIT"
+                    if select_match_number in valid_choices:
+                        # change to index
+                        index = int(select_match_number) - 1
+                        match_to_delete = tournament.matches[index]
+                        real_id = match_to_delete.match_id
+                        print(
+                            f"Selected match: {match_to_delete.team_a_name} vs {match_to_delete.team_b_name}"
+                        )
+                        confirm = input("Are you sure (Y/N)? ")
+                        if confirm.lower() == "y":
+                            self.APILL.delete_match(real_id)
+                            print("Match has been deleted.")
+                            input("Press Enter to continue")
+                            return "MY_TOURNAMENTS_ORG"
+                        else:
+                            return "MY_TOURNAMENTS_ORG"
+                else:
+                    input("There are no matches to delete, enter to exit.")
                     return "MY_TOURNAMENTS_ORG"
-                if select_match_number.lower() == "q":
-                    return "QUIT"
-                if select_match_number in valid_choices:
-                    # change to index
-                    index = int(select_match_number) - 1
-                    match_to_delete = tournament.matches[index]
-                    real_id = match_to_delete.match_id
-                    print(
-                        f"Selected match: {match_to_delete.team_a_name} vs {match_to_delete.team_b_name}"
-                    )
-                    confirm = input("Are you sure (Y/N)? ")
-                    if confirm.lower() == "y":
-                        self.APILL.delete_match(real_id)
-                        print("Match has been deleted.")
-                        input("Press Enter to continue")
-                        return "MY_TOURNAMENTS_ORG"
-                    else:
-                        return "MY_TOURNAMENTS_ORG"
 
             if choice == "b":
                 return "MY_TOURNAMENTS_ORG"

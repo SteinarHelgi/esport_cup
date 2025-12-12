@@ -19,6 +19,7 @@ from LL.validators_ll import (
 
 class TeamCaptainUI:
     """Class for team captain ui functions"""
+
     def __init__(self, APILL: APILL, menu_manager) -> None:
         self.APILL = APILL
         self.menu_manager = menu_manager
@@ -63,12 +64,13 @@ class TeamCaptainUI:
                 print(
                     "Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy."
                 )
+
+            error = self.APILL.validate_date_of_birth(date_of_birth)
+            date_of_birth = input("Player's birthday (YYYY-MM-DD): ").strip()
             if date_of_birth.lower() == "b":
                 return "MY_TEAM"
             if date_of_birth.lower() == "q":
                 return "QUIT"
-            error = self.APILL.validate_date_of_birth(date_of_birth)
-            date_of_birth = input("Player's birthday (YYYY-MM-DD): ").strip()
 
         address = input("Enter address: ").strip()
         if address.lower() == "q":
@@ -182,7 +184,9 @@ class TeamCaptainUI:
             if error == Errors.HANDLE_CONTAINS_SPACE:
                 print("Handle cannot contain empty spaces.")
             if error == Errors.CONTAINS_UNWANTED_CHAR:
-                print("Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy.")
+                print(
+                    "Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy."
+                )
             if error == Errors.SAME_HANDLE:
                 print("Cannot have the same handle as another player.")
             if handle.lower() == "b":
@@ -256,6 +260,7 @@ class TeamCaptainUI:
                 valid_choices: list[str] = []
                 tournaments = self.APILL.get_all_open_tournaments_for_captain(captain)
 
+                refresh_logo()
                 print(f.format_tournament_table(tournaments))
                 print(
                     "Choose tournament to register for or 'b' to Back and 'q' to Quit"
@@ -342,7 +347,7 @@ class TeamCaptainUI:
         refresh_logo()
         while True:
             print(f"\n      Editing Player: {player.name}      ")
-            #sýnir current og svo changed, confirm og cancel
+            # sýnir current og svo changed, confirm og cancel
             print(f"1. Change Name      (Current: {player.name})")
             print(f"2. Change Email     (Current: {player.email})")
             print(f"3. Change Address   (Current: {player.address})")
@@ -474,7 +479,7 @@ class TeamCaptainUI:
                 print("Game handle updated locally.")
 
             elif selection.lower() == "s":
-                #saves info
+                # saves info
                 try:
                     self.APILL.modify_player(player)
                     print("Success, player data saved to database.")
@@ -539,13 +544,17 @@ class TeamCaptainUI:
                 player = self.show_player_view(players[int(element) - 1])
                 return player
         if choice == "6":
-            amount_of_players = self.APILL.validate_number_of_players(self.menu_manager.team_name)
+            amount_of_players = self.APILL.validate_number_of_players(
+                self.menu_manager.team_name
+            )
             while amount_of_players != Errors.OK:
                 if amount_of_players == Errors.TOO_MANY_PLAYERS:
-                    print("Already 5 players on this team, remove a player to add a new one.")
+                    print(
+                        "Already 5 players on this team, remove a player to add a new one."
+                    )
                     input("Enter to exit")
                     return "SHOW_MY_PLAYERS"
-            
+
             return "CREATE_PLAYER"
 
         if choice.lower() == "q":
@@ -596,12 +605,6 @@ class TeamCaptainUI:
             if choice == "q":
                 return "QUIT"
 
-    def show_register_team_to_tournament(self, team, tournament):
-        """Registration for tournament"""
-        self.team = team
-        self.tournament = tournament
-        self.APILL.register_team_to_tournament(team, tournament)
-
     def show_update_team_data(self):
         """Updates the data of a team, social media or logo"""
         # TODO b krafa
@@ -634,24 +637,26 @@ class TeamCaptainUI:
             print(f"2. Change Social Media  (Current: {team.social_media})")
             print("s. Finish and Save")
             print("c. Cancel")
-            #pick what to change
+            # pick what to change
             selection = input("Select the data you want to change: ")
-            #logo editing
+            # logo editing
             if selection == "1":
                 new_logo = input("Enter new Logo: ").strip()
-                error = validate_team_logo(new_logo) 
+                error = validate_team_logo(new_logo)
                 while error != Errors.OK:
                     if error == Errors.EMPTY:
                         print("Logo cannot be empty")
                     if error == Errors.CONTAINS_UNWANTED_CHAR:
-                        print("Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy.")
+                        print(
+                            "Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy."
+                        )
                     new_logo = input("Enter new Logo: ").strip()
                     error = validate_team_logo(new_logo)
-                #update without saving
+                # update without saving
                 team.logo = new_logo
                 print("Logo updated locally.")
 
-            #edit socials
+            # edit socials
             elif selection == "2":
                 new_social_media = input("Enter new Social Media: ").strip()
                 error = self.APILL.validate_social_media(new_social_media)
@@ -661,14 +666,16 @@ class TeamCaptainUI:
                     if error == Errors.HANDLE_CONTAINS_SPACE:
                         print("Social Media cannot contain spaces")
                     if error == Errors.CONTAINS_UNWANTED_CHAR:
-                        print("Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy.")
+                        print(
+                            "Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy."
+                        )
                     new_social_media = input("Enter new Social Media: ").strip()
                     error = self.APILL.validate_social_media(new_social_media)
-                
+
                 team.social_media = new_social_media
                 print("Social Media updated locally.")
 
-            #Save the info
+            # Save the info
             elif selection.lower() == "s":
                 try:
                     updated_team = self.APILL.modify_team_data(team)
@@ -679,18 +686,17 @@ class TeamCaptainUI:
                         print(f"New Socials: {updated_team.social_media}")
                         print("-" * 30)
                         input("Enter to go return")
-                        return "MY_TEAM" #back to team
+                        return "MY_TEAM"  # back to team
                     else:
-                        print("Data update failed.")      
+                        print("Data update failed.")
                 except Exception as e:
                     print(f"Error saving data: {e}")
-            #canceling
+            # canceling
             elif selection.lower() == "c":
                 print("Changes cancelled")
-                return "MY_TEAM" #return without saving
+                return "MY_TEAM"  # return without saving
             else:
                 print("Invalid selection. Please try again.")
-    
 
     def show_add_team_to_club(self):
         """Adds the captains team to a club"""
