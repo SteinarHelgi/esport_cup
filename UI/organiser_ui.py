@@ -30,8 +30,8 @@ class OrganiserUI:
             return "QUIT"
         while self.APILL.validate_tournament_name(name_of_tournament) != Errors.OK:
             error = self.APILL.validate_tournament_name(name_of_tournament)
-            if error == Errors.TOURNAMENT_NAME_LENGTH:
-                print("Tournament name needs to be at least two letters")
+            if error == Errors.TOURNAMENT_NAME_LENGTH or error == Errors.EMPTY:
+                print("Tournament name needs to be atleast two letters")
             if error == Errors.TOURNAMENT_NAME_LENGTH_TOO_LONG:
                 print("Tournament's name is too long")
             if error == Errors.CONTAINS_UNWANTED_CHAR:
@@ -136,7 +136,7 @@ class OrganiserUI:
             error = self.APILL.validate_tournament_game(game_for_tournament, games)
             if error == Errors.GAME_NOT_VALID:
                 print(
-                    "You have input an invalid game, select a game from the list provided"
+                    "You have input an invalid game, input a game from the list provided"
                 )
                 print(
                     "Valid games are:", *[f"{game}," for game in games[:-1]], games[-1]
@@ -257,6 +257,7 @@ class OrganiserUI:
     def show_my_tournaments(self):
         """Finds all upcoming tournaments and prompts for choice"""
         tournaments = self.APILL.get_upcoming_tournaments()
+        tournaments += self.APILL.get_ongoing_tournaments()
         valid_choices = []
 
         for i in range(len(tournaments)):
@@ -314,7 +315,14 @@ class OrganiserUI:
                 valid_choices + ["c", "r", "d", "b", "q"]
             )
             if choice in valid_choices:
-                return self.show_register_results(tournament.matches[int(choice) - 1])
+                match = tournament.matches[int(choice) - 1]
+                if match.completed == "False":
+                    return self.show_register_results(match)
+                else:
+                    # print("Cannot update results for  matches")
+                    print("Match results already registered")
+                    input("Enter to return")
+                    return "MY_TOURNAMENTS_ORG"
 
             if choice == "c":
                 return self.show_create_match(tournament)
@@ -331,15 +339,19 @@ class OrganiserUI:
                         # change to index
                         index = int(select_match_number) - 1
                         match_to_delete = tournament.matches[index]
-                        real_id = match_to_delete.match_id
                         print(
                             f"Selected match: {match_to_delete.team_a_name} vs {match_to_delete.team_b_name}"
                         )
                         confirm = input("Are you sure (Y/N)? ")
                         if confirm.lower() == "y":
-                            self.APILL.delete_match(real_id)
-                            print("Match has been deleted.")
-                            input("Press Enter to continue")
+                            if self.APILL.delete_match(match_to_delete):
+                                print("Match has been deleted.")
+                                input("Press Enter to continue")
+                            else:
+                                print("")
+                                print("You cannot delete completed matches")
+                                input("Press Enter to continue")
+
                             return "MY_TOURNAMENTS_ORG"
                         else:
                             return "MY_TOURNAMENTS_ORG"
@@ -384,7 +396,6 @@ class OrganiserUI:
             if choice == "d":
                 return self.show_delete_tournament(tournament)
             return "QUIT"
-        print("DEBUG: ", *tournament.teams)
 
         while True:
             if len(tournament.matches) < 8:
@@ -429,6 +440,7 @@ class OrganiserUI:
                     return "QUIT"
 
             print("")
+
             print("Round type ", round)
             print("b. Back\nq. Quit")
             print("Select team 1:", end="")
@@ -541,38 +553,50 @@ class OrganiserUI:
     def show_register_results(self, match: Match):
         """Registering results of a match, chooses a winner and marks match as completed"""
 
+        refresh_logo()
         if not self.check_game_over(match):
             print(
-                f"Registering result for match: {match.team_a_name} vs {match.team_b_name}"
+                f"Registering result for match: {match.team_a_name} vs {match.team_b_name}\n\n"
             )
             print("Which team won the match?")
             print(f"1. {match.team_a_name}")
             print(f"2. {match.team_b_name}")
+            print("")
 
-            winner = input("1 or 2,d to delete match, b to back and q to quit: ")
+            print("d. Delete match\nb. Back\nq. Quit: ")
+            choice = self.menu_manager.prompt_choice(["1", "2", "b", "q"])
 
-            if winner == "b":
+            if choice == "b":
                 return "MY_TOURNAMENTS_ORG"
-            if winner == "q":
+            if choice == "q":
                 return "QUIT"
 
             # select winner
-            if winner == "1":
+            if choice == "1":
                 winner_name = match.team_a_name
-            elif winner == "2":
+            elif choice == "2":
                 winner_name = match.team_b_name
             else:
                 print("Invalid input.")
                 return
 
             # set winner
-            match.set_winner(winner_name, "TRUE")
+            print("*WARNING* this change is permanent, confirm? (Y/N)")
+            confirmation = self.menu_manager.prompt_choice(["y", "n"])
+            if confirmation == "y":
+                match.set_winner(winner_name, "TRUE")
+            if confirmation == "n":
+                print("Match winner not set")
+                input("Enter to continue")
+
+                return "MY_TOURNAMENTS_ORG"
 
             self.APILL.register_match_result(match.match_id, winner_name, "TRUE")
             self.APILL.give_team_points(winner_name, +2)
             if match.round == "Final":
                 print(f"{winner_name} have won the tournament!")
                 self.print_trophy()
+                print("b. Back\nq. Quit")
             else:
                 print(f"{winner_name} has been set as the winner of this match.")
         else:

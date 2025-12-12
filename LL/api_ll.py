@@ -103,10 +103,6 @@ class APILL:
         """Returns a list of all clubs in the system."""
         return self.main_ll.club_ll.get_all_club_data()
 
-    def get_all_teams_in_a_club(self, club_id) -> list[Team]:
-        """Returns all teams that belong to a given club."""
-        return self.main_ll.club_ll.get_all_teams_in_a_club(club_id)
-
     def modify_team_data(self, team: Team) -> Team | None:
         """Updates an existing team's data."""
         return self.main_ll.team_ll.modify_team_data(team)
@@ -127,10 +123,6 @@ class APILL:
         """Returns all players that belong to a team with the given name."""
         return self.main_ll.team_ll.get_players_in_team(team)
 
-    def get_player_by_name(self, player_name: str) -> Player | None:
-        """Returns a player by name, or None if not found."""
-        return self.main_ll.team_ll.get_player_by_name(player_name)
-
     def get_my_tournaments(self, team: Team) -> list[Tournament]:
         """Returns all tournaments a given team is registered for."""
         return self.main_ll.team_ll.get_my_tournaments(team)
@@ -138,14 +130,6 @@ class APILL:
     def get_tournament_by_id(self, tournament_id: str) -> Tournament | None:
         """Returns a tournament by its ID, or None if not found."""
         return self.main_ll.tournament_ll.get_tournament_by_id(tournament_id)
-
-    def get_all_matches_by_type(
-        self, tournament: Tournament, type_of_round: str
-    ) -> list[Match]:
-        """Returns all matches in a specific round type for a given tournament."""
-        return self.main_ll.tournament_ll.get_all_matches_by_type(
-            tournament, type_of_round
-        )
 
     def get_team_by_captain_handle(self, handle) -> Team | None:
         """Returns the team whose captain has the given handle, or None if not found."""
@@ -218,8 +202,8 @@ class APILL:
         """Returns a list of all games available in the system."""
         return self.main_ll.game_ll.get_all_games()
 
-    def delete_match(self, match_id: str) -> None:
-        return self.main_ll.tournament_ll.delete_match(match_id)
+    def delete_match(self, match: Match) -> bool:
+        return self.main_ll.tournament_ll.delete_match(match)
 
     # ---------- PLAYER VALIDATION ----------
     def validate_player_name(self, name: str) -> Errors:

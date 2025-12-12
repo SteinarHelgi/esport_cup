@@ -75,24 +75,10 @@ class TournamentLL:
 
     def get_tournament_by_id(self, tournament_id: str) -> Tournament | None:
         """Returns the tournament with the given ID and attached its matches, or None if not found."""
-        tournaments = self.APIDATA.get_all_tournament_data()
-        matches = self.APIDATA.get_all_match_data()
+        tournaments = self.get_all_tournaments()
         for tournament in tournaments:
             if tournament.id == tournament_id:
-                for match in matches:
-                    if match.tournament_id == tournament.id:
-                        tournament.add_match(match)
-
                 return tournament
-
-    def get_all_matches_by_type(
-        self, tournament: Tournament, type_of_round: str
-    ) -> list[Match]:
-        matches = []
-        for match in tournament.matches:
-            if str(match.round) == type_of_round:
-                matches.append(match)
-        return matches
 
     def get_all_tournaments_for_team(self, team: Team) -> list[Tournament]:
         """Returns all tournaments that the captain's team is registered for."""
@@ -253,8 +239,12 @@ class TournamentLL:
 
         return self.APIDATA.store_match_data(match)
 
-    def delete_match(self, match_id: str) -> None:
-        self.APIDATA.delete_match_data(match_id)
+    def delete_match(self, match: Match) -> bool:
+        if match.completed == "True":
+            self.APIDATA.delete_match_data(match)
+            return True
+        else:
+            return False
 
     def get_all_teams_on_tournament(self, target_tournament_id: str) -> list[Team]:
         """Returns all teams that are registered to the given tournament ID."""

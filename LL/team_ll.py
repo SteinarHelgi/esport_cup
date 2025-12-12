@@ -129,16 +129,6 @@ class TeamLL:
     def get_team_by_name(self, name: str) -> Team | None:
         """Returns the team with the given name and attaches its players, or None if not found."""
         teams = self.get_all_teams()
-        players = self.get_players_in_team(name)
         for team in teams:
             if team.name == name:
-                for player in players:
-                    team.add_player(player.name)
                 return team
-
-    def get_player_by_name(self, name: str) -> Player | None:
-        """Returns the player with the given name, or None if no such player exists."""
-        players = self.APIDATA.get_all_player_data()
-        for player in players:
-            if player.name == name:
-                return player

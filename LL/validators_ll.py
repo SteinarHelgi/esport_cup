@@ -372,6 +372,8 @@ def validate_tournament_servers(servers: str) -> Errors:
 def validate_tournament_venue(venue: str) -> Errors:
     no_unwanted_char = validate_unwanted_characters(venue)
     if no_unwanted_char == Errors.OK:
+        if venue == "":
+            return Errors.EMPTY
         if venue.isdigit():
             return Errors.VENUE_INCLUDE_NUMBERS
         return Errors.OK

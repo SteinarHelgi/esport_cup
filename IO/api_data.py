@@ -14,7 +14,7 @@ from Models.models import (
     Player,
     Club,
     Match,
-    TeamRegistry
+    TeamRegistry,
 )
 
 
@@ -87,7 +87,9 @@ class APIDATA:
         return self.tournament_data.delete_tournament_data(tournament_id)
 
     def register_match_results(self, match_id: str, winner_name, completed_match: str):
-        return self.match_data.register_match_results(match_id, winner_name, completed_match)
+        return self.match_data.register_match_results(
+            match_id, winner_name, completed_match
+        )
 
     def modify_team_data(self, team: Team) -> Team | None:
         return self.team_data.modify_team_data(team)
@@ -103,6 +105,7 @@ class APIDATA:
 
     def give_club_points(self, club_name: str, points: int):
         return self.club_data.give_club_points(club_name, points)
-    
-    def delete_match_data(self, match_id: str):
-        return self.match_data.delete_match_data(match_id)
+
+    def delete_match_data(self, match: Match):
+        return self.match_data.delete_match_data(match)
+
