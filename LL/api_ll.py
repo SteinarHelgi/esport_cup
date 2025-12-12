@@ -43,9 +43,7 @@ from LL.validators_ll import (
     validate_club_hometown,
     validate_club_color,
     validate_club_country,
-    validate_unwanted_characters,
     validate_number_of_players,
-    validate_enough_teams,
 )
 
 
