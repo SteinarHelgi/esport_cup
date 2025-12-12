@@ -1,5 +1,5 @@
 from LL.api_ll import APILL
-from Models.team import Team
+from Models.models import Team
 from UI.ui_functions import refresh_logo
 from UI.user_ui import UserUI
 from UI.team_captain_ui import TeamCaptainUI
