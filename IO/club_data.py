@@ -1,5 +1,8 @@
 import csv
-from Models.models import Club, Team
+from Models.models import (
+    Club,
+    Team
+)
 
 
 class ClubData:

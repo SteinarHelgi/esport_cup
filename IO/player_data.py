@@ -1,5 +1,5 @@
 import csv
-from Models.player import Player
+from Models.models import Player
 
 
 class PlayerData:
