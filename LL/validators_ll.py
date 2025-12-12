@@ -308,8 +308,6 @@ def validate_enough_teams(tournament: Tournament, api_data: APIDATA) -> Errors:
 def validate_tournament_name(name: str) -> Errors:
     no_unwanted_char = validate_unwanted_characters(name)
     if no_unwanted_char == Errors.OK:
-        if len(name) == 0:
-            return Errors.EMPTY
         if len(name.strip()) < 2:
             return Errors.TOURNAMENT_NAME_LENGTH
         if len(name) >= 40:
