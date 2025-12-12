@@ -45,7 +45,7 @@ class Team:
             f"{str(index) + '.':<{Team.w_counter}}"
             f"{self.name:<{Team.w_name}}"
             f"{self.captain_handle:>{Team.w_captain}}"
-            f"{self.club :>{Team.w_club}}"
+            f"{self.club:>{Team.w_club}}"
         )
 
     def _print_divider_line(self):

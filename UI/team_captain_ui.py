@@ -55,7 +55,7 @@ class TeamCaptainUI:
         error = self.APILL.validate_date_of_birth(date_of_birth)
         while error != Errors.OK:
             if error == Errors.DATE_NOT_VALID:
-                print("Use format YYYY-MM-DD")
+                print("Use format YYYY-MM-DD or date invalid")
             if error == Errors.DATE_TOO_OLD:
                 print("Invalid date, choose a date after 1900")
             if error == Errors.CONTAINS_UNWANTED_CHAR:

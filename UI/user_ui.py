@@ -180,8 +180,15 @@ class UserUI:
             else:
                 print("There are no ongoing tournaments")
                 print("b.Back \nq.Quit")
+        valid_choices = []
+        for i in range(len(tournaments)):
+            string_i = str(i + 1)
+            valid_choices.append(string_i)
 
-        choice: str = self.menu_manager.prompt_choice(["b", "q"])
+        choice: str = self.menu_manager.prompt_choice(valid_choices + ["b", "q"])
+        for element in valid_choices:
+            if element == choice:
+                return self.show_tournament_view(tournaments[int(element) - 1], time)
         if choice.lower() == "b":
             return "TOURNAMENTS"
         else:

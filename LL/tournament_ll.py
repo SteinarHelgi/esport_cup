@@ -1,7 +1,12 @@
 from IO.api_data import APIDATA
 from datetime import datetime
-from Models.models import Tournament, ContactPerson, Team, TeamCaptain, Match
-
+from Models.models import (
+    Tournament,
+    ContactPerson,
+    Team,
+    TeamCaptain,
+    Match
+)
 VALID_TEAM_COUNT = 16
 
 

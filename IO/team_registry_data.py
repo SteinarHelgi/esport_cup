@@ -1,5 +1,5 @@
 import csv
-from Models.team_registry import TeamRegistry
+from Models.models import TeamRegistry
 
 
 class TeamRegistryData:

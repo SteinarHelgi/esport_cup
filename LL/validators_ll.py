@@ -1,12 +1,8 @@
 from datetime import datetime, date
 from enum import Enum, auto
 from IO.api_data import APIDATA
-from Models.models import (
-    Match, 
-    Tournament, 
-    Player,
-    Game
-)
+from Models.models import Match, Tournament, Player, Game
+
 
 class Errors(Enum):
     EMPTY = auto()
@@ -77,14 +73,17 @@ def validate_date_of_birth(date_of_birth: str) -> Errors:
     no_unwanted_char = validate_unwanted_characters(date_of_birth)
     if no_unwanted_char == Errors.OK:
         valid_dob = date_of_birth.strip()
-
-
         if valid_dob == "":
             return Errors.EMPTY
+        if len(valid_dob) != 10:
+            return Errors.DATE_NOT_VALID
         try:
             dob = datetime.strptime(valid_dob, "%Y-%m-%d")
+            today = datetime.today()
             if dob.year < 1900:
                 return Errors.DATE_TOO_OLD
+            if dob >= today:
+                return Errors.DATE_NOT_VALID
             return Errors.OK
         except ValueError:
             return Errors.DATE_NOT_VALID
@@ -147,13 +146,12 @@ def validate_player_handle(player_handle: str, api_data: APIDATA) -> Errors:
         if " " in handle:
             return Errors.HANDLE_CONTAINS_SPACE
 
-
         current_players = api_data.get_all_player_data()
 
         for p in current_players:
             if p.handle == handle:
                 return Errors.SAME_HANDLE
-            
+
         return Errors.OK
     else:
         return no_unwanted_char
@@ -191,9 +189,11 @@ def validate_team_captain(handle: str, api_data: APIDATA) -> Errors:
     else:
         return no_unwanted_char
 
+
 # -------------TEAM VALIDATION---------------
 
 MAX_PLAYERS = 5
+
 
 def validate_number_of_players(name, api_data: APIDATA) -> Errors:
     # Max 5 players in a team
@@ -202,7 +202,7 @@ def validate_number_of_players(name, api_data: APIDATA) -> Errors:
     if len(players_in_team) >= MAX_PLAYERS:
         return Errors.TOO_MANY_PLAYERS
     return Errors.OK
-  
+
 
 def validate_team_name(name: str, api_data: APIDATA) -> Errors:
     # Name
@@ -224,7 +224,7 @@ def validate_team_name(name: str, api_data: APIDATA) -> Errors:
         current_teams = api_data.get_all_team_data()
         if len(name) > 40:
             return Errors.TEAM_NAME_TOO_LONG
-    
+
         current_teams = api_data.get_all_team_data()
 
         for t in current_teams:
@@ -252,6 +252,7 @@ def validation_team_handle(handle: str, api_data: APIDATA) -> Errors:
     else:
         return no_unwanted_char
 
+
 def validate_team_logo(logo: str) -> Errors:
     # Logo
     no_unwanted_char = validate_unwanted_characters(logo)
@@ -261,6 +262,7 @@ def validate_team_logo(logo: str) -> Errors:
         return Errors.OK
     else:
         return no_unwanted_char
+
 
 def validate_team_points(points: str) -> Errors:
     # Points
@@ -274,6 +276,7 @@ def validate_team_points(points: str) -> Errors:
         return Errors.OK
     else:
         return no_unwanted_char
+
 
 # -------------TOURNAMENT VALIDATION--------------
 
@@ -298,6 +301,7 @@ def validate_tournament_name(name: str) -> Errors:
     else:
         return no_unwanted_char
 
+
 def validate_tournament_start_date(start_date: str) -> Errors:
     # Verður að vera rétt format
     # Start date verður að vera eftir daginn í dag
@@ -311,6 +315,7 @@ def validate_tournament_start_date(start_date: str) -> Errors:
             return Errors.START_DATE_BEFORE_TODAY
         return Errors.OK
     return no_unwanted_char
+
 
 def validate_tournament_end_date(start_date: str, end_date: str) -> Errors:
     # Verður að vera rétt format.
@@ -327,6 +332,7 @@ def validate_tournament_end_date(start_date: str, end_date: str) -> Errors:
         return Errors.OK
     else:
         return no_unwanted_char
+
 
 def validate_players_in_teams(players_in_team: list[Player]) -> Errors:
     MIN_PLAYERS_PER_TEAM = 3
@@ -351,6 +357,7 @@ def validate_tournament_servers(servers: str) -> Errors:
     else:
         return no_unwanted_char
 
+
 def validate_tournament_venue(venue: str) -> Errors:
     no_unwanted_char = validate_unwanted_characters(venue)
     if no_unwanted_char == Errors.OK:
@@ -359,6 +366,7 @@ def validate_tournament_venue(venue: str) -> Errors:
         return Errors.OK
     else:
         return no_unwanted_char
+
 
 def validate_tournament_game(user_input_game: str, games: list[Game]) -> Errors:
     no_unwanted_char = validate_unwanted_characters(user_input_game)
@@ -369,7 +377,7 @@ def validate_tournament_game(user_input_game: str, games: list[Game]) -> Errors:
         return Errors.GAME_NOT_VALID
     else:
         return no_unwanted_char
-    
+
 
 # ----------------MATCH VALIDATION--------------------
 
@@ -502,6 +510,7 @@ def validate_game_name(game_name: str, api_data: APIDATA) -> Errors:
     else:
         return no_unwanted_char
 
+
 # -----------------CLUB VALIDATION--------------------
 
 
@@ -543,7 +552,7 @@ def validate_club_color(color: str) -> Errors:
         "Pink",
         "Gray",
         "Brown",
-        "Burgundy"
+        "Burgundy",
     ]
 
     club_color = color.strip().lower()
@@ -562,9 +571,11 @@ def validate_club_country(country: str) -> Errors:
         return Errors.CLUB_COUNTRY_HAS_NUMBER
     return Errors.OK
 
+
 def validate_unwanted_characters(input) -> Errors:
-    unwanted_characters = ",;'"
+    unwanted_characters = ['"',"'",",",";",":"]
     for char in unwanted_characters:
         if char in input:
             return Errors.CONTAINS_UNWANTED_CHAR
     return Errors.OK
+

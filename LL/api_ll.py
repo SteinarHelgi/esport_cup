@@ -156,9 +156,6 @@ class APILL:
         """Returns the team whose captain has the given handle, or None if not found."""
         return self.main_ll.team_ll.get_team_by_captain_handle(handle)
 
-    # def get_all_club_stat(self) -> list[ClubStat]:
-    #     return self.userLL.get_all_club_stat()
-
     def get_all_tournaments_for_team(self, team: Team) -> list[Tournament]:
         """Returns all tournaments a given team is (or was) participating in."""
         return self.main_ll.tournament_ll.get_all_tournaments_for_team(team)
