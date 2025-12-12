@@ -3,26 +3,11 @@ from LL.api_ll import APILL
 from Models.models import Match, Team, Tournament, ContactPerson
 from UI.functions import format_tournament_table
 from UI.ui_functions import (
-    clear_terminal,
     refresh_logo,
     set_system_color_gold,
     set_system_color_red,
 )
-from LL.validators_ll import (
-    Errors,
-    validate_match_creation,
-    validate_match_date,
-    validate_match_time,
-    validate_phone_number,
-    validate_player_email,
-    validate_player_name,
-    validate_tournament_end_date,
-    validate_tournament_game,
-    validate_tournament_name,
-    validate_tournament_servers,
-    validate_tournament_start_date,
-    validate_tournament_venue,
-)
+from LL.validators_ll import Errors
 
 
 class OrganiserUI:
@@ -35,7 +20,7 @@ class OrganiserUI:
 
     def show_create_tournament(self):
         """Creates tournaments with options to quit or back anywhere in the process
-          and shows the confirmation of creation"""
+        and shows the confirmation of creation"""
         print("Fill in the required info or b.Back or q.Quit")
 
         name_of_tournament = input("Tournament name: ")
@@ -331,7 +316,6 @@ class OrganiserUI:
             if choice in valid_choices:
                 return self.show_register_results(tournament.matches[int(choice) - 1])
 
-            teams_in_tournament = self.APILL.get_teams_in_tournament(tournament)
             if choice == "c":
                 return self.show_create_match(tournament)
             if choice == "d":
@@ -470,14 +454,16 @@ class OrganiserUI:
 
             date = input("Date (YYYY-MM-DD): ")
             while (
-                validate_match_date(date, tournament.start_date, tournament.end_date)
+                self.APILL.validate_match_date(
+                    date, tournament.start_date, tournament.end_date
+                )
                 != Errors.OK
             ):
                 print("Date not in tournament")
                 date = input("Date (YYYY-MM-DD): ")
 
             time = input("Time (HH:MM): ")
-            error = validate_match_time(time)
+            error = self.APILL.validate_match_time(time)
             timeslots = [
                 "08:00",
                 "10:00",
@@ -497,14 +483,14 @@ class OrganiserUI:
                         "Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy."
                     )
                 time = input("Time (HH:MM): ")
-                error = validate_match_time(time)
+                error = self.APILL.validate_match_time(time)
 
             match = Match(tournament.id, round, team1.name, team2.name, date, time)
 
             print("Confirm ? (Y/N)")
             choice: str = self.menu_manager.prompt_choice(["y", "n"])
             if choice == "y":
-                error = validate_match_creation(match, tournament, self.APILL.APIDATA)
+                error = self.APILL.validate_match_creation(match, tournament)
                 if error == Errors.OK:
                     match = self.APILL.create_match(match)
                     return self.show_tournament_view(tournament)
