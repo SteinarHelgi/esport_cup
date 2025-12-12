@@ -33,6 +33,7 @@ class TournamentLL:
         return tournaments
 
     def check_tournament_started(self, tournament: Tournament):
+        """Check for if the tournament has started or not"""
         start_date = tournament.start_date
         if datetime.today() > start_date:
             return True
@@ -84,7 +85,7 @@ class TournamentLL:
         """Returns all tournaments that the captain's team is registered for."""
         tournaments_for_team = []
 
-        # Find the team captain is registered for
+        # Find the team the captain is registered for
 
         # Get all team registrations and all tournaments
         team_registry = self.APIDATA.get_all_team_registry_data()
@@ -222,7 +223,6 @@ class TournamentLL:
             self.delete_match(match)
         self.APIDATA.delete_tournament_data(tournament)
     
-
     def create_match(self, match: Match) -> Match | None:
         """Creates a new match, assigns ID and match number, and stores it."""
         round = match.round
@@ -243,12 +243,9 @@ class TournamentLL:
 
         return self.APIDATA.store_match_data(match)
 
-    def delete_match(self, match: Match) -> bool:
-        if match.completed == "False":
-            self.APIDATA.delete_match_data(match)
-            return True
-        else:
-            return False
+    def delete_match(self, match: Match):
+        """Deletes a match"""
+        return self.APIDATA.delete_match_data(match)
 
     def get_all_teams_on_tournament(self, target_tournament_id: str) -> list[Team]:
         """Returns all teams that are registered to the given tournament ID."""
@@ -298,6 +295,7 @@ class TournamentLL:
         return None
 
     def register_match_result(self, match_id: str, winner_name: str, completed: str):
+        """Registers the results of a match"""
         self.APIDATA.register_match_results(match_id, winner_name, completed)
 
     def give_team_points(self, team_name: str, points: int) -> None:

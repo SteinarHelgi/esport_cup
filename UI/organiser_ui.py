@@ -39,7 +39,10 @@ class OrganiserUI:
                     "Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy."
                 )
             name_of_tournament = input("Tournament name: ").strip()
-
+            if name_of_tournament == "b":
+                return "ORGANISER_MENU"
+            if name_of_tournament == "q":
+                return "QUIT"
         start_date_of_tournament = input("Start date(Year-Month-Day): ").strip()
         if start_date_of_tournament.lower() == "b":
             return "ORGANISER_MENU"
@@ -61,6 +64,10 @@ class OrganiserUI:
                     "Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy."
                 )
             start_date_of_tournament = input("Start date(Year-Month-Day): ").strip()
+            if start_date_of_tournament.lower() == "b":
+                return "ORGANISER_MENU"
+            if start_date_of_tournament.lower() == "q":
+                return "QUIT"
 
         end_date_of_tournamnet = input("End date(Year-Month-Day): ").strip()
         if end_date_of_tournamnet.lower() == "b":
@@ -88,6 +95,10 @@ class OrganiserUI:
                 )
 
             end_date_of_tournamnet = input("End date(Year-Month-Day): ").strip()
+            if end_date_of_tournamnet.lower() == "b":
+                return "ORGANISER_MENU"
+            if end_date_of_tournamnet.lower() == "q":
+                return "QUIT"
 
         amount_of_servers = input("Number of servers: ").strip()
         if amount_of_servers.lower() == "b":
@@ -105,6 +116,10 @@ class OrganiserUI:
                     "Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy."
                 )
             amount_of_servers = input("Number of servers: ").strip()
+            if amount_of_servers.lower() == "b":
+                return "ORGANISER_MENU"
+            if amount_of_servers.lower() == "q":
+                return "QUIT"
 
         venue = input("Venue: ").strip()
         if venue.lower() == "b":
@@ -122,6 +137,10 @@ class OrganiserUI:
                     "Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy."
                 )
             venue = input("Venue: ").strip()
+            if venue.lower() == "b":
+                return "ORGANISER_MENU"
+            if venue.lower() == "q":
+                return "QUIT"
 
         games = self.APILL.get_all_games()
         print("Valid games are:", *[f"{game}," for game in games[:-1]], games[-1])
@@ -148,6 +167,10 @@ class OrganiserUI:
                     "Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy."
                 )
             game_for_tournament = input("Game: ").strip()
+            if game_for_tournament.lower() == "b":
+                return "ORGANISER_MENU"
+            if game_for_tournament.lower() == "q":
+                return "QUIT"
 
         print("Fill in contact person info or 'b' to Back and 'q' to Quit")
 
@@ -169,6 +192,10 @@ class OrganiserUI:
                     "Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy."
                 )
             new_contact_person_name = input("Name: ").strip()
+            if new_contact_person_name == "b":
+                return "ORGANISER_MENU"
+            if new_contact_person_name == "q":
+                return "QUIT"
 
         new_contact_person_email = input("Email: ").strip()
         if new_contact_person_email == "b":
@@ -196,6 +223,10 @@ class OrganiserUI:
                     "Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy."
                 )
             new_contact_person_email = input("Email: ").strip()
+            if new_contact_person_email == "b":
+                return "ORGANISER_MENU"
+            if new_contact_person_email == "q":
+                return "QUIT"
 
         new_contact_person_phone_nmbr = input("Phone number: ").strip()
         if new_contact_person_phone_nmbr == "b":
@@ -217,12 +248,17 @@ class OrganiserUI:
                     "Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy."
                 )
             new_contact_person_phone_nmbr = input("Phone number: ").strip()
+            if new_contact_person_phone_nmbr == "b":
+                return "ORGANISER_MENU"
+            if new_contact_person_phone_nmbr == "q":
+                return "QUIT"
 
-        confirmation = input("Confirm(Y): ").strip()
+        confirmation = input("Confirm(Y)(Enter anything else to exit): ").strip()
+        print("Enter anything else to exit.")
         if confirmation.lower() != "y":
             return "ORGANISER_MENU"
+        
 
-        print("b. Back \nq. Quit")
 
         new_tournament = Tournament(
             name_of_tournament,
@@ -268,8 +304,7 @@ class OrganiserUI:
 
     def show_my_tournaments(self):
         """Finds all upcoming tournaments and prompts for choice"""
-        tournaments = self.APILL.get_upcoming_tournaments()
-        tournaments += self.APILL.get_ongoing_tournaments()
+        tournaments = self.APILL.get_all_tournaments()
         valid_choices = []
 
         for i in range(len(tournaments)):
@@ -356,7 +391,8 @@ class OrganiserUI:
                         )
                         confirm = input("Are you sure (Y/N)? ")
                         if confirm.lower() == "y":
-                            if self.APILL.delete_match(match_to_delete):
+                            if match_to_delete.completed == "False":
+                                self.APILL.delete_match(match_to_delete)
                                 print("Match has been deleted.")
                                 input("Press Enter to continue")
                             else:

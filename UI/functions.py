@@ -7,7 +7,7 @@ from Models.models import (
 
 def format_tournament_table(tournaments: list[Tournament]):
     """Formats how tournaments are printed out"""
-    # Define fixed widths for columns
+    #fixed widths for columns
     w_name = 20
     w_date = 12
     w_game = 20
@@ -18,7 +18,7 @@ def format_tournament_table(tournaments: list[Tournament]):
         f" {'Id':>{w_id}} {'NAME':<{w_name}} {'START DATE':<{w_date}} {'END DATE':<{w_date}}{'GAME':>{w_game - 3}}"
     )
 
-    # Print a divider line
+    #divider line
     line_length = w_id + w_name + w_date + w_date + w_date + (w_game - 5)
     print("-" * line_length)
 
@@ -46,7 +46,7 @@ def format_tournament_table(tournaments: list[Tournament]):
     return empty_string
 
 
-def format_team_list(teams: list[Team]):  # TODO add club to this
+def format_team_list(teams: list[Team]):
     """Formats how lists of teams are put out"""
     # Define fixed widths for columns
     w_name = 30
@@ -75,7 +75,7 @@ def format_team_list(teams: list[Team]):  # TODO add club to this
     return empty_string
 
 
-def format_player_list(players: list[Player]):  # TODO KLÁRA?
+def format_player_list(players: list[Player]):
     """Formats how lists of players are printed out"""
     # Define fixed widths for columns
     w_player_name = 25

@@ -2,18 +2,16 @@ from LL.api_ll import APILL
 import UI.functions as f
 from UI.ui_functions import refresh_logo
 from Models.models import Team, Tournament, Player, TeamCaptain
-from LL.validators_ll import (
+from LL.validators_ll import (Errors,
     validate_address,
     validate_date_of_birth,
     validate_phone_number,
     validate_player_email,
     validate_player_handle,
     validate_player_name,
-    Errors,
     validate_players_in_teams,
     validate_social_media,
     validate_team_logo,
-    validate_team_name,
 )
 
 
@@ -527,7 +525,6 @@ class TeamCaptainUI:
 
     def show_my_players(self):
         """shows players that are on the team captains team"""
-        # TODO laga útlit
         team = self.APILL.get_team_by_name(self.menu_manager.team_name)
         players = self.APILL.get_players_in_team(self.menu_manager.team_name)
         valid_choices = []
@@ -611,22 +608,6 @@ class TeamCaptainUI:
             if choice == "q":
                 return "QUIT"
 
-    def show_update_team_data(self):
-        """Updates the data of a team, social media or logo"""
-        # TODO b krafa
-        # STEINAR
-        print("1. Edit social media\n2. Edit Logo")
-        print("")
-        print("b. Back\nq. Quit")
-        choice: str = self.menu_manager.prompt_choice(["1", "2", "b", "q"])
-        if choice == "1":
-            return "EDIT_SOCIAL_MEDIA"
-        if choice == "2":
-            return "EDIT_LOGO"
-        if choice == "b":
-            return "MY_TEAM"
-        if choice == "q":
-            return "QUIT"
 
     def show_modify_team_menu(self):
         """same as for modifying player but for team"""
@@ -719,7 +700,7 @@ class TeamCaptainUI:
         choice: str = self.menu_manager.prompt_choice(valid_choices + ["b", "q"])
         if choice in valid_choices:
             if team.club == "No club":
-                self.APILL.add_team_to_club(team, clubs[int(choice) - 1])
+                self.APILL.add_a_team_to_a_club(team, clubs[int(choice) - 1])
                 print(
                     team.name,
                     "Added to club",
@@ -741,58 +722,6 @@ class TeamCaptainUI:
         if choice == "q":
             return "QUIT"
 
-    def show_create_team(self):  # TODO Klára þetta
-        """If you are a new team captain you get this option to create a team"""
-        print(
-            "Input the required information about the team or 'b' to Back and 'q' to Quuit"
-        )
-        team_name = input("Team name: ")
-        if team_name.lower == "b":
-            return "TEAM_CAPTAIN_MENU"
-        if team_name.lower == "q":
-            return "QUIT"
-        while self.APILL.validate_team_name(team_name) != Errors.OK:
-            error = self.APILL.validate_team_name(team_name)
-            if error == Errors.EMPTY:
-                print("Team name cannot be empty.")
-            if error == Errors.TEAM_NAME_TOO_LONG:
-                print("Team name is too many characters.")
-            if error == Errors.CONTAINS_UNWANTED_CHAR:
-                print(
-                    "Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy."
-                )
-            team_name = input("Team name: ")
-        # New team captain
-        social_media = input("Social media: ")
-        if social_media.lower() == "b":
-            return "TEAM_CAPTAIN_MENU"
-        if social_media.lower() == "q":
-            return "QUIT"
-        while self.APILL.validate_social_media(social_media) != Errors.OK:
-            error = self.APILL.validate_social_media(social_media)
-            if error == Errors.EMPTY:
-                print("Social media handle cannot be empty.")
-            if error == Errors.EMPTY:
-                print("Social media handle cannot contain empty spaces.")
-            if error == Errors.CONTAINS_UNWANTED_CHAR:
-                print(
-                    "Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy."
-                )
-            social_media = input("Social media: ")
-        team_logo = input("Input team logo in ASCII lettering: ")
-        if team_logo.lower() == "q":
-            return "QUIT"
-        if team_logo.lower() == "b":
-            return "TEAM_CAPTAIN_MENU"
-        while self.APILL.validate_team_logo(team_logo) != Errors.OK:
-            error = self.APILL.validate_team_logo(team_logo)
-            if error == Errors.LOGO_EMPTY:
-                print("Logo cannot be empty.")
-            if error == Errors.CONTAINS_UNWANTED_CHAR:
-                print(
-                    "Cannot contain: Comma, Quotation Marks or Semi Colon, nice try dummy."
-                )
-            team_logo = input("Input team logo in ASCII lettering: ")
 
     def remove_selected_player(self, player: Player):
         """Removes the selected player from the team"""

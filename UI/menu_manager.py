@@ -37,14 +37,8 @@ class MenuManager:
             "PLAYER_ADDED_SCREEN": self.team_captain_ui.player_added_screen,
             "MY_TEAM": self.team_captain_ui.show_my_team,
             "MY_TOURNAMENTS_CAP": self.team_captain_ui.show_my_tournaments,
-            "UPDATE_TEAM_DATA": self.team_captain_ui.show_update_team_data,
             "ADD_TEAM_TO_CLUB": self.team_captain_ui.show_add_team_to_club,
-            "CREATE_TEAM": self.team_captain_ui.show_create_team,
             "SHOW_MY_PLAYERS": self.team_captain_ui.show_my_players,
-            "EDIT_TEAM_INFO": self.team_captain_ui.show_update_team_data,
-            # "EDIT_SOCIAL_MEDIA": self.team_captain_ui.show_edit_social_media,
-            # "EDIT_LOGO": self.team_captain_ui.show_edit_logo,
-            # "EDIT_TEAM_INFO":
             # ORGANISER MENUS
             "ORGANISER_MENU": self.print_organiser_menu,
             "CREATE_TOURNAMENT_MENU": self.organiser_Ui.show_create_tournament,
@@ -52,7 +46,6 @@ class MenuManager:
             "CREATE_MATCH": self.organiser_Ui.show_create_match,
             "REGISTER_RESULTS": self.organiser_Ui.show_register_results,
             "DELETE_TOURNAMENT": self.organiser_Ui.show_delete_tournament,
-            # "GIVE_POINTS": self.organiser_Ui.show_give_points,
         }
 
     def prompt_choice(self, valid_choices: list[str]) -> str:
@@ -87,10 +80,8 @@ class MenuManager:
         if choice == "2":
             self.user = "TEAM_CAPTAIN"
             return "LOGIN_CREDENTIALS"
-            # return "TEAM_CAPTAIN_MENU"
         if choice == "3":
             self.user = "ORGANISER"
-            # return "LOGIN_CREDENTIALS_ORG"
             return "ORGANISER_MENU"
         if choice == "69":
             return "SHREK"
@@ -113,7 +104,7 @@ class MenuManager:
 
             for team in teams:
                 if team.captain_handle == username:
-                    print("Confirm Y/N)?")
+                    print("Confirm (Y/N)?")
                     choice: str = self.prompt_choice(["y", "n"])
                     found_name = True
                     self.team_name = team.name
@@ -150,7 +141,6 @@ class MenuManager:
 
     def print_user_menu(self):
         """Menu of options for an organiser"""
-        # TODO
         print("=== USER ===")
         print("")
         print("1. Teams \n2. Tournaments\n3. Clubs \n\nb. Back \nq. Quit")

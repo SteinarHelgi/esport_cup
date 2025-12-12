@@ -5,6 +5,7 @@ from Models.models import Match, Tournament, Player, Game
 
 
 class Errors(Enum):
+    """These are the errors we use to send a message to the user about the error he is recieveing"""
     EMPTY = auto()
     NAME_INCLUDE_NUMBERS = auto()
     HANDLE_EXIST = auto()
@@ -224,53 +225,6 @@ def validate_number_of_players(name, api_data: APIDATA) -> Errors:
     return Errors.OK
 
 
-def validate_team_name(name: str, api_data: APIDATA) -> Errors:
-    # Name
-    no_unwanted_char = validate_unwanted_characters(name)
-    if no_unwanted_char == Errors.OK:
-        if not name or name.strip() == "":
-            return Errors.EMPTY
-
-        if len(name) > 40:
-            return Errors.TEAM_NAME_TOO_LONG
-
-        # Max 5 players in a team
-        current_players = api_data.get_all_player_data()
-
-        players_in_team = [p for p in current_players if p.team_name == name]
-        if len(players_in_team) >= MAX_PLAYERS:
-            return Errors.TOO_MANY_PLAYERS
-
-        current_teams = api_data.get_all_team_data()
-        if len(name) > 40:
-            return Errors.TEAM_NAME_TOO_LONG
-
-        current_teams = api_data.get_all_team_data()
-
-        for t in current_teams:
-            if t.name == name:
-                return Errors.TEAM_NAME_TAKEN
-
-        return Errors.OK
-    else:
-        return no_unwanted_char
-
-
-def validation_team_handle(handle: str, api_data: APIDATA) -> Errors:
-    # Captain handle
-    no_unwanted_char = validate_unwanted_characters(handle)
-    if no_unwanted_char == Errors.OK:
-        if not handle or handle.strip() == "":
-            return Errors.EMPTY
-
-        current_players = api_data.get_all_player_data()
-
-        if not any(p.handle == handle for p in current_players):
-            return Errors.TEAM_CAPTAIN_NOT_EXISTS
-
-        return Errors.OK
-    else:
-        return no_unwanted_char
 
 
 def validate_team_logo(logo: str) -> Errors:
@@ -284,18 +238,6 @@ def validate_team_logo(logo: str) -> Errors:
         return no_unwanted_char
 
 
-def validate_team_points(points: str) -> Errors:
-    # Points
-    no_unwanted_char = validate_unwanted_characters(points)
-    if no_unwanted_char == Errors.OK:
-        if points == "":
-            return Errors.EMPTY
-        elif int(points) < 0:
-            return Errors.POINTS_NEGATIVE
-
-        return Errors.OK
-    else:
-        return no_unwanted_char
 
 
 # -------------TOURNAMENT VALIDATION--------------
