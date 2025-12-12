@@ -1,8 +1,8 @@
 id,name,hometown,logo,club_colors,country,points,teams
-1,Fjölnir,Grafarvogur,Lógo 1,Yellow,Ísland,7,NullPointer Ninjas;OffByOne Offense;;RaceCondition Racers;Segmentation Foul;StackOverflow Stackers
-2,KR,Reykjavík,Lógo 2,Black;White,Ísland,5,Bomblab Bombers;Undefined Behavior United;WhileTrue Tryhards;RaceCondition Racers;CacheHit Crusaders
-3,Valur,Reykjavík,Lógo 3,Red;White,Ísland,0,
-4,UMF Selfoss,Selfoss,Lógo 4,Burgundy;White,Ísland,0,
+1,Fjölnir,Grafarvogur,Lógo 1,Yellow,Ísland,7,NullPointer Ninjas;OffByOne Offense;;RaceCondition Racers
+2,KR,Reykjavík,Lógo 2,Black;White,Ísland,5,Bomblab Bombers;Undefined Behavior United;WhileTrue Tryhards
+3,Valur,Reykjavík,Lógo 3,Red;White,Ísland,0,RaceCondition Racers;CacheHit Crusaders
+4,UMF Selfoss,Selfoss,Lógo 4,Burgundy;White,Ísland,0,Segmentation Foul;StackOverflow Stackers
 5,Þór AK,Akureyri,Lógo 5,Red;White,Ísland,0,
 6,FH, Hafnarfjörður,Lógo 6,Black;White,Ísland,0,
 7,Breiðablik,Kópavogur,Lógo 7,Green;White,Ísland,0,;SegFault Spartans

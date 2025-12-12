@@ -30,6 +30,8 @@ class MenuManager:
             "TEAMS": self.user_ui.show_teams,
             "TOURNAMENTS": self.user_ui.show_tournaments,
             "PLAYERS": self.user_ui.show_players,
+            "STATISTICS": self.user_ui.show_statistics,
+            "CLUBS": self.user_ui.show_clubs,
             # TEAM CAPTAIN MENUS
             "TEAM_CAPTAIN_MENU": self.print_team_captain_menu,
             "CREATE_PLAYER": self.team_captain_ui.show_create_player,
@@ -42,8 +44,8 @@ class MenuManager:
             "CREATE_TEAM": self.team_captain_ui.show_create_team,
             "SHOW_MY_PLAYERS": self.team_captain_ui.show_my_players,
             "EDIT_TEAM_INFO": self.team_captain_ui.show_update_team_data,
-            #"EDIT_SOCIAL_MEDIA": self.team_captain_ui.show_edit_social_media,
-            #"EDIT_LOGO": self.team_captain_ui.show_edit_logo,
+            # "EDIT_SOCIAL_MEDIA": self.team_captain_ui.show_edit_social_media,
+            # "EDIT_LOGO": self.team_captain_ui.show_edit_logo,
             # "EDIT_TEAM_INFO":
             # ORGANISER MENUS
             "ORGANISER_MENU": self.print_organiser_menu,
@@ -75,8 +77,11 @@ class MenuManager:
 
     def print_login_menu(self):
         """Menu for logging in depending on who the user is at the time"""
-        print("___ LOGIN ___")
-        print("1. continue as user \n2. Login as Team Captain \n3. Login as Organiser\n69. Shrek")
+        print("=== LOGIN ===")
+        print("")
+        print(
+            "1. continue as user \n2. Login as Team Captain \n3. Login as Organiser\n69. Shrek"
+        )
         choice: str = self.prompt_choice(["1", "2", "3", "69", "q"])
         if choice == "1":
             self.user = "USER"
@@ -147,33 +152,39 @@ class MenuManager:
     def print_user_menu(self):
         """Menu of options for an organiser"""
         # TODO
-        print("__USER__")
-        print("1. Teams \n2. Tournaments \nb. Back \nq. Quit")
+        print("=== USER ===")
+        print("")
+        print("1. Teams \n2. Tournaments\n3. Clubs \n\nb. Back \nq. Quit")
 
-        choice: str = self.prompt_choice(["1", "2", "b", "q"])
+        choice: str = self.prompt_choice(["1", "2", "3", "b", "q"])
         if choice == "1":
             return "TEAMS"
         if choice == "2":
             return "TOURNAMENTS"
+        if choice == "3":
+            return "CLUBS"
         if choice.lower() == "b":
             return "LOGIN_MENU"
         return "QUIT"
 
     def print_team_captain_menu(self):
         """Menu of options for team captain"""
-        print("__TEAM_CAPTAIN_MENU__")
+        print("=== TEAM_CAPTAIN ===")
+        print("")
         print(
-            "1. Teams \n2. Tournaments \n3. My Team \n4. My Tournaments \nb. Back \nq. Quit"
+            "1. Teams \n2. Tournaments\n3. Clubs \n4. My Team \n5. My Tournaments\n\nb. Back \nq. Quit"
         )
 
-        choice: str = self.prompt_choice(["1", "2", "3", "4", "b", "q"])
+        choice: str = self.prompt_choice(["1", "2", "3", "4", "5", "b", "q"])
         if choice == "1":
             return "TEAMS"
         if choice == "2":
             return "TOURNAMENTS"
         if choice == "3":
-            return "MY_TEAM"
+            return "CLUBS"
         if choice == "4":
+            return "MY_TEAM"
+        if choice == "5":
             return "MY_TOURNAMENTS_CAP"
         if choice.lower() == "b":
             return "LOGIN_MENU"
@@ -182,20 +193,24 @@ class MenuManager:
 
     def print_organiser_menu(self):
         """Menu of options for an organiser"""
-        print("__ORGANISER_MENU__")
+        print("=== ORGANISER_MENU ===")
+        print("")
         print(
-            "1. Teams \n2. Tournaments \n3. Create Tournaments \n4. My Tournaments \nb. Back \nq. Quit"
+            "1. Teams \n2. Tournaments\n3. Clubs \n4. Create Tournaments \n5. My Tournaments\n\nb. Back \nq. Quit"
         )
-        choice: str = self.prompt_choice(["1", "2", "3", "4", "b", "q"])
+        choice: str = self.prompt_choice(["1", "2", "3", "4", "5", "b", "q"])
         if choice == "1":
             return "TEAMS"
         if choice == "2":
             return "TOURNAMENTS"
         if choice == "3":
-            return "CREATE_TOURNAMENT_MENU"
+            return "CLUBS"
         if choice == "4":
+            return "CREATE_TOURNAMENT_MENU"
+        if choice == "5":
             return "MY_TOURNAMENTS_ORG"
         if choice.lower() == "b":
             return "LOGIN_MENU"
 
         return "QUIT"
+
